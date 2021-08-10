@@ -8,7 +8,7 @@ weight: 10
 title: "Introduction to Spatial Data in R"
 
 # Hero image (optional). Enter filename of an image in the `static/media/` folder.
-hero_media: idaho_map_pin.png
+hero_media: iSDR_logo.png
 
 design:
   background:
