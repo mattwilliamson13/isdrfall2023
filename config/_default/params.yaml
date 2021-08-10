@@ -31,7 +31,7 @@ author: Matt Williamson
 instructor: 
   name: Dr. Matt Williamson
   email: mattwilliamson@boisestate.edu
-  #url: "https://www.andrewheiss.com"
+  url: "https://www.spaseslab.com"
   twitter: MwilliamsonMatt
   github: mattwilliamson13
   office: "Environmental Research Building 4125"
@@ -46,7 +46,7 @@ course:
   time: "10:30 - 11:45"
   location: "Albertson's Library Rm201C"
   dates: "August 23 - December 10, 2021"
-  github: "andrewheiss/datavizs21.classes.andrewheiss.com"
+  github: "mattwilliamson13/isdrfall21"
   copyrightYear: "2021"
   slack: "https://ecostatsbsu.slack.com/archives/CV4DEJ8M7"
 
@@ -64,7 +64,7 @@ school:
 ############################
 
 # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
-sharing_image: "social-image-s21.png"
+sharing_image: "iSDR_logo.png"
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
 twitter: "MwilliamsonMatt"
