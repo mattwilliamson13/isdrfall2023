@@ -17,7 +17,8 @@ design:
 
 {{< courseinfo >}}
 
-**Objectives**
+---
+**Course Objectives**
 
 
 *By the end of this course, you should be able to:*
