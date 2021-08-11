@@ -3,7 +3,7 @@ title: Syllabus
 slug: syllabus
 citeproc: true
 bibliography: ../../static/bib/references.bib
-csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+csl: ../../static/bib/ecology.csl
 output:
   blogdown::html_page:
     toc: true
@@ -18,22 +18,20 @@ library(pander)
 
 `r blogdown::shortcode("courseinfo")`
 
-## Course objectives
+## Course Description
 
-**Data rarely speaks for itself.** On their own, the facts contained in raw data are difficult to understand, and in the absence of beauty and order, it is impossible to understand the truth that the data shows.
+Spatial data are ubiquitous and form the basis for many of our inquiries into social, ecological, and evolutionary processes. As such, developing the skills necessary for incorporating spatial data into reproducible statistical workflows is critical. In this course, we will introduce the core components of manipulating spatial data within the R statistical environment including managing vector and raster data, projections, extraction of data values, interpolation, and plotting. Students will also learn to prototype and benchmark different workflows to aid in applying the appropriate tools to their research questions.
 
-In this class, you'll learn how to use industry-standard graphic and data design techniques to create beautiful, understandable visualizations and uncover truth in data.
+## Course Objectives
 
-By the end of this course, you will become (1) literate in data and graphic design principles, and (2) an ethical data communicator, by producing beautiful, powerful, and clear visualizations of your own data. Specifically, you should:
+Students completing this course should be able to:
 
-- Understand the principles of data and graphic design
-- Evaluate the credibility, ethics, and aesthetics of data visualizations
-- Create well-designed data visualizations with appropriate tools
-- Share data and graphics in open forums
-- Be curious and confident in consuming and producing data visualizations
-
-This class will expose you to [R](https://cran.r-project.org/)—one of the most popular, sought-after, and in-demand statistical programming languages. Armed with the foundation of R skills you'll learn in this class, you'll know enough to be able to find how to visualize and analyze any sort of data-based question in the future.
-
+* Develop reproducible workflows for manipulating, visualizing, and analyzing spatial data.
+*  Understand the unique components of spatial data and how those components fit in R's data structures.
+* Articulate the different formats of spatial data and identify which R packages are suited to each type.
+* Describe why space matters for many social and ecological questions 
+* Implement a variety of descriptive and statistical spatial analyses.
+* Leverage functional programming to automate and expedite spatial data operations.
 
 ## Important pep talk!
 
@@ -44,12 +42,21 @@ Learning R can be difficult at first—it's like learning a new language, just l
 > It's easy when you start out programming to get really frustrated and think, "Oh it's me, I'm really stupid," or, "I'm not made out to program." But, that is absolutely not the case. Everyone gets frustrated. I still get frustrated occasionally when writing R code. It's just a natural part of programming. So, it happens to everyone and gets less and less over time. Don't blame yourself. Just take a break, do something fun, and then come back and try again later.
 Even experienced programmers find themselves bashing their heads against seemingly intractable errors. If you're finding yourself taking way too long hitting your head against a wall and not understanding, take a break, talk to classmates, e-mail me, etc. 
 
-```{r echo=FALSE, out.width="60%"}
-# https://twitter.com/allison_horst/status/1213275783675822080
-knitr::include_graphics("/img/syllabus/hosrt_error_tweet.png", error = FALSE)
-```
+## Expectations
+Seminar courses like these are only successful if we all work together. Shared expectations are a big part of that. As such, I expect the following from you:
 
-[![Alison Horst: Gator error](/img/syllabus/gator_error.jpg)](https://twitter.com/allison_horst/status/1213275783675822080)
+1. Participation - I expect you to show up, ask questions, work through the in-class coding exercises, and be generally present while we are together.
+
+2. Understanding - We are all at different places in our research and our experience with scientific computing. Rather than belittle each other for not knowing how to do something, I hope to create an environment where we all learn from each other and there are no stupid questions. I expect you to help me achieve this.
+
+3. Communication - I am happy to shift directions in the course if it stops meeting your needs. I can only do that if you let me know that a change is necessary. Please feel free to provide feedback early and often.
+
+You can expect the following from me:
+
+1. Availability - This is a 1 credit course and your questions are likely to require more time than we can devote in class. I will do my best to make myself available outside of class hours to help you work through the spatial analysis problems that are slowing down your research progress.
+
+2. Balance - The goal of this course is to teach you general approaches and workflows for spatial analyses in R, not to troubleshoot individual coding problems. I will do my best to point you toward resources that can help you solve your individual problems without monopolizing the time of others in class.
+
 
 
 ## Course materials
