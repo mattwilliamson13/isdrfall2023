@@ -1,0 +1,105 @@
+lessons:
+  - title: 'Getting started'
+    header: True
+
+  - title: '<span class="content-title">Course orientation and data structures in R</span>'
+    session: "Session 1"
+    date: "August 24"
+    content: "01-content"
+    bg: 1
+    
+  - title: '<span class="content-title">Getting started with RStudio online, git, and data in R</span>
+    session: "Session 2"
+    date: "August 26"
+    example: "01-example"
+    assignment: "01-exercise"
+    bg: 2
+    
+  - title: '<span class="content-title">What is so special about spatial data?</span>'
+    session: "Session 3"
+    date: "August 31"
+    content: "02-content"
+    bg: 4
+    
+  - title: '<span class="content-title">Loading and exploring spatial data</span>
+    session: "Session 4"
+    date: "September 2"
+    example: "02-example"
+    assignment: "02-exercise"
+    bg: 2
+  
+  - title: 'Assignments for sessions 2 and 4 due'
+    date: "September 3"
+    bg: 3
+    bottomborder: True
+
+ - title: 'General classes of spatial data'
+    header: True
+    
+  - title: '<span class="content-title">Spatial data as vectors</span>'
+    session: "Session 5"
+    date: "September 7"
+    content: "03-content"
+    bg: 1
+
+  - title: '<span class="content-title">Points, lines, polygons in R</span>'
+    session: "Session 6"
+    date: "September 9"
+    example: "03-example"
+    assignment: "03-exercise"
+    bg: 2
+
+  - title: '<span class="content-title">Spatial data as matrices, rasters, and stacks</span>'
+    session: "Session 7"
+    date: "September 14"
+    content: "04-content"
+    bg: 4
+    
+  - title: '<span class="content-title">Manipulating rasters in R</span>'
+    session: "Session 8"
+    date: "September 16"
+    example: "04-example"
+    assignment: "04-exercise"
+    bg: 2
+    
+  - title: 'Assignments for sessions 6 and 8 due'
+    date: "September 17"
+    bg: 3
+    
+  - title: '<span class="content-title">Spatial data as networks</span>'
+    session: "Session 9"
+    date: "September 21"
+    content: "05-content"
+    bg: 1
+  
+  - title: '<span class="content-title">Spatial network operations in R</span>'
+    session: "Session 10"
+    date: "September 23"
+    example: "05-example"
+    assignment: "05-exercise"
+    bg: 2
+    bottomborder: TRUE 
+  
+- title: 'Common spatial data operations'
+    header: True
+
+  - title: '<span class="content-title">Developing spatial databases</span>'
+    session: "Session 11"
+    date: "September 28"
+    content: "06-content"
+    bg: 1
+  
+  - title: '<span class="content-title">Joining, filtering, and subsetting data in R</span>'
+    session: "Session 12"
+    date: "September 30"
+    example: "06-example"
+    assignment: "06-exercise"
+    bg: 1
+
+  - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
+    date: "September 30"
+    assignment: "01-mini-project"
+    bg: 3
+    bottomborder: True
+  
+ 
