@@ -29,7 +29,7 @@ main:
     url: "https://ecostatsbsu.slack.com/archives/CV4DEJ8M7"
     weight: 8
   - name: '<i class="fab fa-r-project"></i>'
-    url: "https://rstudio.cloud/"
+    url: "https://rstudio.boisestate.edu/"
     weight: 9
 
 content:
