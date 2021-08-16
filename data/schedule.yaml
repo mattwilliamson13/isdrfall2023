@@ -8,7 +8,7 @@ lessons:
     content: "01-content"
     bg: 1
     
-  - title: '<span class="content-title">Getting started with RStudio online, git, and data in R</span>
+  - title: '<span class="content-title">Getting started with RStudio online, git, and data in R</span>'
     session: "Session 2"
     date: "August 26"
     example: "01-example"
@@ -21,7 +21,7 @@ lessons:
     content: "02-content"
     bg: 4
     
-  - title: '<span class="content-title">Loading and exploring spatial data</span>
+  - title: '<span class="content-title">Loading and exploring spatial data</span>'
     session: "Session 4"
     date: "September 2"
     example: "02-example"
