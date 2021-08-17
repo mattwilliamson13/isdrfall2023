@@ -77,9 +77,13 @@ You can [find instructions for installing R, RStudio, and all the tidyverse pack
 ## Course schedule
 
 This course is organized in 4 sections:
+
 1. Data structures and using R as a Geographic Information System (GIS).
+
 2. Introduction to spatial datatypes used in R.
+
 3. Extracting, summarizing, and visualizing spatial data
+
 4. Common statistical analyses of spatial data
 
 The [schedule page](/schedule/) provides an overview of what to expect each week.
