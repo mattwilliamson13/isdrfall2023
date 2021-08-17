@@ -9692,7 +9692,7 @@ table > tbody > tr:hover > th {
 
 table.schedule tr.schedule-bg-1,
 table.schedule > tbody > tr.schedule-bg-1:nth-child(2n+1) > td {
-  background-color: #ffe2d1; }
+  background-color: #fbbaa1; }
 
 table.schedule tr.schedule-bg-2,
 table.schedule > tbody > tr.schedule-bg-2:nth-child(2n+1) > td {
@@ -9700,7 +9700,7 @@ table.schedule > tbody > tr.schedule-bg-2:nth-child(2n+1) > td {
 
 table.schedule tr.schedule-bg-3,
 table.schedule > tbody > tr.schedule-bg-3:nth-child(2n+1) > td {
-  background-color: #8cb0ff; }
+  background-color: #5cb0ff; }
 
 table.schedule tr.schedule-bg-4,
 table.schedule > tbody > tr.schedule-bg-4:nth-child(2n+1) > td {
@@ -9708,7 +9708,7 @@ table.schedule > tbody > tr.schedule-bg-4:nth-child(2n+1) > td {
 
 table.schedule .content-title {
   font-weight: bold;
-  color: #D9D9D6; }
+  color: #003A70; }
 
 .fake-header-table td {
   padding-top: 1.8rem;

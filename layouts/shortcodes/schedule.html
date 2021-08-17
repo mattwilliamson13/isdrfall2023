@@ -13,7 +13,6 @@
             {{- if .header }}
 
             <td style="width:8%;text-align:center" class="mid-table-header">Content</td>
-            <td style="width:8%;text-align:center" class="mid-table-header">Lesson</td>
             <td style="width:8%;text-align:center" class="mid-table-header">Example</td>
             <td style="width:8%;text-align:center" class="mid-table-header">Assignment</td>
 
@@ -27,18 +26,6 @@
             <td align="center" style="width:10%;text-align:center">
                 <font color="f1f1f1">
                     <i class="fas fa-book-reader fa-lg"></i></font>
-            </td>
-            {{- end }}
-
-            {{- if .lesson }}
-            <td align="center" style="width:10%;text-align:center"><a 
-                    href="{{ .Site.baseurl }}/lesson/{{ .lesson }}/">
-                    <i class="fas fa-chalkboard-teacher fa-lg"></i></a></td>
-            {{- else }}
-            <td align="center" style="width:10%;text-align:center">
-                <font color="f1f1f1">
-                    <i class="fas fa-chalkboard-teacher fa-lg"></i>
-                </font>
             </td>
             {{- end }}
 
