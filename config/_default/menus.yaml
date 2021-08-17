@@ -13,24 +13,21 @@ main:
   - name: Content
     url: /content/
     weight: 3
-  - name: Lessons
-    url: /lesson/
-    weight: 4
   - name: Examples
     url: /example/
-    weight: 5
+    weight: 4
   - name: Assignments
     url: /assignment/
-    weight: 6
+    weight: 5
   - name: Resources
     url: /resource/
-    weight: 7
+    weight: 6
   - name: '<i class="fab fa-slack"></i>'
     url: "https://ecostatsbsu.slack.com/archives/CV4DEJ8M7"
-    weight: 8
+    weight: 7
   - name: '<i class="fab fa-r-project"></i>'
     url: "https://rstudio.boisestate.edu/"
-    weight: 9
+    weight: 8
 
 content:
   - name: Overview
