@@ -40,27 +40,27 @@ lessons:
     session: "Session 5"
     date: "September 7"
     content: "03-content"
-    bg: 1
+    bg: 2
   
   - title: '<span class="content-title">Points, lines, polygons in R</span>'
     session: "Session 6"
     date: "September 9"
     example: "03-example"
     assignment: "03-exercise"
-    bg: 2
+    bg: 1
   
   - title: '<span class="content-title">Spatial data as matrices, rasters, and stacks</span>'
     session: "Session 7"
     date: "September 14"
     content: "04-content"
-    bg: 4
+    bg: 2
     
   - title: '<span class="content-title">Manipulating rasters in R</span>'
     session: "Session 8"
     date: "September 16"
     example: "04-example"
     assignment: "04-exercise"
-    bg: 2
+    bg: 4
     
   - title: 'Assignments for sessions 6 and 8 due'
     date: "September 17"
@@ -70,24 +70,24 @@ lessons:
     session: "Session 9"
     date: "September 21"
     content: "05-content"
-    bg: 1
+    bg: 2
   
   - title: '<span class="content-title">Spatial network operations in R</span>'
     session: "Session 10"
     date: "September 23"
     example: "05-example"
     assignment: "05-exercise"
-    bg: 2
+    bg: 1
     bottomborder: True
   
-  - title: 'General classes of spatial data2'
+  - title: 'Typical spatial data operations'
     header: True
     
-  - title: '<span class="content-title">Developing spatial databases</span>'
+  - title: '<span class="content-title">Developing spatial databases based on attributes</span>'
     session: "Session 11"
     date: "September 28"
     content: "06-content"
-    bg: 1
+    bg: 4
   
   - title: '<span class="content-title">Joining, filtering, and subsetting data in R</span>'
     session: "Session 12"
@@ -95,10 +95,44 @@ lessons:
     example: "06-example"
     assignment: "06-exercise"
     bg: 2
-  
-  - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
-    date: "September 30"
-    assignment: "01-mini-project"
+    
+  - title: 'Assignments for sessions 10 and 12 due'
+    date: "October 1"
     bg: 3
+    
+  - title: '<span class="content-title">Developing spatial databases based on location</span>'
+    session: "Session 13"
+    date: "October 5"
+    content: "07-content"
+    bg: 1
+    
+  - title: '<span class="content-title">Overlaps, joins, neighbors and networks in R</span>'
+    session: "Session 14"
+    date: "October 7"
+    example: "07-example"
+    assignment: "07-exercise"
+    bg: 2
+    
+  - title: '<span class="content-title">Workflows for combining raster and vector data</span>'
+    session: "Session 15"
+    date: "October 12"
+    content: "08-content"
+    bg: 4
+ 
+  - title: '<span class="content-title">Deriving vector attributes from rasters in R</span>'
+    session: "Session 16"
+    date: "October 14"
+    example: "08-example"
+    assignment: "08-exercise"
+    bg: 2
+    
+  - title: 'Assignments for sessions 14 and 16 due'
+    date: "October 15"
+    bg: 3
+    
+  - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
+    date: "October 18"
+    assignment: "01-mini-project"
+    bg: 1
     bottomborder: True
     
