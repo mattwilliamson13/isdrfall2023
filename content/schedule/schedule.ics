@@ -4,105 +4,105 @@ VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:ical-631b450b-5be9-49ec-851f-879868dcf49d
+UID:ical-7b35042f-fd69-4671-8d11-e0685888682e
 DTSTART;VALUE=DATE:20210824
 DTEND;VALUE=DATE:20210824
 SUMMARY:PMAP 8521: (Session 1) Course orientation and data structures in R
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/content/01-content/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-17a3e95a-db4b-41fa-976d-8061340f0a57
+UID:ical-a5cc26d1-280c-4439-91c1-8952d507d275
 DTSTART;VALUE=DATE:20210826
 DTEND;VALUE=DATE:20210826
 SUMMARY:PMAP 8521: (Session 2) Getting started with RStudio online, git, and data in R
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/assignment/01-exercise/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-19def3b0-8931-4414-a622-0256866ecb9a
+UID:ical-daf8f967-ebb5-401e-ace4-0d7af3d01659
 DTSTART;VALUE=DATE:20210831
 DTEND;VALUE=DATE:20210831
 SUMMARY:PMAP 8521: (Session 3) What is so special about spatial data?
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/content/02-content/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-afe50228-2e10-417b-aeb5-ecbb8d61311b
+UID:ical-78cb745d-d6aa-4b01-975d-5596586ebc37
 DTSTART;VALUE=DATE:20210902
 DTEND;VALUE=DATE:20210902
 SUMMARY:PMAP 8521: (Session 4) Loading and exploring spatial data
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/assignment/02-exercise/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-4ad61ab9-da48-43a5-8f0d-23ed8ec5cb63
+UID:ical-5cfcd021-f7c4-4a40-a555-526f113cc928
 DTSTART;VALUE=DATE:20210903
 DTEND;VALUE=DATE:20210903
 SUMMARY:PMAP 8521: Assignments for sessions 2 and 4 due
 DESCRIPTION:
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-6aaa7527-7466-4cee-8e38-46caa42adb1a
+UID:ical-ea60bee0-ac3b-46f6-9a31-11b990ff60b2
 DTSTART;VALUE=DATE:20210907
 DTEND;VALUE=DATE:20210907
 SUMMARY:PMAP 8521: (Session 5) Spatial data as vectors
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/content/03-content/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-ab060847-34ec-4f2e-80b7-7d52134386da
+UID:ical-30e65fed-8123-46db-9981-d67b4eceeb18
 DTSTART;VALUE=DATE:20210909
 DTEND;VALUE=DATE:20210909
 SUMMARY:PMAP 8521: (Session 6) Points, lines, polygons in R
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/assignment/03-exercise/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-15745ac3-639c-41f3-8cd9-a1fb82b83f25
+UID:ical-ee1278e6-0cc9-4a9c-b985-f92a2018fb3f
 DTSTART;VALUE=DATE:20210914
 DTEND;VALUE=DATE:20210914
 SUMMARY:PMAP 8521: (Session 7) Spatial data as matrices, rasters, and stacks
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/content/04-content/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-5a21297d-8071-47f7-aa46-93d548d192e8
+UID:ical-223a2da3-5f2e-4fa4-aa04-840d462fb091
 DTSTART;VALUE=DATE:20210916
 DTEND;VALUE=DATE:20210916
 SUMMARY:PMAP 8521: (Session 8) Manipulating rasters in R
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/assignment/04-exercise/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-2c5839a2-20fa-4470-a53e-ad101fabe962
+UID:ical-70282043-a644-4fdd-a815-9b29a2775b27
 DTSTART;VALUE=DATE:20210917
 DTEND;VALUE=DATE:20210917
 SUMMARY:PMAP 8521: Assignments for sessions 6 and 8 due
 DESCRIPTION:
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-167848ea-e2ce-4551-9928-546bf72ea7fa
+UID:ical-70982991-fefe-4e23-97fd-41bc15838234
 DTSTART;VALUE=DATE:20210921
 DTEND;VALUE=DATE:20210921
 SUMMARY:PMAP 8521: (Session 9) Spatial data as networks
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/content/05-content/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-4a957470-da9b-435f-8258-301a8b60fc4a
+UID:ical-90dd84dd-3374-43c0-8607-9aeea6ef829a
 DTSTART;VALUE=DATE:20210923
 DTEND;VALUE=DATE:20210923
 SUMMARY:PMAP 8521: (Session 10) Spatial network operations in R
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/assignment/05-exercise/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-1ef04597-3bcc-424e-8be1-7db84d6b91cd
+UID:ical-13aef46a-8e59-4448-8851-a2fb4b4b5549
 DTSTART;VALUE=DATE:20210928
 DTEND;VALUE=DATE:20210928
 SUMMARY:PMAP 8521: (Session 11) Developing spatial databases
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/content/06-content/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-22a4d63d-b47e-45f2-93ee-9cd9f584d604
+UID:ical-0b540668-320d-4066-9f7f-82edb4c3f515
 DTSTART;VALUE=DATE:20210930
 DTEND;VALUE=DATE:20210930
 SUMMARY:PMAP 8521: (Session 12) Joining, filtering, and subsetting data in R
 DESCRIPTION:https://isdrfall21.classes.spaseslab.com/assignment/06-exercise/
 END:VEVENT
 BEGIN:VEVENT
-UID:ical-ba10d904-81ad-459a-8665-376700319a26
+UID:ical-86a1b466-47e6-4b31-abca-0b07e24e05ae
 DTSTART;VALUE=DATE:20210930
 DTEND;VALUE=DATE:20210930
 SUMMARY:PMAP 8521:  **Mini project 1 due**
