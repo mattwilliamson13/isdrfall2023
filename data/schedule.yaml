@@ -33,7 +33,7 @@ lessons:
     bg: 3
     bottomborder: True
 
- - title: 'General classes of spatial data'
+  - title: 'General classes of spatial data'
     header: True
     
   - title: '<span class="content-title">Spatial data as vectors</span>'
@@ -80,7 +80,7 @@ lessons:
     bg: 2
     bottomborder: TRUE 
   
-- title: 'Common spatial data operations'
+  - title: 'Common spatial data operations'
     header: True
 
   - title: '<span class="content-title">Developing spatial databases</span>'
@@ -101,5 +101,3 @@ lessons:
     assignment: "01-mini-project"
     bg: 3
     bottomborder: True
-  
- 
