@@ -135,4 +135,6 @@ lessons:
     assignment: "01-mini-project"
     bg: 1
     bottomborder: True
-    
+
+  - title: 'Visualizing spatial data'
+    header: True    
