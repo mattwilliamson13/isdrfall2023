@@ -137,4 +137,130 @@ lessons:
     bottomborder: True
 
   - title: 'Visualizing spatial data'
-    header: True    
+    header: True
+  
+  - title: '<span class="content-title">Maps, truth, and cartography</span>'
+    session: "Session 17"
+    date: "October 19"
+    content: "09-content"
+    bg: 4
+  
+  - title: '<span class="content-title">Static maps in R with ggplot and tmap</span>'
+    session: "Session 18"
+    date: "October 21"
+    example: "09-example"
+    assignment: "09-exercise"
+    bg: 2  
+    
+  - title: '<span class="content-title">Static maps in R (continued)</span>'
+    session: "Session 19"
+    date: "October 26"
+    content: "10-content"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+    
+  - title: '<span class="content-title">Designing interactive webmaps</span>'
+    session: "Session 20"
+    date: "October 28"
+    content: "11-content"
+    bg: 2
+
+  - title: 'Assignments for Sessions 18 and 19 due'
+    date: "October 29"
+    bg: 3
+    
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 21"
+    date: "November 2"
+    example: "11-example"
+    assignment: "11-exercise"
+    bg: 1
+  
+  - title: '<span class="content-title">Workday</span>'
+    session: "Session 22"
+    date: "November 4"
+    bg: 2
+    
+  - title: 'Assignments for Session 21 Due'
+    date: "November 5"
+    bg: 3
+    
+  - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
+    date: "November 5"
+    assignment: "02-mini-project"
+    bg: 1
+    bottomborder: True
+    
+  - title: 'Using spatial data in statistical workflows'
+    header: True
+    
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 23"
+    date: "November 9"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1  
+  
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 24"
+    date: "November 11"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+  
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 25"
+    date: "November 16"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+ 
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 26"
+    date: "November 18"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+    
+  - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
+    session: "NA"
+    date: "November 23"
+    
+  - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
+    session: "NA"
+    date: "November 25"
+  
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 27"
+    date: "November 30"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+    
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 28"
+    date: "December 2"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+    
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 29"
+    date: "December 7"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+  
+  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    session: "Session 30"
+    date: "December 9"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 1
+    
+  - title: '<i class="fas fa-star"></i> **Final project due** (submit online by 11:59 PM)'
+    date: "December 16"
+    assignment: "final-project"
+    bg: 3  
+    
