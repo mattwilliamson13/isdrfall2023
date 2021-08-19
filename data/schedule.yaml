@@ -40,27 +40,27 @@ lessons:
     session: "Session 5"
     date: "September 7"
     content: "03-content"
-    bg: 2
+    bg: 1
   
   - title: '<span class="content-title">Points, lines, polygons in R</span>'
     session: "Session 6"
     date: "September 9"
     example: "03-example"
     assignment: "03-exercise"
-    bg: 1
+    bg: 2
   
   - title: '<span class="content-title">Spatial data as matrices, rasters, and stacks</span>'
     session: "Session 7"
     date: "September 14"
     content: "04-content"
-    bg: 2
+    bg: 4
     
   - title: '<span class="content-title">Manipulating rasters in R</span>'
     session: "Session 8"
     date: "September 16"
     example: "04-example"
     assignment: "04-exercise"
-    bg: 4
+    bg: 2
     
   - title: 'Assignments for sessions 6 and 8 due'
     date: "September 17"
@@ -104,27 +104,27 @@ lessons:
     session: "Session 13"
     date: "October 5"
     content: "07-content"
-    bg: 1
+    bg: 2
     
   - title: '<span class="content-title">Overlaps, joins, neighbors and networks in R</span>'
     session: "Session 14"
     date: "October 7"
     example: "07-example"
     assignment: "07-exercise"
-    bg: 2
+    bg: 1
     
   - title: '<span class="content-title">Workflows for combining raster and vector data</span>'
     session: "Session 15"
     date: "October 12"
     content: "08-content"
-    bg: 4
+    bg: 2
  
   - title: '<span class="content-title">Deriving vector attributes from rasters in R</span>'
     session: "Session 16"
     date: "October 14"
     example: "08-example"
     assignment: "08-exercise"
-    bg: 2
+    bg: 4
     
   - title: 'Assignments for sessions 14 and 16 due'
     date: "October 15"
@@ -133,7 +133,7 @@ lessons:
   - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
     date: "October 18"
     assignment: "01-mini-project"
-    bg: 1
+    bg: 3
     bottomborder: True
 
   - title: 'Visualizing spatial data'
@@ -143,7 +143,7 @@ lessons:
     session: "Session 17"
     date: "October 19"
     content: "09-content"
-    bg: 4
+    bg: 1
   
   - title: '<span class="content-title">Static maps in R with ggplot and tmap</span>'
     session: "Session 18"
@@ -158,7 +158,7 @@ lessons:
     content: "10-content"
     example: "10-example"
     assignment: "10-exercise"
-    bg: 1
+    bg: 4
     
   - title: '<span class="content-title">Designing interactive webmaps</span>'
     session: "Session 20"
@@ -175,12 +175,12 @@ lessons:
     date: "November 2"
     example: "11-example"
     assignment: "11-exercise"
-    bg: 1
+    bg: 2
   
   - title: '<span class="content-title">Workday</span>'
     session: "Session 22"
     date: "November 4"
-    bg: 2
+    bg: 1
     
   - title: 'Assignments for Session 21 Due'
     date: "November 5"
@@ -189,78 +189,80 @@ lessons:
   - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
     date: "November 5"
     assignment: "02-mini-project"
-    bg: 1
+    bg: 3
     bottomborder: True
     
   - title: 'Using spatial data in statistical workflows'
     header: True
     
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Quantifying spatial patterns</span>'
     session: "Session 23"
     date: "November 9"
-    example: "10-example"
-    assignment: "10-exercise"
-    bg: 1  
+    content: "12-content"
+    bg: 4  
   
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Using R to characterize landscape patterns across scales</span>'
     session: "Session 24"
     date: "November 11"
-    example: "10-example"
-    assignment: "10-exercise"
-    bg: 1
+    example: "12-example"
+    assignment: "12-exercise"
+    bg: 2
   
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Point patterns and spatial dependence</span>'
     session: "Session 25"
     date: "November 16"
-    example: "10-example"
-    assignment: "10-exercise"
+    content: "13-content"
     bg: 1
  
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Dispersion, variograms, and kriging in R</span>'
     session: "Session 26"
     date: "November 18"
-    example: "10-example"
-    assignment: "10-exercise"
-    bg: 1
+    example: "13-example"
+    assignment: "13-exercise"
+    bg: 2
     
   - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
     session: "NA"
     date: "November 23"
+    bg: 3
     
   - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
     session: "NA"
     date: "November 25"
-  
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    bg: 3
+    
+  - title: '<span class="content-title">Modelling the probability of occurrence in space</span>'
     session: "Session 27"
     date: "November 30"
-    example: "10-example"
-    assignment: "10-exercise"
-    bg: 1
+    content: "14-content"
+    bg: 2
     
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Species (event) distribution models in R</span>'
     session: "Session 28"
     date: "December 2"
-    example: "10-example"
-    assignment: "10-exercise"
-    bg: 1
-    
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+    example: "14-example"
+    assignment: "14-exercise"
+    bg: 4
+  
+  - title: 'Assignments for Session 24, 26, and 28 Due'
+    date: "November 29"
+    bg: 3
+        
+  - title: '<span class="content-title">Conclusion and final project work</span>'
     session: "Session 29"
     date: "December 7"
-    example: "10-example"
-    assignment: "10-exercise"
-    bg: 1
+    content: "15-content"
+    bg: 2
   
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Final project workday</span>'
     session: "Session 30"
     date: "December 9"
-    example: "10-example"
-    assignment: "10-exercise"
     bg: 1
     
   - title: '<i class="fas fa-star"></i> **Final project due** (submit online by 11:59 PM)'
     date: "December 16"
     assignment: "final-project"
-    bg: 3  
+    bg: 3
+    bottomrule: True
+    
     

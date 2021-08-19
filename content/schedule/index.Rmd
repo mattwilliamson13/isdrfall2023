@@ -52,9 +52,7 @@ schedule_ics <- schedule_clean %>%
 ic_write(schedule_ics, here::here("content", "schedule", "schedule.ics"))
 ```
 
-Here's your roadmap for the semester!
-
-Every class session has four important sections. You should read about the details for each using the main menu at the top of this webpage.
+Here's our tentative plan for this semester. In general, we'll use Tuesdays to introduce the conceptual foundation for the different operations/analyses we are learning along with a few code demonstrations. Thursdays will be more of a guided 'lab' section where you can work through the [examples](/examples/) and then begin your [assignment](/assignments/).
 
 
 <div class="ical">
