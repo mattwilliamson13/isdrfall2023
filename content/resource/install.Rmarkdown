@@ -13,7 +13,8 @@ toc: yes
 library(knitr)
 ```
 **Modified from [Andrew Heiss](https://datavizs21.classes.andrewheiss.com/resource/install/)** 
-You will do all of your work in this class with the open source (and free!) programming language [R](https://cran.r-project.org/). You will use [RStudio](https://www.rstudio.com/) as the main program to access R.
+
+You will do all of your work in this class with the open source (and free!) programming language [R](https://cran.r-project.org/). You will use [RStudio](https://www.rstudio.com/) as the main program to access R. Here are some instructions for how to get started.
 
 
 ## RStudio.cloud

@@ -1,0 +1,30 @@
+---
+title: R
+menu:
+  resource:
+    parent: Resources
+type: docs
+weight: 3
+toc: yes
+---
+
+## Learning R
+
+I highly recommend subscribing to the [R Weekly newsletter](https://rweekly.org/). This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.
+
+Searching for help with R on Google can sometimes be tricky because the program name is a single letter. Google is generally smart enough to figure out what you mean when you search for "r scatterplot", but if it does struggle, try searching for "rstats" instead (e.g. "rstats scatterplot"). Also, since most of your R work in this class will deal with **ggplot2**, it's often easier to just search for that instead of the letter "r" (e.g. "ggplot scatterplot"). 
+
+These resources are also really really helpful:
+
+### General R Resources
+- [**An Introduction to R**](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf): _The_ definitive introductory text by Venables, Smith, and the R Core Team.
+- [**Swirl**](https://swirlstats.com/): A set of free, self-contained tutorials that run from within your RStudio terminal.
+- [**R for Data Science**](https://r4ds.had.co.nz/): A free online book for learning the basics of R and the tidyverse.
+- [**R and RStudio cheat sheets**](https://www.rstudio.com/resources/cheatsheets/): A large collection of simple cheat sheets for RStudio, **ggplot2**, and other R-related things.
+- [**Stat 545**](http://stat545.com/): [Dr. Jenny Bryan](https://twitter.com/JennyBryan) at RStudio has an entire introductory course in R, visualization, and data analysis online.
+- [**STA 112FS: Data Science**](http://www2.stat.duke.edu/courses/Fall17/sta112.01/): [Dr. Mine Çetinkaya-Rundel](https://twitter.com/minebocek) at the University of Edinburgh / Duke University has an entire introductory course in R, visualization, and data science online.
+- [**CSE 631: Principles & Practice of Data Visualization**](http://cslu.ohsu.edu/~bedricks/courses/cs631/): Yet another introductory course for R and ggplot2 by [Dr. Alison Presmanes Hill](https://twitter.com/apreshill) at RStudio.
+
+### R Spatial Resources
+- [**sf cheatsheet**](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf): An at-a-glance description of the various **sf** verbs and their application.
+- [**Geocomputation with R**](https://geocompr.robinlovelace.net/): Online version of the textbook by Lovelace, Nowosad, and Muenchow.
