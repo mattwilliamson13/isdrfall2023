@@ -4,7 +4,7 @@ menu:
   resource:
     parent: Resources
 type: docs
-weight: 3
+weight: 2
 toc: yes
 ---
 
