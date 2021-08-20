@@ -16,6 +16,6 @@ Getting in the habit of using version control can be challenging, especially if 
 
 ## Getting the hang of git
 
-[Understanding the logic of git](https://www.sbf5.com/~cduan/technical/git/): provides a relatively accessible explanation of the various operations in git and links that t0 commonly used syntax. 
+[Understanding the logic of git](https://www.sbf5.com/~cduan/technical/git/): provides a relatively accessible explanation of the various operations in git and links that to commonly used syntax. 
 
 [**Oh Sh@t, Git?!?**](https://ohshitgit.com/): A less technical, more irreverant introduction to git workflows and fixing the inevitable challenges of version control. (G-rated version available at [Dang it, Git?!?](https://dangitgit.com/en)).
