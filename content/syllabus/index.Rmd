@@ -69,6 +69,15 @@ I am happy to help you work through your R coding challenges, but there are a lo
 
 R is free, but it can sometimes be a pain to install and configure especially when dealing with spatial packages (we'll talk more about why this is during class). To make life easier, I have set up an online [RStudio server](http://rstudio.cloud/) service, which lets you run a full instance of RStudio in your web browser. This means you won't have to install anything on your computer and we should be able to avoid a number of the machine-specific issues that pop-up when 20 students have 20 different computers, operating systems (OS), etc. If you haven't installed R on your local machine and would like some help getting that set up, there' a useful set of [instructions for installing R, RStudio, and all the tidyverse packages here.](/resource/install/)
 
+
+### Git and Github classroom
+
+All assignments will be managed using Github classroom. This will allow each you to have your own repositories for each assignment and make it easier for me to comment on and help with your code. To use this, you should sign up for the [GitHub Student Developers Pack](https://education.github.com/pack#offers) as soon as possible and send me your github username. Once I have that, I can add you to the course and make sure that you have access to all of the necessary data and example code.
+
+### Readings
+
+The goal of this course is primarily to get you started with spatial workflows in R. That said, maps (and the spatial data that produce them) are extremely powerful. Although most of this course will focus on getting the code right, I'll mix in a few readings each week to help tie the technical details of our code back to the broader contexts of spatial analysis.
+
 ## Course schedule
 
 This course is organized in 4 sections:
