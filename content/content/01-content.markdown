@@ -13,9 +13,11 @@ csl: "../../static/bib/ecology.csl"
 slides: "01-slides"
 ---
 
+Today we’ll focus on getting oriented to the course and the tools we’ll be using throughout the semester. Readings are designed to help understand some of the ‘rules’ of R syntax and develop an understanding for manipulating different types of data in R.
+
 ## Readings
 
--   The [syllabus](/syllabus/), [content](/content/), [lessons](/lesson/), [examples](/example/), and [assignments](/assigment/) pages for this class
+-   The [syllabus](/syllabus/), [content](/content/), [examples](/example/), and [assignments](/assigment/) pages for this class
 
 -   <i class="fas fa-book"></i> [Chapter 1](http://socviz.co/lookatdata.html) in Kieran Healy, *Data Visualization* (**Healy:2018?**)
 
