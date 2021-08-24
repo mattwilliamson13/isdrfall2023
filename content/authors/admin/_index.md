@@ -1,27 +1,27 @@
 ---
-bio: My research interests include distributed robotics, mobile computing and programmable
+bio: I am interested in understanding how the interactions between people, their environment, and the institutions that govern them inspire (or inhibit) conservation action and how that impacts their effectiveness. His work relies on integrating theories from social psychology, public policy, and landscape ecology with diverse datasets to develop spatial models of conservation action at multiple scales to improve outcomes for biodiversity and people.
   matter.
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
+  - course: PhD Ecology (Integrative Ecology Emphasis)
+    institution: University of California, Davis
+    year: 2019
+  - course: MSc in Wildlife Biology
+    institution: Colorado State University
     year: 2008
+  - course: BSc in Wildlife Biology
+    institution: Colorado State University
+    year: 2003
 email: ""
 highlight_name: false
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Social-ecological systems
+- Environmental governance
+- Wildlife connectivity
 organizations:
-- name: Stanford University
-  url: https://www.stanford.edu/
-role: Professor of Artificial Intelligence
+- name: Boise State University
+  url: https://www.boisestate.edu/
+role: Assistant Professor in Human Environment Systems
 social:
 - icon: envelope
   icon_pack: fas
