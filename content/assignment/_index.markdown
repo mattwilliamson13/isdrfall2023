@@ -59,6 +59,6 @@ The project will ***not*** be graded using a check system. Instead I will use a 
 
 1. Technical skills (is the workflow robust? Scaleable?)
 2. Quality of visualization (is a map necessary? how do we deal with uncertainty?)
-4. Story(Why do we care about this? Why does space matter?)
+4. Story (Why do we care about this? Why does space matter?)
 
 If you've engaged with the course content and completed the exercises and mini projects throughout the course, you should do just fine with the final project.
