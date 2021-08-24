@@ -158,6 +158,25 @@ p2 &lt;- p1 + scale_fill_manual(values = party_colors) +
 &lt;img src="01-slides_files/figure-html/unnamed-chunk-3-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 ---
+.pull-left[
+
+```r
+p0 &lt;- ggplot(data = subset(election, st %nin% "DC"),
+             mapping = aes(x = r_points,
+                           y = reorder(state, r_points),
+                           color = party))
+p1 &lt;- p0 + geom_vline(xintercept = 0, color = "gray30") +
+    geom_point(size = 2)
+p2 &lt;- p1 + scale_color_manual(values = party_colors)
+p3 &lt;- p2 + scale_x_continuous(breaks = c(-30, -20, -10, 0, 10, 20, 30, 40),
+                              labels = c("30\n (Clinton)", "20", "10", "0",
+                                         "10", "20", "30", "40\n(Trump)"))
+```
+]
+.pull-right[
+&lt;img src="01-slides_files/figure-html/unnamed-chunk-5-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
 
 # Why Not R?
 
@@ -195,9 +214,73 @@ class: middle
 
 # The Syllabus
 
+.pull-left[
 - Expectations (Yours and Mine)
 - Course Design
 - Projects
+]
+
+.pull-right[
+
+
+
+```
+## 
+## ----------------------------------------
+## Assignment             Points   Percent 
+## --------------------- -------- ---------
+## Exercises (14 × 15)     210       51%   
+## 
+## Mini project 1           50       12%   
+## 
+## Mini project 2           50       12%   
+## 
+## Final project           100       24%   
+## 
+## Total                   410        —    
+## ----------------------------------------
+```
+]
+---
+class: middle
+
+# R, RStudio, and Git
+
+- We'll use RStudio server to minimize setup troubleshooting (you should still have R on your machine)
+
+- Data, code, and assignments managed via GitHub classroom (we'll go through all of this on Thurs)
+
+- This is going to be a team effort!! (check out the [Resources](/resource/) for info on getting started)
+---
+# Data types and structures in R
+
+  - R has 6 basic data types
+
+--
+    - character, numeric, integer, logical, and complex
+--
+  - R has __A LOT__ of different data structures
+
+--
+    - vectors, data frames, tibbles, lists, and matrices
+--
+  - R even has special object types
+
+--
+    - stanfit, grobs, lm
+--
+  - Knowing the kind of data and structure it's in helps guide coding
+  
+  - Spatial data often in lists, matrices, tibbles, and special objects
+  
+  - We'll explore the implications of different data structures for accessing, modifying, and plotting in our first lab
+---
+class: middle
+
+# Parting Thoughts
+- Am I making a map or running an analysis
+- What is the goal of my analysis or figure?
+- Is the spatial arrangement important?
 
 ---
 # Before next time
