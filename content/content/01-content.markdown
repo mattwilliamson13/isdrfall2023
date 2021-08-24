@@ -19,7 +19,7 @@ Today we’ll focus on getting oriented to the course and the tools we’ll be u
 
 -   The [syllabus](/syllabus/), [content](/content/), [examples](/example/), and [assignments](/assigment/) pages for this class
 
--   <i class="fas fa-book"></i> [Chapter 1 - 6](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in Venables et al., *An Introduction to R* (Venables et al. 2009) - for a quick refresher on data types in R
+-   <i class="fas fa-book"></i> [Chapter 1 - 6](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in Venables et al., *An Introduction to R* (Venables et al. 2009) - for a quick refresher on data types in R (it’s only 30 pages)
 
 -   <i class="fas fa-external-link-square-alt"></i> [Lying with maps](https://open.lib.umn.edu/mapping/chapter/7-lying-with-maps/) - a portion of *Mapping, Society, and Technology* an ebook by Eric Deluca and Sara Nelson.
 

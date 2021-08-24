@@ -85,17 +85,37 @@ class: title title-inv-5
 
 A bit about me
 
---
+---
+# Introductions
+
+.pull-left.center[
+<figure>
+  <img src="img/01/Williamson_SpaSES_Fig1.jpg" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>from Williamson et al. 2018</figcaption>
+</figure>
+]
+
+.pull-right[
+
+- Crooked paths
+
+- My research
+
+- Why I teach this class
+]
+---
+# Introductions
 
 A bit about you
 
---
+- Where are you from?
 
-[Course Webpage](https://isdrfall21.spaseslab.com)
+- What is your research?
 
---
+- What do you like most about Boise? 
 
-Class during COVID
+- What do you miss most about "home"?
+
 ---
 
 layout: false
@@ -108,16 +128,67 @@ class: center middle section-title section-title-2 animated fadeIn
 class: title title-inv-5
 
 # Why R?
+.pull-left[
 
-Open Source
+- Open Source
 
---
 
-Integrated analysis pipelines
 
---
+- Integrated analysis pipelines
 
-Reproducible workflows 
+
+- Reproducible workflows
+]
+.pull-right[
+```{r echo=FALSE, fig.height=6, fig.width=6}
+
+library(maps)
+library(socviz)
+library(tidyverse)
+party_colors <- c("#2E74C0", "#CB454A") 
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- left_join(us_states, election)
+p0 <- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat,
+                           group = group, fill = party))
+p1 <- p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+p2 <- p1 + scale_fill_manual(values = party_colors) +
+    labs(title = "Election Results 2016", fill = NULL)
+p2
+
+```
+]
+---
+class: title title-5
+
+# Why R?
+.pull-left[
+```{r echo=TRUE}
+
+library(maps)
+library(socviz)
+library(tidyverse)
+party_colors <- c("#2E74C0", "#CB454A") 
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- left_join(us_states, election)
+p0 <- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat,
+                           group = group, fill = party))
+p1 <- p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+p2 <- p1 + scale_fill_manual(values = party_colors) +
+    labs(title = "Election Results 2016", fill = NULL)
+
+```
+]
+.pull-right[
+```{r echo=FALSE, fig.height=6, fig.width=6}
+p2
+```
+]
 ---
 
 # Why Not R?
@@ -142,11 +213,23 @@ class: center middle section-title section-title-2 animated fadeIn
 
 # Class Details
 ---
+
+class: middle
+
+# Logistics
+
+- Tuesdays - generally a lecture with some live coding demonstrations
+- Thursdays - "lab" to work through the example, work on the assignments, get help
+- [Course Webpage](http://isdrfall21.classes.spaseslab.com/)
+- Class during COVID
+
+---
+
 # The Syllabus
 
 - Expectations (Yours and Mine)
 - Course Design
-- Advanced Topics
+- Projects
 
 ---
 # Before next time

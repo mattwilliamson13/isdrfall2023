@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Matt Williamson" />
     <meta name="date" content="2021-08-24" />
-    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/maw-theme.css" type="text/css" />
     <link rel="stylesheet" href="css/animate.css" type="text/css" />
@@ -74,17 +74,37 @@ class: title title-inv-5
 
 A bit about me
 
---
+---
+# Introductions
+
+.pull-left.center[
+&lt;figure&gt;
+  &lt;img src="img/01/Williamson_SpaSES_Fig1.jpg" alt="ZZZ" title="ZZZ" width="100%"&gt;
+  &lt;figcaption&gt;from Williamson et al. 2018&lt;/figcaption&gt;
+&lt;/figure&gt;
+]
+
+.pull-right[
+
+- Crooked paths
+
+- My research
+
+- Why I teach this class
+]
+---
+# Introductions
 
 A bit about you
 
---
+- Where are you from?
 
-[Course Webpage](https://isdrfall21.spaseslab.com)
+- What is your research?
 
---
+- What do you like most about Boise? 
 
-Class during COVID
+- What do you miss most about "home"?
+
 ---
 
 layout: false
@@ -97,16 +117,46 @@ class: center middle section-title section-title-2 animated fadeIn
 class: title title-inv-5
 
 # Why R?
+.pull-left[
 
-Open Source
+- Open Source
 
---
 
-Integrated analysis pipelines
 
---
+- Integrated analysis pipelines
 
-Reproducible workflows 
+
+- Reproducible workflows
+]
+.pull-right[
+&lt;img src="01-slides_files/figure-html/unnamed-chunk-1-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+---
+class: title title-5
+
+# Why R?
+.pull-left[
+
+```r
+library(maps)
+library(socviz)
+library(tidyverse)
+party_colors &lt;- c("#2E74C0", "#CB454A") 
+us_states &lt;- map_data("state")
+election$region &lt;- tolower(election$state)
+us_states_elec &lt;- left_join(us_states, election)
+p0 &lt;- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat,
+                           group = group, fill = party))
+p1 &lt;- p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+p2 &lt;- p1 + scale_fill_manual(values = party_colors) +
+    labs(title = "Election Results 2016", fill = NULL)
+```
+]
+.pull-right[
+&lt;img src="01-slides_files/figure-html/unnamed-chunk-3-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
 ---
 
 # Why Not R?
@@ -131,11 +181,23 @@ class: center middle section-title section-title-2 animated fadeIn
 
 # Class Details
 ---
+
+class: middle
+
+# Logistics
+
+- Tuesdays - generally a lecture with some live coding demonstrations
+- Thursdays - "lab" to work through the example, work on the assignments, get help
+- [Course Webpage](http://isdrfall21.classes.spaseslab.com/)
+- Class during COVID
+
+---
+
 # The Syllabus
 
 - Expectations (Yours and Mine)
 - Course Design
-- Advanced Topics
+- Projects
 
 ---
 # Before next time
