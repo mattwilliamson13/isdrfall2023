@@ -32,7 +32,7 @@ By the end of today, you should be able to:
 
 ## Slides
 
-Comin soon!!
+Coming soon!!
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
