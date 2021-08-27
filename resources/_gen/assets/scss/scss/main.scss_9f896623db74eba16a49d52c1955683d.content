@@ -9513,8 +9513,8 @@ kbd {
 
 pre,
 code {
-  color: #D9D9D6;
-  background-color: white; }
+  color: #003A70;
+  background-color: #d6ebff; }
 
 .highlight pre,
 .highlight code {
