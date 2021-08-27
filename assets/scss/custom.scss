@@ -42,8 +42,8 @@ kbd {
 
 pre,
 code {
-    color: nth($colors, 1);
-    background-color: lighten(nth($colors, 1), 67%);
+    color: nth($colors, 3);
+    background-color: lighten(nth($colors, 3), 70%);
 }
 
 .highlight pre,
