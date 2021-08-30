@@ -6,7 +6,7 @@ output:
   xaringan::moon_reader:
     lib_dir: "libs"
     chakra: "libs/remark-latest.min.js"
-    css: ["default", "css/maw-theme.css", "css/animate.css"]        
+    css: ["default", "css/mawtheme2.css", "css/animate.css"]        
     seal: false
     nature:
       highlightStyle: github
