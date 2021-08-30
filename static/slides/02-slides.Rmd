@@ -32,7 +32,7 @@ library(pander)
 ```
 
 
-
+name:1
 class: center middle main-title section-title-4
 
 # Spatial data is special data
@@ -48,5 +48,85 @@ Boise State University Human-Environment Systems<br>
 Fall 2021]
 
 ]
+
+---
+
+name: outline
+class: title title-inv-5
+
+# Plan for today
+
+--
+
+Location, Location, Location
+
+--
+
+The Coordinate Reference System
+
+--
+
+Other elements that define location in R objects
+
+--
+
+Parting thoughts
+
+
+---
+
+# Questions we can answer with GIS
+
+ - Questions about geographic location
+ 
+ - Questions about geographic distribution
+ 
+ - Questions about geographic association
+ 
+ - Questions about geographic interaction
+ 
+ - Questions about geographic change
+
+---
+
+# Questions we can answer with GIS
+
+ .primary[- __Questions about geographic location__]
+ 
+ .white[
+ - Questions about geographic distribution
+ 
+ - Questions about geographic association
+ 
+ - Questions about geographic interaction
+ 
+ - Questions about geographic change
+ ]
+
+---
+
+layout: false
+name: projections
+class: center middle section-title section-title-2 animated fadeIn
+
+# Location, Location, Location!!
+### __(sure, but how do we actually describe where things are?)__
+---
+
+class: center middle
+
+# Location
+---
+class: left middle
+
+# Location
+
+--
+
+## __nominal: (potentially contested) place names__
+
+--
+
+## __absolute: the physical location on the earth's surface__
 
 ---
