@@ -40,10 +40,10 @@ By the end of today, you should be able to:
 <a class="nav-link active" id="welcome-tab" data-toggle="tab" href="#welcome" role="tab" aria-controls="welcome" aria-selected="true">Welcome</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="plan-for-the-day-tab" data-toggle="tab" href="#plan-for-the-day" role="tab" aria-controls="plan-for-the-day" aria-selected="false">Plan for the day</a>
+<a class="nav-link" id="defining-location-tab" data-toggle="tab" href="#defining-location" role="tab" aria-controls="defining-location" aria-selected="false">Defining location</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="defining-location-tab" data-toggle="tab" href="#defining-location" role="tab" aria-controls="defining-location" aria-selected="false">Defining location</a>
+<a class="nav-link" id="the-crs-tab" data-toggle="tab" href="#the-crs" role="tab" aria-controls="the-crs" aria-selected="false">The CRS</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" id="the-importance-of-alignment-tab" data-toggle="tab" href="#the-importance-of-alignment" role="tab" aria-controls="the-importance-of-alignment" aria-selected="false">The importance of alignment</a>
@@ -63,22 +63,22 @@ By the end of today, you should be able to:
 
 </div>
 
-<div id="plan-for-the-day" class="tab-pane fade" role="tabpanel" aria-labelledby="plan-for-the-day-tab">
+<div id="defining-location" class="tab-pane fade" role="tabpanel" aria-labelledby="defining-location-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/02-slides.html#outline">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#projections">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="defining-location" class="tab-pane fade" role="tabpanel" aria-labelledby="defining-location-tab">
+<div id="the-crs" class="tab-pane fade" role="tabpanel" aria-labelledby="the-crs-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/02-slides.html#projections">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#crs">
 </iframe>
 
 </div>
