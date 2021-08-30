@@ -39,7 +39,6 @@ Fall 2021]
 
 ---
 
-name: outline
 class: title title-inv-5
 
 # Plan for today
@@ -172,19 +171,52 @@ class: left middle
 ]
 ---
 
-# Projection: The Datum
+# Geographic Coordinate Systems: representing the earth's surface in lattitude and longitude
 
-### __describes which ellipsoid to use and the precise relations between locations on earth's surface and Cartesian coordinates__
+### __Geographic Coordinate Systems define *where* the data is located on the earth's surface__  
 
-- Geographic Coordinate Systems: describe the model used to represent the earth's surface in lattitude and longitude
+  - Generally round or ellipsoid so records location in angular units (e.g., degrees)
+  - Multiple GCS because earth's surface is not perfectly round or smooth
 
-  - Geodetic datum (e.g., `WGS84`): origin is based on the earth's center of gravity not optimized for any region.
+### __The *datum* describes which ellipsoid to use and the precise relations between locations on earth's surface and Cartesian coordinates__
+
+  - Geodetic datums (e.g., `WGS84`): origin is based on the earth's center of gravity not optimized for any region.
   
-  - Local datum (e.g., `NAD83`): allows for local variation in earth's surface to be modeled more accurately 
-  
+  - Local datums (e.g., `NAD83`): allows for local variation in earth's surface to be modeled more accurately 
+
+
 ---
+# Projected Coordinate Systems (CRS)
 
-# Projection: The Datum
+### __Projected Coordinate Systems describe *how* the data should be translated to a flat surface__
+
+  - Necessary because maps, computer screens, and most R data structures are flat
+  - Records locations in linear units (e.g., meters)
+  - Three developable surfaces: planar (poles), conic (mid-latitudes), cylindrical (whole earth)
+  
+### __Projection necessarily induces some form of distortion (tearing, compression, or shearing__
+   
+   - Some projections minimize distortion of angle, area, or distance
+   - Others attempt to avoid extreme distortion of any kind 
+   
+### __How might you choose which projection you should use?__   
+---
+name: crs
+# The Coordinate Reference System (CRS)
+
+- The __CRS__ stores all of the necessary information for the projection calculations
+
+- Includes: Datum, ellipsoid, units, and other information (e.g., False Easting, Central Meridian) to further map the projection to the GCS
+
+- Not all projections have/require all of the parameters
+
+- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs])
+
+- Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
+---
+# The Coordinate Reference System (CRS)
+Using NAD27, a geodetic datum
+
 .pull-left[
 
 ```r
@@ -217,12 +249,16 @@ st_crs(nc.sf) = 4267
 ]
 ---
 # Projection: The Datum
+
+Using NAD83 for North Carolina
+
 .pull-left[
 
 ```r
 library(sf)
-nc.sf &lt;-  st_read(system.file("shapes/", 
-                              package="maptools"), "sids")
+nc.sf &lt;-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids")
 ```
 
 ```
@@ -249,17 +285,19 @@ st_crs(nc.sf) = 3358
 ---
 .pull-left[
 &lt;figure&gt;
-  &lt;img src="img/02/EPSG4267.png" alt="ZZZ" title="ZZZ" width="80%"&gt;
+  &lt;img src="img/02/EPSG4267.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
 &lt;/figure&gt;
 ]
 
 .pull-right[
 &lt;figure&gt;
-  &lt;img src="img/02/EPSG3358.png" alt="ZZZ" title="ZZZ" width="80%"&gt;
+  &lt;img src="img/02/EPSG3358.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
 &lt;/figure&gt;
 ]
 ---
-]
+
+# 
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
