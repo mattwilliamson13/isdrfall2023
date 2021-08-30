@@ -118,6 +118,148 @@ class: left middle
 ## __absolute: the physical location on the earth's surface__
 
 ---
+class: left middle
+
+# Location
+
+
+.white[## __nominal: (potentially contested) place names__]
+
+## __absolute: the physical location on the earth's surface__
+
+---
+# Coordinates: 2 or more measurements that specify location relative to a _reference system_
+
+.pull-left[
+- Cartesian coordinate system: grid formed by combining horizontal (*x*) and vertical (*y*) measurement scales
+
+- _origin (O)_ = the point at which both measurement systems intersect
+
+- By convention this is equal (0,0) and all measurements relative to the origin
+
+- Adaptable to multiple dimensions (e.g. *z* for altitude)
+]
+
+.pull-right.center[
+&lt;figure&gt;
+  &lt;img src="img/02/CartesianCoordinateSystem.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
+  &lt;figcaption&gt;&lt;a href="https://commons.wikimedia.org/wiki/File:CartesianCoordinateSystem.png"&gt;Svjo&lt;/a&gt;, &lt;a href="https://creativecommons.org/licenses/by-sa/4.0"&gt;CC BY-SA 4.0&lt;/a&gt;, via Wikimedia Commons&lt;/figcaption&gt;
+&lt;/figure&gt;
+]
+---
+
+# Coordinates: 2 or more measurements that specify location relative to a _reference system_
+
+.pull-left.center[
+&lt;figure&gt;
+  &lt;img src="img/02/Latitude_and_Longitude.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
+  &lt;figcaption&gt;&lt;a href="https://commons.wikimedia.org/wiki/File:Latitude_and_Longitude_of_the_Earth_fr.svg"&gt;Djexplo&lt;/a&gt;, CC0, via Wikimedia Commons&lt;/figcaption&gt;
+&lt;/figure&gt;
+]
+
+.pull-right[
+
+- Geographic coordinate system uses longitude (*x*) and latitude (*y*) 
+
+- Horizontal location measured as longitude in degrees from prime meridian
+
+- Vertical location measured as latitude in degrees from equator
+
+- _Graticule_: the grid formed by the intersection of longitude and latitude
+
+- The graticule is based on an ellipsoid model of earth's surface and contained in the _datum_
+
+]
+---
+
+# Projection: The Datum
+
+### __describes which ellipsoid to use and the precise relations between locations on earth's surface and Cartesian coordinates__
+
+- Geographic Coordinate Systems: describe the model used to represent the earth's surface in lattitude and longitude
+
+  - Geodetic datum (e.g., `WGS84`): origin is based on the earth's center of gravity not optimized for any region.
+  
+  - Local datum (e.g., `NAD83`): allows for local variation in earth's surface to be modeled more accurately 
+  
+---
+
+# Projection: The Datum
+.pull-left[
+
+```r
+library(sf)
+nc.sf &lt;-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids")
+```
+
+```
+## Reading layer `sids' from data source 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 100 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+## CRS:           NA
+```
+
+```r
+st_crs(nc.sf) = 4267
+#plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+&lt;img src="02-slides_files/figure-html/plotproj1-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+]
+---
+# Projection: The Datum
+.pull-left[
+
+```r
+library(sf)
+nc.sf &lt;-  st_read(system.file("shapes/", 
+                              package="maptools"), "sids")
+```
+
+```
+## Reading layer `sids' from data source 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 100 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+## CRS:           NA
+```
+
+```r
+st_crs(nc.sf) = 3358
+#plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+&lt;img src="02-slides_files/figure-html/plotproj2-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+.pull-left[
+&lt;figure&gt;
+  &lt;img src="img/02/EPSG4267.png" alt="ZZZ" title="ZZZ" width="80%"&gt;
+&lt;/figure&gt;
+]
+
+.pull-right[
+&lt;figure&gt;
+  &lt;img src="img/02/EPSG3358.png" alt="ZZZ" title="ZZZ" width="80%"&gt;
+&lt;/figure&gt;
+]
+---
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
