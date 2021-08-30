@@ -20,9 +20,8 @@ slide_details <- tibble::tribble(
   ~youtube_id,   ~title, ~slide, ~active,
   "tVcomh6jQ2Y", "Welcome", "1", TRUE,
   "UbQ8IW3UI9E", "Plan for the day", "outline", FALSE,
-  "DldFVc08YY4", "Introductions", "introductions", FALSE,
-  "6MTC9uGMNFg", "Why (not) R?", "why-not-r", FALSE,
-  "_TclSs8iLMY", "Class details", "class-details", FALSE
+  "DldFVc08YY4", "Defining location", "projections", FALSE,
+  "_TclSs8iLMY", "The importance of alignment", "alignment", FALSE
 )
 ```
 Today we'll start getting into the nitty-gritty of geographic data and how the various elements describing spatial position are managed within `R`.
@@ -44,4 +43,8 @@ By the end of today, you should be able to:
 
 ## Slides
 
-Coming soon!!
+`r blogdown::shortcode("slide-buttons")`
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/02-slides.html")
+```

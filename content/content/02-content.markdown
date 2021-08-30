@@ -33,7 +33,70 @@ By the end of today, you should be able to:
 
 ## Slides
 
-Coming soon!!
+{{% slide-buttons %}}
+
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="welcome-tab" data-toggle="tab" href="#welcome" role="tab" aria-controls="welcome" aria-selected="true">Welcome</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="plan-for-the-day-tab" data-toggle="tab" href="#plan-for-the-day" role="tab" aria-controls="plan-for-the-day" aria-selected="false">Plan for the day</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="defining-location-tab" data-toggle="tab" href="#defining-location" role="tab" aria-controls="defining-location" aria-selected="false">Defining location</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="the-importance-of-alignment-tab" data-toggle="tab" href="#the-importance-of-alignment" role="tab" aria-controls="the-importance-of-alignment" aria-selected="false">The importance of alignment</a>
+</li>
+</ul>
+
+<div id="slide-tabs" class="tab-content">
+
+<div id="welcome" class="tab-pane fade show active" role="tabpanel" aria-labelledby="welcome-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#1">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="plan-for-the-day" class="tab-pane fade" role="tabpanel" aria-labelledby="plan-for-the-day-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#outline">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="defining-location" class="tab-pane fade" role="tabpanel" aria-labelledby="defining-location-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#projections">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="the-importance-of-alignment" class="tab-pane fade" role="tabpanel" aria-labelledby="the-importance-of-alignment-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#alignment">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
