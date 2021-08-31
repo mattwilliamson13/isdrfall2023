@@ -10,7 +10,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/ecology.csl"
-slides: "01-slides"
+slides: "02-slides"
 ---
 
 Today we’ll start getting into the nitty-gritty of geographic data and how the various elements describing spatial position are managed within `R`.
