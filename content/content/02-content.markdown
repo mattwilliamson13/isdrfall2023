@@ -18,10 +18,14 @@ Today we’ll start getting into the nitty-gritty of geographic data and how the
 ## Objectives
 
 By the end of today, you should be able to:
-\* Describe several ways to load spatial data into `R`
-\* Define a coordinate reference system and describe why it is important
-\* Identify the different ways projections are expressed in `R` and `gdal`
-\* Describe the other key elements of spatial data
+
+-   Describe several ways to load spatial data into `R`
+
+-   Define a coordinate reference system and describe why it is important
+
+-   Identify the different ways projections are expressed in `R` and `gdal`
+
+-   Describe the other key elements of spatial data
 
 ## Readings
 
