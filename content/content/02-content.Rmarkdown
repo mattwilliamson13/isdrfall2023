@@ -21,7 +21,7 @@ slide_details <- tibble::tribble(
   "tVcomh6jQ2Y", "Welcome", "1", TRUE,
   "UbQ8IW3UI9E", "Defining location", "projections", FALSE,
   "DldFVc08YY4", "The CRS", "crs", FALSE,
-  "_TclSs8iLMY", "The importance of alignment", "alignment", FALSE
+  "_TclSs8iLMY", "Other important elements", "elements", FALSE
 )
 ```
 Today we'll start getting into the nitty-gritty of geographic data and how the various elements describing spatial position are managed within `R`.

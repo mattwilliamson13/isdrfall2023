@@ -210,6 +210,7 @@ class: left middle
    
    - Some projections minimize distortion of angle, area, or distance
    - Others attempt to avoid extreme distortion of any kind 
+   - Distortions particularly challenging for raster data
    
 ### __How might you choose which projection you should use?__   
 ---
@@ -222,7 +223,7 @@ name: crs
 
 - Not all projections have/require all of the parameters
 
-- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs])
+- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs]))
 
 - Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
 ---
@@ -334,6 +335,10 @@ plot(st_geometry(nc.sf))
 ---
 .pull-left[
 <figure>
+  <img src="img/02/EPSG4087.png" alt="ZZZ" title="ZZZ" width="100%">
+</figure>
+
+<figure>
   <img src="img/02/EPSG4267.png" alt="ZZZ" title="ZZZ" width="100%">
 </figure>
 ]
@@ -342,8 +347,153 @@ plot(st_geometry(nc.sf))
 <figure>
   <img src="img/02/EPSG3358.png" alt="ZZZ" title="ZZZ" width="100%">
 </figure>
+
+<figure>
+  <img src="img/02/EPSG3747.png" alt="ZZZ" title="ZZZ" width="100%">
+</figure>
 ]
 ---
+# Accessing the CRS of Spatial* objects
 
-# 
+The `sp` and `rgdal`packages are foundational to the `R` spatial ecosystem
 
+
+.pull-left[
+```{r ncspex, message=FALSE}
+library(sp)
+library(rgdal)
+nc.sp <-  readOGR(
+  system.file("shapes/", package="maptools"), 
+  "sids", verbose = FALSE)
+```
+]
+
+.pull-right[
+
+```{r ncspproj}
+proj4string(nc.sp)
+proj4string(nc.sp) <- CRS("+init=epsg:4267")
+proj4string(nc.sp)
+nc.sp.proj <- spTransform(nc.sp, CRS("+init=epsg:3747"))
+proj4string(nc.sp.proj)
+```
+]
+
+
+The warning message you see is a function of the recent change from proj4 to proj6; details are [here](https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html)
+
+---
+name: elements
+# Other important spatial attributes: Extent and Resolution
+
+- **Extent** describes the area covered by the analysis
+
+- **Resolution** describes the smallest unit being mapped
+
+- Often combined (ambiguously) to describe the _scale_ of an analysis
+
+---
+
+# Extent in `R`
+
+`R` has a very specific definition of extent: the rectangular region encompassed by the data
+
+.pull-left[
+### For polygons
+```{r sfextent, out.width="50%"}
+nc.sf <-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids", quiet = TRUE)
+
+plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+### For rasters
+```{r rastext, out.width="50%"}
+library(raster)
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+plot(r)
+```
+]
+
+---
+
+# Extent in `R`
+
+.pull-left[
+### For polygons
+```{r sfext2}
+nc.sf <-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids", quiet = TRUE)
+nc.sf %>% 
+  st_set_crs(4267) %>% 
+  st_transform(3358) %>% 
+  st_bbox()
+
+```
+]
+
+.pull-right[
+### For rasters
+```{r rastext2, out.width="20%"}
+library(raster)
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+extent(r)
+origin(r)
+```
+]
+
+---
+
+# Resolution in `R`
+
+- Thematically defined for `vector` datasets
+
+- Based on pixel-size for `raster` datasets
+
+```{r rastres}
+library(raster)
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+crs(r)
+res(r)
+```
+
+---
+
+class: center middle
+# Getting a quick look at your data
+
+---
+
+```{r splook}
+nc.sp
+```
+
+---
+
+```{r sflook}
+nc.sf
+```
+
+---
+
+```{r rastlook}
+r
+```
+
+---
+# Final considerations
+
+- `R` is **flexible**: you can manipulate most of these attributes
+
+- The changes you make need to be **coherent** (often requires multiple changes)
+
+- CRS choices for visualization are about accuracy, honesty, and clarity
+
+- CRS choices for analysis based on consistency and minimizing locational error 

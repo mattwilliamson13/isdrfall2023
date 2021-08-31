@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Matt Williamson" />
     <meta name="date" content="2021-08-31" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/mawtheme2.css" type="text/css" />
     <link rel="stylesheet" href="css/animate.css" type="text/css" />
@@ -198,6 +198,7 @@ class: left middle
    
    - Some projections minimize distortion of angle, area, or distance
    - Others attempt to avoid extreme distortion of any kind 
+   - Distortions particularly challenging for raster data
    
 ### __How might you choose which projection you should use?__   
 ---
@@ -210,7 +211,7 @@ name: crs
 
 - Not all projections have/require all of the parameters
 
-- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs])
+- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs]))
 
 - Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
 ---
@@ -243,7 +244,7 @@ nc.sf &lt;-  st_read(
 
 ```
 ## Reading layer `sids' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
@@ -279,7 +280,7 @@ nc.sf &lt;-  st_read(
 
 ```
 ## Reading layer `sids' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
@@ -314,7 +315,7 @@ nc.sf &lt;-  st_read(
 
 ```
 ## Reading layer `sids' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
@@ -350,7 +351,7 @@ nc.sf &lt;-  st_read(
 
 ```
 ## Reading layer `sids' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
@@ -374,6 +375,10 @@ nc.sf &lt;- nc.sf %&gt;%
 ---
 .pull-left[
 &lt;figure&gt;
+  &lt;img src="img/02/EPSG4087.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;
   &lt;img src="img/02/EPSG4267.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
 &lt;/figure&gt;
 ]
@@ -382,11 +387,273 @@ nc.sf &lt;- nc.sf %&gt;%
 &lt;figure&gt;
   &lt;img src="img/02/EPSG3358.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
 &lt;/figure&gt;
+
+&lt;figure&gt;
+  &lt;img src="img/02/EPSG3747.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
+&lt;/figure&gt;
 ]
 ---
+# Accessing the CRS of Spatial* objects
 
-# 
+The `sp` and `rgdal`packages are foundational to the `R` spatial ecosystem
 
+
+.pull-left[
+
+```r
+library(sp)
+library(rgdal)
+nc.sp &lt;-  readOGR(
+  system.file("shapes/", package="maptools"), 
+  "sids", verbose = FALSE)
+```
+]
+
+.pull-right[
+
+
+```r
+proj4string(nc.sp)
+```
+
+```
+## [1] NA
+```
+
+```r
+proj4string(nc.sp) &lt;- CRS("+init=epsg:4267")
+proj4string(nc.sp)
+```
+
+```
+## [1] "+proj=longlat +datum=NAD27 +no_defs"
+```
+
+```r
+nc.sp.proj &lt;- spTransform(nc.sp, CRS("+init=epsg:3747"))
+proj4string(nc.sp.proj)
+```
+
+```
+## [1] "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+```
+]
+
+
+The warning message you see is a function of the recent change from proj4 to proj6; details are [here](https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html)
+
+---
+name: elements
+# Other important spatial attributes: Extent and Resolution
+
+- **Extent** describes the area covered by the analysis
+
+- **Resolution** describes the smallest unit being mapped
+
+- Often combined (ambiguously) to describe the _scale_ of an analysis
+
+---
+
+# Extent in `R`
+
+`R` has a very specific definition of extent: the rectangular region encompassed by the data
+
+.pull-left[
+### For polygons
+
+```r
+nc.sf &lt;-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids", quiet = TRUE)
+
+plot(st_geometry(nc.sf))
+```
+
+&lt;img src="02-slides_files/figure-html/sfextent-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+### For rasters
+
+```r
+library(raster)
+f &lt;- system.file("external/test.grd", package="raster")
+r &lt;- raster(f)
+plot(r)
+```
+
+&lt;img src="02-slides_files/figure-html/rastext-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Extent in `R`
+
+.pull-left[
+### For polygons
+
+```r
+nc.sf &lt;-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids", quiet = TRUE)
+nc.sf %&gt;% 
+  st_set_crs(4267) %&gt;% 
+  st_transform(3358) %&gt;% 
+  st_bbox()
+```
+
+```
+##      xmin      ymin      xmax      ymax 
+## 123830.15  14739.33 930518.79 318254.74
+```
+]
+
+.pull-right[
+### For rasters
+
+```r
+library(raster)
+f &lt;- system.file("external/test.grd", package="raster")
+r &lt;- raster(f)
+extent(r)
+```
+
+```
+## class      : Extent 
+## xmin       : 178400 
+## xmax       : 181600 
+## ymin       : 329400 
+## ymax       : 334000
+```
+
+```r
+origin(r)
+```
+
+```
+## [1] 0 0
+```
+]
+
+---
+
+# Resolution in `R`
+
+- Thematically defined for `vector` datasets
+
+- Based on pixel-size for `raster` datasets
+
+
+```r
+library(raster)
+f &lt;- system.file("external/test.grd", package="raster")
+r &lt;- raster(f)
+crs(r)
+```
+
+```
+## CRS arguments:
+##  +proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889
+## +k=0.9999079 +x_0=155000 +y_0=463000 +datum=WGS84 +units=m +no_defs
+```
+
+```r
+res(r)
+```
+
+```
+## [1] 40 40
+```
+
+---
+
+class: center middle
+# Getting a quick look at your data
+
+---
+
+
+```r
+nc.sp
+```
+
+```
+## class       : SpatialPolygonsDataFrame 
+## features    : 100 
+## extent      : -84.32385, -75.45698, 33.88199, 36.58965  (xmin, xmax, ymin, ymax)
+## crs         : +proj=longlat +datum=NAD27 +no_defs 
+## variables   : 14
+## names       :  AREA, PERIMETER, CNTY_, CNTY_ID,     NAME,  FIPS, FIPSNO, CRESS_ID, BIR74, SID74, NWBIR74, BIR79, SID79, NWBIR79 
+## min values  : 0.042,     0.999,  1825,    1825, Alamance, 37001,  37001,        1,   248,     0,       1,   319,     0,       3 
+## max values  : 0.241,      3.64,  2241,    2241,   Yancey, 37199,  37199,      100, 21588,    44,    8027, 30757,    57,   11631
+```
+
+---
+
+
+```r
+nc.sf
+```
+
+```
+## Simple feature collection with 100 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+## CRS:           NA
+## First 10 features:
+##     AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
+## 1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
+## 2  0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
+## 3  0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
+## 4  0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
+## 5  0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
+## 6  0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
+## 7  0.062     1.547  1834    1834      Camden 37029  37029       15   286     0
+## 8  0.091     1.284  1835    1835       Gates 37073  37073       37   420     0
+## 9  0.118     1.421  1836    1836      Warren 37185  37185       93   968     4
+## 10 0.124     1.428  1837    1837      Stokes 37169  37169       85  1612     1
+##    NWBIR74 BIR79 SID79 NWBIR79                       geometry
+## 1       10  1364     0      19 MULTIPOLYGON (((-81.47276 3...
+## 2       10   542     3      12 MULTIPOLYGON (((-81.23989 3...
+## 3      208  3616     6     260 MULTIPOLYGON (((-80.45634 3...
+## 4      123   830     2     145 MULTIPOLYGON (((-76.00897 3...
+## 5     1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...
+## 6      954  1838     5    1237 MULTIPOLYGON (((-76.74506 3...
+## 7      115   350     2     139 MULTIPOLYGON (((-76.00897 3...
+## 8      254   594     2     371 MULTIPOLYGON (((-76.56251 3...
+## 9      748  1190     2     844 MULTIPOLYGON (((-78.30876 3...
+## 10     160  2038     5     176 MULTIPOLYGON (((-80.02567 3...
+```
+
+---
+
+
+```r
+r
+```
+
+```
+## class      : RasterLayer 
+## dimensions : 115, 80, 9200  (nrow, ncol, ncell)
+## resolution : 40, 40  (x, y)
+## extent     : 178400, 181600, 329400, 334000  (xmin, xmax, ymin, ymax)
+## crs        : +proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +datum=WGS84 +units=m +no_defs 
+## source     : test.grd 
+## names      : test 
+## values     : 138.7071, 1736.058  (min, max)
+```
+
+---
+# Final considerations
+
+- `R` is **flexible**: you can manipulate most of these attributes
+
+- The changes you make need to be **coherent** (often requires multiple changes)
+
+- CRS choices for visualization are about accuracy, honesty, and clarity
+
+- CRS choices for analysis based on consistency and minimizing locational error 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>

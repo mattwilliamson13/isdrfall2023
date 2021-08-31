@@ -46,7 +46,7 @@ By the end of today, you should be able to:
 <a class="nav-link" id="the-crs-tab" data-toggle="tab" href="#the-crs" role="tab" aria-controls="the-crs" aria-selected="false">The CRS</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="the-importance-of-alignment-tab" data-toggle="tab" href="#the-importance-of-alignment" role="tab" aria-controls="the-importance-of-alignment" aria-selected="false">The importance of alignment</a>
+<a class="nav-link" id="other-important-elements-tab" data-toggle="tab" href="#other-important-elements" role="tab" aria-controls="other-important-elements" aria-selected="false">Other important elements</a>
 </li>
 </ul>
 
@@ -85,11 +85,11 @@ By the end of today, you should be able to:
 
 </div>
 
-<div id="the-importance-of-alignment" class="tab-pane fade" role="tabpanel" aria-labelledby="the-importance-of-alignment-tab">
+<div id="other-important-elements" class="tab-pane fade" role="tabpanel" aria-labelledby="other-important-elements-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/02-slides.html#alignment">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#elements">
 </iframe>
 
 </div>
