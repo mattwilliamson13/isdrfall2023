@@ -226,16 +226,33 @@ name: crs
 
 - Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
 ---
+# The Coordinate Reference System
+
+### PROJ4 (deprecated)
+
+`+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs`
+
+### EPSG
+
+`EPSG:4087`
+
+### WKT
+
+`PROJCS["WGS 84 / World Equidistant Cylindrical",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Equirectangular"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["X",EAST],AXIS["Y",NORTH],AUTHORITY["EPSG","4087"]]`
+
+---
 # The Coordinate Reference System (CRS)
-Using NAD27, a geodetic datum
+Using WGS84 World Equidistant Cylindrical
 
 .pull-left[
-```{r ncexample}
+```{r ncexample1}
 library(sf)
 nc.sf <-  st_read(
   system.file("shapes/", package="maptools"), 
   "sids")
-st_crs(nc.sf) = 4267
+nc.sf <- nc.sf %>% 
+  st_set_crs(4267) %>% 
+  st_transform(4087)
 #plot(st_geometry(nc.sf))
 ```
 ]
@@ -247,23 +264,69 @@ plot(st_geometry(nc.sf))
 
 ]
 ---
-# Projection: The Datum
-
-Using NAD83 for North Carolina
+# The Coordinate Reference System (CRS)
+Using NAD27 a local geodetic datum for North America
 
 .pull-left[
-```{r ncprjex}
+```{r ncexample2}
 library(sf)
 nc.sf <-  st_read(
   system.file("shapes/", package="maptools"), 
   "sids")
-st_crs(nc.sf) = 3358
+nc.sf <- nc.sf %>% 
+  st_set_crs(4267) 
 #plot(st_geometry(nc.sf))
 ```
 ]
 
 .pull-right[
 ```{r plotproj2, echo=FALSE}
+plot(st_geometry(nc.sf))
+```
+
+]
+---
+# The Coordinate Reference System (CRS)
+Using NAD83 adjusted for North Carolina
+
+.pull-left[
+```{r ncexample3}
+library(sf)
+nc.sf <-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids")
+nc.sf <- nc.sf %>% 
+  st_set_crs(4267) %>% 
+  st_transform(3358)
+#plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+```{r plotproj3, echo=FALSE}
+plot(st_geometry(nc.sf))
+```
+
+]
+---
+# The Coordinate Reference System (CRS)
+Using UTM Zone 17N
+
+.pull-left[
+```{r ncexample4}
+library(sf)
+nc.sf <-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids")
+nc.sf <- nc.sf %>% 
+  st_set_crs(4267) %>% 
+  st_transform(3747)
+#plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+```{r plotproj4, echo=FALSE}
 plot(st_geometry(nc.sf))
 ```
 ]

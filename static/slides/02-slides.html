@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Matt Williamson" />
     <meta name="date" content="2021-08-31" />
-    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/mawtheme2.css" type="text/css" />
     <link rel="stylesheet" href="css/animate.css" type="text/css" />
@@ -214,8 +214,23 @@ name: crs
 
 - Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
 ---
+# The Coordinate Reference System
+
+### PROJ4 (deprecated)
+
+`+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs`
+
+### EPSG
+
+`EPSG:4087`
+
+### WKT
+
+`PROJCS["WGS 84 / World Equidistant Cylindrical",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Equirectangular"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["X",EAST],AXIS["Y",NORTH],AUTHORITY["EPSG","4087"]]`
+
+---
 # The Coordinate Reference System (CRS)
-Using NAD27, a geodetic datum
+Using WGS84 World Equidistant Cylindrical
 
 .pull-left[
 
@@ -228,7 +243,7 @@ nc.sf &lt;-  st_read(
 
 ```
 ## Reading layer `sids' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
+##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
@@ -238,7 +253,9 @@ nc.sf &lt;-  st_read(
 ```
 
 ```r
-st_crs(nc.sf) = 4267
+nc.sf &lt;- nc.sf %&gt;% 
+  st_set_crs(4267) %&gt;% 
+  st_transform(4087)
 #plot(st_geometry(nc.sf))
 ```
 ]
@@ -248,9 +265,8 @@ st_crs(nc.sf) = 4267
 
 ]
 ---
-# Projection: The Datum
-
-Using NAD83 for North Carolina
+# The Coordinate Reference System (CRS)
+Using NAD27 a local geodetic datum for North America
 
 .pull-left[
 
@@ -263,7 +279,7 @@ nc.sf &lt;-  st_read(
 
 ```
 ## Reading layer `sids' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/maptools/shapes' 
+##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
@@ -273,13 +289,86 @@ nc.sf &lt;-  st_read(
 ```
 
 ```r
-st_crs(nc.sf) = 3358
+nc.sf &lt;- nc.sf %&gt;% 
+  st_set_crs(4267) 
 #plot(st_geometry(nc.sf))
 ```
 ]
 
 .pull-right[
 &lt;img src="02-slides_files/figure-html/plotproj2-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+]
+---
+# The Coordinate Reference System (CRS)
+Using NAD83 adjusted for North Carolina
+
+.pull-left[
+
+```r
+library(sf)
+nc.sf &lt;-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids")
+```
+
+```
+## Reading layer `sids' from data source 
+##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 100 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+## CRS:           NA
+```
+
+```r
+nc.sf &lt;- nc.sf %&gt;% 
+  st_set_crs(4267) %&gt;% 
+  st_transform(3358)
+#plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+&lt;img src="02-slides_files/figure-html/plotproj3-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+]
+---
+# The Coordinate Reference System (CRS)
+Using UTM Zone 17N
+
+.pull-left[
+
+```r
+library(sf)
+nc.sf &lt;-  st_read(
+  system.file("shapes/", package="maptools"), 
+  "sids")
+```
+
+```
+## Reading layer `sids' from data source 
+##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/maptools/shapes' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 100 features and 14 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+## CRS:           NA
+```
+
+```r
+nc.sf &lt;- nc.sf %&gt;% 
+  st_set_crs(4267) %&gt;% 
+  st_transform(3747)
+#plot(st_geometry(nc.sf))
+```
+]
+
+.pull-right[
+&lt;img src="02-slides_files/figure-html/plotproj4-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
