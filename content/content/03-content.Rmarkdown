@@ -1,0 +1,46 @@
+---
+title: "Vector Data Models for Geographic Information"
+linktitle: "3: Vector Data Models for Geographic Information"
+date: "2021-09-06"
+menu:
+  content:
+    parent: Course content
+    weight: 3
+type: docs
+toc: true
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/ecology.csl"
+slides: "03-slides"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-tabs.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "tVcomh6jQ2Y", "Vector Data Models for Geographic Information", "1", TRUE,
+  "UbQ8IW3UI9E", "Types of vector data", "types", FALSE,
+  "DldFVc08YY4", "Creating vector data in `R`", "create", FALSE,
+  "6MTC9uGMNFg", "Operations on vector data", "operations", FALSE,
+)
+```
+Today we'll focus on getting oriented to the course and the tools we'll be using throughout the semester. Readings are designed to help understand some of the 'rules' of R syntax and develop an understanding for manipulating different types of data in R.
+
+## Readings
+
+- The [syllabus](/syllabus/), [content](/content/), [examples](/example/), and [assignments](/assigment/) pages for this class
+
+- <i class="fas fa-book"></i> [Chapter 1 - 6](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in Venables et al., *An Introduction to R* [@venables2009introduction] - for a quick refresher on data types in R (it's only 30 pages)
+
+- <i class="fas fa-external-link-square-alt"></i> [Lying with maps](https://open.lib.umn.edu/mapping/chapter/7-lying-with-maps/) - a portion of _Mapping, Society, and Technology_ an ebook by Eric Deluca and Sara Nelson.
+
+## Slides
+
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+`r blogdown::shortcode("slide-buttons")`
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/03-slides.html")
+```
+
