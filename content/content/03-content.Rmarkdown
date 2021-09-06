@@ -1,6 +1,6 @@
 ---
-title: "Vector Data Models for Geographic Information"
-linktitle: "3: Vector Data Models for Geographic Information"
+title: "Vector data models for geographic information"
+linktitle: "3: Vector data models for geographic information"
 date: "2021-09-06"
 menu:
   content:
