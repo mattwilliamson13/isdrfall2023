@@ -211,7 +211,7 @@ plot(slines, col="blue")
 ---
 # Lines
 
-## `sf*` objects
+## `sf` objects
 .pull-left[
 
 ```r
@@ -232,6 +232,58 @@ plot(sfline, col="green")
 
 &lt;img src="03-slides_files/figure-html/sglineplot-1.png" width="216" style="display: block; margin: auto;" /&gt;
 ]
+
+---
+# Polygons
+
+## `Spatial*` objects
+
+.pull-left[
+
+```r
+lon &lt;- c(-116.8, -114.2, -112.9, -111.9, -114.2, -115.4, -117.7)
+lat &lt;- c(41.3, 42.9, 42.4, 39.8, 37.6, 38.3, 37.6)
+lonlat &lt;- cbind(lon, lat)
+poly &lt;- Polygon(lonlat, hole=FALSE)
+polylst &lt;- Polygons(list(poly), 's1')
+spP &lt;- SpatialPolygons(list(polylst))
+```
+]
+
+.pull-right[
+
+```r
+plot(spP, col="blue")
+```
+
+&lt;img src="03-slides_files/figure-html/sppolyplot-1.png" width="216" style="display: block; margin: auto;" /&gt;
+---
+
+# Polygons
+
+## `sf` objects
+
+.pull-left[
+
+```r
+outer = matrix(c(0,0,10,0,10,10,0,10,0,0),ncol=2, byrow=TRUE)
+hole1 = matrix(c(1,1,1,2,2,2,2,1,1,1),ncol=2, byrow=TRUE)
+hole2 = matrix(c(5,5,5,6,6,6,6,5,5,5),ncol=2, byrow=TRUE)
+pts = list(outer, hole1, hole2)
+pl1 = st_polygon(pts)
+```
+]
+
+.pull-right[
+
+```r
+plot(pl1)
+```
+
+&lt;img src="03-slides_files/figure-html/sfpolyplot-1.png" width="216" style="display: block; margin: auto;" /&gt;
+]
+
+
 ---
 # Common problems with vector data
  
@@ -243,12 +295,15 @@ plot(sfline, col="green")
  
  * Self-intersections and rings
  
- * Topology...
+ 
+ ### _It can be very difficult to deal with topological errors in `R`_ 
  
 
 ---
 
 # Common operations on vector data
+
+Moving forward we will rely primarily on the `sf` package for vector manipulation. I'll demonstrate a few common operations on vector data here. We'll explore more during the sections on database operations.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>

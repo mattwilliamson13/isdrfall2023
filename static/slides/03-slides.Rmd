@@ -195,7 +195,7 @@ plot(slines, col="blue")
 ---
 # Lines
 
-## `sf*` objects
+## `sf` objects
 .pull-left[
 ```{r sflin}
 lon <- c(-116.8, -114.2, -112.9, -111.9, -114.2, -115.4, -117.7)
@@ -214,6 +214,51 @@ sfline <- st_multilinestring(list(pts[1:3,], pts[4:7,]))
 plot(sfline, col="green")
 ```
 ]
+
+---
+# Polygons
+
+## `Spatial*` objects
+
+.pull-left[
+```{r sppoly}
+lon <- c(-116.8, -114.2, -112.9, -111.9, -114.2, -115.4, -117.7)
+lat <- c(41.3, 42.9, 42.4, 39.8, 37.6, 38.3, 37.6)
+lonlat <- cbind(lon, lat)
+poly <- Polygon(lonlat, hole=FALSE)
+polylst <- Polygons(list(poly), 's1')
+spP <- SpatialPolygons(list(polylst))
+```
+]
+
+.pull-right[
+```{r sppolyplot, fig.height=3, fig.width=3}
+plot(spP, col="blue")
+```
+---
+
+# Polygons
+
+## `sf` objects
+
+.pull-left[
+```{r sfpoly}
+outer = matrix(c(0,0,10,0,10,10,0,10,0,0),ncol=2, byrow=TRUE)
+hole1 = matrix(c(1,1,1,2,2,2,2,1,1,1),ncol=2, byrow=TRUE)
+hole2 = matrix(c(5,5,5,6,6,6,6,5,5,5),ncol=2, byrow=TRUE)
+pts = list(outer, hole1, hole2)
+pl1 = st_polygon(pts)
+
+```
+]
+
+.pull-right[
+```{r sfpolyplot, fig.height=3, fig.width=3}
+plot(pl1)
+```
+]
+
+
 ---
 # Common problems with vector data
  
@@ -225,9 +270,12 @@ plot(sfline, col="green")
  
  * Self-intersections and rings
  
- * Topology...
+ 
+ ### _It can be very difficult to deal with topological errors in `R`_ 
  
 
 ---
 
 # Common operations on vector data
+
+Moving forward we will rely primarily on the `sf` package for vector manipulation. I'll demonstrate a few common operations on vector data here. We'll explore more during the sections on database operations.
