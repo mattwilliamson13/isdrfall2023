@@ -15,11 +15,11 @@ slides: "03-slides"
 
 Today we’ll focus on getting oriented to the course and the tools we’ll be using throughout the semester. Readings are designed to help understand some of the ‘rules’ of R syntax and develop an understanding for manipulating different types of data in R.
 
-## Readings
+## Resources
 
--   The [syllabus](/syllabus/), [content](/content/), [examples](/example/), and [assignments](/assigment/) pages for this class
+-   <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
 
--   <i class="fas fa-book"></i> [Chapter 1 - 6](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in Venables et al., *An Introduction to R* (Venables et al. 2009) - for a quick refresher on data types in R (it’s only 30 pages)
+-   <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. (Lovelace et al. 2019) - for more details about vectors and geometric operations on vectors.
 
 -   <i class="fas fa-external-link-square-alt"></i> [Lying with maps](https://open.lib.umn.edu/mapping/chapter/7-lying-with-maps/) - a portion of *Mapping, Society, and Technology* an ebook by Eric Deluca and Sara Nelson.
 
@@ -94,9 +94,9 @@ The slides for today’s lesson are available online as an HTML file. Use the bu
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
-<div id="ref-venables2009introduction" class="csl-entry">
+<div id="ref-lovelace_geocomputation_2019" class="csl-entry">
 
-Venables, W. N., D. M. Smith, R. D. C. Team, and others. 2009. An introduction to r. Citeseer.
+Lovelace, R., J. Nowosad, and J. Muenchow. 2019. Geocomputation with R. CRC Press.
 
 </div>
 

@@ -303,7 +303,150 @@ plot(pl1)
 
 # Common operations on vector data
 
-Moving forward we will rely primarily on the `sf` package for vector manipulation. I'll demonstrate a few common operations on vector data here. We'll explore more during the sections on database operations.
+&gt; Moving forward we will rely primarily on the `sf` package for vector manipulation. I'll demonstrate a few common operations on vector data here. We'll explore more during the sections on database operations. If you need to `Spatial*` objects for particular functions (e.g., anything in `raster`), you can use `as(your.object, "Spatial")`. Both packages provide access to many of the 'spatial' backbones of `R` (like `geos` and `gdal`), they just differ in how the "verbs" are specified. For `sf` operations the `st_` prefix is typical. For `rgeos` operations, the `g` prefix is common.
+
+---
+
+# Convert a data frame to `sf` object
+
+* Useful for situations where point locations given as columns in spreadsheet
+* Requires that you the projection used when the data were collected 
+* Using the `meuse` dataset (use `?sp::meuse` to learn more about it)
+
+
+```r
+data(meuse)
+head(meuse, n=3)
+```
+
+```
+##        x      y cadmium copper lead zinc  elev       dist   om ffreq soil lime
+## 1 181072 333611    11.7     85  299 1022 7.909 0.00135803 13.6     1    1    1
+## 2 181025 333558     8.6     81  277 1141 6.983 0.01222430 14.0     1    1    1
+## 3 181165 333537     6.5     68  199  640 7.800 0.10302900 13.0     1    1    1
+##   landuse dist.m
+## 1      Ah     50
+## 2      Ah     30
+## 3      Ah    150
+```
+
+
+--- 
+
+# Convert a data frame to `sf` object
+ * Using the `x` and `y` columns in the data
+ 
+.pull-left[
+
+```r
+meuse_sf = st_as_sf(meuse, coords = c("x", "y"), crs = 28992, agr = "constant")
+meuse_sf[1:3,]
+```
+
+```
+## Simple feature collection with 3 features and 12 fields
+## Attribute-geometry relationship: 12 constant, 0 aggregate, 0 identity
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 181025 ymin: 333537 xmax: 181165 ymax: 333611
+## Projected CRS: Amersfoort / RD New
+##   cadmium copper lead zinc  elev       dist   om ffreq soil lime landuse dist.m
+## 1    11.7     85  299 1022 7.909 0.00135803 13.6     1    1    1      Ah     50
+## 2     8.6     81  277 1141 6.983 0.01222430 14.0     1    1    1      Ah     30
+## 3     6.5     68  199  640 7.800 0.10302900 13.0     1    1    1      Ah    150
+##                geometry
+## 1 POINT (181072 333611)
+## 2 POINT (181025 333558)
+## 3 POINT (181165 333537)
+```
+]
+
+.pull-right[
+
+```r
+plot(st_geometry(meuse_sf))
+```
+
+&lt;img src="03-slides_files/figure-html/meuseplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Buffer vectors
+
+* When we want our analysis to extend beyond the 'edges' of our study area
+
+* When we are trying to develop samples
+
+* Distance is in units of the CRS
+
+.pull-left[
+
+```r
+st_crs(meuse_sf)$proj4string
+```
+
+```
+## [1] "+proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs"
+```
+
+```r
+meuse.buf &lt;- st_buffer(meuse_sf, dist = 500)
+```
+]
+
+.pull-right[
+
+```r
+plot(st_geometry(meuse.buf))  
+```
+
+&lt;img src="03-slides_files/figure-html/plotmbuf-1.png" width="216" style="display: block; margin: auto;" /&gt;
+]
+---
+
+# Estimate area, distance, (or length)
+
+
+```r
+st_area(meuse.buf)[1:5]
+```
+
+```
+## Units: [m^2]
+## [1] 785039.3 785039.3 785039.3 785039.3 785039.3
+```
+
+---
+# Estimate area, distance, (or length)
+
+
+```r
+st_distance(meuse_sf)[1:5, 1:5]
+```
+
+```
+## Units: [m]
+##           [,1]      [,2]     [,3]     [,4]     [,5]
+## [1,]   0.00000  70.83784 118.8486 259.2393 366.3141
+## [2,]  70.83784   0.00000 141.5662 282.8516 362.6403
+## [3,] 118.84864 141.56624   0.0000 143.1712 251.0239
+## [4,] 259.23927 282.85155 143.1712   0.0000 154.2628
+## [5,] 366.31407 362.64032 251.0239 154.2628   0.0000
+```
+
+```r
+st_distance(meuse.buf)[1:5,1:5]
+```
+
+```
+## Units: [m]
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    0    0    0    0    0
+## [2,]    0    0    0    0    0
+## [3,]    0    0    0    0    0
+## [4,]    0    0    0    0    0
+## [5,]    0    0    0    0    0
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
