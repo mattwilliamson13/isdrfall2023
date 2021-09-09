@@ -12,13 +12,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r load packages}
+Today we'll build on the introductory discussion we were having about vector operations and the `sf` package. We'll build a few vectors from scratch and then move on to explore a broader suite of common vector operations implemented by the `sf` package.
+
+```{r loadpkg, echo=FALSE, message=FALSE}
 library(sf)
 library(tidyverse)
 ```
-
-Today we'll build on the introductory discussion we were having about vector operatoins and the `sf` package. We'll build a few vectors from scratch and then move on to explore a broader suite of common vector operations implemented by the `sf` package.
-
 
 ## A reminder about vector geometries in `R`
 

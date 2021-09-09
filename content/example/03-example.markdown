@@ -12,37 +12,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+Today we'll build on the introductory discussion we were having about vector operations and the `sf` package. We'll build a few vectors from scratch and then move on to explore a broader suite of common vector operations implemented by the `sf` package.
 
-```r
-library(sf)
-```
-
-```
-## Linking to GEOS 3.8.1, GDAL 3.2.1, PROJ 7.2.1
-```
-
-```r
-library(tidyverse)
-```
-
-```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
-## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.0     ✓ forcats 0.5.1
-```
-
-```
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-Today we'll build on the introductory discussion we were having about vector operatoins and the `sf` package. We'll build a few vectors from scratch and then move on to explore a broader suite of common vector operations implemented by the `sf` package.
 
 
 ## A reminder about vector geometries in `R`
