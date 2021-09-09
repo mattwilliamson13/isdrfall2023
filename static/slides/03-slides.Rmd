@@ -100,10 +100,12 @@ class: center middle section-title section-title-2 animated fadeIn
 </figure>
 
 ---
+layout: false
+name: types
 
 # Vector as a data model 
 
-.pull-left.middle[
+.pull-left[
 * __Vertices__ (i.e., discrete x-y locations) define the shape of the vector
 
 * The organization of those vertices define the _shape_ of the vector
@@ -136,7 +138,8 @@ class: center middle section-title section-title-2 animated fadeIn
 </figure>
 ]
 ---
-
+layout: false
+name: types
 # Representing vector data in R
 
 * `sp` is more general, reflects increasing complexity of attributes: 
@@ -145,6 +148,8 @@ class: center middle section-title section-title-2 animated fadeIn
   * Polygon, SpatialPolygons, SpatialPolygonsDataframe
   
 ---
+layout: false
+name: create
 # Points
 
 ## `Spatial*` objects
@@ -234,11 +239,12 @@ spP <- SpatialPolygons(list(polylst))
 ]
 
 .pull-right[
-```{r sppolyplot, fig.height=3, fig.width=3}
+```{r sppolyplot, fig.height=3, fig.width=3, echo=FALSE}
 plot(spP, col="blue")
 ```
----
+]
 
+---
 # Polygons
 
 ## `sf` objects
@@ -254,12 +260,12 @@ pl1 = st_polygon(pts)
 ```
 ]
 
+
 .pull-right[
 ```{r sfpolyplot, fig.height=3, fig.width=3}
 plot(pl1)
 ```
 ]
-
 
 ---
 # Common problems with vector data
@@ -277,6 +283,8 @@ plot(pl1)
  
 
 ---
+layout: false
+name: types
 
 # Common operations on vector data
 
@@ -296,9 +304,11 @@ head(meuse, n=3)
 ```
 
 
---- 
+
+---
 
 # Convert a data frame to `sf` object
+ 
  * Using the `x` and `y` columns in the data
  
 .pull-left[
@@ -309,7 +319,7 @@ meuse_sf[1:3,]
 ]
 
 .pull-right[
-```{r meuseplot}
+```{r meuseplot, echo=FALSE}
 plot(st_geometry(meuse_sf))
 ```
 ]
@@ -321,12 +331,11 @@ plot(st_geometry(meuse_sf))
 
 * When we are trying to develop samples
 
-* Distance is in units of the CRS
+* Distance is in units of the CRS 
+`r st_crs(meuse_sf)$proj4string`
 
 .pull-left[
 ```{r buf}
-
-st_crs(meuse_sf)$proj4string
 
 meuse.buf <- st_buffer(meuse_sf, dist = 500)
 ```
