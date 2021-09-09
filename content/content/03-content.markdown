@@ -21,7 +21,7 @@ Today we’ll focus on getting oriented to the course and the tools we’ll be u
 
 -   <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. (Lovelace et al. 2019) - for more details about vectors and geometric operations on vectors.
 
--   <i class="fas fa-external-link-square-alt"></i> [Lying with maps](https://open.lib.umn.edu/mapping/chapter/7-lying-with-maps/) - a portion of *Mapping, Society, and Technology* an ebook by Eric Deluca and Sara Nelson.
+-   <i class="fas fa-external-link-square-alt"></i> [Section 3.1 and 3.2](https://keen-swartz-3146c4.netlify.app/geometries.html) of Spatial Data Science, a `bookdown` project by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages)
 
 ## Slides
 
