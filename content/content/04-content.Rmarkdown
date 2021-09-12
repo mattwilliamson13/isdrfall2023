@@ -25,15 +25,17 @@ slide_details <- tibble::tribble(
 )
 ```
 
-Today we'll focus on getting oriented to the course and the tools we'll be using throughout the semester. Readings are designed to help understand some of the 'rules' of R syntax and develop an understanding for manipulating different types of data in R.
+Today we'll be exploring the raster data model and how it is implemented within the spatial packages in the `R` computing environment.
 
 ## Resources
+These chapters are not 'prerequisite' reading for the week, but provide a lot of helpful background for raster proccessing in R.
 
-- <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
-
-- <i class="fas fa-book"></i> The [`raster` package vignette](/static/docs/RasterPackage.pdf) has a number of helpful examples for different workflows with raster objects in `R`. 
+- <i class="fas fa-book"></i> The [`raster` package vignette](https://www.rspatial.org/raster/RasterPackage.pdf) has a number of helpful examples for different workflows with raster objects in `R`. 
 
 - <i class="fas fa-external-link-square-alt"></i> The [`terra` package vignette](https://rspatial.org/terra/pkg/1-introduction.html#) describes the new raster functions available in `terra`, their relationship to those in the `raster` package, and the changes in syntax between the two.
+
+- <i class="fas fa-book"></i> The [Functional Programming](https://adv-r.hadley.nz/fp.html) and  [Measuring performance](https://adv-r.hadley.nz/perf-measure.html) from _Advanced R_ [@wickham2019advanced] provide an excellent introduction to developing your own functions for repeated operations and ways to optimise code for large problems. Raster data processing often involves repeating (sometimes multiple) steps 100s of times. These chapters introduce  strategies for developing functions for repeated operations and identfying and fixing bottlenecks in those functions.
+
 
 ## Slides
 
