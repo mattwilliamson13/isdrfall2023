@@ -24,6 +24,7 @@ slide_details <- tibble::tribble(
   "6MTC9uGMNFg", "Operations on vector data", "operations", FALSE,
 )
 ```
+
 Today we'll focus on getting oriented to the course and the tools we'll be using throughout the semester. Readings are designed to help understand some of the 'rules' of R syntax and develop an understanding for manipulating different types of data in R.
 
 ## Resources
