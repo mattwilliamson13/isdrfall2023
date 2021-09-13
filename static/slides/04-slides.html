@@ -88,8 +88,43 @@ class: title title-inv-3
 ]
 ---
 # Rasters in `R`
-code illustrating raster from matrix
----
+.pull-left[
+
+```r
+matrix &lt;- matrix(1:16, nrow=4)
+matrix
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    5    9   13
+## [2,]    2    6   10   14
+## [3,]    3    7   11   15
+## [4,]    4    8   12   16
+```
+
+```r
+rstr &lt;- raster::raster(matrix)
+rstr
+```
+
+```
+## class      : RasterLayer 
+## dimensions : 4, 4, 16  (nrow, ncol, ncell)
+## resolution : 0.25, 0.25  (x, y)
+## extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
+## crs        : NA 
+## source     : memory
+## names      : layer 
+## values     : 1, 16  (min, max)
+```
+]
+.pull-right[
+&lt;img src="04-slides_files/figure-html/mtxrst-1.png" width="360" style="display: block; margin: auto;" /&gt;
+
+.small[Note: you must have `raster` or `terra` loaded for `plot()` to work on `Rast*` objects; otherwise you get `Error in as.double(y) : cannot coerce type 'S4' to vector of type 'double'`]
+]
+
 ---
 # Types of raster data
 .pull-left[
@@ -154,6 +189,9 @@ class: title title-inv-3
 
 * Rasters can have __point__ (attribute refers to the cell center) or __cell__ (attribute refers to an area similar to the pixel) support
 ---
+# Stacks, bricks, cubes
+
+&lt;img src="04-slides_files/figure-html/cubes-1.png" width="504" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
