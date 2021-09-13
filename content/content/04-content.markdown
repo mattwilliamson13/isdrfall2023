@@ -1,7 +1,7 @@
 ---
 title: "Raster data models for geographic information"
 linktitle: "4: Raster data models for geographic information"
-date: "2021-09-06"
+date: "2021-09-13"
 menu:
   content:
     parent: Course content

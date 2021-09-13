@@ -1,0 +1,156 @@
+---
+title: "Raster Data Models for Geographic Information"
+author: "Matt Williamson"
+date: "13 Sept 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/mawtheme2.css", "css/animate.css"]        
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      navigation:
+        scroll: false
+      # beforeInit: "libs/offline-mathjax.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+
+```{r packages-data, include=FALSE}
+library(tidyverse)
+library(pander)
+library(terra)
+library(raster)
+library(stars)
+```
+
+name: 1
+class: center middle main-title section-title-4
+
+# Raster Data Models for Geographic Information
+
+.class-info[
+
+**Session 7**
+
+.light[HES597: Introduction to Spatial Data in R<br>
+Boise State University Human-Environment Systems<br>
+Fall 2021]
+
+]
+
+---
+
+name: outline
+class: title title-inv-5
+
+# Plan for today
+
+--
+
+What do we mean by raster data?
+
+--
+
+Types of raster data
+
+--
+
+Creating raster data in `R`
+
+--
+
+Operations on raster data
+
+--
+
+Functional programming and benchmarking with raster data
+
+---
+class: center middle section-title section-title-2 animated fadeIn
+# Defining the raster data model
+---
+<figure>
+  <img src="img/04/landscape_geometry.jpeg" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>Image Source: QGIS User's manual </figcaption>
+</figure>
+
+---
+class: title title-inv-3
+
+# Defining the raster data model
+.pull-left[
+*   __Vector data__ describe the "exact" locations of features on a landscape (including a Cartesian landscape)
+
+* __Raster data__ represent spatially continuous phenomena (`NA` is possible)
+
+* Depict the alignment of data on a regular lattice (often a square)
+  * Operations mimic those for `matrix` objects in `R` 
+
+* Geometry is implicit; the spatial extent and number of rows and columns define the cell size
+]
+.pull-right[
+```{r echo=FALSE, fig.height=6, fig.width=6}
+filename <- system.file("ex/elev.tif", package="terra")
+r <- rast(filename)
+plot(r, col=gray(0:1000/1000), main = "Elevation (m)")
+```
+]
+---
+class: center middle section-title section-title-2 animated fadeIn
+
+# Operations on raster data
+---
+class: title title-inv-3
+
+# Manipulating the geography of raster data
+
+* Projections
+* Changing resolutions
+* Cropping
+* Combining datasets
+---
+# Projecting raster data
+
+---
+# Changing resolutions
+---
+# Cropping
+
+---
+# Combining datasets
+
+---
+
+# Operations on raster values
+
+* Raster math
+* Summarizing
+* Reclassification
+
+---
+# Converting vectors to rasters
+---
+# A note about support
+
+* We talked briefly about the `agr` option in the `st_sf()` function
+
+* `agr` refers to the attribute-geometry-relationship which can be:
+  * __constant__ = applies to every point in the geometry (lines and polygons are just lots of points)
+  * __identity__ = a value unique to a geometry
+  * __aggregate__ = a single value that integrates data across the geometry
+
+* __Support__ is the area to which an attribute applies.
+
+* Rasters can have __point__ (attribute refers to the cell center) or __cell__ (attribute refers to an area similar to the pixel) support
+---

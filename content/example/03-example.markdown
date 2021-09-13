@@ -74,7 +74,7 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
 ```
 ## Reading layer `nc' from data source 
-##   `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/sf/shape/nc.shp' 
+##   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/sf/shape/nc.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 100 features and 14 fields
 ## Geometry type: MULTIPOLYGON
