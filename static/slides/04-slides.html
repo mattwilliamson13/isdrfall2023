@@ -87,6 +87,19 @@ class: title title-inv-3
 &lt;img src="04-slides_files/figure-html/elevrast-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 ---
+# Working with rasters in `R`
+
+* `raster` - the original workhorse package; built on `sp`, `rgdal`, and `rgeos`
+  * `RasterLayer`, `RasterStack`, and `RasterBrick` classes
+
+* `terra` - relatively new; developed by the `raster` folks, but designed to be much faster
+   * `SpatRaster` and `SpatVector` classes
+
+* `stars` - developed by `sf` package developers; `tidyverse` compatible; designed for spatio-temporal data
+  * `stars` class
+  *  Crosswalk between `raster` and `stars` is available [here](https://github.com/r-spatial/stars/wiki/How-%60raster%60-functions-map-to-%60stars%60-functions)
+   
+---
 # Rasters in `R`
 .pull-left[
 
@@ -124,7 +137,6 @@ rstr
 
 .small[Note: you must have `raster` or `terra` loaded for `plot()` to work on `Rast*` objects; otherwise you get `Error in as.double(y) : cannot coerce type 'S4' to vector of type 'double'`]
 ]
-
 ---
 # Types of raster data
 .pull-left[
@@ -137,9 +149,75 @@ rstr
 * __Rectilinear__: cell size varies along a dimension
 
 * __Curvilinear__: cell size and orientation dependent on the other dimension
+
+__Note__: `stars` provides suport for rectilinear and curvilinear rasters (not `raster` or `terra`)
 ]
 .pull-right[
 &lt;img src="04-slides_files/figure-html/rastype-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+---
+# Types of raster data
+
+* __Continuous__: numeric data representing a measurement (e.g., elevation, precipitation)
+
+* __Categorical__: integer data representing factors (e.g., land use, land cover)
+---
+# Continuous raster data
+.pull-left[
+
+```r
+mintemp &lt;- rast("ftp://ftp.hafro.is/pub/data/rasters/Iceland_minbtemp.tif")
+mintemp
+```
+
+```
+## class       : SpatRaster 
+## dimensions  : 340, 375, 1  (nrow, ncol, nlyr)
+## resolution  : 2000, 2000  (x, y)
+## extent      : -1050226, -300225.9, -699984.3, -19984.32  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=laea +lat_0=69 +lon_0=-4 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs 
+## source      : Iceland_minbtemp.tif 
+## name        : Iceland_minbtemp 
+## min value   :       -0.9982879 
+## max value   :         8.603114
+```
+]
+.pull-right[
+&lt;img src="04-slides_files/figure-html/plotmin-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+# Categorical raster data
+
+.pull-left[
+* Requires a classification matrix and coercion to factor
+
+* `levels` allows you to define the categories
+
+```r
+# Create classification matrix
+cm &lt;- matrix(c(
+  -2, 2, 0,
+  2, 4, 1,
+  4, 10, 2), ncol = 3, byrow = TRUE)
+
+# Create a raster with integers
+temp_reclass &lt;- classify(mintemp, cm)
+tempcats &lt;- c("cold", "mild", "warm")
+levels(temp_reclass) &lt;- tempcats
+cats(temp_reclass)
+```
+
+```
+## [[1]]
+##   ID category
+## 1  0     cold
+## 2  1     mild
+## 3  2     warm
+```
+]
+.pull-right[
+
+&lt;img src="04-slides_files/figure-html/catplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 ---
 class: center middle section-title section-title-2 animated fadeIn
@@ -156,12 +234,143 @@ class: title title-inv-3
 * Combining datasets
 ---
 # Projecting raster data
+.pull-left[
 
+```r
+r &lt;- rast(xmin=-110, xmax=-90, ymin=40, ymax=60, ncols=40, nrows=40)
+values(r) &lt;- 1:ncell(r)
+plot(r)
+```
+
+&lt;img src="04-slides_files/figure-html/rastinit-1.png" width="288" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+* Transformation from lat/long to planar CRS involves some loss of precision
+* New cell values estimated using overlap with original cells
+* Interpolation for continuous data, nearest neighbor for categorical data
+* Equal-area projections are preferred; especially for large areas
+]
+---
+# Projecting raster data
+.pull-left[
+* simple method; alignment not guarenteed
+
+
+```r
+newcrs &lt;- "+proj=robin +datum=WGS84"
+pr1 &lt;- terra::project(r, newcrs)
+plot(pr1)
+```
+
+&lt;img src="04-slides_files/figure-html/newproj1-1.png" width="288" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+* providing a template to ensure alignment
+
+```r
+x &lt;- rast(pr1)
+# Set the cell size
+res(x) &lt;- 200000
+pr3 &lt;- terra::project(r, x)
+plot(pr3)
+```
+
+&lt;img src="04-slides_files/figure-html/newproj2-1.png" width="288" style="display: block; margin: auto;" /&gt;
+]
 ---
 # Changing resolutions
+* `aggregate`, `disaggregate`, `resample` allow changes in cell size
+* `aggregate` requires a function (e.g., `mean()` or `min()`) to determine what to do with the grouped values
+
+* `resample` allows changes in cell size __and__ shifting of cell centers (slower)
+---
+# Changing resolutions
+.pull-left[
+
+```r
+r &lt;- rast()
+values(r) &lt;- 1:ncell(r)
+plot(r)
+```
+
+&lt;img src="04-slides_files/figure-html/agg1-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+```r
+ra &lt;- aggregate(r, 20)
+plot(ra)
+```
+
+&lt;img src="04-slides_files/figure-html/agg2-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+# Changing resolutions
+.pull-left[
+
+```r
+ra &lt;- aggregate(r, 20)
+plot(ra)
+```
+
+&lt;img src="04-slides_files/figure-html/agg3-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+```r
+rd &lt;- disaggregate(r, 20)
+plot(rd)
+```
+
+&lt;img src="04-slides_files/figure-html/agg4-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+# Changing Resolutions
+
+```r
+r &lt;- rast(nrow=3, ncol=3, xmin=0, xmax=10, ymin=0, ymax=10)
+values(r) &lt;- 1:ncell(r)
+s &lt;- rast(nrow=25, ncol=30, xmin=1, xmax=11, ymin=-1, ymax=11)
+x &lt;- resample(r, s, method="bilinear")
+```
+
+&lt;img src="04-slides_files/figure-html/resampplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ---
 # Cropping
 
+* Useful for subsetting analyses and cartography
+* requires an extent object (or an object with one)
+* With vectors, need to add `mask()` to crop precisely to the polygon
+
+.pull-left[
+
+```r
+ext(r)
+```
+
+```
+## SpatExtent : 0, 10, 0, 10 (xmin, xmax, ymin, ymax)
+```
+
+```r
+r1 &lt;- crop(r, ext(-50,0,0,30))
+plot(r, col=gray(1:100/100))
+plot(r1, col= heat.colors(30, rev = FALSE), add=TRUE)
+```
+
+&lt;img src="04-slides_files/figure-html/cropexamp-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+```r
+r2 &lt;- crop(r, ext(-10,50,-20, 10))
+plot(r, col=gray(1:100/100))
+plot(r1, col= heat.colors(30, rev = FALSE), add=TRUE)
+plot(r2, add=TRUE)
+```
+
+&lt;img src="04-slides_files/figure-html/cropexamp2-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
 ---
 # Combining datasets
 
