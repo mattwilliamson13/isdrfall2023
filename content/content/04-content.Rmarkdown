@@ -18,9 +18,8 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~youtube_id,   ~title, ~slide, ~active,
-  "tVcomh6jQ2Y", "Vector Data Models for Geographic Information", "1", TRUE,
-  "UbQ8IW3UI9E", "Types of vector data", "types", FALSE,
-  "DldFVc08YY4", "Creating vector data in `R`", "create", FALSE,
+  "tVcomh6jQ2Y", "Raster Data Models for Geographic Information", "1", TRUE,
+  "UbQ8IW3UI9E", "The Raster Data Model", "defining", FALSE,
   "6MTC9uGMNFg", "Operations on vector data", "operations", FALSE,
 )
 ```
@@ -38,5 +37,8 @@ These chapters are not 'prerequisite' reading for the week, but provide a lot of
 
 
 ## Slides
+`r blogdown::shortcode("slide-buttons")`
 
-Coming Soon!
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/04-slides.html")
+```

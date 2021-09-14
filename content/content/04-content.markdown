@@ -27,7 +27,56 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 ## Slides
 
-Coming Soon!
+{{% slide-buttons %}}
+
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="raster-data-models-for-geographic-information-tab" data-toggle="tab" href="#raster-data-models-for-geographic-information" role="tab" aria-controls="raster-data-models-for-geographic-information" aria-selected="true">Raster Data Models for Geographic Information</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="the-raster-data-model-tab" data-toggle="tab" href="#the-raster-data-model" role="tab" aria-controls="the-raster-data-model" aria-selected="false">The Raster Data Model</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="operations-on-vector-data-tab" data-toggle="tab" href="#operations-on-vector-data" role="tab" aria-controls="operations-on-vector-data" aria-selected="false">Operations on vector data</a>
+</li>
+</ul>
+
+<div id="slide-tabs" class="tab-content">
+
+<div id="raster-data-models-for-geographic-information" class="tab-pane fade show active" role="tabpanel" aria-labelledby="raster-data-models-for-geographic-information-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#1">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="the-raster-data-model" class="tab-pane fade" role="tabpanel" aria-labelledby="the-raster-data-model-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#defining">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="operations-on-vector-data" class="tab-pane fade" role="tabpanel" aria-labelledby="operations-on-vector-data-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#operations">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 

@@ -86,6 +86,7 @@ class: center middle section-title section-title-2 animated fadeIn
 </figure>
 
 ---
+name: defining
 class: title title-inv-3
 
 # Defining the raster data model
@@ -407,8 +408,8 @@ text(3.5 + 2*offset, y, "2020-10-25", col = "black")
 
 * When data are aligned in space and/or time, more efficient to process as 'cubes'
 ---
+name: operations
 class: center middle section-title section-title-2 animated fadeIn
-
 # Operations on raster data
 ---
 class: title title-inv-3
