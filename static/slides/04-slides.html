@@ -220,6 +220,12 @@ cats(temp_reclass)
 &lt;img src="04-slides_files/figure-html/catplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 ---
+# Stacks, bricks, cubes
+
+&lt;img src="04-slides_files/figure-html/cubes-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+* When data are aligned in space and/or time, more efficient to process as 'cubes'
+---
 class: center middle section-title section-title-2 animated fadeIn
 
 # Operations on raster data
@@ -229,8 +235,11 @@ class: title title-inv-3
 # Manipulating the geography of raster data
 
 * Projections
+
 * Changing resolutions
+
 * Cropping
+
 * Combining datasets
 ---
 # Projecting raster data
@@ -341,7 +350,8 @@ x &lt;- resample(r, s, method="bilinear")
 * Useful for subsetting analyses and cartography
 * requires an extent object (or an object with one)
 * With vectors, need to add `mask()` to crop precisely to the polygon
-
+---
+# Cropping
 .pull-left[
 
 ```r
@@ -354,36 +364,127 @@ ext(r)
 
 ```r
 r1 &lt;- crop(r, ext(-50,0,0,30))
-plot(r, col=gray(1:100/100))
-plot(r1, col= heat.colors(30, rev = FALSE), add=TRUE)
 ```
-
-&lt;img src="04-slides_files/figure-html/cropexamp-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-slides_files/figure-html/plotcrop-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
+
 .pull-right[
 
 ```r
 r2 &lt;- crop(r, ext(-10,50,-20, 10))
-plot(r, col=gray(1:100/100))
-plot(r1, col= heat.colors(30, rev = FALSE), add=TRUE)
-plot(r2, add=TRUE)
+opar &lt;- par(no.readonly =TRUE)
 ```
 
-&lt;img src="04-slides_files/figure-html/cropexamp2-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-slides_files/figure-html/plotcrop2-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 ---
 # Combining datasets
 
+* Useful when mosaicing satellite imagery
+
+* Also helpful when using functional programming to utilize computing resources more efficiently (we'll talk about this on Thurs)
+
+
+```r
+m &lt;- merge(r1, r2)
+plot(m)
+```
+
+&lt;img src="04-slides_files/figure-html/mergex-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ---
 
 # Operations on raster values
 
 * Raster math
-* Summarizing
+
+* Summarizing and focal functions
+
 * Reclassification
 
 ---
+# Raster math
+
+* Generally works the same as matrix operations (all layers must be aligned)
+
+```r
+r &lt;- rast(ncol=5, nrow=5)
+values(r) &lt;- 1:ncell(r)
+r2 &lt;- r*2
+r3 &lt;- r + r2
+```
+
+&lt;img src="04-slides_files/figure-html/rastmathplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+---
+# Focal Functions and Summmaries
+
+* Allow 'moving window' summaries of raster objects
+.pull-left[
+
+```r
+r &lt;- rast(ncols=10, nrows=10, ext(0, 10, 0, 10))
+values(r) &lt;- 1:ncell(r)
+f &lt;- focal(r, w=3, fun="mean") 
+f2 &lt;- focal(r, w=3, fun="sum") 
+```
+]
+.pull-right[
+&lt;img src="04-slides_files/figure-html/plotfocal-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Reclassifying
+
+.pull-left[
+
+```r
+r &lt;- rast(ncol=3, nrow=2)
+values(r) &lt;- 1:ncell(r)
+values(r)
+```
+
+```
+##      lyr.1
+## [1,]     1
+## [2,]     2
+## [3,]     3
+## [4,]     4
+## [5,]     5
+## [6,]     6
+```
+]
+.pull-right[
+
+```r
+s &lt;- app(r, fun=function(x){ x[x &lt; 4] &lt;- NA; return(x)} )
+as.matrix(s)
+```
+
+```
+##      lyr.1
+## [1,]    NA
+## [2,]    NA
+## [3,]    NA
+## [4,]     4
+## [5,]     5
+## [6,]     6
+```
+]
+---
+# Reclassifying
+
+* `app` function works like `apply` 
+* beginning of functional programming
+* functional programming is useful when the same operation is applied repeatedly (and independently)
+
+---
+
 # Converting vectors to rasters
+
+* Sometimes necessary to convert between data models
+
+* `raster::rasterize`, `terra::rasterize`, `stars::st_rasterize`, and `fasterize::fasterize` all will convert polygons to raster data
+
+* `stars::st_polygonize` will work in the opposite direction
 ---
 # A note about support
 
@@ -398,9 +499,6 @@ plot(r2, add=TRUE)
 
 * Rasters can have __point__ (attribute refers to the cell center) or __cell__ (attribute refers to an area similar to the pixel) support
 ---
-# Stacks, bricks, cubes
-
-&lt;img src="04-slides_files/figure-html/cubes-1.png" width="504" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
