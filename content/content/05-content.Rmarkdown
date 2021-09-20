@@ -18,9 +18,11 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~youtube_id,   ~title, ~slide, ~active,
-  "tVcomh6jQ2Y", "Raster Data Models for Geographic Information", "1", TRUE,
-  "UbQ8IW3UI9E", "The Raster Data Model", "defining", FALSE,
-  "6MTC9uGMNFg", "Operations on vector data", "operations", FALSE,
+  "tVcomh6jQ2Y", "What do we mean by networks", "1", TRUE,
+  "UbQ8IW3UI9E", "Common applications of networks", "apps", FALSE,
+  "6MTC9uGMNFg", "Spatial networks", "spatial", FALSE,
+  "6MTC9uGMNpg", "Building networks in R", "building", FALSE,
+  "6MTC9uGMNFq", "Estimating network propoerties", "properties", FALSE,
 )
 ```
 
