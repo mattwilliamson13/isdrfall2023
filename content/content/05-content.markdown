@@ -21,7 +21,7 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 -   <i class="fas fa-book"></i> [Exploring complex networks](https://www.nature.com/articles/35065725)(Strogatz 2001) is probably one of the most widely read articles describing networks and their role in a broad suite of disciplines. It is also written by a mathemetician which may make some of the language and formulae a little dense for you. That’s okay! Try to take the high-level points and leave the details for now.
 
--   <i class="fas fa-book"></i> [This editorial](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/1365-2435.12799)(Poisot et al. 2016) to a Special Feature in *Functional Ecology* provides some context for networks that are specific to ecologists.
+-   <i class="fas fa-book"></i> [This editorial](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/1365-2435.12799)(Poisot et al. 2016) is the opening to a Special Feature in *Functional Ecology* and provides some context for networks that are specific to ecologists.
 
 -   <i class="fas fa-book"></i> The [Transportation Chapter](https://geocompr.robinlovelace.net/transport.html) in (Lovelace et al. 2019) makes the concepts of a network concrete (literally) by using a transportation route example to illustrate the various components of a network analysis in `R`.
 
