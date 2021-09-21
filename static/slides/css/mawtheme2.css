@@ -267,3 +267,8 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: var(--black);
 }
 .small { font-size: 70% }
+
+.caption {
+  text-align: center;
+  font-size: .8rem;
+}
