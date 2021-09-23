@@ -39,5 +39,8 @@ These chapters are not 'prerequisite' reading for the week, but provide a lot of
 
 
 ## Slides
+`r blogdown::shortcode("slide-buttons")`
 
-__Coming Soon__
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/05-slides.html")
+```
