@@ -64,13 +64,7 @@ Fall 2021]
 ]
 ---
 
-## Nodes
-
-
----
-
-## Edges
-
+## What sorts of things might comprise nodes and edges in your work?
 ---
 
 # Types of Networks
@@ -182,11 +176,91 @@ Adapted from Palomo et. al 2014
 ]
 ]
 ---
+# Constructing networks
+
+## Adjacency matrices
+
+.pull-left[
+- unweighted: 1 if 'adjacent' 0 if not
+- undirected: matrix is symmetric
+
+
+```
+##   A B C D E F
+## A 0 1 1 1 0 0
+## B 1 0 0 0 0 0
+## C 1 0 0 0 0 0
+## D 1 0 0 0 0 0
+## E 0 0 0 0 0 0
+## F 0 0 0 0 0 0
+```
+]
+.pull-right[
+- weighted: value reflects the strength of connections
+- directed: not all connections are reciprocal
+
+```
+##      A    B    C    D    E    F
+## A 0.00 0.54 0.60 0.86 0.00 0.00
+## B 0.94 0.00 0.90 0.00 0.00 0.00
+## C 0.00 0.66 0.00 0.51 0.91 0.00
+## D 0.00 0.91 0.75 0.00 0.68 0.83
+## E 0.00 0.69 0.00 0.62 0.51 0.95
+## F 0.00 0.00 0.00 0.00 0.00 0.00
+```
+]
+---
+# We can use the `igraph` package to convert these to graphs
+.pull-left[
+
+```r
+plot(igraph::graph_from_adjacency_matrix(mtx, mode='undirected'))
+```
+
+&lt;img src="05-slides_files/figure-html/adjnetwork-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+```r
+g &lt;- igraph::graph_from_adjacency_matrix(adjm, mode='directed', weighted = TRUE)
+  
+plot(g, edge.label=E(g)$weight)
+```
+
+&lt;img src="05-slides_files/figure-html/wtdnetwork-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+---
+# Constructing Networks
+
+## Edge lists
+
+- Adjacency matrices become LARGE for relatively simple networks
+
+- For many networks, connections are limited (i.e., matrices are sparse)
+
+- Often easier to provide a list of connections
+
+- Can also provide weights in a dataframe (see the transportation example)
+---
+
+# Characterizing networks
+
+- Degree distribution: the number of edges between each node and other nodes
+- Clustering coefficient: provides an indication of local spatial structure
+- Motifs: repeating subgraph shapes in a netwrok
+- Connectivity: minimum # of elements to remove to generate isolated subraphs
+- Centrality: characterize the network position of nodes or edges
+- LOTS of others
+
+---
+
 name: spatial
 class: center middle main-title section-title-4
 
 # Spatial Networks
 ---
+
+# Spatial Networks
 
 - Space is often _implicit_ in network analyses
 
@@ -194,6 +268,60 @@ class: center middle main-title section-title-4
 
 - Different edge weights may alter these probabilities
 
+- Generally planar
+
+---
+
+# Generating Spatial Networks in R
+
+## Defining adjacency
+.pull-left[
+
+```r
+p = st_sfc(st_point(c(0,2)), st_point(c(0,1)), st_point(c(0,4)), st_point(c(1,2)), st_point(c(3,1)), st_point(c(2,4)))
+round(st_distance(p), digits = 2)
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,] 0.00 1.00 2.00 1.00 3.16 2.83
+## [2,] 1.00 0.00 3.00 1.41 3.00 3.61
+## [3,] 2.00 3.00 0.00 2.24 4.24 2.00
+## [4,] 1.00 1.41 2.24 0.00 2.24 2.24
+## [5,] 3.16 3.00 4.24 2.24 0.00 3.16
+## [6,] 2.83 3.61 2.00 2.24 3.16 0.00
+```
+]
+
+.pull-right[
+&lt;img src="05-slides_files/figure-html/pdist-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+# Generating Spatial Networks in R
+
+## Defining adjacency
+ - With a distance threshold
+ 
+.pull-left[
+
+```r
+adjm &lt;-  ifelse(st_distance(p) &lt;1.5, 1,0)  
+adjm
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    1    0    1    0    0
+## [2,]    1    1    0    1    0    0
+## [3,]    0    0    1    0    0    0
+## [4,]    1    1    0    1    0    0
+## [5,]    0    0    0    0    1    0
+## [6,]    0    0    0    0    0    1
+```
+]
+.pull-right[
+&lt;img src="05-slides_files/figure-html/netplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>

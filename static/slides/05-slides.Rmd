@@ -83,13 +83,7 @@ plot(g)
 ]
 ---
 
-## Nodes
-
-
----
-
-## Edges
-
+## What sorts of things might comprise nodes and edges in your work?
 ---
 
 # Types of Networks
@@ -223,11 +217,83 @@ Adapted from Palomo et. al 2014
 ]
 ]
 ---
+# Constructing networks
+
+## Adjacency matrices
+
+.pull-left[
+- unweighted: 1 if 'adjacent' 0 if not
+- undirected: matrix is symmetric
+
+```{r adjmat, echo=FALSE, fig.cap="undirected, unweighted"}
+mtx <- matrix(rep(0,36), nrow=6)
+b <- sample(0:1, 18, replace=TRUE, prob = c(0.7,0.3))
+mtx[lower.tri(mtx)] <- b
+mtx <- t(mtx)
+mtx[lower.tri(mtx)] <- b
+rownames(mtx) <- LETTERS[1:6]
+colnames(mtx) <- LETTERS[1:6]
+print(mtx)
+```
+]
+.pull-right[
+- weighted: value reflects the strength of connections
+- directed: not all connections are reciprocal
+```{r dirmatmat, echo=FALSE}
+nzs <- function(x) sort(x [x!=0])
+adjm <- matrix(round(runif(36),digits = 2), 6)
+adjm[ adjm<0.5 ] <- 0
+rownames(adjm) <- LETTERS[1:6]
+colnames(adjm) <- LETTERS[1:6]
+print(adjm)
+```
+]
+---
+# We can use the `igraph` package to convert these to graphs
+.pull-left[
+```{r adjnetwork, fig.height=5, fig.width=5}
+plot(igraph::graph_from_adjacency_matrix(mtx, mode='undirected'))
+```
+]
+.pull-right[
+```{r wtdnetwork, fig.height=5, fig.width=5}
+g <- igraph::graph_from_adjacency_matrix(adjm, mode='directed', weighted = TRUE)
+  
+plot(g, edge.label=E(g)$weight)
+```
+]
+---
+# Constructing Networks
+
+## Edge lists
+
+- Adjacency matrices become LARGE for relatively simple networks
+
+- For many networks, connections are limited (i.e., matrices are sparse)
+
+- Often easier to provide a list of connections
+
+- Can also provide weights in a dataframe (see the transportation example)
+---
+
+# Characterizing networks
+
+- Degree distribution: the number of edges between each node and other nodes
+- Clustering coefficient: provides an indication of local spatial structure
+- Motifs: repeating subgraph shapes in a netwrok
+- Connectivity: minimum # of elements to remove to generate isolated subraphs
+- Centrality: characterize the network position of nodes or edges
+- LOTS of others
+
+---
+
 name: spatial
 class: center middle main-title section-title-4
 
 # Spatial Networks
 ---
+
+# Spatial Networks
 
 - Space is often _implicit_ in network analyses
 
@@ -235,3 +301,39 @@ class: center middle main-title section-title-4
 
 - Different edge weights may alter these probabilities
 
+- Generally planar
+
+---
+
+# Generating Spatial Networks in R
+
+## Defining adjacency
+.pull-left[
+```{r distmtx}
+p = st_sfc(st_point(c(0,2)), st_point(c(0,1)), st_point(c(0,4)), st_point(c(1,2)), st_point(c(3,1)), st_point(c(2,4)))
+round(st_distance(p), digits = 2)
+```
+]
+
+.pull-right[
+```{r pdist, echo=FALSE}
+plot(igraph::graph_from_adjacency_matrix(round(st_distance(p), digits = 2), mode='undirected'))
+```
+]
+---
+# Generating Spatial Networks in R
+
+## Defining adjacency
+ - With a distance threshold
+ 
+.pull-left[
+```{r trshmtx}
+adjm <-  ifelse(st_distance(p) <1.5, 1,0)  
+adjm
+```
+]
+.pull-right[
+```{r netplot, echo=FALSE}
+plot(igraph::graph_from_adjacency_matrix(adjm, mode='undirected'))
+```
+]
