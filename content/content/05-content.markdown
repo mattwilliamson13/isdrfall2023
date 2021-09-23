@@ -27,7 +27,84 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 ## Slides
 
-**Coming Soon**
+{{% slide-buttons %}}
+
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="defining-networks-tab" data-toggle="tab" href="#defining-networks" role="tab" aria-controls="defining-networks" aria-selected="true">Defining networks</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="common-applications-of-networks-tab" data-toggle="tab" href="#common-applications-of-networks" role="tab" aria-controls="common-applications-of-networks" aria-selected="false">Common applications of networks</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="spatial-networks-tab" data-toggle="tab" href="#spatial-networks" role="tab" aria-controls="spatial-networks" aria-selected="false">Spatial networks</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="building-networks-in-r-tab" data-toggle="tab" href="#building-networks-in-r" role="tab" aria-controls="building-networks-in-r" aria-selected="false">Building networks in R</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="estimating-network-propoerties-tab" data-toggle="tab" href="#estimating-network-propoerties" role="tab" aria-controls="estimating-network-propoerties" aria-selected="false">Estimating network propoerties</a>
+</li>
+</ul>
+
+<div id="slide-tabs" class="tab-content">
+
+<div id="defining-networks" class="tab-pane fade show active" role="tabpanel" aria-labelledby="defining-networks-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/05-slides.html#1">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="common-applications-of-networks" class="tab-pane fade" role="tabpanel" aria-labelledby="common-applications-of-networks-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/05-slides.html#apps">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="spatial-networks" class="tab-pane fade" role="tabpanel" aria-labelledby="spatial-networks-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/05-slides.html#spatial">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="building-networks-in-r" class="tab-pane fade" role="tabpanel" aria-labelledby="building-networks-in-r-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/05-slides.html#building">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="estimating-network-propoerties" class="tab-pane fade" role="tabpanel" aria-labelledby="estimating-network-propoerties-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/05-slides.html#properties">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
