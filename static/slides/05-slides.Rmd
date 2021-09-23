@@ -31,6 +31,7 @@ library(tidyverse)
 library(pander)
 library(sf)
 library(igraph)
+library(terra)
 ```
 
 name: 1
@@ -316,7 +317,7 @@ round(st_distance(p), digits = 2)
 ]
 
 .pull-right[
-```{r pdist, echo=FALSE}
+```{r pdist, echo=FALSE, fig.height=5, fig.width=5}
 plot(igraph::graph_from_adjacency_matrix(round(st_distance(p), digits = 2), mode='undirected'))
 ```
 ]
@@ -333,7 +334,20 @@ adjm
 ```
 ]
 .pull-right[
-```{r netplot, echo=FALSE}
+```{r netplot, echo=FALSE, fig.height=5, fig.width=5}
 plot(igraph::graph_from_adjacency_matrix(adjm, mode='undirected'))
 ```
 ]
+---
+
+# Generating Spatial Networks in R
+- for rasters
+- `directions` define window for connected cells
+- important for connectivity analyses
+
+```{r rastadj}
+r <- rast(nrows=10, ncols=10)
+values(r) <- round(runif(ncell(r)) * 5)
+a <- adjacent(r, 1:ncell(r), directions="queen") 
+
+```

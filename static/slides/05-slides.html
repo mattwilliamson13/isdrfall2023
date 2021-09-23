@@ -187,12 +187,12 @@ Adapted from Palomo et. al 2014
 
 ```
 ##   A B C D E F
-## A 0 1 1 1 0 0
-## B 1 0 0 0 0 0
-## C 1 0 0 0 0 0
-## D 1 0 0 0 0 0
-## E 0 0 0 0 0 0
-## F 0 0 0 0 0 0
+## A 0 0 1 0 1 0
+## B 0 0 0 0 0 0
+## C 1 0 0 0 1 0
+## D 0 0 0 0 1 0
+## E 1 0 1 1 0 1
+## F 0 0 0 0 1 0
 ```
 ]
 .pull-right[
@@ -201,12 +201,12 @@ Adapted from Palomo et. al 2014
 
 ```
 ##      A    B    C    D    E    F
-## A 0.00 0.54 0.60 0.86 0.00 0.00
-## B 0.94 0.00 0.90 0.00 0.00 0.00
-## C 0.00 0.66 0.00 0.51 0.91 0.00
-## D 0.00 0.91 0.75 0.00 0.68 0.83
-## E 0.00 0.69 0.00 0.62 0.51 0.95
-## F 0.00 0.00 0.00 0.00 0.00 0.00
+## A 0.00 0.00 0.00 0.67 0.95 0.87
+## B 0.00 0.68 0.84 0.00 0.00 0.53
+## C 0.66 0.00 0.83 0.00 0.91 0.58
+## D 0.77 0.00 0.00 0.85 0.78 0.00
+## E 0.00 0.51 0.00 0.00 0.91 0.72
+## F 0.85 0.00 0.60 0.00 0.82 0.00
 ```
 ]
 ---
@@ -294,7 +294,7 @@ round(st_distance(p), digits = 2)
 ]
 
 .pull-right[
-&lt;img src="05-slides_files/figure-html/pdist-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-slides_files/figure-html/pdist-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 ---
 # Generating Spatial Networks in R
@@ -320,8 +320,21 @@ adjm
 ```
 ]
 .pull-right[
-&lt;img src="05-slides_files/figure-html/netplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-slides_files/figure-html/netplot-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
+---
+
+# Generating Spatial Networks in R
+- for rasters
+- `directions` define window for connected cells
+- important for connectivity analyses
+
+
+```r
+r &lt;- rast(nrows=10, ncols=10)
+values(r) &lt;- round(runif(ncell(r)) * 5)
+a &lt;- adjacent(r, 1:ncell(r), directions="queen") 
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
