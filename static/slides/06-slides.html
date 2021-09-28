@@ -33,32 +33,449 @@ Fall 2021]
 ]
 
 ---
+# Outline for today
 
+- What do we mean by spatial _analysis_?
+
+- Planning an analysis
+
+- Databases and attributes
+
+- Building a database for an analysis (part 1)
+
+---
+class: center middle
+# What is spatial analysis?
+
+---
+# What is spatial analysis?
+.pull-left[
+
+- The process of turning maps into information
+
+
+- Any- or everything we do with GIS
+
+- ESRI Dictionary: "The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data".
+
+- The use of computational and statistical algorithms to understand the relations between things that co-occur in space.
+
+]
+.pull-right[
+&lt;figure&gt;
+  &lt;img src="img/06/Snow-cholera-map.png" alt="ZZZ" title="John Snow cholera outbreak" width="100%"&gt;
+&lt;/figure&gt;
+.caption[
+John Snow's cholera outbreak map
+]
+]
+---
+class: center middle
+# Common goals for spatial analysis
+---
+# Common goals for spatial analysis
+.pull-left[
+&lt;figure&gt;
+  &lt;img src="img/06/stand-land_modeling_process_0.png" alt="ZZZ" title="Species distribution map" width="100%"&gt;
+&lt;/figure&gt;
+.caption[
+courtesy of [NatureServe](https://www.natureserve.org/products/species-distribution-modeling)
+]
+]
+.pull-right[
+- Determine (statistical) relations
+
+- Describe and visualize locations or events
+
+- Quantify patterns
+
+- Characterize 'suitability'
+]
+---
+# Common pitfalls of spatial analysis
+
+- __Locational Fallacy:__ Error due to the spatial characterization chosen for elements of study
+
+
+- __Atomic Fallacy:__ Applying conclusions from individuals to entire spatial units
+
+
+- __Ecological Fallacy:__ Applying conclusions from aggregated information to individuals
+
+
+
+
+&gt; Spatial analysis is an inherently complex endeavor and one that is advancing rapidly. So-called "best practices" for addressing many of these issues are still being developed and debated. This doesn't mean you shouldn't do spatial analysis, but you should keep these things in mind as you design, implement, and interpret your analyses
+
+---
 name: workflows
 class: center middle main-title section-title-4
 
 # Workflows for spatial analysis
-
 ---
+# Workflows for spatial analysis
 
+.pull-left[
+- Acquisition (not really a focus, but see [Resources](content/resource/))
+
+- Geoprocessing 
+
+- Analysis 
+
+- Visualization 
+]
+
+.pull-right[
+&lt;figure&gt;
+  &lt;img src="img/06/acquire_analyze_present.png" alt="ZZZ" title="General workflow" width="80%"&gt;
+&lt;/figure&gt;
+.caption[
+courtesy of [University of Illinois](https://guides.library.illinois.edu/c.php?g=348425&amp;p=5443868)
+]
+]
+---
+# Geoprocessing
+
+__manipulation of data for subsequent use__
+
+- Data cleaning and transformation
+
+- Combination of multiple datasets
+
+- Selection and subsetting
+
+- Overlays (next week)
+
+- Raster processing (next week)
+---
 name: database
 class: center middle main-title section-title-4
 
 # Databases and attributes
+---
+# Databases and attributes
 
+.pull-left[
+&lt;figure&gt;
+  &lt;img src="img/06/4.1.png" alt="ZZZ" title="DB orientation" width="100%"&gt;
+&lt;/figure&gt;
+.caption[
+courtesy of [Giscommons](https://giscommons.org/data-tables-and-data-preprocessing/)
+]
+]
+.pull-right[
+- Previous focus has been largely on _location_
+
+- Geographic data often also includes non-spatial data
+
+- Attributes: Non-spatial information that further describes a spatial feature
+
+- Typically stored in tables where each row represents a spatial feature
+  - Wide vs. long format
+]
 ---
 name: apps
 class: center middle main-title section-title-4
 
 # Common attribute operations
 ---
+# Common attribute operations
 
+- `sf` is a part of the `tidyverse`
+
+- Allows use of `dplyr` data manipulation verbs 
+
+- Also allows `%&gt;%` to chain together multiple steps
+
+- geometries are "sticky"
+---
+# Subsetting fields (`select`)
+.pull-left[
+
+```r
+head(world)[,1:3] %&gt;% st_drop_geometry()
+```
+
+```
+## # A tibble: 6 × 3
+##   iso_a2 name_long      continent    
+## * &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;        
+## 1 FJ     Fiji           Oceania      
+## 2 TZ     Tanzania       Africa       
+## 3 EH     Western Sahara Africa       
+## 4 CA     Canada         North America
+## 5 US     United States  North America
+## 6 KZ     Kazakhstan     Asia
+```
+
+```r
+colnames(world)
+```
+
+```
+##  [1] "iso_a2"    "name_long" "continent" "region_un" "subregion" "type"     
+##  [7] "area_km2"  "pop"       "lifeExp"   "gdpPercap" "geom"
+```
+]
+
+.pull-right[
+
+```r
+world %&gt;%
+  dplyr::select(name_long, continent) %&gt;%
+  st_drop_geometry() %&gt;% 
+  head(.) 
+```
+
+```
+## # A tibble: 6 × 2
+##   name_long      continent    
+##   &lt;chr&gt;          &lt;chr&gt;        
+## 1 Fiji           Oceania      
+## 2 Tanzania       Africa       
+## 3 Western Sahara Africa       
+## 4 Canada         North America
+## 5 United States  North America
+## 6 Kazakhstan     Asia
+```
+]
+
+---
+# Subsetting features (`filter`)
+.pull-left[
+
+```r
+head(world)[,1:3] %&gt;% st_drop_geometry()
+```
+
+```
+## # A tibble: 6 × 3
+##   iso_a2 name_long      continent    
+## * &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;        
+## 1 FJ     Fiji           Oceania      
+## 2 TZ     Tanzania       Africa       
+## 3 EH     Western Sahara Africa       
+## 4 CA     Canada         North America
+## 5 US     United States  North America
+## 6 KZ     Kazakhstan     Asia
+```
+]
+
+.pull-right[
+
+```r
+world %&gt;%
+  filter(continent == "Asia") %&gt;% 
+    dplyr::select(name_long, continent) %&gt;%
+  st_drop_geometry() %&gt;% 
+  head(.)
+```
+
+```
+## # A tibble: 6 × 2
+##   name_long   continent
+##   &lt;chr&gt;       &lt;chr&gt;    
+## 1 Kazakhstan  Asia     
+## 2 Uzbekistan  Asia     
+## 3 Indonesia   Asia     
+## 4 Timor-Leste Asia     
+## 5 Israel      Asia     
+## 6 Lebanon     Asia
+```
+]
+---
+# Creating new fields (`mutate`)
+.pull-left[
+
+```r
+head(world)[,1:3] %&gt;% st_drop_geometry()
+```
+
+```
+## # A tibble: 6 × 3
+##   iso_a2 name_long      continent    
+## * &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;        
+## 1 FJ     Fiji           Oceania      
+## 2 TZ     Tanzania       Africa       
+## 3 EH     Western Sahara Africa       
+## 4 CA     Canada         North America
+## 5 US     United States  North America
+## 6 KZ     Kazakhstan     Asia
+```
+]
+
+.pull-right[
+
+```r
+world %&gt;%
+  filter(continent == "Asia") %&gt;% 
+    dplyr::select(name_long, continent, pop, area_km2) %&gt;%
+  mutate(., dens = pop/area_km2) %&gt;%
+  st_drop_geometry() %&gt;% 
+  head(.)
+```
+
+```
+## # A tibble: 6 × 5
+##   name_long   continent       pop area_km2   dens
+##   &lt;chr&gt;       &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Kazakhstan  Asia       17288285 2729811.   6.33
+## 2 Uzbekistan  Asia       30757700  461410.  66.7 
+## 3 Indonesia   Asia      255131116 1819251. 140.  
+## 4 Timor-Leste Asia        1212814   14715.  82.4 
+## 5 Israel      Asia        8215700   22991. 357.  
+## 6 Lebanon     Asia        5603279   10099. 555.
+```
+]
+---
+# Aggregating data
+.pull-left[
+
+```r
+head(world)[,1:3] %&gt;% st_drop_geometry()
+```
+
+```
+## # A tibble: 6 × 3
+##   iso_a2 name_long      continent    
+## * &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;        
+## 1 FJ     Fiji           Oceania      
+## 2 TZ     Tanzania       Africa       
+## 3 EH     Western Sahara Africa       
+## 4 CA     Canada         North America
+## 5 US     United States  North America
+## 6 KZ     Kazakhstan     Asia
+```
+]
+
+.pull-right[
+
+```r
+world %&gt;%
+  st_drop_geometry(.) %&gt;% 
+  group_by(continent) %&gt;%
+  summarize(pop = sum(pop, na.rm = TRUE))
+```
+
+```
+## # A tibble: 8 × 2
+##   continent                      pop
+##   &lt;chr&gt;                        &lt;dbl&gt;
+## 1 Africa                  1154946633
+## 2 Antarctica                       0
+## 3 Asia                    4311408059
+## 4 Europe                   669036256
+## 5 North America            565028684
+## 6 Oceania                   37757833
+## 7 Seven seas (open ocean)          0
+## 8 South America            412060811
+```
+]
+
+---
 name: joins
 class: center middle main-title section-title-4
 
 # Joining (a)spatial data
 
 ---
+# Joining (a)spatial data
+.pull-left[
+
+- Requires a "key" field 
+
+- Multiple outcomes possible
+
+- Think about your final data form
+]
+.pull-right[
+&lt;figure&gt;
+  &lt;img src="img/06/types-of-relationship-in-Database.png" alt="ZZZ" title="DB orientation" width="100%"&gt;
+&lt;/figure&gt;
+]
+---
+# Left Join
+
+.pull-left[
+- Useful for adding other attributes not in your spatial data
+
+- Returns all of the records in `x` attributed with `y`
+
+- Pay attention to the number of rows!
+]
+.pull-right[
+
+```r
+head(coffee_data)
+```
+
+```
+## # A tibble: 6 × 3
+##   name_long                coffee_production_2016 coffee_production_2017
+##   &lt;chr&gt;                                     &lt;int&gt;                  &lt;int&gt;
+## 1 Angola                                       NA                     NA
+## 2 Bolivia                                       3                      4
+## 3 Brazil                                     3277                   2786
+## 4 Burundi                                      37                     38
+## 5 Cameroon                                      8                      6
+## 6 Central African Republic                     NA                     NA
+```
+]
+---
+# Left Join
+
+.pull-left[
+
+```r
+world_coffee = left_join(world, coffee_data)
+nrow(world_coffee)
+```
+
+```
+## [1] 177
+```
+]
+.pull-right[
+
+```r
+plot(world_coffee["coffee_production_2017"])
+```
+
+&lt;img src="06-slides_files/figure-html/cofplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+# Inner Join
+.pull-left[
+- Useful for subsetting to "complete" records
+
+- Returns all of the records in `x` with matching `y`
+
+- Pay attention to the number of rows!
+]
+
+---
+# Inner Join
+
+.pull-left[
+
+```r
+world_coffee_inner = inner_join(world, coffee_data)
+nrow(world_coffee_inner)
+```
+
+```
+## [1] 45
+```
+]
+.pull-right[
+
+```r
+setdiff(coffee_data$name_long, world$name_long)
+```
+
+```
+## [1] "Congo, Dem. Rep. of" "Others"
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
