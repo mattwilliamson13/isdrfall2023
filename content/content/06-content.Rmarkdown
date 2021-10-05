@@ -29,7 +29,7 @@ slide_details <- tibble::tribble(
 Today we'll begin exploring typical workflows for spatial analysis by working with attribute data. Attributes generally provide additional information about a location that we can use for visualization and analysis. Unlike spatial operations that we'll explore next week, attribute data do not all require geographic information (but they do need some means of relating to a geography).
 
 ## Resources
-These chapters are not 'prerequisite' reading for the week, but provide a lot of helpful background for raster processing in R.
+These chapters are not 'prerequisite' reading for the week, but provide a lot of helpful background for attribute operations in R.
 
 - <i class="fas fa-book"></i> The [Tidy Data](https://r4ds.had.co.nz/tidy-data.html) and [Relational Data](https://r4ds.had.co.nz/relational-data.html) sections from __R For Data Science__ [@wickham2016r] provide a great overview to data cleaning and manipulation functions available in the `tidyverse`.
 
