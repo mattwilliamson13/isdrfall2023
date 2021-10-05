@@ -17,7 +17,7 @@ Today we’ll begin exploring typical workflows for spatial analysis by working 
 
 ## Resources
 
-These chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for raster processing in R.
+These chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for attribute operations in R.
 
 -   <i class="fas fa-book"></i> The [Tidy Data](https://r4ds.had.co.nz/tidy-data.html) and [Relational Data](https://r4ds.had.co.nz/relational-data.html) sections from **R For Data Science** (Wickham and Grolemund 2016) provide a great overview to data cleaning and manipulation functions available in the `tidyverse`.
 
