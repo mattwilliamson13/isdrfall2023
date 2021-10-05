@@ -1,0 +1,52 @@
+--
+title: "Building spatial databases using locations"
+author: "Matt Williamson"
+date: "05 Oct 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/mawtheme2.css", "css/animate.css"]        
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      navigation:
+        scroll: false
+      # beforeInit: "libs/offline-mathjax.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+
+```{r packages-data, include=FALSE}
+library(tidyverse)
+library(pander)
+library(sf)
+library(igraph)
+library(terra)
+library(spData)
+```
+name: 1
+class: center middle main-title section-title-4
+
+# Building spatial databases using locations
+
+.class-info[
+
+**Session 13**
+
+.light[HES597: Introduction to Spatial Data in R<br>
+Boise State University Human-Environment Systems<br>
+Fall 2021]
+
+]
+
+---
