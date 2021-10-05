@@ -163,7 +163,7 @@ __manipulation of data for subsequent use__
 
 - Overlays (next week)
 
-- Raster processing (next week)
+- Raster processing (two weeks)
 ---
 name: database
 class: center middle main-title section-title-4

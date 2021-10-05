@@ -17,13 +17,11 @@ Today we’ll continue our development of attributes (or covariates) in our spat
 
 ## Resources
 
-These chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for attribute operations in R.
+These chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for determining spatial relations between vector datasets and extracting those into attribute tables for subsequent visualization and analysis.
 
--   <i class="fas fa-book"></i> The [Tidy Data](https://r4ds.had.co.nz/tidy-data.html) and [Relational Data](https://r4ds.had.co.nz/relational-data.html) sections from **R For Data Science** (Wickham and Grolemund 2016) provide a great overview to data cleaning and manipulation functions available in the `tidyverse`.
+-   <i class="fas fa-book"></i> The [Spatial Data Operations Chapter](https://geocompr.robinlovelace.net/spatial-operations.html) in (Lovelace et al. 2019) makes the concepts of a network concrete (literally) by using a transportation route example to illustrate the various components of a network analysis in `R`.
 
--   <i class="fas fa-book"></i> [Doing things with multiple tables](https://ready4r.netlify.app/labbook/part-5-doing-useful-things-with-multiple-tables.html) has a lot of nice visual examples of for using the `_join` functions in `dplyr`.
-
--   <i class="fas fa-book"></i> This [article](https://www.cell.com/trends/ecology-evolution/fulltext/S0169-5347(21)00227-5) (Di Minin et al. 2021) provides a recent recap of a variety of reasons why we may need to combine data from multiple, often disparate, sources.
+-   <i class="fas fa-book"></i> [Attributes and Support](https://keen-swartz-3146c4.netlify.app/featureattributes.html) of Spatial Data Science, a `bookdown` project by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages)
 
 ## Slides
 
@@ -53,7 +51,7 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#1">
 </iframe>
 
 </div>
@@ -64,7 +62,7 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#workflows">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#workflows">
 </iframe>
 
 </div>
@@ -75,7 +73,7 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#database">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#database">
 </iframe>
 
 </div>
@@ -86,7 +84,7 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#apps">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#apps">
 </iframe>
 
 </div>
@@ -97,7 +95,7 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#joins">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#joins">
 </iframe>
 
 </div>
@@ -108,15 +106,9 @@ These chapters are not ‘prerequisite’ reading for the week, but provide a lo
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
-<div id="ref-di2021conservation" class="csl-entry">
+<div id="ref-lovelace_geocomputation_2019" class="csl-entry">
 
-Di Minin, E., R. A. Correia, and T. Toivonen. 2021. Conservation geography. Trends in Ecology & Evolution.
-
-</div>
-
-<div id="ref-wickham2016r" class="csl-entry">
-
-Wickham, H., and G. Grolemund. 2016. R for data science: Import, tidy, transform, visualize, and model data. " O’Reilly Media, Inc.".
+Lovelace, R., J. Nowosad, and J. Muenchow. 2019. Geocomputation with R. CRC Press.
 
 </div>
 
