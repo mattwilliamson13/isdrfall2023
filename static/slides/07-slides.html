@@ -168,6 +168,7 @@ head(nz.sf$areaagain, 3)
 - Sometimes we want to estimate the area of overlap between two vectors
   - How much of home range _a_ occurs on soil type _b_
   - How much of each Census tract is contained with a service provision area?
+- `st_intersection`, `st_union`, and `st_difference` return new geometries whose area we can estimate
   
 .pull-left[
 &lt;img src="07-slides_files/figure-html/overlap-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -215,6 +216,12 @@ ggplot() +
 ---
 
 # Estimating distance
+ -  `grepl` here is returning a `logical` (TRUE/FALSE) result for items in `nz$Name` that match (partially) "Canter" or (`|`) "Otag"
+ 
+ -  `nz_height[canterbury, ]` is subsetting the `nz_height` dataset based on the `canterbury` polygon
+ 
+ - `nz_height[1]` occurs outside Otago (in red) while the remaining are _in_ Otago (so distance is 0)
+ 
 .pull-left[
 
 ```r
@@ -235,19 +242,94 @@ st_distance(nz_height[1:3, ], co)
 .pull-right[
 
 ```r
-plot(st_geometry(co)[2])
-plot(st_geometry(nz_height)[2:3], add = TRUE)
+plot(st_geometry(co)[2], col="red") 
+plot(st_geometry(nz_height)[1], col="blue", add=TRUE)
+plot(st_geometry(nz_height)[2:3], add = TRUE, col="black")
 ```
 
-&lt;img src="07-slides_files/figure-html/distplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="07-slides_files/figure-html/distplot-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 # Topological Subsetting
 
+- Topological relations describe the spatial relationships between objects
 - We can use the overlap (or not) of vector data to subset the data based on topology
+- Easiest way is to use `[` notation, but also most restrictive
+
+.pull-left[
+
+```r
+canterbury_height = nz_height[canterbury, ]
+```
+]
+.pull-right[
+
+```r
+plot(st_geometry(canterbury))
+plot(st_geometry(nz_height), col="red", add=TRUE)
+plot(st_geometry(canterbury_height), col="blue", add=TRUE)
+```
+
+&lt;img src="07-slides_files/figure-html/plotsub-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+---
+# Topological Subsetting
 - Lots of verbs in `sf` for doing this (e.g., `st_intersects`, `st_contains`, `st_touches`)
 - see `?geos_binary_pred` for a full list
+- The `sparse` option controls how the results are returned
+- We can then find out if one or more elements satisfies the criteria
+
+__Using `sparse=TRUE`__
+
+```r
+st_intersects(nz_height, co, sparse = TRUE)[1:3] 
+```
+
+```
+## [[1]]
+## integer(0)
+## 
+## [[2]]
+## [1] 2
+## 
+## [[3]]
+## [1] 2
+```
+
+```r
+lengths(st_intersects(nz_height, co, sparse = TRUE))[1:3] &gt; 0
+```
+
+```
+## [1] FALSE  TRUE  TRUE
+```
+---
+# Topological Subsetting
+
+- The `sparse` option controls how the results are returned
+- We can then find out if one or more elements satisfies the criteria
+
+__Using `sparse=FALSE`__
+
+```r
+st_intersects(nz_height, co, sparse = FALSE)[1:3] 
+```
+
+```
+## [1] FALSE FALSE FALSE
+```
+
+```r
+apply(st_intersects(nz_height, co, sparse = TRUE), 1,any)[1:3]
+```
+
+```
+## [1] FALSE  TRUE  TRUE
+```
+
+---
+# Topological Subsetting
 
 .pull-left[
 
