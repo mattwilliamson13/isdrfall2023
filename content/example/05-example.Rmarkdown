@@ -128,3 +128,19 @@ id.pas.visits <- id.pas.sf %>%
 
 # Joining based on location
 
+Now we need to figure out how many parcels are within the orignal NPS unit boundaries. We'll use a spatial join (`st_join`) to make that happen. Remember, that we can use any of the binary predicates (`?geos_binary_pred`) to specify how we'd like to join the data. Here, I'll `st_is_within_distance` to illustrate.
+
+```{r sj1}
+
+parcels.in.pas <- st_join(id.pas.visits, id.parcels.sf, join=st_is_within_distance, dist=100000)
+```
+
+# Estimating the total amount paid
+
+The result of selecting all of the parcels with 100000m of the NPS units is a data frame with 26 features (i.e., 26 parcels met the criteria). Now we need to calculate the total value (remember that we have to fix the currency to make it numeric).
+
+```{r aggreg}
+parcels.in.pas.sum <- parcels.in.pas %>% 
+  group_by(Unit_Nm) %>% 
+  summarise(., total = sum(readr::parse_number(US_Paid_for_Parcel), na.rm=TRUE))
+```
