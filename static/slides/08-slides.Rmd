@@ -23,6 +23,7 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
                       fig.retina = 3, fig.align = "center")
+
 ```
 
 
@@ -37,6 +38,9 @@ library(units)
 library(purrr)
 library(parallel)
 library(furrr)
+library(googledrive)
+library(sp)
+drive_auth(email = "mattwilliamson@boisestate.edu")
 ```
 
 name: 1
@@ -90,23 +94,134 @@ class: center middle main-title section-title-4
 .pull-right[
 - `apply` requires three arguments: an `array`, the `margin`, and the `function` you want to execute
 
-- `arrays`are R data objects that contain 1, 2, or more dimensions
+- `arrays` are R data objects that contain 1, 2, or more dimensions
 
 - `margins` identify which parts of the array to apply the `function` over (1 = rows, 2 = columns, 1:2 = all cells in a matrix) 
 ]
 ---
 
 ## A reminder
-
+.pull-left[
 ```{r applyintro}
 #create data
-test.matrix <- matrix(rnorm(200), 20, 10)
+test.matrix <- matrix(rnorm(50), 10, 5)
 dim(test.matrix)
 # generate column means
-apply(X=test.matrix, MARGIN = 2, mean)
+col.mean <- apply(X=test.matrix, MARGIN = 2, mean)
+str(col.mean)
+```
+]
+.pull-right[
+```{r applyintro2}
 #generate row sums
-apply(X=test.matrix, MARGIN = 1, sum)
+row.sum <- apply(X=test.matrix, MARGIN = 1, sum)
+str(row.sum)
 #exponentiate each cell of the data
-apply(X=test.matrix, MARGIN = 1:2, exp)
+exp.all <- apply(X=test.matrix, MARGIN = 1:2, exp)
+str(exp.all)
+```
+]
+---
+## The `map` function from `purrr` and the `tidyverse` 
+
+- Acts like `apply` but can be more flexible and interpretable
+- Has a similar 'family' of functions designed for different situations
+- Here we are downloading files from Google Drive
+
+```{r mapapp, eval=FALSE}
+folder_url <- "https://drive.google.com/open?id=1xSsKYpB2o9SEIo6pZDFWYqVthb162_Zo"
+folder <- drive_get(as_id(folder_url))
+tif_files <- drive_ls(folder)
+
+lapply(tif_files$id, function(x) drive_download(as_id(x), overwrite = TRUE))
+map(tif_files$id, ~drive_download(as_id(.x), overwrite = TRUE))
 ```
 
+- the key is that we are still sending the first argument (`tif_files$id`) to a function!
+
+---
+## Parallelism and spatial computing
+
+- `lapply` and `map` work serially
+
+- Parallelization is useful when pieces of a problem are independent 
+
+- "Embarassingly parallel" refers to problems that can be broken down into small chunks and run simultaneously using your computer's different processors
+
+- `mclapply` and `future_map` allow this in a general way; `raster` and `terra` allow some implicit parallelism
+
+---
+
+## Using `mclapply` to extract data
+
+- relies on "forking" 
+
+- Can be slower than standard processing if the dataset being copied to the child process is large
+
+```{r mcltest}
+mos <- terra::rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/idval.tif')
+counties.id <- tigris::counties("id") %>% as(., 'SpatVector')
+counties.p <- terra::project(counties.id, mos)
+counties.ext <- mclapply(seq_along(counties.p), function(x){
+  cty.ext = counties.p[x]
+  terra::extract(mos, cty.ext)
+}, mc.cores = 4)
+```
+---
+## Evaluating `mclapply` to extract data
+
+```{r timing}
+s.mclapply <- system.time(mclapply(seq_along(counties.p), function(x){
+  cty.sf = as(counties.p, "sf") 
+  cty.ext = cty.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos, cty.ext)
+}, mc.cores = 4))
+s.lapply <- system.time(lapply(seq_along(counties.p), function(x){
+  cty.sf = as(counties.p, "sf") 
+  cty.ext = cty.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos, cty.ext)
+}))
+s.mclapply
+s.lapply
+```
+---
+## Translating to the `map_` family
+- relies on the `furrr` package
+```{r futureexp}
+library(furrr)
+future::plan(multiprocess)
+counties.ext <- future_map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.sf = as(counties.p, "sf") 
+  cty.ext = cty.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos, cty.ext)
+})
+```
+---
+## Timing `future_`
+
+```{r}
+s.future <- system.time(future_map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.sf = as(counties.p, "sf") 
+  cty.ext = cty.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos, cty.ext)
+}))
+s.map <- system.time(map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.sf = as(counties.p, "sf") 
+  cty.ext = cty.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos, cty.ext)
+}))
+s.future
+s.map
+```
+
+
+## Additional directions
+
+- socket clusters (`makeCluster`, `parLapply`) - Useful when data needs to be passed back and forth among jobs (see [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html))
+
+- lots of variations on `map_` (see the [purrr documentation](https://purrr.tidyverse.org/reference/map.html)) and `apply`
+
+- The `foreach` package adds additional functionalilty (see [this blog](https://www.r-bloggers.com/how-to-go-parallel-in-r-basics-tips/) for more info on parallel processing)
