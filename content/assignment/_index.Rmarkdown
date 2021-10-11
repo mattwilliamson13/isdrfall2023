@@ -31,17 +31,17 @@ I will grade these memos using a check system:
 
 Notice that is essentially a pass/fail or completion-based system.  I'm not grading your coding ability, I'm not counting the exact number of words you're writing, and I'm not looking for encyclopedic citations of every single reading. I'm looking for a good faith effort and thoughtful engagement, that's all. Do good work and you'll get a ✓.
 
-You will turn these exercises in using GitHub Classroom. .
+You will turn these exercises in using GitHub Classroom.
 
 
 ## Mini projects
 
-To give you practice with the data and design principles you'll learn in this class, you will complete two mini projects. I will provide you with real-world data and pose one or more questions—you will make a pretty picture to answer those questions.
+To give you practice with the data and design principles you'll learn in this class, you will complete two mini projects designed to help you make progress towards the completion of your final project (described below). The first mini-project will involve creating a spatial database that will serve as the foundation for your final project using joins, summaries, mutates, and extracts. The second mini-project will ask you to develop several visualizations that help you clarify hypotheses/questions. These two components will help you prepare for the final project wherein you must develop a spatial analysis of the data you've collected.
 
 The mini projects will be graded using a check system:
 
-- ✔+: (*57.5 points (≈115%) in gradebook*) Project is phenomenally well-designed and uses advanced R techniques. The project uncovers an important story that is not readily apparent from just looking at the raw data. I will not assign these often.
-- ✔: (*50 points (100%) in gradebook*) Project is fine, follows most design principles, answers a question from the data, and uses R correctly. This is the expected level of performance.
+- ✔+: (*57.5 points (≈115%) in gradebook*) Project is phenomenally well-executed and uses advanced R techniques. Project addresses an interesting question and extends the approaches covers in class. Code is well-documented and efficient. I will not assign these often.
+- ✔: (*50 points (100%) in gradebook*) Project is fine, follows most workflow principles, answers a question from the data, and uses R correctly. This is the expected level of performance.
 - ✔−: (*25 points (50%) in gradebook*) Project is missing large components, is poorly designed, does not answer a relevant question, and/or uses R incorrectly. This indicates that you need to improve next time. I will hopefully not assign these often.
 
 Because these mini projects give you practice for the final project, I will provide you with substantial feedback on your design and code.
@@ -49,9 +49,8 @@ Because these mini projects give you practice for the final project, I will prov
 
 ## Final project
 
-At the end of the course, you will demonstrate your spatial analysis and visualization skills by completing a final project.
+At the end of the course, you will demonstrate your spatial analysis and visualization skills by completing a final project wherein you use statistical analyses to analyze the data you've gathered and visualized in the Mini-projects. You'll need to assess assumptions (e.g., spatial autocorrelation), interpret results, and create visualizations that illustrate key results from the analysis. 
 
-[Complete details for the final project (including past examples of excellent projects) are here.](/assignment/final-project/)
 
 **There is no final exam. This project is your final exam.**
 
