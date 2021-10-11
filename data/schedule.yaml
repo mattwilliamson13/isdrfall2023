@@ -129,11 +129,6 @@ lessons:
   - title: 'Assignments for sessions 14 and 16 due'
     date: "October 15"
     bg: 3
-    
-  - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
-    date: "October 18"
-    assignment: "01-mini-project"
-    bg: 3
     bottomborder: True
 
   - title: 'Visualizing spatial data'
@@ -151,6 +146,11 @@ lessons:
     example: "09-example"
     assignment: "09-exercise"
     bg: 2  
+
+- title: '<i class="fas fa-star"></i> **Mini project 1 due**'
+    date: "October 25"
+    assignment: "01-mini-project"
+    bg: 3
     
   - title: '<span class="content-title">Static maps in R (continued)</span>'
     session: "Session 19"
@@ -185,11 +185,6 @@ lessons:
   - title: 'Assignments for Session 21 Due'
     date: "November 5"
     bg: 3
-    
-  - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
-    date: "November 5"
-    assignment: "02-mini-project"
-    bg: 3
     bottomborder: True
     
   - title: 'Using spatial data in statistical workflows'
@@ -207,7 +202,12 @@ lessons:
     example: "12-example"
     assignment: "12-exercise"
     bg: 2
-  
+    
+  - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
+    date: "November 12"
+    assignment: "02-mini-project"
+    bg: 3
+    
   - title: '<span class="content-title">Point patterns and spatial dependence</span>'
     session: "Session 25"
     date: "November 16"
