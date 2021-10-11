@@ -23,7 +23,7 @@ library(sf)
 ```
 
 ```
-## Linking to GEOS 3.9.1, GDAL 3.2.2, PROJ 7.2.1
+## Linking to GEOS 3.8.1, GDAL 3.2.1, PROJ 7.2.1
 ```
 
 ```r
@@ -38,7 +38,7 @@ library(tidyverse)
 ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
 ## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
 ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.1     ✓ forcats 0.5.1
+## ✓ readr   2.0.0     ✓ forcats 0.5.1
 ```
 
 ```
@@ -48,7 +48,7 @@ library(tidyverse)
 ```
 
 ```r
-nps.visits.csv <- read_csv('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/ParkVisits_2020IWPW.csv', skip = 3)
+nps.visits.csv <- read_csv('/Users/matthewwilliamson/Downloads/session14/ParkVisits_2020IWPW.csv', skip = 3)
 ```
 
 ```
@@ -74,18 +74,18 @@ head(nps.visits.csv)
 
 ```
 ## # A tibble: 6 × 8
-##   ParkName                   UnitCode ParkType Region State  Year Month RecreationVisits
-##   <chr>                      <chr>    <chr>    <chr>  <chr> <dbl> <dbl>            <dbl>
-## 1 Alibates Flint Quarries NM ALFL     Nationa… Inter… TX     2020     1              273
-## 2 Alibates Flint Quarries NM ALFL     Nationa… Inter… TX     2020     2              314
-## 3 Alibates Flint Quarries NM ALFL     Nationa… Inter… TX     2020     3              233
-## 4 Alibates Flint Quarries NM ALFL     Nationa… Inter… TX     2020     4                0
-## 5 Alibates Flint Quarries NM ALFL     Nationa… Inter… TX     2020     5                0
-## 6 Alibates Flint Quarries NM ALFL     Nationa… Inter… TX     2020     6              130
+##   ParkName       UnitCode ParkType   Region   State  Year Month RecreationVisits
+##   <chr>          <chr>    <chr>      <chr>    <chr> <dbl> <dbl>            <dbl>
+## 1 Alibates Flin… ALFL     National … Intermo… TX     2020     1              273
+## 2 Alibates Flin… ALFL     National … Intermo… TX     2020     2              314
+## 3 Alibates Flin… ALFL     National … Intermo… TX     2020     3              233
+## 4 Alibates Flin… ALFL     National … Intermo… TX     2020     4                0
+## 5 Alibates Flin… ALFL     National … Intermo… TX     2020     5                0
+## 6 Alibates Flin… ALFL     National … Intermo… TX     2020     6              130
 ```
 
 ```r
-parcels.csv <- read_csv('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/Parcels.csv')
+parcels.csv <- read_csv('/Users/matthewwilliamson/Downloads/session14/Parcels.csv')
 ```
 
 ```
@@ -125,11 +125,16 @@ head(parcels.csv)
 ## #   US_Paid_for_Parcel <chr>, Endow_Raised_Parcel <chr>,
 ## #   Uni_Raise_US_Pay_Multiple <chr>, Yr_ST_Accept <dbl>, Yr_Uni_Assign <dbl>,
 ## #   Yr_Patent <dbl>, Date_Patent <dbl>, Patentees <chr>,
-## #   Patent_Source_Reason <chr>, Source_ID <chr>, Source <chr>, …
+## #   Patent_Source_Reason <chr>, Source_ID <chr>, Source <chr>,
+## #   Source_Loc <chr>, Source_Type <chr>, Source_Form <chr>, Source_Acqu <chr>,
+## #   Source_Acqu_Detail <chr>, Located_GIS <chr>, Parcel_Link <chr>,
+## #   MTRSA <chr>, MTRS <chr>, A_or_L <chr>, Aliquot <chr>, Types <chr>,
+## #   GISAcres <dbl>, GIS_Acre_Div_List_Acre <dbl>, Polygon <chr>,
+## #   Accuracy <chr>, LG_Royce <chr>
 ```
 
 ```r
-regional.pas.sf <- read_sf('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/reg_pas.shp')
+regional.pas.sf <- read_sf('/Users/matthewwilliamson/Downloads/session14/reg_pas.shp')
 
 regional.pas.sf
 ```
@@ -162,7 +167,7 @@ regional.pas.sf
 ```
 
 ```r
-regional.parcels.sf <- read_sf('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/Parcel_Polygons.shp')
+regional.parcels.sf <- read_sf('/Users/matthewwilliamson/Downloads/session14/Parcel_Polygons.shp')
 
 regional.parcels.sf
 ```
@@ -175,18 +180,18 @@ regional.parcels.sf
 ## z_range:       zmin: 0 zmax: 0
 ## Geodetic CRS:  NAD83
 ## # A tibble: 79,360 × 5
-##    OBJECTID_1 MTRSA_LG                    Shape_Leng Shape_Area                  geometry
-##         <dbl> <chr>                            <dbl>      <dbl>        <MULTIPOLYGON [°]>
-##  1          1 AR050020N0160W0SN360ASWVA       0.0317  0.0000626 Z (((-92.66263 34.76826 …
-##  2          2 AR050020S0210W0SN200ANEAL       0.0325  0.0000651 Z (((-93.26224 34.55195 …
-##  3          3 AR050020S0220W0SN250ASEWV       0.0321  0.0000639 Z (((-93.29927 34.53098 …
-##  4          4 AR050030N0250W0SN040ASEWV       0.0308  0.0000580 Z (((-93.66021 34.93445 …
-##  5          5 AR050030S0210W0SN290ANWWV       0.0324  0.0000652 Z (((-93.27249 34.44986 …
-##  6          6 AR050050N0310W0SN170ASWSWMS     0.0164  0.0000166 Z (((-94.33553 35.10705 …
-##  7          7 AR050050N0310W0SN200ANWSWMS     0.0163  0.0000164 Z (((-94.33586 35.0962 0…
-##  8          8 AR050050N0310W0SN200AW½NWMS     0.0235  0.0000328 Z (((-94.33575 35.0998 0…
-##  9          9 AR050060S0220W0SN220ANWME       0.0324  0.0000651 Z (((-93.33463 34.21174 …
-## 10         10 AR050060S0260W0SN210ASECT       0.0323  0.0000643 Z (((-93.768 34.2144 0, …
+##    OBJECTID_1 MTRSA_LG    Shape_Leng Shape_Area                         geometry
+##         <dbl> <chr>            <dbl>      <dbl>               <MULTIPOLYGON [°]>
+##  1          1 AR050020N0…     0.0317  0.0000626 Z (((-92.66263 34.76826 0, -92.…
+##  2          2 AR050020S0…     0.0325  0.0000651 Z (((-93.26224 34.55195 0, -93.…
+##  3          3 AR050020S0…     0.0321  0.0000639 Z (((-93.29927 34.53098 0, -93.…
+##  4          4 AR050030N0…     0.0308  0.0000580 Z (((-93.66021 34.93445 0, -93.…
+##  5          5 AR050030S0…     0.0324  0.0000652 Z (((-93.27249 34.44986 0, -93.…
+##  6          6 AR050050N0…     0.0164  0.0000166 Z (((-94.33553 35.10705 0, -94.…
+##  7          7 AR050050N0…     0.0163  0.0000164 Z (((-94.33586 35.0962 0, -94.3…
+##  8          8 AR050050N0…     0.0235  0.0000328 Z (((-94.33575 35.0998 0, -94.3…
+##  9          9 AR050060S0…     0.0324  0.0000651 Z (((-93.33463 34.21174 0, -93.…
+## 10         10 AR050060S0…     0.0323  0.0000643 Z (((-93.768 34.2144 0, -93.767…
 ## # … with 79,350 more rows
 ```
 
