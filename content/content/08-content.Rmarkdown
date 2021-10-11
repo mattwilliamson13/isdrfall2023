@@ -37,4 +37,8 @@ Now that you've gotten some experience building databases using tabular and vect
 - <i class="fas fa-book"></i> The [Chapters 9 and 10](https://bookdown.org/mcwimberly/gdswr-book/combining-raster-and-vector-data-1-gridded-meteorological-data.html) on raster processing in Michael Wimberly's "Geospatial Data Science With R: Applications in Environmental Geography" bookdown project has a lot of useful examples using gridded climate data.
 
 ## Slides
-Coming soon!
+`r blogdown::shortcode("slide-buttons")`
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/08-slides.html")
+```

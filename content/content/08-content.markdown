@@ -25,7 +25,84 @@ Now that you’ve gotten some experience building databases using tabular and ve
 
 ## Slides
 
-Coming soon!
+{{% slide-buttons %}}
+
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="workflows-for-combining-raster-and-vector-data-tab" data-toggle="tab" href="#workflows-for-combining-raster-and-vector-data" role="tab" aria-controls="workflows-for-combining-raster-and-vector-data" aria-selected="true">Workflows for combining raster and vector data</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="revisiting-raster-operations-tab" data-toggle="tab" href="#revisiting-raster-operations" role="tab" aria-controls="revisiting-raster-operations" aria-selected="false">Revisiting raster operations</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="zonal-statistics-tab" data-toggle="tab" href="#zonal-statistics" role="tab" aria-controls="zonal-statistics" aria-selected="false">Zonal statistics</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="extractions-tab" data-toggle="tab" href="#extractions" role="tab" aria-controls="extractions" aria-selected="false">Extractions</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="scaling-tab" data-toggle="tab" href="#scaling" role="tab" aria-controls="scaling" aria-selected="false">Scaling</a>
+</li>
+</ul>
+
+<div id="slide-tabs" class="tab-content">
+
+<div id="workflows-for-combining-raster-and-vector-data" class="tab-pane fade show active" role="tabpanel" aria-labelledby="workflows-for-combining-raster-and-vector-data-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#1">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="revisiting-raster-operations" class="tab-pane fade" role="tabpanel" aria-labelledby="revisiting-raster-operations-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#ops">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="zonal-statistics" class="tab-pane fade" role="tabpanel" aria-labelledby="zonal-statistics-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#zonal">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="extractions" class="tab-pane fade" role="tabpanel" aria-labelledby="extractions-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#extract">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="scaling" class="tab-pane fade" role="tabpanel" aria-labelledby="scaling-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#tiles">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
