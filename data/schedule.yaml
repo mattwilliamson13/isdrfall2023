@@ -147,7 +147,7 @@ lessons:
     assignment: "09-exercise"
     bg: 2  
 
--   title: '<i class="fas fa-star"></i> **Mini project 1 due**'
+  - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
     date: "October 25"
     assignment: "01-mini-project"
     bg: 3

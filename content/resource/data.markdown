@@ -28,9 +28,29 @@ So much data, so little time... Here are some links to help you get started find
 
 - [**US City Open Data Census**](http://us-cities.survey.okfn.org/): More than 100 US cities have committed to sharing dozens of types of data, including data about crime, budgets, campaign finance, lobbying, transit, and zoning. This site from the [Sunlight Foundation](http://sunlightfoundation.com/) and [Code for America](http://www.codeforamerica.org//) collects this data and rates cities by how well they're doing.
 
-## Political science and economics datasets## 
+## Political science and economics datasets
 
 There's a wealth of data available for political science- and economics-related topics:
-    - [**François Briatte's extensive curated lists**](https://github.com/briatte/srqm/wiki/Data): Includes data from/about intergovernmental organizations (IGOs), nongovernmental organizations (NGOs), public opinion surveys, parliaments and legislatures, wars, human rights, elections, and municipalities.
-    - [**Thomas Leeper's list of political science datasets**](https://github.com/leeper/poliscitoys/issues/1): Good short list of useful datasets, divided by type of data (country-level data, survey data, social media data, event data, text data, etc.).
-    - [**Erik Gahner's list of political science datasets**](https://github.com/erikgahner/PolData): Huge list of useful datasets, divided by topic (governance, elections, policy, political elites, etc.)
+
+- [**François Briatte's extensive curated lists**](https://github.com/briatte/srqm/wiki/Data): Includes data from/about intergovernmental organizations (IGOs), nongovernmental organizations (NGOs), public opinion surveys, parliaments and legislatures, wars, human rights, elections, and municipalities.
+    
+- [**Thomas Leeper's list of political science datasets**](https://github.com/leeper/poliscitoys/issues/1): Good short list of useful datasets, divided by type of data (country-level data, survey data, social media data, event data, text data, etc.).
+    
+- [**Erik Gahner's list of political science datasets**](https://github.com/erikgahner/PolData): Huge list of useful datasets, divided by topic (governance, elections, policy, political elites, etc.)
+    
+- [**Inside AirBnB**](http://insideairbnb.com/get-the-data.html) a Creative Commons-licensed dataset with a ton of spatially referenced info on AirBnBs in cities across the globe.
+    
+## The #30daymapchallenge repositories
+
+The #30daymapchallenge is a social mapping/cartography/data visualization challenge designed to encourage experimentation with different types of datasets and mapping approaches. Searching the hashtag on social media (especially Twitter) will bring up a bunch of cool examples. Here are a few repositories to help you get started:
+
+  - [**The Official #30DayMapChallenge Repo**](https://github.com/tjukanovt/30DayMapChallenge) has an archive of past challenges and a description of what this is all about.
+
+  - [**Bob Rudis' 2019 bookdown project**](https://rud.is/books/30-day-map-challenge/) Contains both code and useful information for generating the visualizations along with sources for data.
+  
+  - [**Alexandra Kapp's 2020 repository**](https://github.com/AlexandraKapp/30daymapchallenge) makes use of some of the newer animation and interactive visualization techniques.
+  
+  - [**The R-Spatial list of 2020 challenge repositories**](https://github.com/topics/30daymapchallenge) 
+  
+  
+  
