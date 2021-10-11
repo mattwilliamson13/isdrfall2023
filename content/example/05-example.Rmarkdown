@@ -22,17 +22,17 @@ library(sf)
 library(tidyverse)
 
 
-nps.visits.csv <- read_csv('/Users/matthewwilliamson/Downloads/session14/ParkVisits_2020IWPW.csv', skip = 3)
+nps.visits.csv <- read_csv('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/ParkVisits_2020IWPW.csv', skip = 3)
 head(nps.visits.csv)
 
-parcels.csv <- read_csv('/Users/matthewwilliamson/Downloads/session14/Parcels.csv')
+parcels.csv <- read_csv('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/Parcels.csv')
 head(parcels.csv)
 
-regional.pas.sf <- read_sf('/Users/matthewwilliamson/Downloads/session14/reg_pas.shp')
+regional.pas.sf <- read_sf('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/reg_pas.shp')
 
 regional.pas.sf
 
-regional.parcels.sf <- read_sf('/Users/matthewwilliamson/Downloads/session14/Parcel_Polygons.shp')
+regional.parcels.sf <- read_sf('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session14/Parcel_Polygons.shp')
 
 regional.parcels.sf
 
