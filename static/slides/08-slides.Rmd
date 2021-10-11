@@ -1,0 +1,112 @@
+---
+title: "Combining raster and vector data"
+author: "Matt Williamson"
+date: "01 Oct 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/mawtheme2.css", "css/animate.css"]        
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      navigation:
+        scroll: false
+      # beforeInit: "libs/offline-mathjax.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+
+```{r packages-data, include=FALSE}
+library(tidyverse)
+library(pander)
+library(sf)
+library(igraph)
+library(terra)
+library(spData)
+library(units)
+library(purrr)
+library(parallel)
+library(furrr)
+```
+
+name: 1
+class: center middle main-title section-title-4
+
+# Workflows for combining raster and vector data
+
+.class-info[
+
+**Session 15**
+
+.light[HES597: Introduction to Spatial Data in R<br>
+Boise State University Human-Environment Systems<br>
+Fall 2021]
+
+]
+
+---
+name: ops
+class: center middle main-title section-title-4
+
+# Revisiting raster operations
+---
+name: zonal
+class: center middle main-title section-title-4
+
+# Zonal statistics
+---
+name: extract
+class: center middle main-title section-title-4
+
+# Extractions
+---
+name: tiles
+class: center middle main-title section-title-4
+
+# Scaling to larger extents
+---
+
+## Revisiting the `apply` family
+.pull-left[
+- A flexible group of functions that replace `for` or `while` loops
+
+- Translates loops in C++ code, often provides speed-up
+
+- Which member of the 'family' depends on input data and output desired
+
+- Can be tricky to get desired behavior (*algorithmic efficiency* vs. *programmer efficiency*)
+]
+
+.pull-right[
+- `apply` requires three arguments: an `array`, the `margin`, and the `function` you want to execute
+
+- `arrays`are R data objects that contain 1, 2, or more dimensions
+
+- `margins` identify which parts of the array to apply the `function` over (1 = rows, 2 = columns, 1:2 = all cells in a matrix) 
+]
+---
+
+## A reminder
+
+```{r applyintro}
+#create data
+test.matrix <- matrix(rnorm(200), 20, 10)
+dim(test.matrix)
+# generate column means
+apply(X=test.matrix, MARGIN = 2, mean)
+#generate row sums
+apply(X=test.matrix, MARGIN = 1, sum)
+#exponentiate each cell of the data
+apply(X=test.matrix, MARGIN = 1:2, exp)
+```
+
