@@ -7,6 +7,15 @@
     <meta name="date" content="2021-10-01" />
     <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/jquery-1.12.4/jquery.min.js"></script>
+    <script src="libs/d3-3.5.6/d3.min.js"></script>
+    <link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet" />
+    <script src="libs/profvis-0.3.6.9000/profvis.js"></script>
+    <script src="libs/profvis-0.3.6.9000/scroll.js"></script>
+    <link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet" />
+    <script src="libs/highlight-6.2.0/highlight.js"></script>
+    <script src="libs/profvis-binding-0.3.7/profvis.js"></script>
     <link rel="stylesheet" href="css/mawtheme2.css" type="text/css" />
     <link rel="stylesheet" href="css/animate.css" type="text/css" />
   </head>
@@ -35,20 +44,130 @@ Fall 2021]
 ]
 
 ---
+# Outline for today
+ - Revisiting Raster operations
+ 
+ - Generating zonal statistics
+ 
+ - Generalizing extractions
+ 
+ - Scaling to larger problems
+---
 name: ops
 class: center middle main-title section-title-4
 
 # Revisiting raster operations
+---
+# Revisiting raster operations
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-1-1.png" width="504" style="display: block; margin: auto;" /&gt;
+---
+# Raster Math
+
+.pull-left[
+* Simple calculations
+
+```r
+development.difficulty &lt;- exp(mos) + elev.res/4
+plot(log(development.difficulty))
+```
+
+&lt;img src="08-slides_files/figure-html/rstmth-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+* Custom Functions
+
+```r
+normalize&lt;- function(rster) (rster - min(rster, na.rm=TRUE))/(max(rster, na.rm=TRUE) - min(rster, na.rm=TRUE))
+elev.nrm &lt;- app(elev.res, normalize)
+
+plot(elev.nrm)
+```
+
+&lt;img src="08-slides_files/figure-html/rstfun-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+--- 
+# Raster math with polygons
+
+* Need to convert field to raster first
+* `terra::rasterize` and `fasterize::fasterize` do this for `SpatVector` and `sf` objects
+
+
+```r
+med.inc.rstr &lt;- terra::rasterize(x = as(id.income, "SpatVector"), y = mos, field="estimate")
+```
+---
+# Raster math with polygons
+
+.pull-left[
+&lt;img src="08-slides_files/figure-html/vplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="08-slides_files/figure-html/rplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+# Raster math with polygons
+
+```r
+income.ratio &lt;- med.inc.rstr/mos
+plot(income.ratio, main="Ratio of median income to housing cost")
+```
+
+&lt;img src="08-slides_files/figure-html/vmath-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
 ---
 name: zonal
 class: center middle main-title section-title-4
 
 # Zonal statistics
 ---
+# Zonal statistics
+
+* Allow extraction from one raster to a categorical raster
+* Need the zones to be rasterized
+
+
+```r
+cty.rster &lt;- terra::rasterize(counties.p, y=mos, field="GEOID")
+zones &lt;- terra::zonal(mos, cty.rster, "mean", na.rm=TRUE)
+head(zones)
+```
+
+```
+##   GEOID    idval
+## 1 16001 9.849115
+## 2 16003 8.290065
+## 3 16005 9.360389
+## 4 16007 9.474390
+## 5 16009 8.151090
+## 6 16011 9.211108
+```
+---
 name: extract
 class: center middle main-title section-title-4
-
+---
 # Extractions
+* Zonal stats are fast, but limited
+* `terra::extract` more generalizable
+* converts vector to raster i the background
+
+
+```r
+extraction &lt;- terra::extract(mos, counties.p, mean, na.rm=TRUE)
+head(extraction)
+```
+
+```
+##   ID    idval
+## 1  1 9.083365
+## 2  2 9.194087
+## 3  3 8.346153
+## 4  4 9.536322
+## 5  5 9.870428
+## 6  6 8.643443
+```
+
 ---
 name: tiles
 class: center middle main-title section-title-4
@@ -96,7 +215,7 @@ str(col.mean)
 ```
 
 ```
-##  num [1:5] 0.1953 -0.2022 0.0852 0.1931 -0.4801
+##  num [1:5] -0.211 0.188 0.139 0.305 -0.304
 ```
 ]
 .pull-right[
@@ -108,7 +227,7 @@ str(row.sum)
 ```
 
 ```
-##  num [1:10] -1.843 -1.337 0.044 -0.291 -1.871 ...
+##  num [1:10] 1.706 -2.006 4.745 0.103 -2.119 ...
 ```
 
 ```r
@@ -118,7 +237,7 @@ str(exp.all)
 ```
 
 ```
-##  num [1:10, 1:5] 1.146 1.541 0.923 0.265 0.87 ...
+##  num [1:10, 1:5] 0.591 1.257 1.079 0.815 0.749 ...
 ```
 ]
 ---
@@ -152,7 +271,23 @@ map(tif_files$id, ~drive_download(as_id(.x), overwrite = TRUE))
 - `mclapply` and `future_map` allow this in a general way; `raster` and `terra` allow some implicit parallelism
 
 ---
+## What is efficiency?
+ 
+ - Algorithmic efficiency
+ 
+ - Programmer efficiency
 
+  - Goal: _Fast enough_  computationally, _fast as possible_ for the programmer
+
+---
+
+## Benchmarking vs. Profiling
+
+- **Benchmarking**: tests the performance of specific operations repeatedly
+
+- **Profiling**: evaluates many lines of code to find "bottlenecks"
+
+---
 ## Using `mclapply` to extract data
 
 - relies on "forking" 
@@ -192,7 +327,7 @@ s.mclapply
 
 ```
 ##    user  system elapsed 
-##   2.840   0.195   1.280
+##   1.436   0.173   1.197
 ```
 ]
 .pull-right[
@@ -207,7 +342,7 @@ s.lapply
 
 ```
 ##    user  system elapsed 
-##   3.144   0.112   3.308
+##   3.327   0.168   3.573
 ```
 ]
 
@@ -235,12 +370,13 @@ s.future &lt;- system.time(future_map(seq_along(counties.p), function(x){
   cty.ext = counties.sf[x,] %&gt;% as(., "Spatial")
   raster::extract(mos.rast, cty.ext)
 }))
+
 s.future
 ```
 
 ```
 ##    user  system elapsed 
-##   0.525   0.116  20.110
+##   1.183   0.227   7.332
 ```
 ]
 .pull-right[
@@ -251,14 +387,76 @@ s.map &lt;- system.time(map(seq_along(counties.p), function(x){
   cty.ext = counties.sf[x,] %&gt;% as(., "Spatial")
   raster::extract(mos.rast, cty.ext)
 }))
+
 s.map
 ```
 
 ```
 ##    user  system elapsed 
-##  47.407   4.149  51.664
+##  51.536   2.832  54.513
 ```
 ]
+
+---
+## Benchmarking with `microbenchmark`
+ 
+ - `system.time` provides a sample
+ 
+ - `microbenchmark` generates multiple (default is 100) samples
+  -   More robust to vagaries of background computer noies
+---
+## Profiling
+
+- Designed to locate bottle necks in large chunks of code
+
+- Pinpoint which parts of your script or function takes the longes to run
+
+- **Important:** _working code first, profile code second_ 
+---
+## Profile example
+.pull-left[
+
+```r
+rasterize.prof &lt;- profvis(expr = {
+  #load packages
+  library(terra)
+  library(tidycensus)
+  library(tidyverse)
+  #download data and convert to Spatial
+  id.income &lt;- tidycensus:: get_acs(geography = "tract", 
+              variables = c(medincome = "B19013_001"),
+              state = "ID", 
+              year = 2018,
+              key = "90b94953d2f24e81e890229e0128174f5ba80d3f",
+              geometry = TRUE) %&gt;% 
+                st_transform(., crs(counties.p)) %&gt;% 
+    as(., "SpatVector")
+  
+  #process into raster
+  income.tct.rst &lt;- terra::rasterize(x=id.income,
+                                           y=elev.res,
+                                           field = "estimate")
+}, interval = 0.01, prof_output = 'fstr-prof' )
+```
+]
+.pull-right[
+
+```r
+rasterize.prof
+```
+
+<div id="htmlwidget-2b1f8f8f4ac1e1266c5c" style="width:100%;height:600px;" class="profvis html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2b1f8f8f4ac1e1266c5c">{"x":{"message":{"prof":{"time":[1,1,1,1,1,1,1,1,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,4,4,5,5,5,5,5,5,5,5,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16],"depth":[11,10,9,8,7,6,5,4,3,2,1,3,2,1,9,8,7,6,5,4,3,2,1,2,1,10,9,8,7,6,5,4,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1],"label":["curl::curl_escape","compose_query","build_url","handle_url","GET","load_data_acs","tidycensus::get_acs","eval","eval","eval.parent","local","melt_dataframe","gather.data.frame","local","basename","load_tiger","tracts","use_tigris","tidycensus::get_acs","eval","eval","eval.parent","local",".Call","local","FUN","vapply","st_sfc","sf_join","right_join.sf","tidycensus::get_acs","eval","eval","eval.parent","local",".Call","local",".Call","local",".External","local",".External","local",".External","local",".External","local",".External","local",".External","local",".External","local",".External","local",".External","local"],"filenum":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"linenum":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"memalloc":[62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.1348419189453,62.4807891845703,62.4807891845703,62.4807891845703,63.3410034179688,63.3410034179688,63.3410034179688,63.3410034179688,63.3410034179688,63.3410034179688,63.3410034179688,63.3410034179688,63.3410034179688,63.4183044433594,63.4183044433594,65.333137512207,65.333137512207,65.333137512207,65.333137512207,65.333137512207,65.333137512207,65.333137512207,65.333137512207,65.333137512207,65.333137512207,66.2308959960938,66.2308959960938,68.7908172607422,68.7908172607422,70.9673233032227,70.9673233032227,70.9673233032227,70.9673233032227,70.9673233032227,70.9673233032227,70.9673233032227,70.9673233032227,70.9881057739258,70.9881057739258,70.9881057739258,70.9881057739258,70.9881057739258,70.9881057739258,70.9881057739258,70.9881057739258,70.990966796875,70.990966796875],"meminc":[0,0,0,0,0,0,0,0,0,0,0,0.345947265625,0,0,0.860214233398438,0,0,0,0,0,0,0,0,0.077301025390625,0,1.91483306884766,0,0,0,0,0,0,0,0,0,0.897758483886719,0,2.55992126464844,0,2.17650604248047,0,0,0,0,0,0,0,0.020782470703125,0,0,0,0,0,0,0,0.00286102294921875,0],"filename":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},"interval":10,"files":[],"prof_output":"fstr-prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
+]
+## Fixing bottlenecks
+
+1. Look for existing solutions (`fasterize`)
+2. Do less work
+3. Parallelize (next week)
+4. Avoid copies
+
+_Remember programmer efficiency!_
+---
 
 ## Additional directions
 
