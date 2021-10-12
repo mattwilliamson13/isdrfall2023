@@ -96,7 +96,7 @@ str(col.mean)
 ```
 
 ```
-##  num [1:5] -0.1747 -0.1391 -0.0789 0.465 0.1574
+##  num [1:5] 0.1953 -0.2022 0.0852 0.1931 -0.4801
 ```
 ]
 .pull-right[
@@ -108,7 +108,7 @@ str(row.sum)
 ```
 
 ```
-##  num [1:10] -2.284 -3.075 4.266 -0.333 1.777 ...
+##  num [1:10] -1.843 -1.337 0.044 -0.291 -1.871 ...
 ```
 
 ```r
@@ -118,7 +118,7 @@ str(exp.all)
 ```
 
 ```
-##  num [1:10, 1:5] 3.1827 0.0692 2.0182 0.2381 1.0499 ...
+##  num [1:10, 1:5] 1.146 1.541 0.923 0.265 0.87 ...
 ```
 ]
 ---
@@ -137,6 +137,136 @@ tif_files &lt;- drive_ls(folder)
 lapply(tif_files$id, function(x) drive_download(as_id(x), overwrite = TRUE))
 map(tif_files$id, ~drive_download(as_id(.x), overwrite = TRUE))
 ```
+
+- the key is that we are still sending the first argument (`tif_files$id`) to a function!
+
+---
+## Parallelism and spatial computing
+
+- `lapply` and `map` work serially
+
+- Parallelization is useful when pieces of a problem are independent 
+
+- "Embarassingly parallel" refers to problems that can be broken down into small chunks and run simultaneously using your computer's different processors
+
+- `mclapply` and `future_map` allow this in a general way; `raster` and `terra` allow some implicit parallelism
+
+---
+
+## Using `mclapply` to extract data
+
+- relies on "forking" 
+
+- Can be slower than standard processing if the dataset being copied to the child process is large
+
+
+```r
+counties.ext &lt;- mclapply(seq_along(counties.p), function(x){
+  cty.ext = counties.p[x]
+  terra::extract(mos, cty.ext)
+}, mc.cores = 4)
+
+counties.sf &lt;- as(counties.p, "Spatial") %&gt;% 
+  as(., "sf")
+
+counties.df &lt;- map(seq_along(counties.p), function(x){
+   data.frame(GEOID = st_drop_geometry(counties.sf[x, "GEOID"]),
+              mn = mean(counties.ext[[x]][[2]], na.rm=TRUE),
+              sd = sd(counties.ext[[x]][[2]], na.rm = TRUE),
+              min = min(counties.ext[[x]][[2]], na.rm = TRUE),
+              max = max(counties.ext[[x]][[2]], na.rm = TRUE))
+  }
+) %&gt;% do.call(rbind, .)
+```
+---
+## Evaluating `mclapply` to extract data
+.pull-left[
+
+```r
+s.mclapply &lt;- system.time(mclapply(seq_along(counties.p), function(x){
+  cty.ext = counties.p[x]
+  terra::extract(mos, cty.ext)
+}, mc.cores = 4))
+s.mclapply
+```
+
+```
+##    user  system elapsed 
+##   2.840   0.195   1.280
+```
+]
+.pull-right[
+
+```r
+s.lapply &lt;- system.time(lapply(seq_along(counties.p), function(x){
+  cty.ext = counties.p[x]
+  terra::extract(mos, cty.ext)
+}))
+s.lapply
+```
+
+```
+##    user  system elapsed 
+##   3.144   0.112   3.308
+```
+]
+
+---
+## Translating to the `map_` family
+- relies on the `furrr` package
+
+```r
+library(furrr)
+mos.rast &lt;- raster::raster(mos)
+future::plan(multisession)
+counties.ext &lt;- future_map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.ext = counties.sf[x,] %&gt;% as(., "Spatial")
+  raster::extract(mos.rast, cty.ext)
+  })
+```
+---
+## Timing `future_`
+.pull-left[
+
+```r
+s.future &lt;- system.time(future_map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.ext = counties.sf[x,] %&gt;% as(., "Spatial")
+  raster::extract(mos.rast, cty.ext)
+}))
+s.future
+```
+
+```
+##    user  system elapsed 
+##   0.525   0.116  20.110
+```
+]
+.pull-right[
+
+```r
+s.map &lt;- system.time(map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.ext = counties.sf[x,] %&gt;% as(., "Spatial")
+  raster::extract(mos.rast, cty.ext)
+}))
+s.map
+```
+
+```
+##    user  system elapsed 
+##  47.407   4.149  51.664
+```
+]
+
+## Additional directions
+
+- socket clusters (`makeCluster`, `parLapply`) - Useful when data needs to be passed back and forth among jobs (see [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html))
+
+- lots of variations on `map_` (see the [purrr documentation](https://purrr.tidyverse.org/reference/map.html)) and `apply`
+
+- The `foreach` package adds additional functionalilty (see [this blog](https://www.r-bloggers.com/how-to-go-parallel-in-r-basics-tips/) for more info on parallel processing)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>

@@ -38,9 +38,14 @@ library(units)
 library(purrr)
 library(parallel)
 library(furrr)
-library(googledrive)
 library(sp)
-drive_auth(email = "mattwilliamson@boisestate.edu")
+mos <- terra::rast('/Users/matthewwilliamson/Downloads//session04/idval.tif')
+counties.id <- tigris::counties("id") %>% as(., 'SpatVector')
+counties.p <- terra::project(counties.id, mos)
+elev <- geodata::elevation_30s(country="USA", path=tempdir())
+elev.crop <- terra::crop(elev, ext(project(mos, terra::crs(elev))))
+elev.proj <- project(elev.crop, mos)
+elev.res <- resample(elev.proj, mos)
 ```
 
 name: 1
@@ -159,64 +164,82 @@ map(tif_files$id, ~drive_download(as_id(.x), overwrite = TRUE))
 - Can be slower than standard processing if the dataset being copied to the child process is large
 
 ```{r mcltest}
-mos <- terra::rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/idval.tif')
-counties.id <- tigris::counties("id") %>% as(., 'SpatVector')
-counties.p <- terra::project(counties.id, mos)
+
 counties.ext <- mclapply(seq_along(counties.p), function(x){
   cty.ext = counties.p[x]
   terra::extract(mos, cty.ext)
 }, mc.cores = 4)
+
+counties.sf <- as(counties.p, "Spatial") %>% 
+  as(., "sf")
+
+counties.df <- map(seq_along(counties.p), function(x){
+   data.frame(GEOID = st_drop_geometry(counties.sf[x, "GEOID"]),
+              mn = mean(counties.ext[[x]][[2]], na.rm=TRUE),
+              sd = sd(counties.ext[[x]][[2]], na.rm = TRUE),
+              min = min(counties.ext[[x]][[2]], na.rm = TRUE),
+              max = max(counties.ext[[x]][[2]], na.rm = TRUE))
+  }
+) %>% do.call(rbind, .)
+  
 ```
 ---
 ## Evaluating `mclapply` to extract data
-
-```{r timing}
+.pull-left[
+```{r timing1}
 s.mclapply <- system.time(mclapply(seq_along(counties.p), function(x){
-  cty.sf = as(counties.p, "sf") 
-  cty.ext = cty.sf[x,] %>% as(., "Spatial")
-  raster::extract(mos, cty.ext)
+  cty.ext = counties.p[x]
+  terra::extract(mos, cty.ext)
 }, mc.cores = 4))
-s.lapply <- system.time(lapply(seq_along(counties.p), function(x){
-  cty.sf = as(counties.p, "sf") 
-  cty.ext = cty.sf[x,] %>% as(., "Spatial")
-  raster::extract(mos, cty.ext)
-}))
 s.mclapply
+```
+]
+.pull-right[
+```{r timing2}
+s.lapply <- system.time(lapply(seq_along(counties.p), function(x){
+  cty.ext = counties.p[x]
+  terra::extract(mos, cty.ext)
+}))
 s.lapply
 ```
+]
+
 ---
 ## Translating to the `map_` family
 - relies on the `furrr` package
-```{r futureexp}
+```{r futureexp, warning=FALSE, message=FALSE}
 library(furrr)
-future::plan(multiprocess)
+mos.rast <- raster::raster(mos)
+future::plan(multisession)
 counties.ext <- future_map(seq_along(counties.p), function(x){
   library(sf) #each operation in a new session
-  cty.sf = as(counties.p, "sf") 
-  cty.ext = cty.sf[x,] %>% as(., "Spatial")
-  raster::extract(mos, cty.ext)
-})
+  cty.ext = counties.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos.rast, cty.ext)
+  })
 ```
 ---
 ## Timing `future_`
-
-```{r}
+.pull-left[
+```{r timing3}
 s.future <- system.time(future_map(seq_along(counties.p), function(x){
   library(sf) #each operation in a new session
-  cty.sf = as(counties.p, "sf") 
-  cty.ext = cty.sf[x,] %>% as(., "Spatial")
-  raster::extract(mos, cty.ext)
-}))
-s.map <- system.time(map(seq_along(counties.p), function(x){
-  library(sf) #each operation in a new session
-  cty.sf = as(counties.p, "sf") 
-  cty.ext = cty.sf[x,] %>% as(., "Spatial")
-  raster::extract(mos, cty.ext)
+  cty.ext = counties.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos.rast, cty.ext)
 }))
 s.future
+
+```
+]
+.pull-right[
+```{r timing4}
+s.map <- system.time(map(seq_along(counties.p), function(x){
+  library(sf) #each operation in a new session
+  cty.ext = counties.sf[x,] %>% as(., "Spatial")
+  raster::extract(mos.rast, cty.ext)
+}))
 s.map
 ```
-
+]
 
 ## Additional directions
 
