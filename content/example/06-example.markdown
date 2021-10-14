@@ -257,8 +257,6 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |====                                                                  |   6%
   |                                                                            
-  |=====                                                                 |   6%
-  |                                                                            
   |=====                                                                 |   7%
   |                                                                            
   |=====                                                                 |   8%
@@ -267,11 +265,15 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |======                                                                |   9%
   |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
   |=======                                                               |  10%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
   |========                                                              |  12%
+  |                                                                            
+  |=========                                                             |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -287,31 +289,75 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |============                                                          |  17%
   |                                                                            
+  |============                                                          |  18%
+  |                                                                            
+  |=============                                                         |  18%
+  |                                                                            
+  |=============                                                         |  19%
+  |                                                                            
   |==============                                                        |  20%
   |                                                                            
-  |==============                                                        |  21%
+  |================                                                      |  22%
   |                                                                            
-  |===============                                                       |  22%
+  |=================                                                     |  24%
   |                                                                            
-  |=====================                                                 |  30%
+  |=================                                                     |  25%
   |                                                                            
-  |======================                                                |  32%
+  |==================                                                    |  25%
   |                                                                            
-  |=======================                                               |  32%
+  |==================                                                    |  26%
   |                                                                            
-  |========================                                              |  34%
+  |===================                                                   |  27%
   |                                                                            
-  |==================================                                    |  48%
+  |======================                                                |  31%
   |                                                                            
-  |=======================================                               |  55%
+  |==========================                                            |  37%
+  |                                                                            
+  |==========================                                            |  38%
+  |                                                                            
+  |===========================                                           |  38%
+  |                                                                            
+  |===========================                                           |  39%
+  |                                                                            
+  |============================                                          |  39%
+  |                                                                            
+  |=====================================                                 |  53%
   |                                                                            
   |=======================================                               |  56%
   |                                                                            
-  |=================================================                     |  70%
+  |===========================================                           |  62%
+  |                                                                            
+  |============================================                          |  62%
+  |                                                                            
+  |=============================================                         |  64%
+  |                                                                            
+  |==============================================                        |  66%
+  |                                                                            
+  |=================================================                     |  71%
+  |                                                                            
+  |======================================================                |  78%
   |                                                                            
   |========================================================              |  80%
   |                                                                            
-  |==================================================================    |  94%
+  |=========================================================             |  81%
+  |                                                                            
+  |==========================================================            |  82%
+  |                                                                            
+  |==========================================================            |  83%
+  |                                                                            
+  |===========================================================           |  84%
+  |                                                                            
+  |================================================================      |  91%
+  |                                                                            
+  |================================================================      |  92%
+  |                                                                            
+  |=================================================================     |  93%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |===================================================================== |  98%
+  |                                                                            
+  |===================================================================== |  99%
   |                                                                            
   |======================================================================| 100%
 ```
@@ -328,7 +374,7 @@ pa.income.summary <- pa.income %>%
 ```
 
 # Step 5: Buffer your PAs
-In order to get the raster data from the same area that you just estimated median income, you'll need to buffer the PAs by 25km
+In order to get the raster data from the same area that you just estimated median income, you'll need to buffer the PAs by 50km
 
 ```r
 pa.buf <- id.gap.1 %>% 
@@ -336,18 +382,57 @@ pa.buf <- id.gap.1 %>%
 ```
 
 # Step 6: Crop all of the rasters to the extent of your buffered PA dataset
-Before you start doing a bunch of raster processing you'll want to get rid of the parts you don't need. Do that here. Remember you'll want all of your rasters to have the same CRS.
+Before you start doing a bunch of raster processing you'll want to get rid of the parts you don't need. Do that here. Remember you'll want all of your rasters to have the same CRS. We won't do that here (but you probably know how to do it)
 
 ```r
 pa.buf.vect <- as(pa.buf, "SpatVector")
+
+mam.rich.crop <- crop(mammal.rich, project(pa.buf.vect, mammal.rich))
+id.val.crop <- crop(landval, project(pa.buf.vect, landval))
 ```
 
 
 # Step 8: Extract the data
-Now that you've got all the data together, it's time to run the extraction. Remember that extractions run faster when all of the layers are "stacked", but that requires you to use `resample` to get to the same origins and extents. Use `zonal` to estimate the `mean` and `sd` for each of the mammalian richness, land value, and NDVI datasets. Then use `extract` (without specifying a function) to estimate the same thig. Use `system.time()` to bencmark each approach.
+Now that you've got all the data together, it's time to run the extraction. Remember that extractions run faster when all of the layers are "stacked", but that requires you to use `resample` to get to the same origins and extents. Use `zonal` to estimate the `mean` and `sd` for each of the mammalian richness, land value, and NDVI datasets. Then use `extract` (without specifying a function) to estimate the same thig. Use `system.time()` to bencmark each approach. I'll demonstrate for the richness data using zonal stats.
 
+
+```r
+pa.buf.vect.proj <- terra::project(pa.buf.vect, mammal.rich)
+pa.buf.zones <- terra::rasterize(pa.buf.vect.proj, mam.rich.crop, field = "Unit_Nm")
+mammal.zones <- terra::zonal(mam.rich.crop, pa.buf.zones, fun = "mean", na.rm=TRUE)
+zonal.time <- system.time(terra::zonal(mam.rich.crop, pa.buf.zones, fun = "mean", na.rm=TRUE))
+```
 
 # Step 9: Join back to your PA dataset
-Now that you have the raster data extracted and summarized (into the mean and standard deviation) for each buffered PA, you should be able to join it back to the dataset you created in steps 2-4. Do that here.
+Now that you have the raster data extracted and summarized (into the mean and standard deviation) for each buffered PA, you should be able to join it back to the dataset you created in steps 2-4. I'll do that here   
 
+```r
+summary.df <- pa.income.summary %>% 
+  left_join(., mammal.zones)
+```
+
+```
+## Joining, by = "Unit_Nm"
+```
+
+```r
+head(summary.df)
+```
+
+```
+## Simple feature collection with 6 features and 3 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -1637570 ymin: 2277825 xmax: -1396163 ymax: 2675919
+## Projected CRS: USA_Contiguous_Albers_Equal_Area_Conic_USGS_version
+## # A tibble: 6 × 4
+##   Unit_Nm              meaninc                                    geometry Value
+##   <chr>                  <dbl>                          <MULTIPOLYGON [m]> <dbl>
+## 1 Big Jacks Creek Wil…  50094  (((-1615346 2364480, -1615519 2363694, -16…  NA  
+## 2 Bruneau-Jarbidge Ri…  50265  (((-1593547 2361288, -1593505 2361239, -15…  77.5
+## 3 Cecil D. Andrus-Whi…  46314. (((-1483396 2496861, -1483426 2496828, -14…  NA  
+## 4 Cecil D. Andrus-Whi…  46314. (((-1485076 2510359, -1484999 2510359, -14…  NA  
+## 5 Craters of the Moon…  47762. (((-1398389 2402114, -1398445 2401816, -13…  79.9
+## 6 Frank Church-River …  45915  (((-1485925 2548854, -1485887 2548829, -14…  80.3
+```
 
