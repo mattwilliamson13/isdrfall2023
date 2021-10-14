@@ -165,6 +165,7 @@ head(zones)
 ---
 name: extract
 class: center middle main-title section-title-4
+# Extractions
 ---
 # Extractions
 * Zonal stats are fast, but limited
@@ -374,8 +375,8 @@ s.map
 - **Important:** _working code first, profile code second_ 
 ---
 ## Profile example
-.pull-left[
-```{r rprof}
+
+```{r rprof, eval=FALSE}
 rasterize.prof <- profvis(expr = {
   #load packages
   library(terra)
@@ -397,12 +398,21 @@ rasterize.prof <- profvis(expr = {
                                            field = "estimate")
 }, interval = 0.01, prof_output = 'fstr-prof' )
 ```
+---
+## Profile Example
+.pull-left[
+<figure>
+  <img src="img/08/prof1.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>Profile results</figcaption>
+</figure>
 ]
-.pull-right[
-```{r rprofres}
-rasterize.prof
-```
+.pull-righ[
+<figure>
+  <img src="img/08/prof2.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>Profile results</figcaption>
+</figure>
 ]
+---
 ## Fixing bottlenecks
 
 1. Look for existing solutions (`fasterize`)
