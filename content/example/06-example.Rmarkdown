@@ -102,18 +102,22 @@ Use `st_join` to connect your PAs dataset with every county within 50km and then
 ```{r}
 pa.income <- st_join(id.gap.1, id.income, join = st_is_within_distance, dist=50000)
 
-pa.income. summary <- 
+pa.income.summary <- pa.income %>% 
+  group_by(Unit_Nm) %>% 
+  summarize(., meaninc = mean(estimate))
 ```
 
 # Step 5: Buffer your PAs
 In order to get the raster data from the same area that you just estimated median income, you'll need to buffer the PAs by 25km
 ```{r}
-
+pa.buf <- id.gap.1 %>% 
+  st_buffer(., 50000)
 ```
 
 # Step 6: Crop all of the rasters to the extent of your buffered PA dataset
 Before you start doing a bunch of raster processing you'll want to get rid of the parts you don't need. Do that here. Remember you'll want all of your rasters to have the same CRS.
 ```{r}
+pa.buf.vect <- as(pa.buf, "SpatVector")
 
 ```
 
