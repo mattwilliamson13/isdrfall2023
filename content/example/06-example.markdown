@@ -1,7 +1,7 @@
 ---
 title: "Combining raster and vector data"
 linktitle: "6: Combining raster and vector data"
-date: "2021-10-06"
+date: "2021-10-13"
 toc: yes
 menu:
   example:
@@ -33,9 +33,9 @@ library(tidyverse)
 
 ```
 ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
+## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
 ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.2     ✓ forcats 0.5.1
+## ✓ readr   2.0.0     ✓ forcats 0.5.1
 ```
 
 ```
@@ -58,7 +58,7 @@ library(terra)
 ```
 
 ```
-## terra version 1.4.14
+## terra version 1.3.22
 ```
 
 ```
@@ -78,33 +78,29 @@ library(terra)
 ##     src
 ```
 
-```
-## The following object is masked from 'package:tidyr':
-## 
-##     extract
-```
-
 ```r
 library(units)
 ```
 
 ```
-## udunits database from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/units/share/udunits/udunits2.xml
+## udunits database from /Library/Frameworks/R.framework/Versions/4.1/Resources/library/units/share/udunits/udunits2.xml
 ```
 
 ```r
 library(purrr)
 library(sp)
 library(profvis)
-#landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
-landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
-mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
-pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
+#landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
+#mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
+#pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
 ```
 
 ```
 ## Reading layer `regionalPAs1' from data source 
-##   `/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp' 
+##   `/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 224 features and 7 fields
 ## Geometry type: MULTIPOLYGON
@@ -114,12 +110,12 @@ pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro
 ```
 
 ```r
-pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
+pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
 ```
 
 ```
 ## Reading layer `reg_pas' from data source 
-##   `/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp' 
+##   `/Users/matthewwilliamson/Downloads/session16/reg_pas.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 544 features and 32 fields
 ## Geometry type: MULTIPOLYGON
@@ -129,9 +125,9 @@ pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_
 ```
 
 ```r
-#combine the pas into 1, but the columns don't all mathc
+#combine the pas into 1, but the columns don't all match, thanks PADUS
 
-colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig)
+colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig) #find the columnames in the proc dataset and replace them with the almost matching names from the des.
 ```
 
 ```
@@ -143,7 +139,7 @@ colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig)
 ```r
 pas <- pas.proc %>% 
   select(., colnames(pas.desig)) %>% 
-  bind_rows(pas.desig, pas.proc)
+  bind_rows(pas.desig, pas.proc) #select the columns that match and then combine
 ```
 
 Because we haven't looked at the species richness data yet, let's plot it here.
@@ -181,7 +177,7 @@ st_crs(mammal.rich)$proj4string
 ```
 
 ```
-## [1] "+proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
+## [1] NA
 ```
 
 ```r
@@ -189,7 +185,7 @@ st_crs(landval)$proj4string
 ```
 
 ```
-## [1] "+proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
+## [1] NA
 ```
 
 ```r
@@ -201,8 +197,8 @@ st_crs(pas)$proj4string
 ```
 Alhtough the PAs and land value rasters match, the mammal richness is in a different project. We'll deal with that once we've subsetted the data a bit.
 
-# Step 2: Filter the data
-You'll need to filter the PADUS dataset so that it only contains the [Gap Status 1](https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/pad-us-data-overview?qt-science_center_objects=0#qt-science_center_objects) protected areas. Here, I'll do it for Idaho. 
+## Filter the data
+You'll need to filter the PADUS dataset so that it only contains the [Gap Status 1](https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/pad-us-data-overview?qt-science_center_objects=0#qt-science_center_objects) protected areas. Here, I'll do it for Idaho. Note that the PADUS breaks PAs out by how they were created so we need to combine both the designated and proclaimed areas in the data load coad.
 
 
 ```r
@@ -211,7 +207,7 @@ id.gap.1 <- pas %>%
 ```
 
 
-# Step 3: Get the data for median income by county
+## Get the data for median income by county
 Now let's get the median income data and geometry for each county. We'll use the tidycensus package for that. Note that you may have to sign up for a Census Api before you can use the tidycensus package ([instructions here](https://walker-data.com/tidycensus/articles/basic-usage.html))
 
 ```r
@@ -247,11 +243,7 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |==                                                                    |   3%
   |                                                                            
-  |==                                                                    |   4%
-  |                                                                            
   |===                                                                   |   4%
-  |                                                                            
-  |===                                                                   |   5%
   |                                                                            
   |====                                                                  |   5%
   |                                                                            
@@ -259,29 +251,17 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |=====                                                                 |   7%
   |                                                                            
-  |=====                                                                 |   8%
-  |                                                                            
-  |======                                                                |   8%
-  |                                                                            
-  |======                                                                |   9%
-  |                                                                            
-  |=======                                                               |   9%
-  |                                                                            
   |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
   |========                                                              |  12%
   |                                                                            
-  |=========                                                             |  12%
-  |                                                                            
   |=========                                                             |  13%
   |                                                                            
   |==========                                                            |  14%
-  |                                                                            
-  |==========                                                            |  15%
-  |                                                                            
-  |===========                                                           |  15%
   |                                                                            
   |===========                                                           |  16%
   |                                                                            
@@ -295,74 +275,80 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |=============                                                         |  19%
   |                                                                            
+  |==============                                                        |  19%
+  |                                                                            
   |==============                                                        |  20%
   |                                                                            
-  |================                                                      |  22%
+  |===============                                                       |  21%
   |                                                                            
-  |=================                                                     |  24%
+  |===============                                                       |  22%
   |                                                                            
-  |=================                                                     |  25%
+  |=======================                                               |  33%
   |                                                                            
-  |==================                                                    |  25%
+  |========================                                              |  34%
   |                                                                            
-  |==================                                                    |  26%
+  |=========================                                             |  35%
   |                                                                            
-  |===================                                                   |  27%
-  |                                                                            
-  |======================                                                |  31%
+  |=========================                                             |  36%
   |                                                                            
   |==========================                                            |  37%
   |                                                                            
   |==========================                                            |  38%
   |                                                                            
-  |===========================                                           |  38%
-  |                                                                            
   |===========================                                           |  39%
   |                                                                            
-  |============================                                          |  39%
+  |============================                                          |  40%
   |                                                                            
-  |=====================================                                 |  53%
+  |=================================                                     |  48%
   |                                                                            
-  |=======================================                               |  56%
+  |==================================                                    |  49%
   |                                                                            
-  |===========================================                           |  62%
+  |===================================                                   |  50%
+  |                                                                            
+  |======================================                                |  54%
+  |                                                                            
+  |=========================================                             |  58%
   |                                                                            
   |============================================                          |  62%
   |                                                                            
-  |=============================================                         |  64%
+  |============================================                          |  63%
   |                                                                            
-  |==============================================                        |  66%
+  |============================================                          |  64%
   |                                                                            
-  |=================================================                     |  71%
+  |=================================================                     |  70%
   |                                                                            
-  |======================================================                |  78%
+  |==================================================                    |  71%
   |                                                                            
-  |========================================================              |  80%
+  |===================================================                   |  72%
   |                                                                            
-  |=========================================================             |  81%
-  |                                                                            
-  |==========================================================            |  82%
-  |                                                                            
-  |==========================================================            |  83%
+  |===================================================                   |  73%
   |                                                                            
   |===========================================================           |  84%
   |                                                                            
-  |================================================================      |  91%
+  |============================================================          |  85%
   |                                                                            
-  |================================================================      |  92%
+  |============================================================          |  86%
+  |                                                                            
+  |=============================================================         |  87%
+  |                                                                            
+  |==============================================================        |  88%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |=================================================================     |  92%
   |                                                                            
   |=================================================================     |  93%
   |                                                                            
   |===================================================================   |  96%
   |                                                                            
-  |===================================================================== |  98%
+  |====================================================================  |  97%
   |                                                                            
-  |===================================================================== |  99%
+  |===================================================================== |  98%
   |                                                                            
   |======================================================================| 100%
 ```
 
-# Step 4: Use a spatial join
+## Use a spatial join
 Use `st_join` to connect your PAs dataset with every county within 50km and then use `group_by` and `summarise` to take the mean value of the median income data for each PA. By the time you are done with this step you should have the same number of rows that you had after your initial filter of the PAs (step 2).
 
 ```r
@@ -373,7 +359,7 @@ pa.income.summary <- pa.income %>%
   summarize(., meaninc = mean(estimate))
 ```
 
-# Step 5: Buffer your PAs
+## Buffer your PAs
 In order to get the raster data from the same area that you just estimated median income, you'll need to buffer the PAs by 50km
 
 ```r
@@ -381,7 +367,7 @@ pa.buf <- id.gap.1 %>%
   st_buffer(., 50000)
 ```
 
-# Step 6: Crop all of the rasters to the extent of your buffered PA dataset
+## Crop all of the rasters to the extent of your buffered PA dataset
 Before you start doing a bunch of raster processing you'll want to get rid of the parts you don't need. Do that here. Remember you'll want all of your rasters to have the same CRS. We won't do that here (but you probably know how to do it)
 
 ```r
@@ -392,7 +378,7 @@ id.val.crop <- crop(landval, project(pa.buf.vect, landval))
 ```
 
 
-# Step 8: Extract the data
+## Extract the data
 Now that you've got all the data together, it's time to run the extraction. Remember that extractions run faster when all of the layers are "stacked", but that requires you to use `resample` to get to the same origins and extents. Use `zonal` to estimate the `mean` and `sd` for each of the mammalian richness, land value, and NDVI datasets. Then use `extract` (without specifying a function) to estimate the same thig. Use `system.time()` to bencmark each approach. I'll demonstrate for the richness data using zonal stats.
 
 
@@ -403,7 +389,7 @@ mammal.zones <- terra::zonal(mam.rich.crop, pa.buf.zones, fun = "mean", na.rm=TR
 zonal.time <- system.time(terra::zonal(mam.rich.crop, pa.buf.zones, fun = "mean", na.rm=TRUE))
 ```
 
-# Step 9: Join back to your PA dataset
+## Join back to your PA dataset
 Now that you have the raster data extracted and summarized (into the mean and standard deviation) for each buffered PA, you should be able to join it back to the dataset you created in steps 2-4. I'll do that here   
 
 ```r

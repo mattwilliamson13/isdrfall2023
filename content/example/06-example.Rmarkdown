@@ -1,7 +1,7 @@
 ---
 title: "Combining raster and vector data"
 linktitle: "6: Combining raster and vector data"
-date: "2021-10-06"
+date: "2021-10-13"
 toc: yes
 menu:
   example:
@@ -33,19 +33,21 @@ library(units)
 library(purrr)
 library(sp)
 library(profvis)
-#landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
-landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
-mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
-pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
-pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
+landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
+#landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
+#mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
+#pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
+pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
 
-#combine the pas into 1, but the columns don't all mathc
+#combine the pas into 1, but the columns don't all match, thanks PADUS
 
-colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig)
+colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig) #find the columnames in the proc dataset and replace them with the almost matching names from the des.
 
 pas <- pas.proc %>% 
   select(., colnames(pas.desig)) %>% 
-  bind_rows(pas.desig, pas.proc)
+  bind_rows(pas.desig, pas.proc) #select the columns that match and then combine
 ```
 
 Because we haven't looked at the species richness data yet, let's plot it here.
@@ -76,8 +78,8 @@ st_crs(pas)$proj4string
 ```
 Alhtough the PAs and land value rasters match, the mammal richness is in a different project. We'll deal with that once we've subsetted the data a bit.
 
-# Step 2: Filter the data
-You'll need to filter the PADUS dataset so that it only contains the [Gap Status 1](https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/pad-us-data-overview?qt-science_center_objects=0#qt-science_center_objects) protected areas. Here, I'll do it for Idaho. 
+## Filter the data
+You'll need to filter the PADUS dataset so that it only contains the [Gap Status 1](https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/pad-us-data-overview?qt-science_center_objects=0#qt-science_center_objects) protected areas. Here, I'll do it for Idaho. Note that the PADUS breaks PAs out by how they were created so we need to combine both the designated and proclaimed areas in the data load coad.
 
 ```{r gpfilter}
 id.gap.1 <- pas %>% 
@@ -85,7 +87,7 @@ id.gap.1 <- pas %>%
 ```
 
 
-# Step 3: Get the data for median income by county
+## Get the data for median income by county
 Now let's get the median income data and geometry for each county. We'll use the tidycensus package for that. Note that you may have to sign up for a Census Api before you can use the tidycensus package ([instructions here](https://walker-data.com/tidycensus/articles/basic-usage.html))
 ```{r}
 id.income <- tidycensus:: get_acs(geography = "county", 
@@ -97,7 +99,7 @@ id.income <- tidycensus:: get_acs(geography = "county",
                 st_transform(., st_crs(pas))
 ```
 
-# Step 4: Use a spatial join
+## Use a spatial join
 Use `st_join` to connect your PAs dataset with every county within 50km and then use `group_by` and `summarise` to take the mean value of the median income data for each PA. By the time you are done with this step you should have the same number of rows that you had after your initial filter of the PAs (step 2).
 ```{r spjoin}
 pa.income <- st_join(id.gap.1, id.income, join = st_is_within_distance, dist=50000)
@@ -107,14 +109,14 @@ pa.income.summary <- pa.income %>%
   summarize(., meaninc = mean(estimate))
 ```
 
-# Step 5: Buffer your PAs
+## Buffer your PAs
 In order to get the raster data from the same area that you just estimated median income, you'll need to buffer the PAs by 50km
 ```{r buf}
 pa.buf <- id.gap.1 %>% 
   st_buffer(., 50000)
 ```
 
-# Step 6: Crop all of the rasters to the extent of your buffered PA dataset
+## Crop all of the rasters to the extent of your buffered PA dataset
 Before you start doing a bunch of raster processing you'll want to get rid of the parts you don't need. Do that here. Remember you'll want all of your rasters to have the same CRS. We won't do that here (but you probably know how to do it)
 ```{r rcrops}
 pa.buf.vect <- as(pa.buf, "SpatVector")
@@ -125,7 +127,7 @@ id.val.crop <- crop(landval, project(pa.buf.vect, landval))
 ```
 
 
-# Step 8: Extract the data
+## Extract the data
 Now that you've got all the data together, it's time to run the extraction. Remember that extractions run faster when all of the layers are "stacked", but that requires you to use `resample` to get to the same origins and extents. Use `zonal` to estimate the `mean` and `sd` for each of the mammalian richness, land value, and NDVI datasets. Then use `extract` (without specifying a function) to estimate the same thig. Use `system.time()` to bencmark each approach. I'll demonstrate for the richness data using zonal stats.
 
 ```{r}
@@ -135,7 +137,7 @@ mammal.zones <- terra::zonal(mam.rich.crop, pa.buf.zones, fun = "mean", na.rm=TR
 zonal.time <- system.time(terra::zonal(mam.rich.crop, pa.buf.zones, fun = "mean", na.rm=TRUE))
 ```
 
-# Step 9: Join back to your PA dataset
+## Join back to your PA dataset
 Now that you have the raster data extracted and summarized (into the mean and standard deviation) for each buffered PA, you should be able to join it back to the dataset you created in steps 2-4. I'll do that here   
 ```{r}
 summary.df <- pa.income.summary %>% 
