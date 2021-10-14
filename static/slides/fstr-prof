@@ -1,4 +1,5 @@
 memory profiling: GC profiling: line profiling: sample.interval=10000
+<<<<<<< HEAD
 :2010647:5065193:162964424:565:"curl::curl_escape" "compose_query" "build_url" "handle_url" "GET" "load_data_acs" "tidycensus::get_acs" "eval" "eval" "eval.parent" "local" 
 :2026606:5090212:166152952:480:"gzfile" "readRDS" "packageDescription" "packageVersion" "tidycensus::get_acs" "eval" "eval" "eval.parent" "local" 
 :2036866:5139066:169484784:1608:"as_tibble.data.frame" "group_data.tbl_df" "group_keys.data.frame" "initialize" "DataMask$new" "mutate_cols" "mutate.data.frame" "tidycensus::get_acs" "eval" "eval" "eval.parent" "local" 
@@ -15,3 +16,26 @@ memory profiling: GC profiling: line profiling: sample.interval=10000
 :2075938:6161269:180923624:0:".External" "local" 
 :2075938:6161269:180923624:0:".External" "local" 
 :2075938:6161269:180923624:0:".External" "local" 
+=======
+#File 1: <expr>
+:2443807:5727030:194329968:318:"checkConflicts" "library" 1#4 "eval" "eval" "eval.parent" "local" 
+:2449628:5741769:195612368:542:"iconvlist" "check_encoding" "guess_encoding" "parse_text" "content" "load_data_acs" "tidycensus::get_acs" "eval" "eval" "eval.parent" "local" 
+:2461626:5755203:197959048:127:"file.exists" "packageDescription" "packageVersion" "tidycensus::get_acs" "eval" "eval" "eval.parent" "local" 
+:2469638:5802517:200262832:1135:"order" "spread.data.frame" "local" 
+:2476661:5858009:202112792:724:".External" "local" 
+:2476693:5863009:202112960:0:".External" "local" 
+:2480598:6071077:202905808:7:".Call" "local" 
+:2495678:6094849:206669736:1296:"join_mutate" "right_join.data.frame" "tidycensus::get_acs" "eval" "eval" "eval.parent" "local" 
+:2500460:6210103:208268200:344:".Call" "local" 
+:2505985:6421430:209623008:143:"is" "$" "initialize" "methods::new" "SpatVector$new" ".local" "vect" ".from_sf" "asMethod" "as" "local" 
+:2506906:6810940:210594384:39:".Call" "local" 
+:2506917:6823752:210612584:0:".External" "local" 
+:2506917:6823752:210612584:0:".External" "local" 
+:2506917:6823752:210612584:0:".External" "local" 
+:2509210:6824080:211658496:255:".External" "local" 
+:2509210:6824080:211658496:0:".External" "local" 
+:2509210:6824080:211658496:0:".External" "local" 
+:2509210:6824080:211658496:0:".External" "local" 
+:2509210:6824080:211658496:0:".External" "local" 
+:2509210:6824080:211658496:0:".External" "local" 
+>>>>>>> e482ac2 (local)

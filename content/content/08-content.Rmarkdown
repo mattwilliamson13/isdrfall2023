@@ -10,7 +10,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/ecology.csl"
-slides: "0-slides"
+slides: "08-slides"
 ---
 
 ```{r slides, echo=FALSE, include=FALSE}

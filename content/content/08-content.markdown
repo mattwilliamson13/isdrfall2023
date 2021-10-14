@@ -10,7 +10,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/ecology.csl"
-slides: "0-slides"
+slides: "08-slides"
 ---
 
 Now that you’ve gotten some experience building databases using tabular and vector data, we’ll take a look at combining data models (i.e., using vectors and rasters together). We’ll rely largely on `terra::rasterize`, `terra::zonal`, and `terra::extract` to summarize data in ways that allow them to be combined with other tabular and vector data. We’ll also take a look at the speed of different approaches and think about scaling each approach to larger geographic extents.
