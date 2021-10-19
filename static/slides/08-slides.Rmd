@@ -1,7 +1,7 @@
 ---
 title: "Combining raster and vector data"
 author: "Matt Williamson"
-date: "01 Oct 2021"
+date: "10 Oct 2021"
 output:
   xaringan::moon_reader:
     lib_dir: "libs"
