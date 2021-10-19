@@ -1,7 +1,7 @@
 ---
 title: "Building spatial databases based on co-location"
 linktitle: "7: Deriving attributes based on location"
-date: "2021-10-5"
+date: "2021-10-05"
 menu:
   content:
     parent: Course content
