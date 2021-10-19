@@ -1,7 +1,7 @@
 ---
 title: "Truth and Cartography: Spatial Data Visualization"
 linktitle: "9: Principles of Spatial Data Visualization"
-date: "2021-10-11"
+date: "2021-10-18"
 menu:
   content:
     parent: Course content
