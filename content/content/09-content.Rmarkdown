@@ -37,5 +37,8 @@ We've spent the last few weeks learning about operations to compile geographic i
 - <i class="fas fa-external-link-square-alt"></i>  This post on [making maps people want to look at](https://www.esri.com/news/arcuser/0112/files/design-principles.pdf) from ESRI is a nice, concise depiction of some core principles for planning a cartographic project.
 
 ## Slides
+`r blogdown::shortcode("slide-buttons")`
 
-Comming Soon
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/08-slides.html")
+```

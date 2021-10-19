@@ -207,7 +207,7 @@ str(col.mean)
 ```
 
 ```
-##  num [1:5] -0.2224 -0.104 0.2288 -0.0408 0.1348
+##  num [1:5] 0.119 -0.444 -0.282 -0.514 0.1
 ```
 ]
 .pull-right[
@@ -219,7 +219,7 @@ str(row.sum)
 ```
 
 ```
-##  num [1:10] 1.2899 0.2198 0.3386 -1.4369 -0.0914 ...
+##  num [1:10] -0.963 -3.781 -2.891 -3.784 -0.961 ...
 ```
 
 ```r
@@ -229,7 +229,7 @@ str(exp.all)
 ```
 
 ```
-##  num [1:10, 1:5] 1.268 2.845 0.327 0.2 0.612 ...
+##  num [1:10, 1:5] 1.961 0.902 1.288 1.296 3.426 ...
 ```
 ]
 ---
@@ -319,7 +319,7 @@ s.mclapply
 
 ```
 ##    user  system elapsed 
-##   4.893   0.374   2.194
+##   2.923   0.272   1.332
 ```
 ]
 .pull-right[
@@ -334,7 +334,7 @@ s.lapply
 
 ```
 ##    user  system elapsed 
-##   4.540   0.142   4.694
+##   3.231   0.128   3.375
 ```
 ]
 
@@ -368,7 +368,7 @@ s.future
 
 ```
 ##    user  system elapsed 
-##   1.063   0.221  36.182
+##   0.609   0.132  26.947
 ```
 ]
 .pull-right[
@@ -385,7 +385,7 @@ s.map
 
 ```
 ##    user  system elapsed 
-##  69.616   5.745  75.942
+##  52.649   4.966  58.787
 ```
 ]
 
@@ -438,7 +438,7 @@ rasterize.prof &lt;- profvis(expr = {
   &lt;figcaption&gt;Profile results&lt;/figcaption&gt;
 &lt;/figure&gt;
 ]
-.pull-righ[
+.pull-right[
 &lt;figure&gt;
   &lt;img src="img/08/prof2.png" alt="ZZZ" title="ZZZ" width="100%"&gt;
   &lt;figcaption&gt;Profile results&lt;/figcaption&gt;

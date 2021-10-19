@@ -25,7 +25,84 @@ We’ve spent the last few weeks learning about operations to compile geographic
 
 ## Slides
 
-Comming Soon
+{{% slide-buttons %}}
+
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="truth-and-cartography-tab" data-toggle="tab" href="#truth-and-cartography" role="tab" aria-controls="truth-and-cartography" aria-selected="true">Truth and Cartography</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="introduction-to-data-visualization-principles-tab" data-toggle="tab" href="#introduction-to-data-visualization-principles" role="tab" aria-controls="introduction-to-data-visualization-principles" aria-selected="false">Introduction to data visualization principles</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="extending-those-principles-to-maps-tab" data-toggle="tab" href="#extending-those-principles-to-maps" role="tab" aria-controls="extending-those-principles-to-maps" aria-selected="false">Extending those principles to maps</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="common-geographic-visualizations-tab" data-toggle="tab" href="#common-geographic-visualizations" role="tab" aria-controls="common-geographic-visualizations" aria-selected="false">Common geographic visualizations</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="looking-ahead-tab" data-toggle="tab" href="#looking-ahead" role="tab" aria-controls="looking-ahead" aria-selected="false">Looking ahead</a>
+</li>
+</ul>
+
+<div id="slide-tabs" class="tab-content">
+
+<div id="truth-and-cartography" class="tab-pane fade show active" role="tabpanel" aria-labelledby="truth-and-cartography-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#1">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="introduction-to-data-visualization-principles" class="tab-pane fade" role="tabpanel" aria-labelledby="introduction-to-data-visualization-principles-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#dataviz">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="extending-those-principles-to-maps" class="tab-pane fade" role="tabpanel" aria-labelledby="extending-those-principles-to-maps-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#carto">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="common-geographic-visualizations" class="tab-pane fade" role="tabpanel" aria-labelledby="common-geographic-visualizations-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#spviz">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="looking-ahead" class="tab-pane fade" role="tabpanel" aria-labelledby="looking-ahead-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#future">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 
