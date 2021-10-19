@@ -33,9 +33,9 @@ library(tidyverse)
 
 ```
 ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
+## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
 ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.0     ✓ forcats 0.5.1
+## ✓ readr   2.0.2     ✓ forcats 0.5.1
 ```
 
 ```
@@ -58,7 +58,7 @@ library(terra)
 ```
 
 ```
-## terra version 1.3.22
+## terra version 1.4.14
 ```
 
 ```
@@ -78,29 +78,34 @@ library(terra)
 ##     src
 ```
 
+```
+## The following object is masked from 'package:tidyr':
+## 
+##     extract
+```
+
 ```r
 library(units)
 ```
 
 ```
-## udunits database from /Library/Frameworks/R.framework/Versions/4.1/Resources/library/units/share/udunits/udunits2.xml
+## udunits database from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/units/share/udunits/udunits2.xml
 ```
 
 ```r
 library(purrr)
 library(sp)
 library(profvis)
-landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
-#landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
-#mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
-mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
-#pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
-pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
+#landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
+landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
+mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+#mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
+pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
 ```
 
 ```
 ## Reading layer `regionalPAs1' from data source 
-##   `/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp' 
+##   `/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 224 features and 7 fields
 ## Geometry type: MULTIPOLYGON
@@ -110,12 +115,14 @@ pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.
 ```
 
 ```r
-pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
+#pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
+#pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
+pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
 ```
 
 ```
 ## Reading layer `reg_pas' from data source 
-##   `/Users/matthewwilliamson/Downloads/session16/reg_pas.shp' 
+##   `/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 544 features and 32 fields
 ## Geometry type: MULTIPOLYGON
@@ -177,7 +184,7 @@ st_crs(mammal.rich)$proj4string
 ```
 
 ```
-## [1] NA
+## [1] "+proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
 ```
 
 ```r
@@ -185,7 +192,7 @@ st_crs(landval)$proj4string
 ```
 
 ```
-## [1] NA
+## [1] "+proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
 ```
 
 ```r
@@ -243,7 +250,11 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |==                                                                    |   3%
   |                                                                            
+  |==                                                                    |   4%
+  |                                                                            
   |===                                                                   |   4%
+  |                                                                            
+  |===                                                                   |   5%
   |                                                                            
   |====                                                                  |   5%
   |                                                                            
@@ -251,25 +262,33 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |=====                                                                 |   7%
   |                                                                            
-  |=======                                                               |  10%
+  |=====                                                                 |   8%
   |                                                                            
-  |=======                                                               |  11%
+  |======                                                                |   8%
+  |                                                                            
+  |======                                                                |   9%
+  |                                                                            
+  |=======                                                               |  10%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
   |========                                                              |  12%
   |                                                                            
+  |=========                                                             |  12%
+  |                                                                            
   |=========                                                             |  13%
   |                                                                            
   |==========                                                            |  14%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |===========                                                           |  15%
   |                                                                            
   |===========                                                           |  16%
   |                                                                            
   |============                                                          |  16%
   |                                                                            
   |============                                                          |  17%
-  |                                                                            
-  |============                                                          |  18%
   |                                                                            
   |=============                                                         |  18%
   |                                                                            
@@ -283,39 +302,49 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |===============                                                       |  22%
   |                                                                            
-  |=======================                                               |  33%
+  |================                                                      |  23%
   |                                                                            
-  |========================                                              |  34%
+  |================                                                      |  24%
   |                                                                            
-  |=========================                                             |  35%
+  |=================                                                     |  24%
   |                                                                            
-  |=========================                                             |  36%
+  |=================                                                     |  25%
   |                                                                            
-  |==========================                                            |  37%
+  |==================                                                    |  25%
   |                                                                            
-  |==========================                                            |  38%
+  |==================                                                    |  26%
   |                                                                            
-  |===========================                                           |  39%
+  |===================                                                   |  26%
   |                                                                            
   |============================                                          |  40%
   |                                                                            
-  |=================================                                     |  48%
+  |=============================                                         |  41%
   |                                                                            
-  |==================================                                    |  49%
+  |=============================                                         |  42%
+  |                                                                            
+  |==============================                                        |  42%
+  |                                                                            
+  |==============================                                        |  43%
+  |                                                                            
+  |==============================                                        |  44%
   |                                                                            
   |===================================                                   |  50%
   |                                                                            
   |======================================                                |  54%
   |                                                                            
-  |=========================================                             |  58%
+  |======================================                                |  55%
   |                                                                            
-  |============================================                          |  62%
+  |=======================================                               |  55%
   |                                                                            
-  |============================================                          |  63%
+  |=======================================                               |  56%
   |                                                                            
-  |============================================                          |  64%
+  |========================================                              |  57%
+  |                                                                            
+  |================================================                      |  69%
   |                                                                            
   |=================================================                     |  70%
+  |                                                                            
+  |=================================================                     |  71%
   |                                                                            
   |==================================================                    |  71%
   |                                                                            
@@ -323,7 +352,11 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |===================================================                   |  73%
   |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
   |===========================================================           |  84%
+  |                                                                            
+  |===========================================================           |  85%
   |                                                                            
   |============================================================          |  85%
   |                                                                            
@@ -331,19 +364,25 @@ id.income <- tidycensus:: get_acs(geography = "county",
   |                                                                            
   |=============================================================         |  87%
   |                                                                            
-  |==============================================================        |  88%
+  |=============================================================         |  88%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |===============================================================       |  89%
   |                                                                            
   |===============================================================       |  90%
   |                                                                            
-  |=================================================================     |  92%
+  |================================================================      |  91%
   |                                                                            
   |=================================================================     |  93%
   |                                                                            
   |===================================================================   |  96%
   |                                                                            
+  |====================================================================  |  96%
+  |                                                                            
   |====================================================================  |  97%
   |                                                                            
-  |===================================================================== |  98%
+  |===================================================================== |  99%
   |                                                                            
   |======================================================================| 100%
 ```

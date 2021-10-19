@@ -33,14 +33,14 @@ library(units)
 library(purrr)
 library(sp)
 library(profvis)
-landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
-#landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
-#mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
-mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
-#pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
-pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
-pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
-
+#landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
+landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
+mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+#mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
+pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+#pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
+#pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
+pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
 #combine the pas into 1, but the columns don't all match, thanks PADUS
 
 colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig) #find the columnames in the proc dataset and replace them with the almost matching names from the des.

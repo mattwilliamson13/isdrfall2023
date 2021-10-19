@@ -32,6 +32,8 @@ library(pander)
 library(tidycensus)
 library(sf)
 library(tidyverse)
+library(socviz)
+library(maps)
 ```
 name: 1
 class: center middle main-title section-title-4
@@ -64,20 +66,128 @@ class: center middle main-title section-title-4
 
 # Introduction to Data Visualization
 
+--
+
+__What do we mean by data visualization?__
+---
+# Principles vs. Rules
+
+  - Lots of examples of _good_ and _bad_ data visualization
+  
+  - What makes a graphic good (or bad)?
+  
+  - Who decides?
+--
+
+  - __Rule:__ externally compels you, through force, threat or punishment, to do the things someone else has deemed good or right.
+  
+  - __Principle:__ internally motivating because it is a _good practice_; a general statement describing a philosophy that good rules should satisfy
+  
+  - Rules contribute to the design process, but do not guarantee a satisfactory outcome
+  
+---
+class: middle
+
+> "Graphical excellence is the well-designed presentation of interesting data—a matter of substance, of statistics, and of design … [It] consists of complex ideas  communicated with clarity, precision, and efficiency. … [It] is that which gives to the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space … [It] is nearly always multivariate … And graphical excellence requires telling the truth about the data." 
+`r tufte::quote_footer('--- Edward Tufte')`
+
 ---
 # Ugly, Wrong, and Bad
 
+.pull-left[
+- _Ugly_: graphic is clear and informative, but has aesthetic issues
+  
+- _Bad_: graphic is unclear, confusing, or decieving
+  
+- _Wrong_: the figure is objectively incorrect 
+
+]
+.pull-right[
+<figure>
+  <img src="img/09/ch-01-holmes-monstrous-only.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>Monstrous Costs’ by Nigel Holmes from Healy 2018.</figcaption>
+</figure>
+]
+
 ---
-# Grammar of Graphics
+# Bad and Wrong
+
+- Presentation of the data is (intentionally?) decieving
+
+- Presentation is just incorrect
+
+
+.pull-left[
+<figure>
+  <img src="img/09/ch-01-democracy-nyt-version.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>Tricky (from Healy 2018).</figcaption>
+</figure>
+]
+
+.pull-right[
+<figure>
+  <img src="img/09/Fox-News-pie-chart.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>Wrong.</figcaption>
+</figure>
+]
+---
+# Grammar of Graphics (Wilkinson 2005)
+
+- _Grammar_: A set of structural rules that help establish the components of a language
+
+- System and structure of language consist of _syntax_ and _semantics_
+
+- _Grammar of Graphics_: a framework that allows us to concisely describe the components of any graphic
+
+- Follows a layered approach by using defined components to build a visualization
+
+- `ggplot2` is a formal implementation in `R`
+
+---
+
+class: middle
+<figure>
+  <img src="img/09/gg_pyramid.png" alt="ZZZ" title="ZZZ" width="100%">
+</figure>
 
 ---
 # Aesthetics: Mapping Data to Visual Elements
 
+.pull-left[
+
+- Define the systematic conversion of data into elements of the visualization
+
+- Are either categorical or continuous (exclusively)
+
+- Examples include `x`, `y`, `fill`, `color`, and `alpha`
+]
+
+.pull-right[
+<figure>
+  <img src="img/09/tbl.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>From Wilke 2019.</figcaption>
+</figure>
+]
 ---
 # Scales
+
+- Scales map data values to their aesthetics
+
+- Must be a one-to-one relationship; each specific data value should map to only one aesthetic
+
+
 ---
 # Principles of Data Visualization
 
+- Be Honest
+
+- Principle of proportional ink
+
+- Avoid unnecessary 'chart junk'
+
+- Use color judiciously
+
+- Balance data and context
 ---
 name: carto
 class: center middle main-title section-title-4
@@ -87,27 +197,65 @@ class: center middle main-title section-title-4
 ---
 # Ugly, Wrong, and Bad Maps
 
+
+
 ---
 # Key Issues: Projection
 
----
-# Key Issues: Scale
+- Thinking about projections
 
----
-# Key Issues: Errors of Omission
+- Scale of the map
+
+- Errors of Omission
 ---
 
 # Cartographic Principles
 
+1. Concept before compilation
+
+2. Hierarchy with harmony (Important things should look important)
+
+3. Simplicity from sacrifice
+
+4. Maximum information at minimum cost
+
+5. Engage emotion to enhance understanding
 ---
 
 name: spviz
 class: center middle main-title section-title-4
 
 # Common Spatial Visualizations
+---
+
+# Choropleth
+- Mapping color to geographies
+
+- Common problems
+
+<figure>
+  <img src="img/09/ch-07-firstmap-05-1.png" alt="ZZZ" title="ZZZ" width="70%">
+  <figcaption>From Healy 2019.</figcaption>
+</figure>
+
+---
+# Cartogram
+
+- Adjusts for differences in area, population, etc
+
+- Common Problems
+
+<figure>
+  <img src="img/09/Cartogram.png" alt="ZZZ" title="ZZZ" width="100%">
+  <figcaption>From Healy 2019.</figcaption>
+</figure>
+
 
 ---
 name: future
-class: center middle main-title section-title-4
 
 # The Next few weeks
+
+- Static maps: `ggplot2` and `tmap`
+
+- Interactive webmaps: `leaflet` and `mapview` (amybe others)
