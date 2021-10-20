@@ -258,4 +258,4 @@ name: future
 
 - Static maps: `ggplot2` and `tmap`
 
-- Interactive webmaps: `leaflet` and `mapview` (amybe others)
+- Interactive webmaps: `leaflet` and `mapview` (maybe others)
