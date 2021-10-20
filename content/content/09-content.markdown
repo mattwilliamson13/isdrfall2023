@@ -51,7 +51,7 @@ We’ve spent the last few weeks learning about operations to compile geographic
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#1">
 </iframe>
 
 </div>
@@ -62,7 +62,7 @@ We’ve spent the last few weeks learning about operations to compile geographic
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#dataviz">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#dataviz">
 </iframe>
 
 </div>
@@ -73,7 +73,7 @@ We’ve spent the last few weeks learning about operations to compile geographic
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#carto">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#carto">
 </iframe>
 
 </div>
@@ -84,7 +84,7 @@ We’ve spent the last few weeks learning about operations to compile geographic
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#spviz">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#spviz">
 </iframe>
 
 </div>
@@ -95,7 +95,7 @@ We’ve spent the last few weeks learning about operations to compile geographic
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#future">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#future">
 </iframe>
 
 </div>

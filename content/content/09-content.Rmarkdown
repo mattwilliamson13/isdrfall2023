@@ -40,5 +40,5 @@ We've spent the last few weeks learning about operations to compile geographic i
 `r blogdown::shortcode("slide-buttons")`
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-slide_tabs(slide_details, "/slides/08-slides.html")
+slide_tabs(slide_details, "/slides/09-slides.html")
 ```
