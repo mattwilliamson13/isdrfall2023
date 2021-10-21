@@ -1,7 +1,7 @@
 ---
 title: "Static maps in R"
 linktitle: "7: Static maps in R"
-date: "2021-10-21"
+date: "2021-10-20"
 toc: yes
 menu:
   example:
