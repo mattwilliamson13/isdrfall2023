@@ -29,17 +29,17 @@ library(cartogram)
 library(patchwork)
 library(tmap)
 library(viridis)
-#landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
-landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
-mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
+#landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
+#mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
 mammal.rich <- catalyze(mammal.rich) #rmemeber we had to get the layer we wanted from the richness data
 mammal.rich <- mammal.rich[[2]]
 
-#mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
-pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
-#pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
-#pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
-pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
+#pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
+pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
+#pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
 #combine the pas into 1, but the columns don't all match, thanks PADUS
 
 colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig) #find the columnames in the proc dataset and replace them with the almost matching names from the des.
@@ -80,6 +80,7 @@ id.val.crop <- crop(land.val.proj, id.vect)
 We'll also add population to our census data by making a change to our `tidycensus` call (remember that you'll need your Census API key to use `tidycensus` (details [here](https://walker-data.com/tidycensus/articles/basic-usage.html)). Notice that we also use `spread` here to move the data into wide format. Let's do that:
 
 ```{r loadincome, message=FALSE, warning=FALSE, results='hide'}
+
 id.census <- tidycensus:: get_acs(geography = "county", 
               variables = c(medianincome = "B19013_001",
                             pop = "B01003_001"),
@@ -87,7 +88,7 @@ id.census <- tidycensus:: get_acs(geography = "county",
               year = 2018,
               key = key,
               geometry = TRUE) %>% 
-                st_transform(., st_crs(pa.vect)) %>% 
+                st_transform(., crs(pa.vect)) %>% 
   select(-moe) %>% 
   spread(variable, estimate)
 ```
@@ -181,7 +182,7 @@ Now that we have things starting to look nice, let's see if we can add a few mor
 ```{r gg4}
 ggmap(bg) +
   geom_sf(data = summary.df, mapping = aes(fill = Value, 
-                                           alpha = (Regval - max(Regval, na.rm=TRUE))/(max(Regval, na.rm=TRUE)-min(Regval, na.rm = TRUE))), inherit.aes = FALSE) +
+                                           alpha = (idval - max(idval, na.rm=TRUE))/(max(idval, na.rm=TRUE)-min(idval, na.rm = TRUE))), inherit.aes = FALSE) +
   geom_sf(data=id, fill=NA,color="black", inherit.aes = FALSE) +
   scale_fill_viridis(option="magma")+
   coord_sf(crs = st_crs(4326))

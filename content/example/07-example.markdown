@@ -27,9 +27,9 @@ library(tidyverse)
 
 ```
 ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
+## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
 ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.2     ✓ forcats 0.5.1
+## ✓ readr   2.0.0     ✓ forcats 0.5.1
 ```
 
 ```
@@ -52,7 +52,7 @@ library(terra)
 ```
 
 ```
-## terra version 1.4.14
+## terra version 1.3.22
 ```
 
 ```
@@ -72,18 +72,12 @@ library(terra)
 ##     src
 ```
 
-```
-## The following object is masked from 'package:tidyr':
-## 
-##     extract
-```
-
 ```r
 library(units)
 ```
 
 ```
-## udunits database from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/units/share/udunits/udunits2.xml
+## udunits database from /Library/Frameworks/R.framework/Versions/4.1/Resources/library/units/share/udunits/udunits2.xml
 ```
 
 ```r
@@ -141,16 +135,6 @@ library(patchwork)
 
 ```r
 library(tmap)
-```
-
-```
-## Registered S3 methods overwritten by 'stars':
-##   method             from
-##   st_bbox.SpatRaster sf  
-##   st_crs.SpatRaster  sf
-```
-
-```r
 library(viridis)
 ```
 
@@ -159,19 +143,20 @@ library(viridis)
 ```
 
 ```r
-#landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
-landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
-mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+landval <- terra::rast('/Users/matthewwilliamson/Downloads/session04/idval.tif')
+#landval <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Regval.tif')
+#mammal.rich <- rast('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/Mammals_total_richness.tif')
+mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
 mammal.rich <- catalyze(mammal.rich) #rmemeber we had to get the layer we wanted from the richness data
 mammal.rich <- mammal.rich[[2]]
 
-#mammal.rich <- rast('/Users/matthewwilliamson/Downloads/session16/Mammals_total_richness.tif')
-pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+#pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp')
+pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
 ```
 
 ```
 ## Reading layer `regionalPAs1' from data source 
-##   `/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session04/regionalPAs1.shp' 
+##   `/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 224 features and 7 fields
 ## Geometry type: MULTIPOLYGON
@@ -181,14 +166,12 @@ pas.desig <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro
 ```
 
 ```r
-#pas.desig <- st_read('/Users/matthewwilliamson/Downloads/session04/regionalPAs1.shp')
-#pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
-pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
+pas.proc <- st_read('/Users/matthewwilliamson/Downloads/session16/reg_pas.shp')
 ```
 
 ```
 ## Reading layer `reg_pas' from data source 
-##   `/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp' 
+##   `/Users/matthewwilliamson/Downloads/session16/reg_pas.shp' 
 ##   using driver `ESRI Shapefile'
 ## Simple feature collection with 544 features and 32 fields
 ## Geometry type: MULTIPOLYGON
@@ -198,6 +181,7 @@ pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_
 ```
 
 ```r
+#pas.proc <- st_read('/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session16/reg_pas.shp')
 #combine the pas into 1, but the columns don't all match, thanks PADUS
 
 colnames(pas.proc)[c(1, 6, 8, 10, 12, 22, 25)] <- colnames(pas.desig) #find the columnames in the proc dataset and replace them with the almost matching names from the des.
@@ -278,7 +262,7 @@ id.census <- tidycensus:: get_acs(geography = "county",
               year = 2018,
               key = key,
               geometry = TRUE) %>% 
-                st_transform(., st_crs(pa.vect)) %>% 
+                st_transform(., crs(pa.vect)) %>% 
   select(-moe) %>% 
   spread(variable, estimate)
 ```
@@ -466,7 +450,7 @@ Now that we have things starting to look nice, let's see if we can add a few mor
 ```r
 ggmap(bg) +
   geom_sf(data = summary.df, mapping = aes(fill = Value, 
-                                           alpha = (Regval - max(Regval, na.rm=TRUE))/(max(Regval, na.rm=TRUE)-min(Regval, na.rm = TRUE))), inherit.aes = FALSE) +
+                                           alpha = (idval - max(idval, na.rm=TRUE))/(max(idval, na.rm=TRUE)-min(idval, na.rm = TRUE))), inherit.aes = FALSE) +
   geom_sf(data=id, fill=NA,color="black", inherit.aes = FALSE) +
   scale_fill_viridis(option="magma")+
   coord_sf(crs = st_crs(4326))
