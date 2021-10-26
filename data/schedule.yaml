@@ -152,15 +152,13 @@ lessons:
     assignment: "01-mini-project"
     bg: 3
     
-  - title: '<span class="content-title">Static maps in R (continued)</span>'
+  - title: '<span class="content-title">Interactive webmaps in with R</span>'
     session: "Session 19"
     date: "October 26"
     content: "10-content"
-    example: "10-example"
-    assignment: "10-exercise"
     bg: 4
     
-  - title: '<span class="content-title">Designing interactive webmaps</span>'
+  - title: '<span class="content-title">Building better maps and beginning webmapping</span>'
     session: "Session 20"
     date: "October 28"
     content: "11-content"
@@ -170,7 +168,7 @@ lessons:
     date: "October 29"
     bg: 3
     
-  - title: '<span class="content-title">Interactive webmaps with R</span>'
+  - title: '<span class="content-title">Interactive webmaps with R continued</span>'
     session: "Session 21"
     date: "November 2"
     example: "11-example"
