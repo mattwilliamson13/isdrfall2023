@@ -21,7 +21,7 @@ Now that you’ve had a chance to practice building a few maps and learning some
 
 -   <i class="fas fa-book"></i> This post on [User-Centered Design](https://xd.adobe.com/ideas/principles/human-computer-interaction/user-centered-design/) from Adobe provides a concise, general introduction to the core elements of User-Centered Design.
 
--   <i class="fas fa-book"></i> The [Maps](https://plotly-r.com/maps.html) in (Sievert 2020) gives a nice demonstration of using `plotly` to build interactive maps.
+-   <i class="fas fa-book"></i> The [Maps](https://plotly-r.com/maps.html) chapter in (Sievert 2020) gives a nice demonstration of using `plotly` to build interactive maps. More importantly, the book provides a comprehensive resource for building interactive web-based visualization in R.
 
 ## Slides
 
