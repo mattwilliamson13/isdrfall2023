@@ -1,7 +1,7 @@
 ---
 title: "Interactive visualizations with R"
 linktitle: "10: Webmapping with R"
-date: "2021-10-15"
+date: "2021-10-25"
 menu:
   content:
     parent: Course content
