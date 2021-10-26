@@ -51,6 +51,20 @@ Fall 2021]
 ]
 
 ---
+# 3 Categories of data visualization
+.pull-left[
+
+- Static
+
+- Interactive
+
+- Dynamic
+
+]
+.pull-right[
+![dynamic](img/10/example_3a.gif)
+]
+---
 name: motivations
 class: center middle main-title section-title-4
 
@@ -67,3 +81,5 @@ name: survey
 class: center middle main-title section-title-4
 
 # Building interactive visualizations in R
+
+---
