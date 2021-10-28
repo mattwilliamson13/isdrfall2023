@@ -1,0 +1,149 @@
+---
+title: "Prettier maps in R and a first step towards interactive maps"
+linktitle: "8: Static maps in R"
+date: "2021-10-27"
+toc: yes
+menu:
+  example:
+    parent: Examples
+    weight: 8
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+```{r censkey, echo = FALSE}
+key <- "90b94953d2f24e81e890229e0128174f5ba80d3f"
+```
+
+
+## Loading some new packages
+```{r pkg}
+library(tidyverse)
+library(pander)
+library(sf)
+library(terra)
+library(units)
+library(ggmap)
+library(cartogram)
+library(patchwork)
+library(tmap)
+library(viridis)
+library(tigris)
+library(elevatr)
+library(ggspatial)
+```
+
+## Load the data
+```{r dl}
+base.dir <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session18/"
+land.value <- rast(paste0(base.dir,"Regval.tif"))
+human.mod <- rast(paste0(base.dir,"hmi.tif"))
+mammal.rich <- catalyze(rast(paste0(base.dir,"Mammals_total_richness.tif")))[[2]]
+
+land.value.crop <- terra::crop(land.value, terra::project(vect(idaho), crs(land.value)))
+human.mod.crop <- terra::crop(human.mod, terra::project(vect(idaho), crs(human.mod)))
+mammal.rich.crop <- terra::crop(mammal.rich, terra::project(vect(idaho), crs(mammal.rich)))
+
+land.value.project <- terra::resample(
+  terra::project(land.value.crop, crs(human.mod.crop)),
+                 human.mod.crop)
+
+mammal.rich.project <- terra::resample(
+  terra::project(mammal.rich.crop, crs(human.mod.crop)),
+                 human.mod.crop)
+
+rast.stack <- c(human.mod.crop, land.value.project, mammal.rich.project)
+
+idaho <- states() %>% 
+  filter(., STUSPS == "ID") %>%
+  st_transform(., crs = st_crs(rast.stack))
+
+idaho.counties <- counties(state = "ID") %>% 
+  st_transform(., crs = st_crs(rast.stack))
+
+idaho.pas <- st_read(paste0(base.dir,"westernPAs.shp")) %>% 
+  filter(., Stat_Nm == "ID" ) %>% 
+  st_transform(., crs = st_crs(rast.stack))
+
+id.census <- tidycensus:: get_acs(geography = "county", 
+              variables = c(medianincome = "B19013_001",
+                            pop = "B01003_001"),
+              state = c("ID"), 
+              year = 2018,
+              key = key,
+              geometry = TRUE) %>% 
+                st_transform(., crs = st_crs(rast.stack)) %>% 
+  dplyr::select(-moe) %>% 
+  spread(variable, estimate)
+
+#idaho.elevation <- get_elev_raster(locations = idaho, z = 8, expand = 10000)
+```
+## Building a map with a few layers
+
+```{r gglyrs, fig.height= 5}
+bg <- ggmap::get_map(as.vector(st_bbox(st_transform(idaho, 4326))), zoom = 7)
+ggmap(bg) +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  scale_fill_continuous() +
+  coord_sf(crs = st_crs(4326))
+```
+
+
+```{r gglyrs2, fig.height= 5}
+ggmap(bg) +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  scale_fill_continuous() +
+  coord_sf(crs = st_crs(4326)) +
+  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center") +
+  theme_bw()
+
+```
+
+
+```{r gganot, fig.height= 5}
+ggmap(bg) +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  scale_fill_continuous() +
+  coord_sf(crs = st_crs(4326)) +
+  annotation_scale(location = "tl") +
+  annotation_north_arrow(location = "br", which_north = "true") +
+  ggtitle("PAs in Idaho") +
+  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center") +
+  theme_bw()
+
+```
+
+```{r ggpatch, eval=FALSE}
+main.map <- ggmap(bg) +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  scale_fill_continuous() +
+  coord_sf(crs = st_crs(4326)) +
+  annotation_scale(location = "tl") +
+  annotation_north_arrow(location = "br", which_north = "true") +
+  ggtitle("PAs in Idaho") +
+  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center") +
+  theme_bw()
+not.conus <- c("AK", "HI", "DC", "MP", "GU", "VI", "AS", "PR")
+
+conus <- states() %>% 
+  filter(., !(STUSPS %in% not.conus)) %>% 
+  st_transform(., 4326)
+
+bbox <- st_as_sfc(st_bbox(st_transform(idaho, 4326)))
+
+inset.map <- ggplot(conus)+
+  geom_sf(fill="lightgray", color="black") +
+  geom_sf(data =  st_as_sfc(st_bbox(st_transform(idaho, 4326))),fill=NA, color = "red") +
+  theme_blank()
+
+complete <- main.map + inset_element(inset.map, left = 0.6, bottom = 0.6, right = 1, top = 1, align_to = "full")
+
+ggsave("insetmap.png", plot=complete)
+```
+
+![](insetmap.png)
+
