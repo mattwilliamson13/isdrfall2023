@@ -37,7 +37,6 @@ library(maps)
 library(plotly)
 library(tmap)
 library(spData)
-library(gganimate)
 
 ```
 name: 1
