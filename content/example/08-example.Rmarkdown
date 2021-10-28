@@ -1,6 +1,6 @@
 ---
 title: "Prettier maps in R and a first step towards interactive maps"
-linktitle: "8: Static maps in R"
+linktitle: "8: Better maps in R"
 date: "2021-10-27"
 toc: yes
 menu:
@@ -29,16 +29,19 @@ library(patchwork)
 library(tmap)
 library(viridis)
 library(tigris)
-library(elevatr)
 library(ggspatial)
+library(plotly)
 ```
 
 ## Load the data
 ```{r dl}
-base.dir <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session18/"
+#base.dir <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session18/"
+base.dir <- "/Users/matthewwilliamson/Downloads/session18/"
 land.value <- rast(paste0(base.dir,"Regval.tif"))
 human.mod <- rast(paste0(base.dir,"hmi.tif"))
 mammal.rich <- catalyze(rast(paste0(base.dir,"Mammals_total_richness.tif")))[[2]]
+idaho <- states() %>% 
+  filter(., STUSPS == "ID")
 
 land.value.crop <- terra::crop(land.value, terra::project(vect(idaho), crs(land.value)))
 human.mod.crop <- terra::crop(human.mod, terra::project(vect(idaho), crs(human.mod)))
@@ -54,8 +57,7 @@ mammal.rich.project <- terra::resample(
 
 rast.stack <- c(human.mod.crop, land.value.project, mammal.rich.project)
 
-idaho <- states() %>% 
-  filter(., STUSPS == "ID") %>%
+idaho <- idaho %>%
   st_transform(., crs = st_crs(rast.stack))
 
 idaho.counties <- counties(state = "ID") %>% 
@@ -147,3 +149,11 @@ ggsave("insetmap.png", plot=complete)
 
 ![](insetmap.png)
 
+```{r plotlytry}
+
+p <- ggplot() +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  scale_fill_continuous()
+ggplotly(p)
+```
