@@ -1,5 +1,5 @@
 ---
-title: "Prettier maps in R and a first step towards interactive maps"
+title: "Prettier maps in R and a first step towards interactivity"
 linktitle: "8: Better maps in R"
 date: "2021-10-27"
 toc: yes
@@ -15,8 +15,12 @@ editor_options:
 key <- "90b94953d2f24e81e890229e0128174f5ba80d3f"
 ```
 
+For today, we're going to focus primarily on buildiing maps in `ggplot2`. Although not specifically designed for mapping, getting familiar with the syntax and approach for layering information into your plots whether it's spatial or not. It can be a little trying because `ggplot2` is considerably slower to render than `tmap`, but learning how to work within the `ggplot2` paradigm will pay a variety of dividends when we move into interactive plots with `plotly`
 
 ## Loading some new packages
+
+We are going to add the `ggspatial` package and the `plotly` package to  our typical list of packages. `ggspatial` provides access to a variety of functions that can make mapmaking easier with `ggplot2`. `plotly` will be the backbone of our attempts to make interactive maps.
+
 ```{r pkg}
 library(tidyverse)
 library(pander)
@@ -34,7 +38,10 @@ library(plotly)
 ```
 
 ## Load the data
-```{r dl}
+
+Here I'm loading data on human modification (from David Theobald), the mammal species richness data, and the land value data. I've also added some vectors with Idaho's boundaries, some census data, and the GAP Status 1 and 2 PAs.
+
+```{r dl, message=FALSE, warning=FALSE}
 #base.dir <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session18/"
 base.dir <- "/Users/matthewwilliamson/Downloads/session18/"
 land.value <- rast(paste0(base.dir,"Regval.tif"))
@@ -78,9 +85,11 @@ id.census <- tidycensus:: get_acs(geography = "county",
   dplyr::select(-moe) %>% 
   spread(variable, estimate)
 
-#idaho.elevation <- get_elev_raster(locations = idaho, z = 8, expand = 10000)
 ```
+
 ## Building a map with a few layers
+
+We are going to revisit the map we made last week and build up some additional layers. We'll start with a basemap using `ggmap`. I've learned (the hard way) that the projections for the various backend mapservers (i.e., `openstreetmaps`, `stamen`, etc) are not all the same which can make it tricky to get the right basemaps downloaded. Remember to consult the helpfile and the interwebs if you are not getting the expected behavior from `get_map`. Also note that you can control the level of detail that shows up in you basemap by manipulating the `zoom` argument. See `?get_map` for additional info on the various arguments and the `?get_stamenmap`, `?get_openstreetmap`, `?get_googlemap` for information on how each map service is accessed.
 
 ```{r gglyrs, fig.height= 5}
 bg <- ggmap::get_map(as.vector(st_bbox(st_transform(idaho, 4326))), zoom = 7)
@@ -91,37 +100,73 @@ ggmap(bg) +
   coord_sf(crs = st_crs(4326))
 ```
 
+This is... not great. The lines making up the borders of the PAs are too large, the figure is in a strange place, and the background and grid lines are distracting and unnecessary. We can change the 'weight' of the border lines for our PAs by adding the `size` argument to the `geom_sf` call. Note that we are not doing this inside of the `aes` argument because we are setting the size to a specific value rather than mapping some of our data to the size aesthetic of the map. We can also make the map a bit more interesting by mapping an additional variable to the aesthetic. Here I'm using the total population of each county to adjust the transparency of the median income colors. I do that by specifying that I want the `alpha` value to be taken from the `log()` of the `population` variable. I also add the `scale_alpha(guide = "none")` to keep the transparency from being added to the legend. Finally, I move the legend to a new place using the `theme()` arguments and get rid of some of the extraneous gridlines using `theme_bw()`. You can check out the `ggplot2` package page for a variety of preset themes like `theme_bw()`. I tend to use `theme_bw()` a lot or I write my own function with them elements. Note also that you have to modify the theme elements after you set the `theme_bw()` argument or it will overwrite all of the changes you hope to make.
 
 ```{r gglyrs2, fig.height= 5}
 ggmap(bg) +
-  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
-  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome, alpha=log(pop)), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, size = 0.05, inherit.aes = FALSE) +
   scale_fill_continuous() +
+  scale_alpha(guide = "none")+
   coord_sf(crs = st_crs(4326)) +
-  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center") +
-  theme_bw()
+  theme_bw() +
+  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center") 
 
 ```
 
+## Creating your own theme for mapping
+
+You can check out the `ggplot2` package page for a variety of preset themes like `theme_bw()`.  Alternatively, you can write your own custom function with them elements. I do that in the code chunk below. Note that you can include options for any of the theme elements you like (this is useful for ensuring that your fonts and colors are the same across figures in a mansucript, for example).
+
+```{r mapthem}
+theme_map <- function(...) {
+  theme_minimal() +
+    theme(
+      #text = element_text(family = "Ubuntu Regular", color = "#22211d"),
+      axis.line = element_blank(),
+      axis.text.x = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      # panel.grid.minor = element_line(color = "#ebebe5", size = 0.2),
+      panel.grid.major = element_line(color = "white", size = 0.002),
+      panel.grid.minor = element_line(color = "white", size = 0.002),
+      plot.background = element_rect(fill = "white", color = NA), 
+      panel.background = element_rect(fill = "white", color = NA), 
+      legend.background = element_rect(fill = "white", color = NA),
+      panel.border = element_blank(),
+      ...
+    )
+}
+```
+
+## Adding some additional ornamentation
+
+We are getting closer to a map that's not completely hideous. Let's add a north arrow and scale bar (thanks to the `ggspatial` package) and a title for our figure. The `annotation_scale()` function attempts to guess the scale of the map (which is challenging because of the use of the `ggmap` basemap).
 
 ```{r gganot, fig.height= 5}
 ggmap(bg) +
-  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
-  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome, alpha=log(pop)), inherit.aes = FALSE) +
+  geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, size = 0.05, inherit.aes = FALSE) +
   scale_fill_continuous() +
+  scale_alpha(guide = "none")+
   coord_sf(crs = st_crs(4326)) +
-  annotation_scale(location = "tl") +
+  annotation_scale(location = "tr") +
   annotation_north_arrow(location = "br", which_north = "true") +
   ggtitle("PAs in Idaho") +
-  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center") +
-  theme_bw()
+  theme_map() +
+  theme(legend.direction = "horizontal", legend.position = "bottom", legend.justification = "center")
 
 ```
 
-```{r ggpatch, eval=FALSE}
+It's not terrible, so let's add an inset map and some labels for the county names. We can add labels using the `geom_sf_text` and control where they are placed using the `fun.geometry` option. The `geom_sf_label` provides additional options if you need them. We can add an inset map by creating a second `ggplot` object, creating a polygon that captures the bounding box (using `st_as_sfc` and `st_bbox`) and then adding those to the plot using the `patchwork` syntax.
+
+```{r ggpatch}
 main.map <- ggmap(bg) +
   geom_sf(data = st_transform(id.census, 4326), mapping = aes(fill = medianincome), inherit.aes = FALSE) +
   geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
+  geom_sf_text(data = st_transform(idaho.counties, 4326), aes(label = NAME, geometry = geometry), fun.geometry = st_centroid, inherit.aes=FALSE, color = "white") +
   scale_fill_continuous() +
   coord_sf(crs = st_crs(4326)) +
   annotation_scale(location = "tl") +
@@ -140,14 +185,18 @@ bbox <- st_as_sfc(st_bbox(st_transform(idaho, 4326)))
 inset.map <- ggplot(conus)+
   geom_sf(fill="lightgray", color="black") +
   geom_sf(data =  st_as_sfc(st_bbox(st_transform(idaho, 4326))),fill=NA, color = "red") +
-  theme_blank()
+  theme_void()
 
 complete <- main.map + inset_element(inset.map, left = 0.6, bottom = 0.6, right = 1, top = 1, align_to = "full")
 
-ggsave("insetmap.png", plot=complete)
+#ggsave("insetmap.png", plot=complete)
 ```
 
 ![](insetmap.png)
+
+## Converting a ggplot object to a plotly interactive visualization
+
+We can part of the benefit of buildng these maps in `ggplot2` is the ease with which we can convert them into interactive visualziations using `plotly`. Here is a simple version using the `ggplotly` function from the `plotly` package.
 
 ```{r plotlytry}
 
@@ -156,4 +205,21 @@ p <- ggplot() +
   geom_sf(data=st_transform(idaho.pas, 4326), color="yellow", fill=NA, inherit.aes = FALSE) +
   scale_fill_continuous()
 ggplotly(p)
+```
+
+Now let's do something a little more customizable using a combination of `plot_ly` and `add_sf()`. Here we are using the color argument to set the fill of the polygons to be based on median income and using the text and hoverinfo arguments to express what information we want to show up when we hover over the polygons. You could use a combination of these calls to illustrate a vareity of different extracted variables....
+
+```{r pltly2}
+plot_ly(id.census) %>% 
+  add_sf(
+    color = ~medianincome, 
+    split = ~NAME, 
+    span = I(1),
+    text = ~paste(NAME, pop, "people"),
+    hoverinfo = "text",
+    hoveron = "fills"
+  ) %>%
+  layout(showlegend = FALSE) %>%
+  colorbar(title = "Income \n 2018")
+  
 ```
