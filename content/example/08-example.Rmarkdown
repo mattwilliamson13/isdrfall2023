@@ -41,7 +41,7 @@ library(plotly)
 
 Here I'm loading data on human modification (from David Theobald), the mammal species richness data, and the land value data. I've also added some vectors with Idaho's boundaries, some census data, and the GAP Status 1 and 2 PAs.
 
-```{r dl, message=FALSE, warning=FALSE}
+```{r dl, message=FALSE, warning=FALSE, results='hide'}
 #base.dir <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session18/"
 base.dir <- "/Users/matthewwilliamson/Downloads/session18/"
 land.value <- rast(paste0(base.dir,"Regval.tif"))
@@ -187,12 +187,13 @@ inset.map <- ggplot(conus)+
   geom_sf(data =  st_as_sfc(st_bbox(st_transform(idaho, 4326))),fill=NA, color = "red") +
   theme_void()
 
-complete <- main.map + inset_element(inset.map, left = 0.6, bottom = 0.6, right = 1, top = 1, align_to = "full")
+complete <- main.map + inset_element(inset.map, left = 0.5, bottom = 0.5, right = 1, top = 1, align_to = "full")
 
 #ggsave("insetmap.png", plot=complete)
 ```
 
-![](insetmap.png)
+![inset](insetmap.png)
+
 
 ## Converting a ggplot object to a plotly interactive visualization
 
