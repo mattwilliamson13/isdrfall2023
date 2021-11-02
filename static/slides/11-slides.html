@@ -72,24 +72,177 @@ class: center middle
 ---
 # Common story forms
 
-- Opening &amp;rightarrow; Challenge &amp;rarr Action &amp;rarr Resolution
+- Opening &amp;rightarrow; Challenge &amp;rightarrow; Action &amp;rightarrow; Resolution
 
 &gt; "Let me tell you a story about the theoretical physicist Stephen Hawking. He was diagnosed with motor neuron disease at age 21—one year into his PhD—and was given two years to live. Hawking did not accept this predicament and started pouring all his energy into doing science. Hawking ended up living to be 76, became one of the most influential physicists of his time, and did all of his seminal work while being severely disabled."
 &lt;footer&gt;--- Claus Wilke&lt;/footer&gt;
+
+---
+# Common story forms
+
+- Lead &amp;rightarrow; Development &amp;rightarrow; Resolution 
+
+&gt; "The influential physicist Stephen Hawking, who revolutionized our understanding of black holes and of cosmology, outlived his doctors’ prognosis by 53 years and did all of his most influential work while being severely disabled..."
+&lt;footer&gt;--- Claus Wilke&lt;/footer&gt;
+
+---
+# Common story forms
+
+- Action &amp;rightarrow; Background &amp;rightarrow; Development &amp;rightarrow; Climax &amp;rightarrow; Ending
+
+&gt; "The young Stephen Hawking, facing a debilitating disability and the prospect of an early death, decided to pour all his efforts into his science, determined to make his mark while he still could..."
+&lt;footer&gt;--- Claus Wilke&lt;/footer&gt;
+
+---
+class: center middle
+# Your Turn!!
+---
+# Telling stories with maps
+
+.pull-left[
+&lt;figure&gt;
+  &lt;img src="img/11/caworldview.png" alt="ZZZ" title="ZZZ" width="150%"&gt;
+&lt;/figure&gt;
+]
+
+.pull-right[
+
+- Maps organize a lot of information in a coherent way
+
+- They invite critique and inspection
+
+- They are also aesthetic objects that can engage broader audiences
+]
+---
+
+# The Storymap
+
+- [Landback Movement](https://storymaps.arcgis.com/stories/bc0fe7486ae3427babe3bed836b4940f)
+
+- [Owyhee Wonders](https://www.owyheewonders.org/?fbclid=IwAR0rpB9IDsM8DJx8GbJb4Xaqhq7szf8VMpf80olkSryb__JKNLeuE1hxFo4#hero)
+
+- [Bison on the Plains](https://storymaps.arcgis.com/stories/135ade9a64a243eaa8e46471432eba25)
 
 ---
 name: flex
 class: center middle main-title section-title-4
 
 # Storyboards in `R`
+---
+# Telling stories with `flexdashboards`
+
+.pull-left[
+- __Dashboard__: a visual display of interrelated data
+
+- `flexdashboards` are an `Rmarkdown`-powered way to build dashboards
+
+- Integrates with `plotly`, `leaflet` and other `htmlwidgets`
+
+- [Examples](https://pkgs.rstudio.com/flexdashboard/articles/examples.html)
+]
+
+.pull-right[
+&lt;figure&gt;
+  &lt;img src="img/11/flexdash.png" alt="ZZZ" title="ZZZ" width="150%"&gt;
+&lt;/figure&gt;
+]
+---
+# Telling stories with `flexdashboards`
+
+- Audience engagement drives design
+
+- "Scrolling" layouts allow linear story telling (like the ArcGIS Storymap)
+
+- ["Tabset"](https://beta.rstudioconnect.com/jjallaire/htmlwidgets-ggplotly-geoms/htmlwidgets-ggplotly-geoms.html#geom_point) layouts allow users to construct their own stories
+
+- Lots of readymade templates, themes, and add-ins
+
+- Display your [research](https://ryanpeek.org/flexdash_rabo.html#maps)
 
 ---
+
 name: shiny
 class: center middle main-title section-title-4
 
 # Introduction to `shiny`
 
 ---
+
+# What is `shiny`
+
+- An `Rstudio` product designed to allow reactive data visualizations via an R server
+
+- Allows users to generate new results (not just plot your old stuff)
+
+
+
+---
+
+# The simplest `shiny` app
+
+
+```r
+library(shiny)
+
+server &lt;- function(input, output, session) { } #the server
+
+ui &lt;- basicPage("This is a real Shiny app") # the user interface
+
+shinyApp(ui = ui, server = server) # this launches your app
+```
+
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+
+---
+
+# Reactivity
+
+- Flexdashboards allow the user to visualized data you've created
+
+- Integrating `shiny` apps allows them to run new analysis!
+
+- [Examples](https://jjallaire.shinyapps.io/shiny-kmeans/)
+
+- Reactivity is the link between user input and server output
+
+---
+# Reactivity
+.pull-left[
+
+```r
+server &lt;- function(input, output, session) {
+  
+  observe({
+    # even though the slider is not involved in a calculation, if
+    # you change the slider it will run all this code and update the text box
+    # changes to the mytext box also will trigger the code to run
+    input$myslider
+    txt &lt;- paste(input$mytext, sample(1:10000, 1))
+    updateTextInput(session, inputId = "myresults", value = txt)  
+    
+  })
+  
+}
+
+ui &lt;- basicPage(
+  h3("The results text box gets updated if you change the other text box OR the slider."),
+  sliderInput("myslider", "A slider:", min=0, max=1000, value=500),
+  textInput("mytext", "Input goes here", value = "Initial value"),
+  textInput("myresults", "Results will be printed here")
+)
+```
+]
+.pull-right[
+
+```r
+shinyApp(ui = ui, server = server)
+```
+
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+]
+
+---
+# CAUTION!!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
