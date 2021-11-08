@@ -171,8 +171,7 @@ lessons:
   - title: '<span class="content-title">Interactive webmaps with R continued</span>'
     session: "Session 21"
     date: "November 2"
-    example: "11-example"
-    assignment: "11-exercise"
+    content: "11-content"
     bg: 2
   
   - title: '<span class="content-title">Workday</span>'
@@ -201,11 +200,6 @@ lessons:
     assignment: "12-exercise"
     bg: 2
     
-  - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
-    date: "November 12"
-    assignment: "02-mini-project"
-    bg: 3
-    
   - title: '<span class="content-title">Point patterns and spatial dependence</span>'
     session: "Session 25"
     date: "November 16"
@@ -218,6 +212,11 @@ lessons:
     example: "13-example"
     assignment: "13-exercise"
     bg: 2
+    
+  - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
+    date: "November 19"
+    assignment: "02-mini-project"
+    bg: 3
     
   - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
     session: "NA"
