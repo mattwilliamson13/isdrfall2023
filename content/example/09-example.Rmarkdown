@@ -66,7 +66,7 @@ We talked a bit about how spatial autocorrelation in the residuals of a regressi
 ```{r simraster}
 #make a blank raster
 X <- raster(nrow=100, ncol=100, xmn=0, xmx=100) 
-values(X) <- runif(raster::ncell(X),-2,2)
+values(X) <- rnorm(raster::ncell(X),0,1.5)
 
 #generate random points with X
 sample.cells <- sampleRandom(X, size=70, sp=TRUE)
