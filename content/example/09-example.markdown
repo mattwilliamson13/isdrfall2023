@@ -25,12 +25,6 @@ library(spdep)
 ```
 
 ```
-## To access larger datasets in this package, install the spDataLarge
-## package with: `install.packages('spDataLarge',
-## repos='https://nowosad.github.io/drat/', type='source')`
-```
-
-```
 ## Loading required package: sf
 ```
 
@@ -51,7 +45,7 @@ library(spatstat)
 ```
 
 ```
-## spatstat.geom 2.3-0
+## spatstat.geom 2.2-0
 ```
 
 ```
@@ -67,7 +61,7 @@ library(spatstat)
 ```
 
 ```
-## spatstat.core 2.3-1
+## spatstat.core 2.2-0
 ```
 
 ```
@@ -75,12 +69,12 @@ library(spatstat)
 ```
 
 ```
-## spatstat.linnet 2.3-0
+## spatstat.linnet 2.1-1
 ```
 
 ```
 ## 
-## spatstat 2.2-0       (nickname: 'That's not important right now') 
+## spatstat 2.1-0       (nickname: 'Comedic violence') 
 ## For an introduction to spatstat, type 'beginner'
 ```
 
@@ -97,12 +91,6 @@ library(raster)
 ## The following object is masked from 'package:nlme':
 ## 
 ##     getData
-```
-
-```
-## The following objects are masked from 'package:spatstat.geom':
-## 
-##     area, rotate, shift
 ```
 
 The `spdep` and `spatstat` packages provide an array of functionality for analyzing complex spatial patterns and fitting spatial models to data. We won't take full advantage of all that these packages offer, but you can use `spatstat::vignette('getstart')` to learn a little more about what's available. The `spdep` package is an older package that relies on two new object classes, `ppp` and `owin`. These objects can be coerced from `sp`-style objects, but not `sf`. We'll explore the package a little more as we go, but for now just know that `ppp` objects refer to (Poisson) point process objects (i.e., they contain points) and `owin` refers to the "observation window" that defines the analysis (for polygons). 
@@ -154,7 +142,7 @@ quadrat.test(Q.csr)
 ## 	Chi-squared test of CSR using quadrat counts
 ## 
 ## data:  
-## X2 = 2880, df = 24, p-value < 2.2e-16
+## X2 = 24, df = 24, p-value = 0.9232
 ## alternative hypothesis: two.sided
 ## 
 ## Quadrats: 5 by 5 grid of tiles
@@ -173,7 +161,7 @@ quadrat.test(Q.ihpp)
 ## 	Chi-squared test of CSR using quadrat counts
 ## 
 ## data:  
-## X2 = 61.667, df = 24, p-value = 7.404e-05
+## X2 = 40, df = 24, p-value = 0.04277
 ## alternative hypothesis: two.sided
 ## 
 ## Quadrats: 5 by 5 grid of tiles
@@ -232,22 +220,22 @@ summary(mod.fit)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.7330  -1.0272  -0.4666   1.0893   1.9207  
+## -1.6397  -0.8211  -0.3292   0.7639   2.0904  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(>|z|)   
-## (Intercept) -0.01243    0.26108  -0.048  0.96202   
-## X.buf        0.64926    0.21215   3.060  0.00221 **
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  -0.1551     0.2911  -0.533  0.59414    
+## X.buf         1.0394     0.2716   3.826  0.00013 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 96.983  on 69  degrees of freedom
-## Residual deviance: 84.863  on 68  degrees of freedom
-## AIC: 88.863
+##     Null deviance: 95.607  on 69  degrees of freedom
+## Residual deviance: 70.740  on 68  degrees of freedom
+## AIC: 74.74
 ## 
-## Number of Fisher Scoring iterations: 3
+## Number of Fisher Scoring iterations: 5
 ```
 
 Not too bad! The model estimates a value (1.3) relatively close to the one we specified, at least it's within less than a standard error. In the homework you'll use this approach to explore how buffer choices and sample size affect the ablity of the model to return the correct result.
