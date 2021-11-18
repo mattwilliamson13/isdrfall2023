@@ -29,6 +29,9 @@ library(tidyverse)
 library(osmdata)
 library(sf)
 library(spatstat)
+library(sp)
+library(units) 
+
 ```
 
 ## Simulate point patterns
@@ -78,4 +81,95 @@ plot(clust.pts, main="Uniform")
 plot(mat.clust.pts, main="Matern")
 par(op)
 ```
+
+
+## General descriptions
+
+We can use the _mean center_ and _standard distance_ to get some general descriptive statistics of the point pattern we generated (see the slides for the actual formulae). We do this by accessing the coordinates of the points (by combining the `coords` call with the `[]`) and building the formula. the `disc` function allows us to draw a circle based on `ppp` objects.
+
+```{r desc}
+
+mean_center <- function(pts){
+  mu.x <- sum(coords(pts)[,1])/nrow(coords(pts))
+  mu.y <- sum(coords(pts)[,2])/nrow(coords(pts))
+  mean.center <- ppp(mu.x, mu.y)
+}
+
+
+stand_dist <- function(pts, mc){
+  var.x <- sum((coords(pts)[,1] - coords(mc)[1])^2)
+  var.y <- sum((coords(pts)[,2] - coords(mc)[2])^2)
+  var.tot <- (var.x + var.y)/nrow(coords(pts))
+  stand.dist <- sqrt(var.tot)
+}
+
+mc.ihpp <- mean_center(ihpp.pts)
+sd.ihpp <- stand_dist(pts = ihpp.pts, mc = mc.ihpp)
+
+
+mc.clust <- mean_center(clust.pts)
+sd.clust <- stand_dist(pts = clust.pts, mc = mc.clust)
+circle.ihpp <- disc(radius = sd.ihpp, centre = mc.ihpp)
+circle.clust <- disc(radius = sd.clust, centre = mc.clust)
+
+```
+
+
+```{r pltcirc, echo=FALSE, warnings=FALSE}
+op <- par()
+par(mfrow = c(1,2))
+plot(ihpp.pts, main="IHPP")
+plot(mc.ihpp, pch = 2, col="red", add=TRUE)
+plot(circle.ihpp, add=TRUE)
+
+plot(clust.pts, main="Clustered")
+plot(mc.clust, pch = 2, col="red", add=TRUE)
+plot(circle.clust, add=TRUE)
+par(op)
+```
+
+## A more realistic analysis
+
+Simulation can help you get a sense for the typical behavior that results from different values for `lambda` and different cluster specifications. It will also come in handy when we need to generate Monte Carlo samples (later in the example). For now, let's turn to something a little more typical of an analysis. We'll download data on restaurant locations in Boise using the `osmdata` package (in your assignment you'll use a dataset of all of the streetlight locations in Boise). We'll do that here. I'm not going to explain the syntax as it's not necessary for your assignment, but if you're interested see [here](https://github.com/ropensci/osmdata).
+
+```{r dlrest}
+q <- opq ("boise usa") %>%
+    add_osm_feature(key = "amenity", value = "restaurant")
+
+restaurants.sf <- osmdata_sf(q)
+restaurants.pts <- restaurants.sf$osm_points %>% st_transform(., 3742)
+plot(restaurants.pts, pch=1, main="Boise restaurants")
+```
+
+We'll need to do a few more things to get data into a `spatstat` useable format. We'll load a city of Boise boundary, create a population density raster, and convert all of our data to `spatstat` compatible objects
+
+```{r dataprep}
+restaurants <- as.ppp(st_geometry(restaurants.pts))
+marks(restaurants) <- NULL
+restaurants <- rescale(restaurants, 1000)
+
+#Load a boise shapefile
+B <- st_read("/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session26/Ada_County_City_Limits.shp") %>% 
+  st_transform(., 3742)
+w  <- as.owin(B)
+B.km <- rescale(w, 1000)
+
+#Create a population per sq km raster and convert
+ada.pop <- tidycensus::get_decennial(geography = "block", variables = "P001001", state="ID", county="Ada County", geometry = "TRUE") %>% 
+  st_transform(., 3742) %>% 
+  mutate(., area = as.numeric(set_units(st_area(.), km2)),
+            dens = value/area)
+
+boise.pop <- st_crop(ada.pop, B) 
+r <- rast(ext = ext(boise.pop), crs = crs(boise.pop), resolution=1000)
+popdens <- rasterize(vect(boise.pop), r, field="dens")
+
+pop <- as.im(raster::raster(popdens))
+
+Window(restaurants) <- B.km
+```
+
+
+### Density-based descriptions
+
 

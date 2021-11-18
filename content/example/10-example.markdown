@@ -35,9 +35,9 @@ library(tidyverse)
 
 ```
 ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
+## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
 ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.0     ✓ forcats 0.5.1
+## ✓ readr   2.0.2     ✓ forcats 0.5.1
 ```
 
 ```
@@ -81,7 +81,7 @@ library(spatstat)
 ```
 
 ```
-## spatstat.geom 2.3-0
+## spatstat.geom 2.2-0
 ```
 
 ```
@@ -108,7 +108,7 @@ library(spatstat)
 ```
 
 ```
-## spatstat.core 2.3-1
+## spatstat.core 2.2-0
 ```
 
 ```
@@ -116,13 +116,17 @@ library(spatstat)
 ```
 
 ```
-## spatstat.linnet 2.3-0
+## spatstat.linnet 2.1-1
 ```
 
 ```
 ## 
-## spatstat 2.2-0       (nickname: 'That's not important right now') 
+## spatstat 2.1-0       (nickname: 'Comedic violence') 
 ## For an introduction to spatstat, type 'beginner'
+```
+
+```r
+library(sp)
 ```
 
 ## Simulate point patterns
@@ -160,4 +164,67 @@ mat.clust.pts <- rMatClust(kappa = 10, expand = 0.2, scale = 0.1, mu=10)
 We made a custom function, `nclust`, which takes the coordinates of the parent point and generates `n` points within a uniform disc with radius = `radius`. We then pass this function to the `rPoissonCluster` call to tell `R` that we want parent points generated with `kappa=10` and then we want the clustered points generated around the parents using our `nclust` function. The `expand` argument tells `R` that we can make the window a little bigger to accommodate parent points ourside of the study area because the radius of our cluster function still produces child points within the window. The `rMatClust` function behaves similarly, but doesn't require a `rcluster` argument because the cluster function is predefined (in this case according to the Matern cluster process).
 
 <img src="/example/10-example_files/figure-html/clustsimfig-1.png" width="672" />
+
+
+## General descriptions
+
+We can use the _mean center_ and _standard distance_ to get some general descriptive statistics of the point pattern we generated (see the slides for the actual formulae). We do this by accessing the coordinates of the points (by combining the `coords` call with the `[]`) and building the formula. the `disc` function allows us to draw a circle based on `ppp` objects.
+
+
+```r
+mean_center <- function(pts){
+  mu.x <- sum(coords(pts)[,1])/nrow(coords(pts))
+  mu.y <- sum(coords(pts)[,2])/nrow(coords(pts))
+  mean.center <- ppp(mu.x, mu.y)
+}
+
+
+stand_dist <- function(pts, mc){
+  var.x <- sum((coords(pts)[,1] - coords(mc)[1])^2)
+  var.y <- sum((coords(pts)[,2] - coords(mc)[2])^2)
+  var.tot <- (var.x + var.y)/nrow(coords(pts))
+  stand.dist <- sqrt(var.tot)
+}
+
+mc.ihpp <- mean_center(ihpp.pts)
+sd.ihpp <- stand_dist(pts = ihpp.pts, mc = mc.ihpp)
+
+
+mc.clust <- mean_center(clust.pts)
+sd.clust <- stand_dist(pts = clust.pts, mc = mc.clust)
+circle.ihpp <- disc(radius = sd.ihpp, centre = mc.ihpp)
+circle.clust <- disc(radius = sd.clust, centre = mc.clust)
+```
+
+
+<img src="/example/10-example_files/figure-html/pltcirc-1.png" width="672" />
+
+```
+## Warning in par(op): graphical parameter "cin" cannot be set
+```
+
+```
+## Warning in par(op): graphical parameter "cra" cannot be set
+```
+
+```
+## Warning in par(op): graphical parameter "csi" cannot be set
+```
+
+```
+## Warning in par(op): graphical parameter "cxy" cannot be set
+```
+
+```
+## Warning in par(op): graphical parameter "din" cannot be set
+```
+
+```
+## Warning in par(op): graphical parameter "page" cannot be set
+```
+
+## A more realistic analysis
+
+Simulation can help you get a sense for the typical behavior that results from different values for `lambda` and different cluster specifications. It will also come in handy when we need to generate Monte Carlo samples (later in the example). For now, let's turn to something a little more typical of an analysis. We'll download data on restaurant locations in Boise using the `osmdata` package (in your assignment you'll use a dataset of all of the streetlight locations in Boise). We'll do that here
+
 
