@@ -34,6 +34,8 @@ Much of the motivation for this course stems from the need to develop spatially 
 
 - <i class="fas fa-external-link-square-alt"></i> [Point process models for presence-only analysis](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352) by [@Renner2015] provides a comprehensive overview and comparision of methods for analyzing presence-background datasets.
 
+- <i class="fas fa-external-link-square-alt"></i> [Estimating site occupancy rates when detection probabilities are less than one](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9658%282002%29083%5B2248%3AESORWD%5D2.0.CO%3B2) by [@MacKenzie2002] is one of the foundational papers describing the use of occupancy modelling to account for situations where absences are ambiguous.
+
 - <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications](https://onlinelibrary.wiley.com/doi/full/10.1111/geb.12268) by [@Guillera-Arroita2015] is an excellent, concise description of the relations between data collection, statistical models, and inference.
 
 - <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.12189) by [@Guisan2013] is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.

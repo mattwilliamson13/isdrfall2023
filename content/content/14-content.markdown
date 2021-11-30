@@ -21,6 +21,8 @@ Much of the motivation for this course stems from the need to develop spatially 
 
 -   <i class="fas fa-external-link-square-alt"></i> [Point process models for presence-only analysis](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352) by (Renner et al. 2015) provides a comprehensive overview and comparision of methods for analyzing presence-background datasets.
 
+-   <i class="fas fa-external-link-square-alt"></i> [Estimating site occupancy rates when detection probabilities are less than one](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9658%282002%29083%5B2248%3AESORWD%5D2.0.CO%3B2) by (MacKenzie et al. 2002) is one of the foundational papers describing the use of occupancy modelling to account for situations where absences are ambiguous.
+
 -   <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications](https://onlinelibrary.wiley.com/doi/full/10.1111/geb.12268) by (Guillera-Arroita et al. 2015) is an excellent, concise description of the relations between data collection, statistical models, and inference.
 
 -   <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.12189) by (Guisan et al. 2013) is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.
@@ -117,6 +119,12 @@ Guillera-Arroita, G., J. J. Lahoz-Monfort, J. Elith, A. Gordon, H. Kujala, P. E.
 <div id="ref-Guisan2013" class="csl-entry">
 
 Guisan, A., R. Tingley, J. B. Baumgartner, I. Naujokaitis-Lewis, P. R. Sutcliffe, A. I. T. Tulloch, T. J. Regan, L. Brotons, E. McDonald-Madden, C. Mantyka-Pringle, T. G. Martin, J. R. Rhodes, R. Maggini, S. A. Setterfield, J. Elith, M. W. Schwartz, B. A. Wintle, O. Broennimann, M. Austin, S. Ferrier, M. R. Kearney, H. P. Possingham, and Y. M. Buckley. 2013. Predicting species distributions for conservation decisions. Ecol. Lett. 16:1424–1435.
+
+</div>
+
+<div id="ref-MacKenzie2002" class="csl-entry">
+
+MacKenzie, D. I., J. D. Nichols, G. B. Lachman, S. Droege, J. Andrew Royle, and C. A. Langtimm. 2002. Estimating site occupancy rates when detection probabilities are less than one. Ecology 83:2248–2255.
 
 </div>
 
