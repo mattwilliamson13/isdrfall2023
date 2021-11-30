@@ -1,0 +1,44 @@
+---
+title: "Modelling the probability of occurrence in space"
+linktitle: "14: Distribution modelling"
+date: "2021-11-30"
+menu:
+  content:
+    parent: Course content
+    weight: 14
+type: docs
+toc: true
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/ecology.csl"
+slides: "14-slides"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-tabs.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "tVcomh6jl2Y", "Modelling the probability of occurrence in space", "1", TRUE,
+  "tVcomh6jl2Y", "Motivations", "motivations", FALSE,
+  "tVcomh6jQ2Y", "Presence absence data", "logistic", FALSE,
+  "tVcomh6jQ2Y", "Presence background data", "maxent", FALSE,
+  "tVcomh6jQ2Y", "Imperfect detection", "occupancy", FALSE,
+)
+```
+
+Much of the motivation for this course stems from the need to develop spatially explicit predictions about the likelihood that a species or event occurs in places we haven't sampled. In ecology, we call these models by several different names: species distribution models, resource selection functions, habitat selection models. More generally we might call these 'event occurrence models', statistical models that describe the relations between a number of predictors and the occurrence of any event of interest (e.g., presence of crimes, species, conservation actions, etc. )
+
+## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [Logistic regression: a brief primer] by [@Stoltzfus2011] is a nice introduction to logistic regression.
+
+- <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications] by [@Guillera-Arroita2015] is an excellent, concise description of the relations between data collection, statistical models, and inference.
+
+- <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions] by [@Guisan2013] is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.
+
+## Slides
+`r blogdown::shortcode("slide-buttons")`
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/14-slides.html")
+```
