@@ -25,13 +25,14 @@ Now that we've talked a bit more about point processes and expanded the ways we 
 The only new package we'll be using for this example is the [`osmdata`](https://github.com/ropensci/osmdata) package which provides a compact (though occasionally slow) means of downloading data collected by the [Open Street Map](https://www.openstreetmap.org/about) project, the Wiki of world maps.
 
 ```{r lpkg}
-library(tidyverse)
+#library(tidyverse) something in tidyverse conflicts with rescale
+library(magrittr)
 library(osmdata)
 library(sf)
 library(spatstat)
 library(sp)
 library(units) 
-
+library(maptools)
 ```
 
 ## Simulate point patterns
@@ -138,7 +139,24 @@ q <- opq ("boise usa") %>%
 
 restaurants.sf <- osmdata_sf(q)
 restaurants.pts <- restaurants.sf$osm_points %>% st_transform(., 3742)
-plot(restaurants.pts, pch=1, main="Boise restaurants")
+boise.bdy <- st_read("/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session26/Ada_County_City_Limits.shp") %>% 
+  st_transform(., 3742) %>% 
+  st_buffer(., dist = 1500)
+
+restaurants.pts <- restaurants.pts[boise.bdy,]
+
+ada.pop <- tidycensus::get_decennial(geography = "block", variables = "P001001", state="ID", county="Ada County", geometry = "TRUE") %>% 
+  st_transform(., 3742) %>% 
+  dplyr::mutate(., area= as.numeric(set_units(st_area(.), km2)),
+                  dens = value/area)
+boise.pop <- ada.pop[boise.bdy,]
+
+r <- terra::rast(terra::vect(boise.pop), res = 1000)
+bpr <- terra::rasterize(terra::vect(boise.pop), r, "dens")
+bpr.crop <- mask(bpr, vect(boise.bdy))
+plot(bpr.crop)
+plot(st_geometry(boise.bdy), add=TRUE)
+plot(restaurants.pts['name'], pch=1, main="Boise restaurants", add=TRUE)
 ```
 
 We'll need to do a few more things to get data into a `spatstat` useable format. We'll load a city of Boise boundary, create a population density raster, and convert all of our data to `spatstat` compatible objects
@@ -146,30 +164,31 @@ We'll need to do a few more things to get data into a `spatstat` useable format.
 ```{r dataprep}
 restaurants <- as.ppp(st_geometry(restaurants.pts))
 marks(restaurants) <- NULL
-restaurants <- rescale(restaurants, 1000)
+restaurants <- spatstat.geom::rescale(restaurants, 1000)
 
 #Load a boise shapefile
-B <- st_read("/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session26/Ada_County_City_Limits.shp") %>% 
-  st_transform(., 3742)
-w  <- as.owin(B)
-B.km <- rescale(w, 1000)
-
-#Create a population per sq km raster and convert
-ada.pop <- tidycensus::get_decennial(geography = "block", variables = "P001001", state="ID", county="Ada County", geometry = "TRUE") %>% 
-  st_transform(., 3742) %>% 
-  mutate(., area = as.numeric(set_units(st_area(.), km2)),
-            dens = value/area)
-
-boise.pop <- st_crop(ada.pop, B) 
-r <- rast(ext = ext(boise.pop), crs = crs(boise.pop), resolution=1000)
-popdens <- rasterize(vect(boise.pop), r, field="dens")
-
-pop <- as.im(raster::raster(popdens))
+w  <- as.owin(boise.bdy)
+B.km <- spatstat.geom::rescale(w, 1000)
 
 Window(restaurants) <- B.km
+plot(restaurants, main=NULL, cols=rgb(0,0,0,.2), pch=20)
+#Create a population per sq km raster and convert
+
+pop <- as.im(raster::raster(bpr.crop))
+pop.lg <- log(pop + 1)
+pop.lg.km <- spatstat.geom::rescale(pop.lg, 1000)
 ```
 
 
 ### Density-based descriptions
 
+We used quad
 
+```{r}
+
+brk  <- c( -Inf, 4, 6, 8 , Inf)  # Define the breaks
+Zcut <- cut(pop.lg.km, breaks=brk, labels=1:4)  # Classify the raster
+E    <- tess(image=Zcut) 
+
+Q   <- quadratcount(restaurants, tess = E)  
+```
