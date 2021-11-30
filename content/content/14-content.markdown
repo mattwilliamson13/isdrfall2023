@@ -1,7 +1,7 @@
 ---
 title: "Modelling the probability of occurrence in space"
 linktitle: "14: Distribution modelling"
-date: "2021-11-30"
+date: "2021-11-29"
 menu:
   content:
     parent: Course content
