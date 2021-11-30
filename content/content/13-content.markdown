@@ -21,7 +21,7 @@ Much of the development in statistical techniques for spatial data is rooted in 
 
 -   <i class="fas fa-external-link-square-alt"></i> [Improving the usability of spatial point process methodology: an interdisciplinary dialogue between statistics and ecology](https://link.springer.com/article/10.1007/s10182-017-0301-8) by Janine Illian (a major contributor to modern point pattern analyses) and David Burslem (a Scottish plant ecologist) (Illian and Burslem 2017) is a fairly modern take on the challenges associated with point process modeling in ecology.
 
--   <i class="fas fa-external-link-square-alt"></i> [Chapter 11: Point Pattern Analysis](https://mgimond.github.io/Spatial/chp11_0.html) inManuel Gimond’s Introduction to GIS and Spatial Analysis `bookdown` project provides a nice (and free) introduction to some of these introductory point process methods.
+-   <i class="fas fa-external-link-square-alt"></i> [Chapter 11: Point Pattern Analysis](https://mgimond.github.io/Spatial/chp11_0.html) in Manuel Gimond’s Introduction to GIS and Spatial Analysis `bookdown` project provides a nice (and free) introduction to some of these introductory point process methods.
 
 ## Slides
 
