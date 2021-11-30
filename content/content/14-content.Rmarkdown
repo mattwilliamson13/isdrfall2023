@@ -30,11 +30,11 @@ Much of the motivation for this course stems from the need to develop spatially 
 
 ## Resources
 
-- <i class="fas fa-external-link-square-alt"></i> [Logistic regression: a brief primer] by [@Stoltzfus2011] is a nice introduction to logistic regression.
+- <i class="fas fa-external-link-square-alt"></i> [Logistic regression: a brief primer](https://onlinelibrary.wiley.com/doi/10.1111/j.1553-2712.2011.01185.x) by [@Stoltzfus2011] is a nice introduction to logistic regression.
 
-- <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications] by [@Guillera-Arroita2015] is an excellent, concise description of the relations between data collection, statistical models, and inference.
+- <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications](https://onlinelibrary.wiley.com/doi/full/10.1111/geb.12268) by [@Guillera-Arroita2015] is an excellent, concise description of the relations between data collection, statistical models, and inference.
 
-- <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions] by [@Guisan2013] is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.
+- <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.12189) by [@Guisan2013] is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.
 
 ## Slides
 `r blogdown::shortcode("slide-buttons")`
