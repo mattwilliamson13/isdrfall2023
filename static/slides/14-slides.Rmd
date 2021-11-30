@@ -141,7 +141,7 @@ $$
 
 .pull-right[
 <figure>
-  <img src="img/14/probit.png" alt="ZZZ" title="ZZZ" width="100%">
+  <img src="img/14/Probit.png" alt="ZZZ" title="ZZZ" width="100%">
 </figure>
 .caption[
 From [Mendoza](https://www.ou.edu/faculty/M/Jorge.L.Mendoza-1/comparison_of_probit.htm)
