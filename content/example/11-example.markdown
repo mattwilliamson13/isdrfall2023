@@ -1,7 +1,7 @@
 ---
 title: "Event Distribution Modeling in R"
 linktitle: "11: Distribution models"
-date: "2021-12-1"
+date: "2021-11-30"
 toc: yes
 menu:
   example:
