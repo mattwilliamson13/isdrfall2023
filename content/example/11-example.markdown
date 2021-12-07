@@ -34,18 +34,22 @@ library(rgdal)
 ```
 
 ```
-## rgdal: version: 1.5-23, (SVN revision 1121)
+## Please note that rgdal will be retired by the end of 2023,
+## plan transition to sf/stars/terra functions using GDAL and PROJ
+## at your earliest convenience.
+## 
+## rgdal: version: 1.5-27, (SVN revision 1148)
 ## Geospatial Data Abstraction Library extensions to R successfully loaded
 ## Loaded GDAL runtime: GDAL 3.2.1, released 2020/12/29
-## Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/4.1/Resources/library/rgdal/gdal
+## Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/gdal
 ## GDAL binary built with GEOS: TRUE 
 ## Loaded PROJ runtime: Rel. 7.2.1, January 1st, 2021, [PJ_VERSION: 721]
-## Path to PROJ shared files: /Library/Frameworks/R.framework/Versions/4.1/Resources/library/rgdal/proj
+## Path to PROJ shared files: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/proj
 ## PROJ CDN enabled: FALSE
 ## Linking to sp version:1.4-5
 ## To mute warnings of possible GDAL/OSR exportToProj4() degradation,
-## use options("rgdal_show_exportToProj4_warnings"="none") before loading rgdal.
-## Overwritten PROJ_LIB was /Library/Frameworks/R.framework/Versions/4.1/Resources/library/rgdal/proj
+## use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
+## Overwritten PROJ_LIB was /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/proj
 ```
 
 ```r
@@ -80,14 +84,15 @@ I've saved a presence/absence dataset that I created along with a number of bioc
 
 
 ```r
-base.path <- "/Users/matthewwilliamson/Downloads/session28/" #sets the path to the root directory
+#base.path <- "/Users/matthewwilliamson/Downloads/session28/" #sets the path to the root directory
+base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session28/" #sets the path to the root directory
 
 pres.abs <- readOGR(paste0(base.path, "presenceabsence.shp")) #read the points with presence absence data
 ```
 
 ```
 ## OGR data source with driver: ESRI Shapefile 
-## Source: "/Users/matthewwilliamson/Downloads/session28/presenceabsence.shp", layer: "presenceabsence"
+## Source: "/Volumes/GoogleDrive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session28/presenceabsence.shp", layer: "presenceabsence"
 ## with 100 features
 ## It has 1 fields
 ```
