@@ -1,0 +1,43 @@
+---
+title: "Evaluating Model Performance"
+linktitle: "15: Model evaluation"
+date: "2021-12-06"
+menu:
+  content:
+    parent: Course content
+    weight: 15
+type: docs
+toc: true
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/ecology.csl"
+slides: "15-slides"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-tabs.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "tVcomh6jl2Y", "Evaluating model performance", "1", TRUE,
+  "tVcomh6jl2Y", "Fit and prediction", "theory", FALSE,
+  "tVcomh6jQ2Y", "Threshold-based techniques", "confusion", FALSE,
+  "tVcomh6jQ2Y", "Resampling-based techniques", "bootstrap", FALSE,
+)
+```
+
+We have reached the end of this introduction to the use of `R` as a Geographic Information System. You have (hopefully) learned a bit about the nature of spatial data, how to manipulate and visualize spatial data, and finally, how to build predictive models based on spatial data. In this final lecture, we'll look at how to evaluate whether the models we fit are up to the tasks we have for them. This is, necessarily, a brief introduction to a topic that could take an entire course; however, upon completion you should now be able to take a spatial analysis from start to finish without ever having to leave `R`.
+
+## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [A review of methods for the assessment of prediction errors in conservation presence/absence models](https://www.cambridge.org/core/journals/environmental-conservation/article/review-of-methods-for-the-assessment-of-prediction-errors-in-conservation-presenceabsence-models/FFA0880CE3C3591A5906B83C04727F46) by [@Fielding1997] has an accessible overview for many of the model evaluation methods implemented in the `dismo` package.
+
+- <i class="fas fa-book"></i> [Chapters 4 and 5](https://hastie.su.domains/ISLR2/ISLRv2_website.pdf) in the second edition of _An Introduction to Statistical Learning_ by [@James2021] provide excellent overviews of the general problem of classification and introductions to resampling-based techniques for assessing their fit.
+
+- <i class="fas fa-external-link-square-alt"></i>[Model selection using information criteria, but is the “best” model any good?](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/1365-2664.13060) by [@Mac_Nally2018] is an excellent reminder of the differences between a good model and the best of a group of bad models. A must-read for those hoping to use multi-model inference to learn something about their study system.
+
+## Slides
+`r blogdown::shortcode("slide-buttons")`
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_tabs(slide_details, "/slides/15-slides.html")
+```
