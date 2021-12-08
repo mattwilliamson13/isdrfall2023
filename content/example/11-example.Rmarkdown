@@ -33,8 +33,8 @@ library(randomForest)
 I've saved a presence/absence dataset that I created along with a number of bioclimatic predictors to our shared folder. I'll load those here using my local path. Remember, you'll need to change this to match the path of our shared folder.
 
 ```{r ldata}
-#base.path <- "/Users/matthewwilliamson/Downloads/session28/" #sets the path to the root directory
-base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session28/" #sets the path to the root directory
+base.path <- "/Users/matthewwilliamson/Downloads/session28/" #sets the path to the root directory
+#base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/session28/" #sets the path to the root directory
 
 pres.abs <- readOGR(paste0(base.path, "presenceabsence.shp")) #read the points with presence absence data
 
