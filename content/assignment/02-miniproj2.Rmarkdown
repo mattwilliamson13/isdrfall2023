@@ -1,6 +1,6 @@
 ---
 title: "Mini-Project 2: Visualizing your data"
-linktitle: "Mini-Project 2"
+linktitle: "2: Mini-Project 2"
 date: "2021-08-27"
 due_date: "2021-11-12"
 due_time: "11:59 PM"

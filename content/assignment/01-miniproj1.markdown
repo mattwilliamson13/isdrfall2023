@@ -1,6 +1,6 @@
 ---
 title: "Mini-Project 1: Building a spatial database"
-linktitle: "Mini-Project 1"
+linktitle: "1: Mini-Project 1"
 date: "2021-08-27"
 due_date: "2021-10-25"
 due_time: "11:59 PM"

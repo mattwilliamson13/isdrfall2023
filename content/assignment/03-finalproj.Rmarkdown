@@ -1,6 +1,6 @@
 ---
 title: "Final Project: Analyze your data"
-linktitle: "Final Project"
+linktitle: "3: Final Project"
 date: "2021-08-27"
 due_date: "2021-12-16"
 due_time: "11:59 PM"
