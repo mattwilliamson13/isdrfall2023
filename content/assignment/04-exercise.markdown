@@ -1,6 +1,6 @@
 ---
 title: "Introduction to class resources and data structures in R"
-linktitle: "1: Introduction to class resources and data structures in R"
+linktitle: "4: Introduction to class resources and data structures in R"
 date: "2021-08-27"
 due_date: "2021-09-03"
 due_time: "11:59 PM"
