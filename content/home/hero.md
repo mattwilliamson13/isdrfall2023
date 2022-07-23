@@ -20,7 +20,7 @@ design:
     text_color_light: true
 
 cta_note:
-  label: HES 597 • Fall 2021<br>Human Environment Systems<br>Boise State University
+  label: HES 505 • Fall 2022<br>Human Environment Systems<br>Boise State University
 ---
 
 **Use R to load, visualize, and analyze spatial data**

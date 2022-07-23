@@ -40,14 +40,14 @@ instructor:
   appointment_url: https://calendly.com/mattwilliamson/30min
 
 course:
-  number: "HES 597"
-  semester: "Fall 2021"
-  days: "T TH"
-  time: "10:30 - 11:45"
-  location: "Albertson's Library Rm201C"
+  number: "HES 505"
+  semester: "Fall 2022"
+  days: "M W"
+  time: "1:30 - 2:45"
+  location: "Mathematics Rm 126"
   dates: "August 23 - December 10, 2021"
-  github: "mattwilliamson13/isdrfall21"
-  copyrightYear: "2021"
+  github: "mattwilliamson13/isdrfall22"
+  copyrightYear: "2022"
   slack: "https://ecostatsbsu.slack.com/archives/CV4DEJ8M7"
 
 university: 
