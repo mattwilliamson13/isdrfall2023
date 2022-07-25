@@ -18,8 +18,8 @@ schedule_df <- enframe(schedule_raw) %>%
   unnest(cleaned) %>% 
   filter(is.na(header)) %>% 
   select(-value, -bg, -bottomborder, -header)
-class_year <- "2021"
-base_url <- "https://isdrfall21.classes.spaseslab.com/"
+class_year <- "2022"
+base_url <- "https://isdrfall22.classes.spaseslab.com/"
 content_base <- glue("{base_url}content/")
 assignment_base <- glue("{base_url}assignment/")
 schedule_ics_path <- "schedule/schedule.ics"
@@ -27,7 +27,7 @@ ics_url <- glue(base_url, schedule_ics_path)
 schedule_clean <- schedule_df %>%
   mutate(title = map_chr(title, strip_html)) %>%
   mutate(session_clean = ifelse(is.na(session), "", glue("({session}) "))) %>% 
-  mutate(summary = glue("PMAP 8521: {session_clean}{title}")) %>% 
+  mutate(summary = glue("HES505: {session_clean}{title}")) %>% 
   mutate(date = glue("{date}, {class_year}")) %>% 
   mutate(date_actual = map(date, ~as.POSIXct(., format = "%B %d, %Y"))) %>% 
   mutate(content = ifelse(!is.na(content), glue("{content_base}{content}/"), NA),
@@ -38,8 +38,8 @@ schedule_ics <- schedule_clean %>%
   group_by(name) %>% 
   nest() %>% 
   mutate(ical = map(data,
-                    ~ic_event(start =.$date_actual[[1]] + hours(10) + minutes(30),
-                              end = .$date_actual[[1]] + hours(11) + minutes(45),
+                    ~ic_event(start =.$date_actual[[1]] + hours(1) + minutes(30),
+                              end = .$date_actual[[1]] + hours(2) + minutes(45),
                               summary = .$summary[[1]],
                               more_properties = TRUE,
                               event_properties = c("DESCRIPTION" = .$url[[1]])))) %>% 

@@ -4,26 +4,26 @@ lessons:
 
   - title: '<span class="content-title">Course orientation and data structures in R</span>'
     session: "Session 1"
-    date: "August 24"
+    date: "August 22"
     content: "01-content"
     bg: 1
     
   - title: '<span class="content-title">Getting started with RStudio online, git, and data in R</span>'
     session: "Session 2"
-    date: "August 26"
+    date: "August 24"
     example: "01-example"
     assignment: "01-exercise"
     bg: 2
     
   - title: '<span class="content-title">What is so special about spatial data?</span>'
     session: "Session 3"
-    date: "August 31"
+    date: "August 29"
     content: "02-content"
     bg: 4
     
-  - title: '<span class="content-title">Loading and exploring spatial data</span>'
+  - title: '<span class="content-title">No Class (Labor Day)</span>'
     session: "Session 4"
-    date: "September 2"
+    date: "September 5"
     example: "02-example"
     assignment: "02-exercise"
     bg: 2
