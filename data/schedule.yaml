@@ -2,126 +2,149 @@ lessons:
   - title: 'Getting started'
     header: True
 
-  - title: '<span class="content-title">Course orientation and data structures in R</span>'
+  - title: '<span class="content-title">Introduction to the course</span>'
     session: "Session 1"
     date: "August 22"
     content: "01-content"
-    bg: 1
-    
-  - title: '<span class="content-title">Getting started with RStudio online, git, and data in R</span>'
-    session: "Session 2"
-    date: "August 24"
     example: "01-example"
     assignment: "01-exercise"
-    bg: 2
+    bg: 1
     
-  - title: '<span class="content-title">What is so special about spatial data?</span>'
-    session: "Session 3"
-    date: "August 29"
+  - title: '<span class="content-title">Basic data structures in R</span>'
+    session: "Session 2"
+    date: "August 24"
     content: "02-content"
-    bg: 4
-    
-  - title: '<span class="content-title">No Class (Labor Day)</span>'
-    session: "Session 4"
-    date: "September 5"
     example: "02-example"
     assignment: "02-exercise"
     bg: 2
-  
-  - title: 'Assignments for sessions 2 and 4 due'
-    date: "September 3"
-    bg: 3
-    bottomborder: True
-  
-  - title: 'General classes of spatial data'
-    header: True
     
-  - title: '<span class="content-title">Spatial data as vectors</span>'
-    session: "Session 5"
-    date: "September 7"
+  - title: '<span class="content-title">Rmarkdown, literate programming, and psuedocode</span>'
+    session: "Session 3"
+    date: "August 29"
     content: "03-content"
-    bg: 1
-  
-  - title: '<span class="content-title">Points, lines, polygons in R</span>'
-    session: "Session 6"
-    date: "September 9"
     example: "03-example"
     assignment: "03-exercise"
-    bg: 2
-  
-  - title: '<span class="content-title">Spatial data as matrices, rasters, and stacks</span>'
-    session: "Session 7"
-    date: "September 14"
-    content: "04-content"
     bg: 4
     
-  - title: '<span class="content-title">Manipulating rasters in R</span>'
-    session: "Session 8"
-    date: "September 16"
+  - title: '<span class="content-title">Repetitive tasks, pipes, and functional programming</span>'
+    session: "Session 4"
+    date: "August 31"
+    content: "04-content"
     example: "04-example"
     assignment: "04-exercise"
     bg: 2
     
-  - title: 'Assignments for sessions 6 and 8 due'
-    date: "September 17"
-    bg: 3
+  - title: '<span class="content-title">No Class (Labor Day)</span>'
+    session: "NA"
+    date: "September 5"
+    bg: 1  
     
-  - title: '<span class="content-title">Spatial data as networks</span>'
-    session: "Session 9"
-    date: "September 21"
-    content: "05-content"
-    bg: 2
+  - title: 'Last day to complete assignments for sessions 1-4'
+    date: "September 6"
+    bg: 3
+    bottomborder: True
+    
+  - title: 'Spatial Data Operaions in R'
+    header: True
   
-  - title: '<span class="content-title">Spatial network operations in R</span>'
-    session: "Session 10"
-    date: "September 23"
+  - title: '<span class="content-title">What makes spatial data special?</span>'
+    session: "Session 5"
+    date: "September 7"
+    content: "05-content"
     example: "05-example"
     assignment: "05-exercise"
     bg: 1
-    bottomborder: True
   
-  - title: 'Typical spatial data operations'
-    header: True
-    
-  - title: '<span class="content-title">Developing spatial databases based on attributes</span>'
-    session: "Session 11"
-    date: "September 28"
+  - title: '<span class="content-title">Spatial data as vectors with sf</span>'
+    session: "Session 6"
+    date: "September 12"
     content: "06-content"
-    bg: 4
-  
-  - title: '<span class="content-title">Joining, filtering, and subsetting data in R</span>'
-    session: "Session 12"
-    date: "September 30"
     example: "06-example"
     assignment: "06-exercise"
     bg: 2
     
-  - title: 'Assignments for sessions 10 and 12 due'
-    date: "October 1"
-    bg: 3
-    
-  - title: '<span class="content-title">Developing spatial databases based on location</span>'
-    session: "Session 13"
-    date: "October 5"
+  - title: '<span class="content-title">Operations with vector data</span>'
+    session: "Session 7"
+    date: "September 14"
     content: "07-content"
-    bg: 2
-    
-  - title: '<span class="content-title">Overlaps, joins, neighbors and networks in R</span>'
-    session: "Session 14"
-    date: "October 7"
     example: "07-example"
     assignment: "07-exercise"
+    bg: 4
+    
+  - title: '<span class="content-title">Operations with vector data 2</span>'
+    session: "Session 8"
+    date: "September 19"
+    content: "08-content"
+    example: "08-example"
+    assignment: "08-exercise"
+    bg: 2
+      
+  - title: '<span class="content-title">Spatial data as matrices and rasters</span>'
+    session: "Session 9"
+    date: "September 21"
+    content: "09-content"
+    example: "09-example"
+    assignment: "09-exercise"
     bg: 1
+  
+  - title: '<span class="content-title">Operations with raster data</span>'
+    session: "Session 10"
+    date: "September 26"
+    content: "10-content"
+    example: "10-example"
+    assignment: "10-exercise"
+    bg: 2
+    
+    
+  - title: '<span class="content-title">Operations with raster data 2</span>'
+    session: "Session 11"
+    date: "September 28"
+    content: "11-content"
+    example: "11-example"
+    assignment: "11-exercise"
+    bg: 4 
+    
+  - title: '<span class="content-title">Combining vector and raster operations</span>'
+    session: "Session 12"
+    date: "October 3"
+    content: "12-content"
+    example: "12-example"
+    assignment: "12-exercise"
+    bg: 2     
+    
+  - title: 'Last day to complete assignments for sessions 5-12'
+    date: "October 4"
+    bg: 3
+    bottomborder: True
+    
+  - title: 'Statistical Workflows for Spatial Data'
+    header: True
+
+  - title: '<span class="content-title">Building analysis databases using attributes</span>'
+    session: "Session 13"
+    date: "October 5"
+    content: "13-content"
+    example: "13-example"
+    assignment: "13-exercise"
+    bg: 1
+    
+  - title: '<span class="content-title">Building analysis databases using location</span>'
+    session: "Session 14"
+    date: "October 10"
+    content: "14-content"
+    example: "14-example"
+    assignment: "14-exercise"
+    bg: 2
     
   - title: '<span class="content-title">Workflows for combining raster and vector data</span>'
     session: "Session 15"
-    date: "October 12"
+    date: "October 10"
     content: "08-content"
-    bg: 2
+    bg: 4
  
   - title: '<span class="content-title">Deriving vector attributes from rasters in R</span>'
     session: "Session 16"
-    date: "October 14"
+    date: "October 12"
     example: "08-example"
     assignment: "08-exercise"
     bg: 4
@@ -136,13 +159,13 @@ lessons:
   
   - title: '<span class="content-title">Maps, truth, and cartography</span>'
     session: "Session 17"
-    date: "October 19"
+    date: "October 17"
     content: "09-content"
     bg: 1
   
   - title: '<span class="content-title">Static maps in R with ggplot and tmap</span>'
     session: "Session 18"
-    date: "October 21"
+    date: "October 19"
     example: "09-example"
     assignment: "09-exercise"
     bg: 2  
@@ -154,13 +177,13 @@ lessons:
     
   - title: '<span class="content-title">Interactive webmaps in with R</span>'
     session: "Session 19"
-    date: "October 26"
+    date: "October 24"
     content: "10-content"
     bg: 4
     
   - title: '<span class="content-title">Building better maps and beginning webmapping</span>'
     session: "Session 20"
-    date: "October 28"
+    date: "October 26"
     content: "11-content"
     bg: 2
 
@@ -170,13 +193,13 @@ lessons:
     
   - title: '<span class="content-title">Interactive webmaps with R continued</span>'
     session: "Session 21"
-    date: "November 2"
+    date: "October 31"
     content: "11-content"
     bg: 2
   
   - title: '<span class="content-title">Workday</span>'
     session: "Session 22"
-    date: "November 4"
+    date: "November 2"
     bg: 1
     
   - title: 'Assignments for Session 21 Due'
@@ -189,26 +212,26 @@ lessons:
     
   - title: '<span class="content-title">Quantifying spatial patterns</span>'
     session: "Session 23"
-    date: "November 9"
+    date: "November 7"
     content: "12-content"
     bg: 4  
   
   - title: '<span class="content-title">Using R to characterize landscape patterns across scales</span>'
     session: "Session 24"
-    date: "November 11"
+    date: "November 9"
     example: "12-example"
     assignment: "12-exercise"
     bg: 2
     
   - title: '<span class="content-title">Point patterns and spatial dependence</span>'
     session: "Session 25"
-    date: "November 16"
+    date: "November 14"
     content: "13-content"
     bg: 1
  
   - title: '<span class="content-title">Dispersion, variograms, and kriging in R</span>'
     session: "Session 26"
-    date: "November 18"
+    date: "November 16"
     example: "13-example"
     assignment: "13-exercise"
     bg: 2
@@ -220,23 +243,23 @@ lessons:
     
   - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
     session: "NA"
-    date: "November 23"
+    date: "November 21"
     bg: 3
     
   - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
     session: "NA"
-    date: "November 25"
+    date: "November 23"
     bg: 3
     
   - title: '<span class="content-title">Modelling the probability of occurrence in space</span>'
     session: "Session 27"
-    date: "November 30"
+    date: "November 28"
     content: "14-content"
     bg: 2
     
   - title: '<span class="content-title">Species (event) distribution models in R</span>'
     session: "Session 28"
-    date: "December 2"
+    date: "November 30"
     example: "14-example"
     assignment: "14-exercise"
     bg: 4
@@ -247,13 +270,13 @@ lessons:
         
   - title: '<span class="content-title">Conclusion and final project work</span>'
     session: "Session 29"
-    date: "December 7"
+    date: "December 5"
     content: "15-content"
     bg: 2
   
   - title: '<span class="content-title">Final project workday</span>'
     session: "Session 30"
-    date: "December 9"
+    date: "December 7"
     bg: 1
     
   - title: '<i class="fas fa-star"></i> **Final project due** (submit online by 11:59 PM)'
