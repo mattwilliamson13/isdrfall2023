@@ -136,111 +136,106 @@ lessons:
     assignment: "14-exercise"
     bg: 2
     
-  - title: '<span class="content-title">Workflows for combining raster and vector data</span>'
+  - title: '<span class="content-title">Assessing spatial autocorrelation</span>'
     session: "Session 15"
-    date: "October 10"
-    content: "08-content"
+    date: "October 12"
+    content: "15-content"
+    example: "15-example"
+    assignment: "15-exercise"
     bg: 4
  
-  - title: '<span class="content-title">Deriving vector attributes from rasters in R</span>'
+  - title: '<span class="content-title">Point pattern analysis and hypothesis testing</span>'
     session: "Session 16"
-    date: "October 12"
-    example: "08-example"
-    assignment: "08-exercise"
+    date: "October 17"
+    content: "16-content"
+    example: "16-example"
+    assignment: "16-exercise"
+    bg: 2
+
+  - title: '<span class="content-title">Interpolation</span>'
+    session: "Session 17"
+    date: "October 19"
+    content: "17-content"
+    example: "17-example"
+    assignment: "17-exercise"
+    bg: 1
+    
+  - title: '<span class="content-title">Multivariate statistical analysis 1</span>'
+    session: "Session 18"
+    date: "October 24"
+    content: "18-content"
+    example: "18-example"
+    assignment: "18-exercise"
+    bg: 2 
+    
+  - title: '<span class="content-title">Multivariate statistical analysis 2</span>'
+    session: "Session 19"
+    date: "October 26"
+    content: "19-content"
+    example: "19-example"
+    assignment: "19-exercise"
     bg: 4
     
-  - title: 'Assignments for sessions 14 and 16 due'
-    date: "October 15"
+  - title: 'Assignments for sessions 13-19 due'
+    date: "October 28"
     bg: 3
     bottomborder: True
 
   - title: 'Visualizing spatial data'
     header: True
   
-  - title: '<span class="content-title">Maps, truth, and cartography</span>'
-    session: "Session 17"
-    date: "October 17"
-    content: "09-content"
-    bg: 1
-  
-  - title: '<span class="content-title">Static maps in R with ggplot and tmap</span>'
-    session: "Session 18"
-    date: "October 19"
-    example: "09-example"
-    assignment: "09-exercise"
-    bg: 2  
-
-  - title: '<i class="fas fa-star"></i> **Mini project 1 due**'
-    date: "October 25"
-    assignment: "01-mini-project"
-    bg: 3
-    
-  - title: '<span class="content-title">Interactive webmaps in with R</span>'
-    session: "Session 19"
-    date: "October 24"
-    content: "10-content"
-    bg: 4
-    
-  - title: '<span class="content-title">Building better maps and beginning webmapping</span>'
+  - title: '<span class="content-title">Basic data visualization principles</span>'
     session: "Session 20"
-    date: "October 26"
-    content: "11-content"
+    date: "October 31"
+    content: "20-content"
+    example: "20-example"
+    assignment: "20-exercise"
     bg: 2
 
   - title: 'Assignments for Sessions 18 and 19 due'
     date: "October 29"
     bg: 3
     
-  - title: '<span class="content-title">Interactive webmaps with R continued</span>'
+  - title: '<span class="content-title">Introduction to ggplot</span>'
     session: "Session 21"
-    date: "October 31"
-    content: "11-content"
-    bg: 2
-  
-  - title: '<span class="content-title">Workday</span>'
-    session: "Session 22"
     date: "November 2"
-    bg: 1
-    
-  - title: 'Assignments for Session 21 Due'
-    date: "November 5"
-    bg: 3
-    bottomborder: True
-    
-  - title: 'Using spatial data in statistical workflows'
-    header: True
-    
-  - title: '<span class="content-title">Quantifying spatial patterns</span>'
-    session: "Session 23"
-    date: "November 7"
-    content: "12-content"
-    bg: 4  
+    content: "21-content"
+    example: "21-example"
+    assignment: "21-exercise"
+    bg: 2
   
-  - title: '<span class="content-title">Using R to characterize landscape patterns across scales</span>'
-    session: "Session 24"
-    date: "November 9"
-    example: "12-example"
-    assignment: "12-exercise"
-    bg: 2
-    
-  - title: '<span class="content-title">Point patterns and spatial dependence</span>'
-    session: "Session 25"
-    date: "November 14"
-    content: "13-content"
+  - title: '<span class="content-title">Static maps in R</span>'
+    session: "Session 22"
+    date: "November 7"
+    content: "22-content"
+    example: "22-example"
+    assignment: "22-exercise"
     bg: 1
- 
-  - title: '<span class="content-title">Dispersion, variograms, and kriging in R</span>'
-    session: "Session 26"
-    date: "November 16"
-    example: "13-example"
-    assignment: "13-exercise"
+    
+  - title: '<span class="content-title">Building better maps</span>'
+    session: "Session 23"
+    date: "November 9"
+    content: "23-content"
+    example: "23-example"
+    assignment: "23-exercise"
     bg: 2
+  
+  - title: '<span class="content-title">Introduction to interactive webmapping</span>'
+    session: "Session 24"
+    date: "November 14"
+    content: "24-content"
+    example: "24-example"
+    assignment: "24-exercise"
+    bg: 4
     
-  - title: '<i class="fas fa-star"></i> **Mini project 2 due**'
-    date: "November 19"
-    assignment: "02-mini-project"
-    bg: 3
-    
+  - title: '<span class="content-title">Interactive webmaps 2</span>'
+    session: "Session 25"
+    date: "November 16"
+    content: "25-content"
+    example: "25-example"
+    assignment: "25-exercise"
+    bg: 2
+ 
   - title: '<span class="content-title">No Class (Thanksgiving Break)</span>'
     session: "NA"
     date: "November 21"
