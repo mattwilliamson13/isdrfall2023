@@ -37,14 +37,10 @@ lessons:
   - title: '<span class="content-title">No Class (Labor Day)</span>'
     session: "NA"
     date: "September 5"
-    bg: 1  
-    
-  - title: 'Last day to complete assignments for sessions 1-4'
-    date: "September 6"
-    bg: 3
+    bg: 1
     bottomborder: True
     
-  - title: 'Spatial Data Operaions in R'
+  - title: 'Spatial Data Operations in R'
     header: True
   
   - title: '<span class="content-title">What makes spatial data special?</span>'
@@ -54,7 +50,11 @@ lessons:
     example: "05-example"
     assignment: "05-exercise"
     bg: 1
-  
+    
+  - title: 'Target submission date for assignments for sessions 1-4'
+    date: "September 7"
+    bg: 3
+    
   - title: '<span class="content-title">Spatial data as vectors with sf</span>'
     session: "Session 6"
     date: "September 12"
@@ -181,10 +181,9 @@ lessons:
     bg: 3
     bottomborder: True
 
-  - title: 'Visualizing spatial data'
-    header: True
   
-  - title: '<span class="content-title">Basic data visualization principles</span>'
+  
+  - title: '<span class="content-title">Multivariate statistical analysis 3</span>'
     session: "Session 20"
     date: "October 31"
     content: "20-content"
@@ -192,11 +191,14 @@ lessons:
     assignment: "20-exercise"
     bg: 2
 
+  - title: 'Visualizing spatial data'
+    header: True
+  
   - title: 'Assignments for Sessions 18 and 19 due'
     date: "October 29"
     bg: 3
     
-  - title: '<span class="content-title">Introduction to ggplot</span>'
+  - title: '<span class="content-title">Basic data visualization principles</span>'
     session: "Session 21"
     date: "November 2"
     content: "21-content"
@@ -204,31 +206,31 @@ lessons:
     assignment: "21-exercise"
     bg: 2
   
-  - title: '<span class="content-title">Static maps in R</span>'
+  - title: '<span class="content-title">Introduction to ggplot</span>'
     session: "Session 22"
     date: "November 7"
     content: "22-content"
     example: "22-example"
     assignment: "22-exercise"
     bg: 1
-    
-  - title: '<span class="content-title">Building better maps</span>'
+  
+  - title: '<span class="content-title">Maps, truth, and cartography</span>'
     session: "Session 23"
     date: "November 9"
     content: "23-content"
     example: "23-example"
     assignment: "23-exercise"
-    bg: 2
+    bg: 2    
   
-  - title: '<span class="content-title">Introduction to interactive webmapping</span>'
-    session: "Session 24"
+  - title: '<span class="content-title">Static maps in R</span>'
+    session: "Session 23"
     date: "November 14"
-    content: "24-content"
-    example: "24-example"
-    assignment: "24-exercise"
+    content: "23-content"
+    example: "23-example"
+    assignment: "23-exercise"
     bg: 4
-    
-  - title: '<span class="content-title">Interactive webmaps 2</span>'
+  
+  - title: '<span class="content-title">Building better maps</span>'
     session: "Session 25"
     date: "November 16"
     content: "25-content"
@@ -245,29 +247,32 @@ lessons:
     session: "NA"
     date: "November 23"
     bg: 3
-    
-  - title: '<span class="content-title">Modelling the probability of occurrence in space</span>'
-    session: "Session 27"
+
+  - title: '<span class="content-title">Introduction to interactive webmapping</span>'
+    session: "Session 26"
     date: "November 28"
-    content: "14-content"
+    content: "26-content"
+    example: "26-example"
+    assignment: "26-exercise"
+    bg: 2    
+    
+  - title: '<span class="content-title">Interactive webmaps 2</span>'
+    session: "Session 27"
+    date: "November 30"
+    content: "27-content"
+    example: "27-example"
+    assignment: "27-exercise"
     bg: 2
     
-  - title: '<span class="content-title">Species (event) distribution models in R</span>'
+  - title: '<span class="content-title">Conclusion and final project work</span>'
     session: "Session 28"
-    date: "November 30"
-    example: "14-example"
-    assignment: "14-exercise"
+    date: "Dec 5"
+    content: "28-content"
     bg: 4
   
   - title: 'Assignments for Session 24, 26, and 28 Due'
     date: "November 29"
     bg: 3
-        
-  - title: '<span class="content-title">Conclusion and final project work</span>'
-    session: "Session 29"
-    date: "December 5"
-    content: "15-content"
-    bg: 2
   
   - title: '<span class="content-title">Final project workday</span>'
     session: "Session 30"
