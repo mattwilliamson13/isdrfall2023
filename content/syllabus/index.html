@@ -10,36 +10,37 @@ output:
     fig_caption: false
 ---
 
-<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#course-description">Course Description</a></li>
-<li><a href="#course-objectives">Course Objectives</a></li>
-<li><a href="#expectations">Expectations</a></li>
-<li><a href="#prerequisite-knowledge-and-skills">Prerequisite Knowledge and Skills</a>
+<li><a href="#course-description" id="toc-course-description">Course Description</a></li>
+<li><a href="#course-objectives" id="toc-course-objectives">Course Objectives</a></li>
+<li><a href="#expectations" id="toc-expectations">Expectations</a></li>
+<li><a href="#prerequisite-knowledge-and-skills" id="toc-prerequisite-knowledge-and-skills">Prerequisite Knowledge and Skills</a>
 <ul>
-<li><a href="#getting-help-with-r-problems">Getting help with R problems</a></li>
+<li><a href="#getting-help-with-r-problems" id="toc-getting-help-with-r-problems">Getting help with R problems</a></li>
 </ul></li>
-<li><a href="#course-materials">Course materials</a>
+<li><a href="#course-materials" id="toc-course-materials">Course materials</a>
 <ul>
-<li><a href="#r-and-rstudio">R and RStudio</a></li>
+<li><a href="#r-and-rstudio" id="toc-r-and-rstudio">R and RStudio</a></li>
+<li><a href="#git-and-github-classroom" id="toc-git-and-github-classroom">Git and Github classroom</a></li>
+<li><a href="#readings" id="toc-readings">Readings</a></li>
 </ul></li>
-<li><a href="#course-schedule">Course schedule</a></li>
-<li><a href="#student-well-being">Student Well-being</a></li>
-<li><a href="#assignments-and-grades">Assignments and grades</a>
+<li><a href="#course-schedule" id="toc-course-schedule">Course schedule</a></li>
+<li><a href="#student-well-being" id="toc-student-well-being">Student Well-being</a></li>
+<li><a href="#assignments-and-grades" id="toc-assignments-and-grades">Assignments and grades</a>
 <ul>
-<li><a href="#learning-during-a-pandemic">Learning during a pandemic</a></li>
-<li><a href="#late-work">Late work</a></li>
+<li><a href="#learning-during-a-pandemic" id="toc-learning-during-a-pandemic">Learning during a pandemic</a></li>
+<li><a href="#late-work" id="toc-late-work">Late work</a></li>
 </ul></li>
-<li><a href="#this-course-was-designed-with-you-in-mind">This course was designed with you in mind</a>
+<li><a href="#this-course-was-designed-with-you-in-mind" id="toc-this-course-was-designed-with-you-in-mind">This course was designed with you in mind</a>
 <ul>
-<li><a href="#this-classs-community-is-inclusive.">This class’s community is inclusive.</a></li>
-<li><a href="#we-use-each-others-preferred-names-and-pronouns.">We use each other’s preferred names and pronouns.</a></li>
-<li><a href="#this-course-is-accessible-to-students-with-disabilities.">This course is accessible to students with disabilities.</a></li>
-<li><a href="#for-students-responsible-for-children">For students responsible for children</a></li>
+<li><a href="#this-classs-community-is-inclusive." id="toc-this-classs-community-is-inclusive.">This class’s community is inclusive.</a></li>
+<li><a href="#we-use-each-others-preferred-names-and-pronouns." id="toc-we-use-each-others-preferred-names-and-pronouns.">We use each other’s preferred names and pronouns.</a></li>
+<li><a href="#this-course-is-accessible-to-students-with-disabilities." id="toc-this-course-is-accessible-to-students-with-disabilities.">This course is accessible to students with disabilities.</a></li>
+<li><a href="#for-students-responsible-for-children" id="toc-for-students-responsible-for-children">For students responsible for children</a></li>
 </ul></li>
-<li><a href="#academic-integrity">Academic Integrity</a></li>
+<li><a href="#academic-integrity" id="toc-academic-integrity">Academic Integrity</a></li>
 </ul>
 </div>
 
@@ -53,17 +54,24 @@ output:
 <p>Students completing this course should be able to:</p>
 <ul>
 <li>Develop reproducible workflows for manipulating, visualizing, and analyzing spatial data.</li>
-<li>Understand the unique components of spatial data and how those components fit in R’s data structures.</li>
-<li>Articulate the different formats of spatial data and identify which R packages are suited to each type.</li>
-<li>Describe why space matters for many social and ecological questions</li>
-<li>Implement a variety of descriptive and statistical spatial analyses.</li>
-<li>Leverage functional programming to automate and expedite spatial data operations.</li>
+<li>Design statistical analyses that integrate geospatial and tabular data<br />
+</li>
+<li>Construct appropriate data visualizations for conveying geospatial data</li>
+<li>Select the appropriate R packages and functions for manipulating different types of spatial data</li>
+<li>Generate custom functions to automate repetitive processing tasks</li>
 </ul>
 </div>
 <div id="expectations" class="section level2">
 <h2>Expectations</h2>
 <p><strong>Be nice. Be honest. Try hard.</strong></p>
-<p>The beauty of working with open source software is the community of users working on problems just like yours (and nothing like yours). Like any community, this one functions best when its members are kind, genuine, and make good-faith efforts to solve the problems along the way (more on this below).</p>
+<p>The beauty of working with open source software is the community of users working on problems just like yours (and nothing like yours). Like any community, this one functions best when its members are kind, genuine, and make good-faith efforts to solve their problems along the way (more on this below).</p>
+<p>You can (and should) expect me to:</p>
+<ul>
+<li>Create a space where you can ask questions without fear of embarrassment or retribution</li>
+<li>Provide feedback on your work within 1 week of submission</li>
+<li>Respond to email and slack messages within 48 hours</li>
+<li>Make every attempt to answer your questions (when I can) or point you toward resources that may help</li>
+</ul>
 </div>
 <div id="prerequisite-knowledge-and-skills" class="section level2">
 <h2>Prerequisite Knowledge and Skills</h2>
@@ -81,7 +89,7 @@ Even experienced programmers find themselves bashing their heads against seeming
 <h3>Getting help with R problems</h3>
 <p>I am happy to help you work through your R coding challenges, but there are a lot of you and only one of me. Moreover, I may not always know exactly how to fix your problem any better than you do. In order to make sure that I am not the primary obstacle to your ability to complete the class assignements, I’m asking that you use the following steps prior to emailing/Slacking me with your coding questions.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Google it!</strong> Searching for help with R on Google can sometimes be tricky. Google is generally smart enough to figure out what you mean when you search for “r reproject polygons,” but if it does struggle, try searching for “rstats” instead (e.g. “rstats reproject polygons”). Also, since most of your R work will deal with the <a href="https://cran.r-project.org/web/views/Spatial.html">RSpatial packages</a>, it’s often easier to just search for the package name and operation rather than the letter “r” (e.g. “sf reproject polygons”). I often paste the specific error message I get along with the spatial package I’m using to try and help Google find my solutions.</p></li>
+<li><p><strong>Google it!</strong> Searching for help with R on Google can sometimes be tricky. Google is generally smart enough to figure out what you mean when you search for “r reproject polygons”, but if it does struggle, try searching for “rstats” instead (e.g. “rstats reproject polygons”). Also, since most of your R work will deal with the <a href="https://cran.r-project.org/web/views/Spatial.html">RSpatial packages</a>, it’s often easier to just search for the package name and operation rather than the letter “r” (e.g. “sf reproject polygons”). I often paste the specific error message I get along with the spatial package I’m using to try and help Google find my solutions.</p></li>
 <li><p><strong>Ask your colleagues</strong> We have an r_spatial chatroom at <a href="https://ecostatsbsu.slack.com/archives/CV4DEJ8M7">Slack</a> where anyone in this class can ask questions and anyone can answer. Ask questions about code or class materials. You’ll likely have similar questions as your peers, and you’ll likely be able to answer other peoples’ questions too. As a bonus, Slack allows you to <a href="https://slack.com/slack-tips/share-code-snippets">format code</a> to make it easy for all of us to copy and paste your code and distinguish it from the rest of your question.</p></li>
 <li><p><strong>Use the forums</strong> Two of the most important sources for help with R-coding are <a href="https://stackoverflow.com/">StackOverflow</a> (a Q&amp;A site with hundreds of thousands of answers to all sorts of programming questions) and <a href="https://community.rstudio.com/">RStudio Community</a> (a forum specifically designed for people using RStudio and the tidyverse (i.e. you)). If you aren’t able to find an answer to your question from the thousands of existing questions, you can post your own. You’ll need to create a <a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">reproducible example</a> so others can figure out what you’re trying to do and what error you’re receiving, but you’d be amazed how helpful the community can be.</p></li>
 <li><p><strong>Ask me!</strong> Sign up for a time to meet with me during student hours at <a href="https://calendly.com/mattwilliamson/" class="uri">https://calendly.com/mattwilliamson/</a>. I’ll want to know what searches you’ve tried (so I don’t chase down answers that you’ve already seen) and what approaches you’ve tried and why they haven’t worked. Remember, I’m here to help (but not write your code for you).</p></li>
@@ -94,15 +102,23 @@ Even experienced programmers find themselves bashing their heads against seeming
 <h3>R and RStudio</h3>
 <p>R is free, but it can sometimes be a pain to install and configure especially when dealing with spatial packages (we’ll talk more about why this is during class). To make life easier, I have set up an online <a href="http://rstudio.cloud/">RStudio server</a> service, which lets you run a full instance of RStudio in your web browser. This means you won’t have to install anything on your computer and we should be able to avoid a number of the machine-specific issues that pop-up when 20 students have 20 different computers, operating systems (OS), etc. If you haven’t installed R on your local machine and would like some help getting that set up, there’ a useful set of <a href="/resource/install/">instructions for installing R, RStudio, and all the tidyverse packages here.</a></p>
 </div>
+<div id="git-and-github-classroom" class="section level3">
+<h3>Git and Github classroom</h3>
+<p>All assignments will be managed using Github classroom. This will allow each you to have your own repositories for each assignment and make it easier for me to comment on and help with your code. To use this, you should sign up for the <a href="https://education.github.com/pack#offers">GitHub Student Developers Pack</a> as soon as possible and send me your github username. Once I have that, I can add you to the course and make sure that you have access to all of the necessary data and example code.</p>
+</div>
+<div id="readings" class="section level3">
+<h3>Readings</h3>
+<p>The goal of this course is primarily to get you started with spatial workflows in R. That said, maps (and the spatial data that produce them) are extremely powerful. Although most of this course will focus on getting the code right, I’ll mix in a few readings each week to help tie the technical details of our code back to the broader contexts of spatial analysis.</p>
+</div>
 </div>
 <div id="course-schedule" class="section level2">
 <h2>Course schedule</h2>
 <p>This course is organized in 4 sections:</p>
 <ol style="list-style-type: decimal">
-<li><p>Data structures and using R as a Geographic Information System (GIS).</p></li>
-<li><p>Introduction to spatial datatypes used in R.</p></li>
-<li><p>Extracting, summarizing, and visualizing spatial data</p></li>
-<li><p>Common statistical analyses of spatial data</p></li>
+<li><p>Getting Started: Data types in R, course tools, getting help, functional programming</p></li>
+<li><p>Spatial Data Operations in R</p></li>
+<li><p>Statistical Workflows for Spatial Data</p></li>
+<li><p>Visualizing Spatial Data</p></li>
 </ol>
 <p>The <a href="/schedule/">schedule page</a> provides an overview of what to expect each week.</p>
 <p>This syllabus reflects a plan for the semester. Deviations may become necessary as the course progresses.</p>
@@ -250,7 +266,7 @@ engaging with course materials and other students in the course</p></li>
 <p>Academic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.</p>
 <p>In order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Students should learn more by reviewing the <a href="https://www.boisestate.edu/policy/student-affairs/code-of-conduct/">Student Code of Conduct</a>.</p>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
 <li id="fn1"><p>So seriously, just don’t cheat or plagiarize!<a href="#fnref1" class="footnote-back">↩︎</a></p></li>

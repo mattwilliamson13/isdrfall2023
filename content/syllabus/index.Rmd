@@ -27,16 +27,23 @@ Spatial data are ubiquitous and form the basis for many of our inquiries into so
 Students completing this course should be able to:
 
 * Develop reproducible workflows for manipulating, visualizing, and analyzing spatial data.
-* Understand the unique components of spatial data and how those components fit in R's data structures.
-* Articulate the different formats of spatial data and identify which R packages are suited to each type.
-* Describe why space matters for many social and ecological questions 
-* Implement a variety of descriptive and statistical spatial analyses.
-* Leverage functional programming to automate and expedite spatial data operations.
+* Design statistical analyses that integrate geospatial and tabular data  
+* Construct appropriate data visualizations for conveying geospatial data
+* Select the appropriate R packages and functions for manipulating different types of spatial data
+* Generate custom functions to automate repetitive processing tasks
 
 ## Expectations
 **Be nice. Be honest. Try hard.**
 
-The beauty of working with open source software is the community of users working on problems just like yours (and nothing like yours). Like any community, this one functions best when its members are kind, genuine, and make good-faith efforts to solve the problems along the way (more on this below). 
+The beauty of working with open source software is the community of users working on problems just like yours (and nothing like yours). Like any community, this one functions best when its members are kind, genuine, and make good-faith efforts to solve their problems along the way (more on this below). 
+
+You can (and should) expect me to:
+
+* Create a space where you can ask questions without fear of embarrassment or retribution
+* Provide feedback on your work within 1 week of submission
+* Respond to email and slack messages within 48 hours
+* Make every attempt to answer your questions (when I can) or point you toward resources that may help
+
 
 ## Prerequisite Knowledge and Skills
 You can succeed in this class.
@@ -82,13 +89,13 @@ The goal of this course is primarily to get you started with spatial workflows i
 
 This course is organized in 4 sections:
 
-1. Data structures and using R as a Geographic Information System (GIS).
+1. Getting Started: Data types in R, course tools, getting help, functional programming
 
-2. Introduction to spatial datatypes used in R.
+2. Spatial Data Operations in R
 
-3. Extracting, summarizing, and visualizing spatial data
+3. Statistical Workflows for Spatial Data
 
-4. Common statistical analyses of spatial data
+4. Visualizing Spatial Data
 
 The [schedule page](/schedule/) provides an overview of what to expect each week.
 
