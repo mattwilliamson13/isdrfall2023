@@ -4,7 +4,7 @@ menu:
   resource:
     parent: Resources
 type: docs
-weight: 3
+weight: 4
 ---
 
 So much data, so little time... Here are some links to help you get started finding data for your geospatial projects
