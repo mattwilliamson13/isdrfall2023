@@ -44,6 +44,13 @@ You can (and should) expect me to:
 * Respond to email and slack messages within 48 hours
 * Make every attempt to answer your questions (when I can) or point you toward resources that may help
 
+In turn, I expect you to:
+
+* Treat all of us with respect and compassion
+* Make an honest effort to work through the assignments
+* Demonstrate that you have tried to solve your coding errors before asking me
+* Communicate with me when the course isn't working for you
+
 
 ## Prerequisite Knowledge and Skills
 You can succeed in this class.
@@ -56,9 +63,9 @@ Even experienced programmers find themselves bashing their heads against seeming
 
 If you want to start learning a few of the basics, the [Resources](/resources) tab has some background information to get you started. Note that this is not an exhaustive list - the number of new R tutorials available on the internet seems to be growing exponentially.
 
-### Getting help with R problems
+### Getting Help With R problems
 
-I am happy to help you work through your R coding challenges, but there are a lot of you and only one of me. Moreover, I may not always know exactly how to fix your problem any better than you do. In order to make sure that I am not the primary obstacle to your ability to complete the class assignements, I'm asking that you use the following steps prior to emailing/Slacking me with your coding questions.
+I am happy to help you work through your R coding challenges, but there are a lot of you and only one of me. Moreover, I may not always know exactly how to fix your problem any better than you do. In order to make sure that I am not the primary obstacle to your ability to complete the class assignments, I'm asking that you use the following steps prior to emailing/Slacking me with your coding questions. **When you send me a question, please let me know what you searched, why the solutions you found don't work for you, and what output you are expecting** We'll spend a bit of time on asking better questions and getting better answers so don't worry if you aren't quite sure how this all works.
 
 1. __Google it!__ Searching for help with R on Google can sometimes be tricky. Google is generally smart enough to figure out what you mean when you search for "r reproject polygons", but if it does struggle, try searching for "rstats" instead (e.g. "rstats reproject polygons"). Also, since most of your R work will deal with the [RSpatial packages](https://cran.r-project.org/web/views/Spatial.html), it's often easier to just search for the package name and operation rather than the letter "r" (e.g. "sf reproject polygons"). I often paste the specific error message I get along with the spatial package I'm using to try and help Google find my solutions.
 
@@ -69,7 +76,7 @@ I am happy to help you work through your R coding challenges, but there are a lo
 4. __Ask me!__ Sign up for a time to meet with me during student hours at <https://calendly.com/mattwilliamson/>. I'll want to know what searches you've tried (so I don't chase down answers that you've already seen) and what approaches you've tried and why they haven't worked. Remember, I'm here to help (but not write your code for you).
 
 
-## Course materials
+## Course Materials
 
 
 ### R and RStudio
@@ -77,7 +84,7 @@ I am happy to help you work through your R coding challenges, but there are a lo
 R is free, but it can sometimes be a pain to install and configure especially when dealing with spatial packages (we'll talk more about why this is during class). To make life easier, I have set up an online [RStudio server](http://rstudio.cloud/) service, which lets you run a full instance of RStudio in your web browser. This means you won't have to install anything on your computer and we should be able to avoid a number of the machine-specific issues that pop-up when 20 students have 20 different computers, operating systems (OS), etc. If you haven't installed R on your local machine and would like some help getting that set up, there' a useful set of [instructions for installing R, RStudio, and all the tidyverse packages here.](/resource/install/)
 
 
-### Git and Github classroom
+### Git and Github Classroom
 
 All assignments will be managed using Github classroom. This will allow each you to have your own repositories for each assignment and make it easier for me to comment on and help with your code. To use this, you should sign up for the [GitHub Student Developers Pack](https://education.github.com/pack#offers) as soon as possible and send me your github username. Once I have that, I can add you to the course and make sure that you have access to all of the necessary data and example code.
 
@@ -85,7 +92,7 @@ All assignments will be managed using Github classroom. This will allow each you
 
 The goal of this course is primarily to get you started with spatial workflows in R. That said, maps (and the spatial data that produce them) are extremely powerful. Although most of this course will focus on getting the code right, I'll mix in a few readings each week to help tie the technical details of our code back to the broader contexts of spatial analysis.
 
-## Course schedule
+## Course Schedule
 
 This course is organized in 4 sections:
 
@@ -101,54 +108,26 @@ The [schedule page](/schedule/) provides an overview of what to expect each week
 
 This syllabus reflects a plan for the semester. Deviations may become necessary as the course progresses.
 
-## Student Well-being
-
-If you are struggling for any reason (COVID, relationship, family, or life’s stresses) and believe these may impact your performance in the course, I encourage you to contact the Dean of Students at (208) 426-1527 or email[deanofstundents@boisestate.edu](mailto:deanofstudents@boisestate.edu) for support.  If you notice a significant change in your mood, sleep, feelings of hopelessness or a lack of self worth, consider connecting immediately with Counseling Services (1529 Belmont Street, Norco Building) at (208) 426-1459 or email [healthservices@boisestate.edu](mailto:healthservices@boisestate.edu).  
 
 
-## Assignments and grades
+## Assignments and Grades
+
+I teach this course because I believe that a) we can learn a lot about social and ecological processes by studying _where_ they happen, b) integrating spatial analysis directly into statistical workflows makes those analyses more robust and reproducible, and c) overcoming coding challenges can provide a profound sense of accomplishment. That said, I recognize that there are many reasons that _you_ are taking this course and that my objectives may differ from yours. In order to make sure that you get what you need out of this class, we'll be using a mix of approaches for determining your grade in this course.
+
+**Self-assessment:** During the first week of the course, I'm going to ask you to reflect on what you want out of this course (concepts, skills, practice, etc.). This assessment will help me do a better job of aligning the content of the course to your specific needs. We'll check in on this mid-semester to make sure things are on track and again at the end of the semester to give you a chance to evaluate how well you did in the course. Grading for the self-assessment is described on the [assignments page](/assignment/).
+
+**Exercises:** There are four homework assignments, one for each 'unit' of the course. These exercises are designed to reinforce the material we cover in lecture, give you practice designing and implementing your own workflows, and build habits that promote reproducibility in science. Rather than assign arbitrary points to each assignment, I'm going to grade your assignments using the following 'levels':
+
+* **Please Resubmit**: 
+
+**Final Project:**
 
 You can find descriptions for all the assignments on the [assignments page](/assignment/).
 
-```{r assignments-grades, include=FALSE}
-assignments <- tribble(
-  ~Points,  ~Assignment,
-  14 * 15 , "Exercises (14 × 15)",
-  50      , "Mini project 1",
-  50      , "Mini project 2",
-  100     , "Final project"
-) %>%
-  mutate(Percent = Points / sum(Points),
-         Percent = scales::percent(Percent, accuracy = 1))
-grading <- tribble(
-  ~Grade, ~Range,  ~Grade1, ~Range1,
-  "A",  "90–100%", "D",  "60–69%",
-  "B",  "80–89%",  "F",  "< 60%",
-  "C", "70–79%", "", ""  
-)
-```
+## Student Wellbeing
 
-<div class="centered-table">
+If you are struggling for any reason (COVID, relationship, family, or life’s stresses) and believe these may impact your performance in the course, I encourage you to contact the Dean of Students at (208) 426-1527 or email[deanofstundents@boisestate.edu](mailto:deanofstudents@boisestate.edu) for support.  If you notice a significant change in your mood, sleep, feelings of hopelessness or a lack of self worth, consider connecting immediately with Counseling Services (1529 Belmont Street, Norco Building) at (208) 426-1459 or email [healthservices@boisestate.edu](mailto:healthservices@boisestate.edu).  
 
-```{r show-assignments-table, echo=FALSE, results="asis"}
-assignments_total <- tibble(Assignment = "Total",
-                            Points = sum(assignments$Points),
-                            Percent = NA)
-bind_rows(assignments, assignments_total) %>% 
-  select(Assignment, Points, Percent) %>% 
-  pandoc.table(justify = "lcc", missing = "—")
-```
-</div>
-
-<div class="centered-table">
-
-```{r show-grades-table, echo=FALSE, results="asis"}
-grading %>%
-  pandoc.table(justify = "lclc", 
-               col.names = c("Grade", "Range", "Grade", "Range"))
-```
-
-<div>
 ### Learning during a pandemic
 
 If you tell me you're having trouble, I will not judge you or think less of you. I hope you'll extend me the same grace.
@@ -159,7 +138,7 @@ If you need extra help, or if you need more time with something, or if you feel 
 
 ### Late work
 
-With the exception of the mini projects and the final project, there's no such late work. I would **highly recommend** staying caught up as much as possible, but if you need to turn something in late, that's fine—there's **no penalty**.
+With the exception of the mini projects and the final project, there's no such thing as late work. I would **highly recommend** staying caught up as much as possible, but if you need to turn something in late, that's fine—there's **no penalty**.
 
 ## This course was designed with you in mind
 I developed this course to provide a welcoming environment and effective, equitable learning experience for all students. If you encounter barriers in this course, please bring them to my attention so that I may work to address them.
