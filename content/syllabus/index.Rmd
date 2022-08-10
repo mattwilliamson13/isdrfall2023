@@ -116,13 +116,37 @@ I teach this course because I believe that a) we can learn a lot about social an
 
 **Self-assessment:** During the first week of the course, I'm going to ask you to reflect on what you want out of this course (concepts, skills, practice, etc.). This assessment will help me do a better job of aligning the content of the course to your specific needs. We'll check in on this mid-semester to make sure things are on track and again at the end of the semester to give you a chance to evaluate how well you did in the course. Grading for the self-assessment is described on the [assignments page](/assignment/).
 
-**Exercises:** There are four homework assignments, one for each 'unit' of the course. These exercises are designed to reinforce the material we cover in lecture, give you practice designing and implementing your own workflows, and build habits that promote reproducibility in science. Rather than assign arbitrary points to each assignment, I'm going to grade your assignments using the following 'levels':
+**Exercises:** There are four homework assignments, one for each 'unit' of the course. These exercises are designed to reinforce the material we cover in lecture, give you practice designing and implementing your own workflows, and build habits that promote reproducibility in science. Rather than assign arbitrary points to each assignment, I'm going to grade your assignments using the following 'levels' (inspired by Sarah K. Johnson's [description](https://sites.tufts.edu/teaching/2022/03/10/ungrading-a-graduate-data-analysis-course/) of her graduate data analysis course at Tufts):
 
-* **Please Resubmit**: 
+* **Please Resubmit:** This indicates that either your code does not run as written (i.e., your Rmarkdown document will not compile on my computer), you did not use Git as instructed, and/or that your responses to the questions I posed indicate that you do not quite understand the material as well as I would like. You'll need to schedule an appointment to talk with me and we'll work out what you need to do to get credit for the assignment. Although there isn't a hard deadline for this resubmission, the assignments build on each other so it's in your best interest to complete the resubmission before the next assignment. Failure to resubmit will result in no credit for the assignment.
 
-**Final Project:**
+* **Resubmit If You Like:** This indicates that all of the code works as written and that you used Git, but that you may have missed some important concepts. Your are welcome to resubmit the assignment and address my comments to help polish the final product, but it is not required for you to get credit for the assignment.
+
+* **Good To Go:** All of your code works, you completed the necessary Git steps, and all of the pieces are there and polished. I may have some minor comments, but I don't need you to address them for this assignment. 
+
+**Final Project:** The final project asks you to conduct an entire spatial analysis from layout to results. Grades on the final project are based on your objectives and your self-assessment of whether or not you achieved those objectives. Your first draft of the final project will be due __December 2__. I'll make comments based on the same categories for the assignments and you'll have time to revise your submission prior to the final deadline of __December 16__.
 
 You can find descriptions for all the assignments on the [assignments page](/assignment/).
+
+### Grades
+We'll use a form of [contract grading](https://en.wikipedia.org/wiki/Contract_grading#:~:text=Contract%20grading%20is%20a%20form,correspond%20to%20specific%20letter%20grades.) to determine your grades in the course. Contract grading allows us to have a conversation about what you want out of the course, what you expect to put into it, and what I think you need to be successful in deploying the skills we learn here. Based on your goals for course, we'll sign a contract that instantiates your objectives into the grade you'll recieve for the course. Complete the assignments and meet your objectives and you'll get the grade you chose. 
+
+The expectations for the grades are:
+
+* **A** You complete all of the self-assessments and 4 of the assignments (including the final project) to the "Good to Go" level and 1 to the "Resubmit If You Like" level. In addition, you meet or exceed 90% of your objectives for the course and the final project.
+
+* **B** You complete all of the self-assessments and 3 of the assignments (including the final project) to the "Good to Go" level and 2 to the "Resubmit If You Like" level. In addition, you meet or exceed 80% of your objectives for the course and the final project.
+
+* **C** You complete all of the self-assessments and 2 of the assignments (including the final project) to the "Good to Go" level and 3 to the "Resubmit If You Like" level. In addition, you meet or exceed 70% of your objectives for the course and the final project.
+
+* **D** You complete all of the self-assessments, and 1 of the assignments (including the final project) to the "Good to Go" level and 4 to the "Resubmit If You Like" level. In addition, you meet or exceed 60% of your objectives for the course and the final project.
+
+### Attendance and incomplete assignments 
+Attendance is an important part of this course. You are allowed to miss 2 classes without providing any justification (stuff happens). Beyond that, each additional absence will result in a 0.5 grading reduction (i.e., an A becomes and A-). Similarly, completing the assignments to a satisfactory level is vital to ensure you have a firm grip on the code and concepts. Hence, each assignment that fails to achieve a "Resubmit If You Like" will result in 0.5 grading reduction.
+
+### Late work
+
+With the exception of the self-assessments and the final project, there's no such thing as late work. I would **highly recommend** staying caught up as much as possible, but if you need to turn something in late, that's fine—there's **no penalty**.
 
 ## Student Wellbeing
 
@@ -136,9 +160,6 @@ You *never* owe me personal information about your health (mental or physical). 
 
 If you need extra help, or if you need more time with something, or if you feel like you're behind or not understanding everything, **do not suffer in silence!** Talk to me! I will work with you. **I promise.**
 
-### Late work
-
-With the exception of the mini projects and the final project, there's no such thing as late work. I would **highly recommend** staying caught up as much as possible, but if you need to turn something in late, that's fine—there's **no penalty**.
 
 ## This course was designed with you in mind
 I developed this course to provide a welcoming environment and effective, equitable learning experience for all students. If you encounter barriers in this course, please bring them to my attention so that I may work to address them.
