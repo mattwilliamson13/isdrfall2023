@@ -1,0 +1,15 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|51f6da58e8fa3534|||||||||||||||
+base_url|object|d024c2a3cb50468d|||||||||||||||
+build_ical|function|d143d19dae073c45|||||||||||||||
+build_schedule_for_page|function|34d9472a6eee72b4|||||||||||||||
+class_number|object|e90df915a153df3b|||||||||||||||
+here_rel|function|db01910605ef2de6|||||||||||||||
+page_suffix|object|e09c8ee15abe52ba|||||||||||||||
+public|stem|35f8caa3917ac2d3|85c53199183dc69e|5f5d8ef599f0b11d|-1153123732|_site*about.qmd*index.qmd*syllabus.qmd*_quarto.yml*_variables.yml*files/.DS_Store*files/bib*files/bib/ecology.csl*files/bib/references.bib*files/img*files/img/iSDR_logo.png*files/iSDR_logo.png*html/custom.scss|t19216.9447274135s||416983|file|local|vector|||5.577||33m39m System command quarto failed
+save_ical|function|32d9b5a09471f5f3|||||||||||||||
+schedule_file|stem|f6e4e4526fbc3e6c|edfcdc721a78f9bb|903b9d92377ab4db|-225478245|data/schedule.csv|t19216.9671264916s|1cc6ea94adaf1670|4460|file|local|vector|||0.011||
+schedule_ical_data|stem|4a9c6d83a54610bb|3b167474014cfa34|87f9f9ab1ac486bd|1974290141||t19216.9758069986s|7dcd493014f5ce27|2858|rds|local|vector|||0.329|no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time. no value provided for end time|
+schedule_ical_file|stem|576159290d7b4ea7|88df6fae384f2ad2|fccf8698544f0c7a|-389659600|files/schedule.ics|t19216.9758072591s|3b84e65b81dbc0ad|12197|file|local|vector|||0.017||
+schedule_page_data|stem|71e7a1726b476cf5|736d9a23df7f1829|56b444e95d24f892|-1855467719||t19216.9675600542s|2ae1e1039b19343b|2519|rds|local|vector|||0.232||
+site|stem||85c53199183dc69e|5f5d8ef599f0b11d|-671836230||t19216.9762506941s||0|file|local|vector|||5.488||33m39m System command quarto failed

@@ -1,0 +1,57 @@
+---
+title: "Intro to Spatial Data in R"
+subtitle: "Use R to load, visualize, and analyze spatial data"
+details: |
+  HES 505 • Fall 2022<br>Human-Environment Systems<br>Boise State University
+sidebar: false
+toc: false
+page-layout: full
+format:
+  html:
+    template-partials:
+      - html/home/title-block.html
+course-logo: /files/img/iSDR_logo.png
+---
+
+```{r set-dependencies, include=FALSE}
+# Site-wide targets dependencies
+withr::with_dir(here::here(), {
+  targets::tar_load(project_zips)
+  targets::tar_load(xaringan_slides)
+  targets::tar_load(xaringan_pdfs)
+})
+```
+
+::: {.home}
+
+::: {.grid .course-details}
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+### Instructor
+
+- {{< fa user >}} &nbsp; [{{< var instructor.name >}}]({{< var instructor.url >}})
+- {{< fa university >}} &nbsp; {{< var instructor.office >}}
+- {{< fa envelope >}} &nbsp; <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
+- {{< fa brands twitter >}} &nbsp; [{{< var instructor.twitter >}}](https://www.twitter.com/{{< var instructor.twitter >}})
+- {{< fa calendar-check >}} &nbsp; [Schedule an appointment]({{< var instructor.appointment_url >}})
+:::
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+### Course details
+
+- {{< fa calendar >}} &nbsp; {{< var course.days >}}
+- {{< fa calendar-alt >}} &nbsp; {{< var course.dates >}}
+- {{< fa clock >}} &nbsp; {{< var course.time >}}
+- {{< fa location-dot >}} &nbsp; {{< var course.location >}}
+- {{< fa brands slack >}} &nbsp; [Slack]({{< var course.slack >}})
+:::
+
+::: {.g-col-12 .g-col-md-4 .contact-policy}
+### Contacting me
+
+{{< var instructor.contact_policy >}}
+:::
+
+:::
+
+:::

@@ -1,0 +1,208 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+  resources:
+    - "files/"
+    - "projects/"
+    - "slides/*.html"
+    - "slides/*.pdf"
+    - "slides/img/"
+    - "slides/libs/"
+    - "slides/css/"
+    - "slides/*_files/"
+
+# See https://quarto.org/docs/projects/code-execution.html#freeze
+execute:
+  freeze: auto  # Re-render only when source changes
+
+bibliography: files/bib/references.bib
+csl: files/bib/ecology.csl
+
+website:
+  title: "Intro to Spatial Data in R"
+  site-url: "https://isdrfall22.classes.spaseslab.com"
+  description-meta: "Use R to load, visualize, and analyze spatial data"
+
+  favicon: "/files/iSDR_logo.png"
+
+  twitter-card:
+    image: "/files/social-image-f22.png"
+    card-style: summary_large_image
+    creator: "@MwilliamsonMatt"
+    # site: "@MwilliamsonMatt"
+
+  open-graph:
+    image: "/files/social-image-f22.png"
+    locale: en_US
+
+  navbar:
+    pinned: true
+    background: "#EE6A24"
+    right:
+      - syllabus.qmd
+      - schedule.qmd
+      - text: "Content"
+        file: content/index.qmd
+      - text: "Assignments"
+        file: assignment/index.qmd
+      - text: "Examples"
+        file: example/index.qmd
+      - text: "Resources"
+        file: resource/index.qmd
+      - icon: slack
+        href: "https://ecostatsbsu.slack.com/archives/CV4DEJ8M7"
+        aria-label: Slack
+      - icon: github
+        href: "https://github.com/BSU-Spatial-Data-in-R-Fall2022"
+        aria-label: GitHub
+      - icon: '<i class="fab fa-r-project"></i>'
+        href: "https://rstudio.boisestate.edu/"
+        aria-label: Rstudio  
+
+  sidebar:
+    - title: "Content"
+      style: "docked"
+      search: false
+      background: dark
+      contents:
+        - section: "Overview"
+          contents:
+            - content/index.qmd
+        - section: "Course content"
+          contents:
+            - text: "1: Introduction to the course"
+              file: content/01-content.qmd
+            - text: "2: Basic data structures in R"
+              file: content/02-content.qmd
+            - text: "3: Rmarkdown, pseudocode, and literate programming"
+              file: content/03-content.qmd
+            - text: "4: Repetitive tasks, pipes, and functional programming"
+              file: content/04-content.qmd
+            - text: "6: Spatial data is special data"
+              file: content/06-content.qmd
+            - text: "7: Spatial data as vectors"
+              file: content/07-content.qmd
+            - text: "8: Operations with vector data I"
+              file: content/08-content.qmd
+            - text: "9: Operations with vector data II"
+              file: content/09-content.qmd
+            - text: "10: Spatial data as matrices and rasters"
+              file: content/10-content.qmd
+            - text: "11: Operations with raster data I"
+              file: content/11-content.qmd
+            - text: "12: Operations with raster data II"
+              file: content/12-content.qmd
+            - text: "13: Combining vector and raster operations"
+              file: content/13-content.qmd
+            - text: "14: Building analysis databates using attributes"
+              file: content/14-content.qmd
+            - text: "15: Building analysis databates using location"
+              file: content/15-content.qmd
+            - text: "16: Assessing spatial autocorrelation"
+              file: content/16-content.qmd
+            - text: "17: Point pattern analysis and hypothesis testing"
+              file: content/17-content.qmd
+            - text: "18: Interpolation"
+              file: content/18-content.qmd
+            - text: "19: Multivariate statistical analysis I"
+              file: content/19-content.qmd
+            - text: "20: Multivariate statistical analysis II"
+              file: content/20-content.qmd
+            - text: "21: Multivariate statistical analysis III"
+              file: content/21-content.qmd
+            - text: "22: Basic data visualization principles"
+              file: content/22-content.qmd
+            - text: "23: Introduction to ggplot"
+              file: content/23-content.qmd
+            - text: "24: Maps, truth, and cartography"
+              file: content/24-content.qmd
+            - text: "25: Static maps in R"
+              file: content/25-content.qmd
+            - text: "26: Building better maps"
+              file: content/26-content.qmd
+            - text: "29: Introduction to interactive maps I"
+              file: content/29-content.qmd
+            - text: "30: Introduction to interactive maps II"
+              file: content/30-content.qmd
+            - text: "31: Conclusion"
+              file: content/31-content.qmd  
+              
+    - title: "Assignments"
+      contents:
+        - section: "Overview"
+          contents:
+            - assignment/index.qmd
+        - section: "Self Assessments"
+          contents:
+            - assignment/assignment/self-eval1.qmd
+            - assignment/assignment/self-eval2.qmd
+            - assignment/assignment/self-eval3.qmd
+        - section: "Homework"
+          contents:
+            - assignment/01-intro.qmd
+            - assignment/02-spatialops.qmd
+            - assignment/03-spatialmod.qmd
+            - assignment/04-dataviz.qmd
+        - section: "Final Project"
+          contents:
+            - assignment/final-proj.qmd
+
+    - title: "Examples"
+      contents:
+        - section: "Overview"
+          contents:
+            - example/index.qmd
+        - section: "Getting started"
+          contents:
+            - text: "Setup"
+              file: example/getting-setup.qmd
+        - section: "Spatial operations in R"
+          contents:
+            - text: "Vector data"
+              file: example/vector-intro.qmd
+            - text: "Raster data"
+              file: example/raster-intro.qmd
+            - text: "Integrating vector and raster data"
+              file: example/combining-data.qmd
+        - section: "Statistical workflows"
+          contents:
+            - text: "Building dataframes"
+              file: example/intro-analysis.qmd
+            - text: "Analyzing patterns"
+              file: example/pattern-analysis.qmd
+            - text: "Spatial Models"
+              file: example/stat-analysis.qmd
+
+    - title: "Resources"
+      contents:
+        - section: "Overview"
+          contents:
+            - resource/index.qmd
+            - resource/lastyear.qmd
+            - resource/data.qmd
+        - section: "Guides"
+          contents:
+            - resource/install.qmd
+            - resource/markdown.qmd
+            - resource/rmarkdown.qmd
+            - resource/git.qmd
+            
+
+  page-footer:
+    left: |
+      Content {{< fa brands creative-commons >}} {{< var course.copyright_year >}} by [{{< var instructor.name_no_title >}}]({{< var instructor.url >}}) <br>
+      All content licensed under a {{< fa brands creative-commons >}}
+      {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-nc >}}
+      [Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
+    right: |
+      Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)<br>
+      [View the source at {{< fa brands github >}} GitHub]({{< var course.github >}})
+format:
+  html:
+    theme:
+      - litera
+      - html/custom.scss
+    toc: true
+    highlight-style: monokai
+    
