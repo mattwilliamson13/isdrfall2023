@@ -1,5 +1,264 @@
 [
   {
+    "objectID": "assignment/01-intro.html",
+    "href": "assignment/01-intro.html",
+    "title": "Assignment 1: Introductory material",
+    "section": "",
+    "text": "The first part of the course was designed to introduce some of the foundations of working in R, developing programming workflows, and getting help. These topics are important for building robust spatial workflows, but their utility extends beyond that to most things you’ll do in R during the course of your graduate research. This homework is meant to help reinforce those concepts and identify any gaps that I need to fill in as we go. By the end of this assignment you should be able to:\nYou’ll need to accept the link to access the questions."
+  },
+  {
+    "objectID": "assignment/01-intro.html#instructions",
+    "href": "assignment/01-intro.html#instructions",
+    "title": "Assignment 1: Introductory material",
+    "section": "Instructions",
+    "text": "Instructions\n\nAfter you’ve joined the assignment repository, you should have this file (named Readme.md) inside of a R project named assignment-1-xx where xx is your github username (or initials).\nOnce you’ve verified that you’ve correctly cloned the assignment repository, create a new Quarto document. Name this file assignment-1-xxx.qmd and give it a title (like M Williamson Assignment 1). Make sure that you select the html output option (Quarto can do a lot of cool things, but the html format is the least-likely to cause you additional headaches). We’ll be using Quarto throughout the course so it’s worth checking out the other tutorials in the getting started section.\nCopy the questions below into your document and change the color of their text.\nSave the changes and make your first commit!\nAnswer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).\nRender the document to html (you should now have at least 3 files in the repository: Readme.md, assignment-1-xx.qmd, and assignment-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com."
+  },
+  {
+    "objectID": "assignment/index.html",
+    "href": "assignment/index.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "The main goals of this class is class is to get you comfortable with the manipulation, analysis, and visualization of spatial data using the R computing environment. These assignments are designed to help you practice those skills and reflect on your progress. All of the assignments have their own repository in our GitHub classroom, so you’ll submit them there. I’ll transfer grades over to Canvas so you’ll have an idea where you’re at in the course, but we won’t use Canvas for much else."
+  },
+  {
+    "objectID": "assignment/index.html#self-reflections",
+    "href": "assignment/index.html#self-reflections",
+    "title": "Assignments",
+    "section": "Self-reflections",
+    "text": "Self-reflections\nThis course is collaborative. I’m hoping to provide a broad suite of information that can help you analyze spatial data for your graduate research and beyond. That said, you know more than I do about your personal and professional objectives. During the course of the semester, I’ll ask you to submit 3 self-reflections. The first should help me get to know you and get us on the same page with respect to your goals for the course. The second and third will help us assess your progress relative to those goals and identify ways to make sure you’re getting to where you want to go. These self-reflections are the foundation of how you’ll be ‘graded’ in this course, so they are mandatory and need to be submitted by the due date"
+  },
+  {
+    "objectID": "assignment/index.html#problem-sets",
+    "href": "assignment/index.html#problem-sets",
+    "title": "Assignments",
+    "section": "Problem sets",
+    "text": "Problem sets\nI’ve created four assignments to practice outlining a workflow, writing R code, and troubleshooting errors. Each assignment integrates concepts from multiple class sessions in an effort to cement new concepts and make sure you don’t forget things you learned earlier in the semester. As such, they involve multiple sections and may take some time. Each week I’ll announce which sections of the homework are most applicable so that you know about where you should be in terms of completing it. The idea is to have you work a bit on the homework throughout each unit. This is to reduce the likelihood that you’ll spend 10 hours on it the day before it’s due and also to encourage you to get in the habit of using git to keep track of your progress.\nI’ll be grading these according to: * Please Resubmit: This indicates that either your code does not run as written (i.e., your Rmarkdown document will not compile on my computer), you did not use Git as instructed, and/or that your responses to the questions I posed indicate that you do not quite understand the material as well as I would like. You’ll need to schedule an appointment to talk with me and we’ll work out what you need to do to get credit for the assignment. Although there isn’t a hard deadline for this resubmission, the assignments build on each other so it’s in your best interest to complete the resubmission before the next assignment. Failure to resubmit will result in no credit for the assignment.\n\nResubmit If You Like: This indicates that all of the code works as written and that you used Git, but that you may have missed some important concepts. Your are welcome to resubmit the assignment and address my comments to help polish the final product, but it is not required for you to get credit for the assignment.\nGood To Go: All of your code works, you completed the necessary Git steps, and all of the pieces are there and polished. I may have some minor comments, but I don’t need you to address them for this assignment.\n\n\n\n\n\n\n\nTip\n\n\n\nLate Work: There is no such thing as ‘late work’ with these assignments. Life happens, sometimes things take longer to finish than you expect. If you turn it in, I’ll give you feedback. That said, the assignments build on each other so it’s probably best to avoid falling too far behind."
+  },
+  {
+    "objectID": "assignment/index.html#final-project",
+    "href": "assignment/index.html#final-project",
+    "title": "Assignments",
+    "section": "Final project",
+    "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of spatial analysis workflows through a final project that requires you to integrate a variety of spatial datasets, analyze the data with respect to a question of interest, and create visuals that help you interpret the data.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
+  },
+  {
+    "objectID": "assignment/self-eval1.html",
+    "href": "assignment/self-eval1.html",
+    "title": "Self-reflection 1",
+    "section": "",
+    "text": "This is the first of three self-reflections that you’ll complete during the course. These provide an opportunity for me to learn more about you, check-in on how the course is going, and make sure that getting what you need from the course materials. This first reflection also helps us set the standards for your assessment in the course. As such, I’m asking that you complete this in a timely fashion and turn it in by Aug. 30. You’ll need to accept the link to access the questions."
+  },
+  {
+    "objectID": "assignment/self-eval1.html#instructions",
+    "href": "assignment/self-eval1.html#instructions",
+    "title": "Self-reflection 1",
+    "section": "Instructions",
+    "text": "Instructions\n\nAfter you’ve joined the assignment repository, you should have this file (named Readme.md) inside of a R project named self-reflection-1-xx where xx is your github username (or initials).\nOnce you’ve verified that you’ve correctly cloned the assignment repository, create a new Quarto document. Name this file self-reflection-1-xxx.qmd and give it a title (like M Williamson Self-Reflection 1). Make sure that you select the html output option (Quarto can do a lot of cool things, but the html format is the least-likely to cause you additional headaches). We’ll be using Quarto throughout the course so it’s worth checking out the other tutorials in the getting started section.\nCopy the questions below into your document and change the color of their text.\nSave the changes and make your first commit!\nAnswer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).\nRender the document to html (you should now have at least 3 files in the repository: Readme.md, self-reflection-1-xx.qmd, and self-reflection-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com."
+  },
+  {
+    "objectID": "assignment/self-eval2.html",
+    "href": "assignment/self-eval2.html",
+    "title": "Self-reflection 2",
+    "section": "",
+    "text": "This is the second of three self-reflections that you’ll complete during the course. We’ll revisit your objectives and check-in on what I can do to help you get the most out of the second half of the course. This is our mid-semester “adjustment”. As such, I’m asking that you complete this in a timely fashion and turn it in by Oct 18. You’ll need to accept the link to access the questions."
+  },
+  {
+    "objectID": "assignment/self-eval2.html#instructions",
+    "href": "assignment/self-eval2.html#instructions",
+    "title": "Self-reflection 2",
+    "section": "Instructions",
+    "text": "Instructions\n\nAfter you’ve joined the assignment repository, you should have this file (named Readme.md) inside of a R project named self-reflection-2-xx where xx is your github username (or initials).\nOnce you’ve verified that you’ve correctly cloned the assignment repository, create a new Quarto document. Name this file self-reflection-2-xxx.qmd and give it a title (like M Williamson Self-Reflection 2). Make sure that you select the html output option.\nCopy the questions below into your document and change the color of their text.\nSave the changes and make your first commit!\nAnswer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).\nRender the document to html (you should now have at least 3 files in the repository: Readme.md, self-reflection-2-xx.qmd, and self-reflection-2-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com."
+  },
+  {
+    "objectID": "assignment/self-eval3.html",
+    "href": "assignment/self-eval3.html",
+    "title": "Self-reflection 3",
+    "section": "",
+    "text": "This is the final self-reflection for the course and provides a way of evaluating your final project relative to your course learning objectives. This final self-reflection is critical for assigning your grades on the final project and the course, in general. As such, I’m asking that you complete this in a timely fashion and turn it in by Dec. 16. You’ll need to accept the link to access the questions."
+  },
+  {
+    "objectID": "assignment/self-eval3.html#instructions",
+    "href": "assignment/self-eval3.html#instructions",
+    "title": "Self-reflection 3",
+    "section": "Instructions",
+    "text": "Instructions\n\nAfter you’ve joined the assignment repository, you should have this file (named Readme.md) inside of a R project named self-reflection-1-xx where xx is your github username (or initials).\nOnce you’ve verified that you’ve correctly cloned the assignment repository, create a new Quarto document. Name this file self-reflection-1-xxx.qmd and give it a title (like M Williamson Self-Reflection 1). Make sure that you select the html output option (Quarto can do a lot of cool things, but the html format is the least-likely to cause you additional headaches). We’ll be using Quarto throughout the course so it’s worth checking out the other tutorials in the getting started section.\nCopy the questions below into your document and change the color of their text.\nSave the changes and make your first commit!\nAnswer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).\nRender the document to html (you should now have at least 3 files in the repository: Readme.md, self-reflection-1-xx.qmd, and self-reflection-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com."
+  },
+  {
+    "objectID": "content/01-content.html",
+    "href": "content/01-content.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "Today we’ll focus on getting oriented to the course and the tools we’ll be using throughout the semester. Readings are designed to help understand some of the ‘rules’ of R syntax and develop an understanding for manipulating different types of data in R."
+  },
+  {
+    "objectID": "content/01-content.html#readings",
+    "href": "content/01-content.html#readings",
+    "title": "Getting Started",
+    "section": "Readings",
+    "text": "Readings\n\nThe syllabus, content, examples, and assignments pages for this class\n Chapter 1 - 6 in Venables et al., An Introduction to R (Venables et al. 2009) - for a quick refresher on data types in R (it’s only 30 pages)\n Chapters 1-2 in Douglas et al., An Introduction to R - provides another intro to R that’s been updated and is an open-source book.\n Happy Git and GitHub for the useR - all you really need to know to be a proficient user of git for version control and reproducible workflows."
+  },
+  {
+    "objectID": "content/01-content.html#objectives",
+    "href": "content/01-content.html#objectives",
+    "title": "Getting Started",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today you should:\n\nBe able to articulate the organization of the course, the approach to grading, and the requirements for the final project\nBe able to access the RStudio Server and Github classroom\nBe able to clone the first self-reflection and assignment and know the process for submitting assignments"
+  },
+  {
+    "objectID": "content/01-content.html#slides",
+    "href": "content/01-content.html#slides",
+    "title": "Getting Started",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nIntroductions\n\n\nWhy (not) R?\n\n\nAssignments, reflections, expectations\n\n\nGit and github classroom"
+  },
+  {
+    "objectID": "content/02-content.html",
+    "href": "content/02-content.html",
+    "title": "Basic Data Structures in R",
+    "section": "",
+    "text": "Today we’ll focus on how R organizes data and how you can managed and manipulate data in R. Readings are designed to give you more information how R conceptualizes data and how various rules and conventions affect your ability to access and manipulate data."
+  },
+  {
+    "objectID": "content/02-content.html#readings",
+    "href": "content/02-content.html#readings",
+    "title": "Basic Data Structures in R",
+    "section": "Readings",
+    "text": "Readings\n\n Chapter 3 in Douglas et al., An Introduction to R - provides another intro to R that’s been updated and is an open-source book.\n Writing the perfect question - a blogpost by Jon Skeet that describes the general etiquette for asking coding questions that are likely to get answered.\n [Reprex Do’s and Don’ts] (https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html) - provides an overview of the components of a reproducible example and the use of the reprex package to generate them."
+  },
+  {
+    "objectID": "content/02-content.html#objectives",
+    "href": "content/02-content.html#objectives",
+    "title": "Basic Data Structures in R",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today you should:\n\nBe able to articulate the organization of the course, the approach to grading, and the requirements for the final project\nBe able to access the RStudio Server and Github classroom\nBe able to clone the first self-reflection and assignment and know the process for submitting assignments"
+  },
+  {
+    "objectID": "content/02-content.html#slides",
+    "href": "content/02-content.html#slides",
+    "title": "Basic Data Structures in R",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nBasic Data Structures in R\n\n\nAccessing subsets of data\n\n\nManipulating and combining data\n\n\nGetting help"
+  },
+  {
+    "objectID": "content/index.html",
+    "href": "content/index.html",
+    "title": "Readings and slides",
+    "section": "",
+    "text": "View all slides in new window  Download PDF of all slides\n\nThe slides are also embedded on each page. You can click in the slides and navigate through them with ← and →. If you type ? (or shift + /) while viewing the slides you can see a list of slide-specific commands (like f for fullscreen or p for presenter mode if you want to see my notes)."
+  },
+  {
+    "objectID": "example/index.html",
+    "href": "example/index.html",
+    "title": "Examples",
+    "section": "",
+    "text": "This section has some worked examples demonstrating the use of different packages and giving some ‘roadmaps’ for completing different spatial operations. These are mostly my opinions, your mileage may vary, but I’ll try to justify why I do things the way that I do so that you can make an informed choice when you decide to deviate from that path."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro to Spatial Data in R",
+    "section": "",
+    "text": "Instructor\n\n   Dr. Matt Williamson\n   4123 Environmental Research Building\n   mattwilliamson@boisestate.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\nCourse details\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:30–2:45 PM\n   Mathematics 126\n   Slack\n\n\n\nContacting me\nE-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 48 hours (really), but also remember that life can be busy and chaotic for everyone (including me!), so if I don’t respond right away, don’t worry!"
+  },
+  {
+    "objectID": "resource/data.html",
+    "href": "resource/data.html",
+    "title": "Fun datasets",
+    "section": "",
+    "text": "So much data, so little time… Here are some links to help you get started finding data for your geospatial projects"
+  },
+  {
+    "objectID": "resource/data.html#spatial-data-repositories",
+    "href": "resource/data.html#spatial-data-repositories",
+    "title": "Fun datasets",
+    "section": "Spatial Data Repositories",
+    "text": "Spatial Data Repositories\n\nDataBasin: Lots of spatial data related to conservation issues across the US. The AdaptWest portal has tons of spatial data on climate change and its potential impacts.\nUS Protected Areas Database: PAD-US is America’s official national inventory of U.S. terrestrial and marine protected areas that are dedicated to the preservation of biological diversity and to other natural, recreation and cultural uses, managed for these purposes through legal or other effective means. PAD-US also includes the best available aggregation of federal land and marine areas provided directly by managing agencies, coordinated through the Federal Geographic Data Committee (FGDC) Federal Lands Working Group.\nUSGS Gap Analysis Project: A variety of datasets depicting land cover and species distributions."
+  },
+  {
+    "objectID": "resource/data.html#general-data-repositories",
+    "href": "resource/data.html#general-data-repositories",
+    "title": "Fun datasets",
+    "section": "General Data Repositories",
+    "text": "General Data Repositories\n\nData is Plural newsletter: Jeremy Singer-Vine sends a weekly newsletter of the most interesting public datasets he’s found. You should subscribe to it. He also has an archive of all the datasets he’s highlighted.\nGoogle Dataset Search: Google indexes thousands of public datasets; search for them here.\nKaggle: Kaggle hosts machine learning competitions where people compete to create the fastest, most efficient, most predictive algorithms. A byproduct of these competitions is a host of fascinating datasets that are generally free and open to the public. See, for example, the European Soccer Database, the Salem Witchcraft Dataset or results from an Oreo flavors taste test.\n360Giving: Dozens of British foundations follow a standard file format for sharing grant data and have made that data available online.\nUS City Open Data Census: More than 100 US cities have committed to sharing dozens of types of data, including data about crime, budgets, campaign finance, lobbying, transit, and zoning. This site from the Sunlight Foundation and Code for America collects this data and rates cities by how well they’re doing."
+  },
+  {
+    "objectID": "resource/data.html#political-science-and-economics-datasets",
+    "href": "resource/data.html#political-science-and-economics-datasets",
+    "title": "Fun datasets",
+    "section": "Political science and economics datasets",
+    "text": "Political science and economics datasets\nThere’s a wealth of data available for political science- and economics-related topics:\n\nFrançois Briatte’s extensive curated lists: Includes data from/about intergovernmental organizations (IGOs), nongovernmental organizations (NGOs), public opinion surveys, parliaments and legislatures, wars, human rights, elections, and municipalities.\nThomas Leeper’s list of political science datasets: Good short list of useful datasets, divided by type of data (country-level data, survey data, social media data, event data, text data, etc.).\nErik Gahner’s list of political science datasets: Huge list of useful datasets, divided by topic (governance, elections, policy, political elites, etc.)\nInside AirBnB a Creative Commons-licensed dataset with a ton of spatially referenced info on AirBnBs in cities across the globe."
+  },
+  {
+    "objectID": "resource/data.html#the-30daymapchallenge",
+    "href": "resource/data.html#the-30daymapchallenge",
+    "title": "Fun datasets",
+    "section": "The #30daymapchallenge",
+    "text": "The #30daymapchallenge\nThe #30daymapchallenge is a social mapping/cartography/data visualization challenge designed to encourage experimentation with different types of datasets and mapping approaches. Searching the hashtag on social media (especially Twitter) will bring up a bunch of cool examples. Here are a few repositories to help you get started:\n\nThe Official #30DayMapChallenge Repo has an archive of past challenges and a description of what this is all about.\nBob Rudis’ 2019 bookdown project Contains both code and useful information for generating the visualizations along with sources for data.\nAlexandra Kapp’s 2020 repository makes use of some of the newer animation and interactive visualization techniques.\nThe R-Spatial list of 2020 challenge repositories"
+  },
+  {
+    "objectID": "resource/git.html",
+    "href": "resource/git.html",
+    "title": "Helpful git links",
+    "section": "",
+    "text": "Getting in the habit of using version control can be challenging, especially if you are collaborating with others. The challenge gets worse when some of those collaborators are not familiar with the importance of version control. Here are a few links to try and make your (and their) transition a little smoother."
+  },
+  {
+    "objectID": "resource/git.html#installing-git-and-making-it-play-nice-with-r",
+    "href": "resource/git.html#installing-git-and-making-it-play-nice-with-r",
+    "title": "Helpful git links",
+    "section": "Installing Git and making it play nice with R",
+    "text": "Installing Git and making it play nice with R\nHappy git with R is Jenny Bryan’s: extremely helpful introduction to git and incorporating it into your R workflow."
+  },
+  {
+    "objectID": "resource/git.html#getting-the-hang-of-git",
+    "href": "resource/git.html#getting-the-hang-of-git",
+    "title": "Helpful git links",
+    "section": "Getting the hang of git",
+    "text": "Getting the hang of git\nUnderstanding the logic of git: provides a relatively accessible explanation of the various operations in git and links that to commonly used syntax.\nOh Sh@t, Git?!?: A less technical, more irreverant introduction to git workflows and fixing the inevitable challenges of version control. (G-rated version available at Dang it, Git?!?)."
+  },
+  {
+    "objectID": "resource/index.html",
+    "href": "resource/index.html",
+    "title": "Resources",
+    "section": "",
+    "text": "I have included a bunch of extra resources and guides related to R and coding, potentially interesting data, and cool visualizations. Let me know when you find fun things to include here!"
+  },
+  {
+    "objectID": "resource/install.html",
+    "href": "resource/install.html",
+    "title": "Installing R, RStudio, and tidyverse",
+    "section": "",
+    "text": "You will do all of your work in this class with the open source (and free!) programming language R. You will use RStudio as the main program to access R. Think of R as an engine and RStudio as a car dashboard—R handles all the calculations and the actual statistics, while RStudio provides a nice interface for running R code."
+  },
+  {
+    "objectID": "resource/install.html#rstudio-on-your-computer",
+    "href": "resource/install.html#rstudio-on-your-computer",
+    "title": "Installing R, RStudio, and tidyverse",
+    "section": "RStudio on your computer",
+    "text": "RStudio on your computer\nRStudio.cloud is convenient, but it can be slow and it is not designed to be able to handle larger datasets, more complicated analysis, or fancier graphics. Over the course of the semester, you should wean yourself off of RStudio.cloud and install all these things locally. This is also important if you want to customize fonts, since RStudio.cloud has extremely limited support for fonts other than Helvetica.\nHere’s how you install all these things\n\nInstall R\nFirst you need to install R itself (the engine).\n\nGo to the CRAN (Collective R Archive Network)1 website: https://cran.r-project.org/\nClick on “Download R for XXX”, where XXX is either Mac or Windows:\n\nIf you use macOS, scroll down to the first .pkg file in the list of files (in this picture, it’s R-4.0.0.pkg; as of right now, the current version is 4.2.1) and download it.\nIf you use Windows, click “base” (or click on the bolded “install R for the first time” link) and download it.\n\nDouble click on the downloaded file (check your Downloads folder). Click yes through all the prompts to install like any other program.\nIf you use macOS, download and install XQuartz. You do not need to do this on Windows.\n\n\n\nInstall RStudio\nNext, you need to install RStudio, the nicer graphical user interface (GUI) for R (the dashboard). Once R and RStudio are both installed, you can ignore R and only use RStudio. RStudio will use R automatically and you won’t ever have to interact with it directly.\n\nGo to the free download location on RStudio’s website: https://www.rstudio.com/products/rstudio/download/#download\nThe website should automatically detect your operating system (macOS or Windows) and show a big download button for it:\nIf not, scroll down a little to the large table and choose the version of RStudio that matches your operating system.\nDouble click on the downloaded file (again, check your Downloads folder). Click yes through all the prompts to install like any other program.\n\nDouble click on RStudio to run it (check your applications folder or start menu).\n\n\nInstall tidyverse\nThe tidyverse consists of dozens of packages (including ggplot2) that all work together. Rather than install each individually, you can install a single magical package and get them all at the same time.\nYou can install packages manually in RStudio, but this can be a bit fragile, especially for some of the spatial packages. Instead of using the RStudio GUI we’ll just install thins at the prompt. To install the tidyverse pacakge (and all of its associated dependencies) run the following: install.packages(\"tidyverse\")."
+  },
+  {
+    "objectID": "resource/lastyear.html",
+    "href": "resource/lastyear.html",
+    "title": "Last year’s class",
+    "section": "",
+    "text": "Last year was the first time I taught this class in it’s current format. I built a number of worked examples to try to clarify how different parts of a spatial workflow come together. Although the examples are far from perfect (I’m hoping this year’s are better), the page does have a number of potentially useful pieces. Check out the examples to access these."
+  },
+  {
+    "objectID": "resource/r.html",
+    "href": "resource/r.html",
+    "title": "Getting started with R Spatial",
+    "section": "",
+    "text": "I highly recommend subscribing to the R Weekly newsletter. This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.\nSearching for help with R on Google can sometimes be tricky because the program name is a single letter. Google is generally smart enough to figure out what you mean when you search for “r scatterplot”, but if it does struggle, try searching for “rstats” instead (e.g. “rstats scatterplot”). Also, since most of your R work in this class will deal with ggplot2, it’s often easier to just search for that instead of the letter “r” (e.g. “ggplot scatterplot”).\nThese resources are also really really helpful:\n\n\n\nAn Introduction to R: The definitive introductory text by Venables, Smith, and the R Core Team.\nSwirl: A set of free, self-contained tutorials that run from within your RStudio terminal.\nR for Data Science: A free online book for learning the basics of R and the tidyverse.\nR and RStudio cheat sheets: A large collection of simple cheat sheets for RStudio, ggplot2, and other R-related things.\nStat 545: Dr. Jenny Bryan at RStudio has an entire introductory course in R, visualization, and data analysis online.\nSTA 112FS: Data Science: Dr. Mine Çetinkaya-Rundel at the University of Edinburgh / Duke University has an entire introductory course in R, visualization, and data science online.\nCSE 631: Principles & Practice of Data Visualization: Yet another introductory course for R and ggplot2 by Dr. Alison Presmanes Hill at RStudio.\n\n\n\n\n\nsf cheatsheet: An at-a-glance description of the various sf verbs and their application.\nGeocomputation with R: Online version of the textbook by Lovelace, Nowosad, and Muenchow.\n[Robert’s Page]"
+  },
+  {
+    "objectID": "resource/rmarkdown.html",
+    "href": "resource/rmarkdown.html",
+    "title": "Authoring in Rmarkdown and Quarto",
+    "section": "",
+    "text": "This webpage and all of my slides were built with Quarto (and last year’s was built with Rmarkdown and blogdown). Having gone through the process of learning how make that work, I’m convinced that having a working knowledge of one or both of these is useful. As such, you’ll be using Rmarkdown or Quarto (your choice) to complete your assignments and render them to html. To help you get started here are a few links:"
+  },
+  {
     "objectID": "schedule.html",
     "href": "schedule.html",
     "title": "Schedule",
@@ -7,11 +266,88 @@
     "text": "Here’s your roadmap for the semester!\n\nContent (): This page contains the readings, slides, and recorded lectures for the week. Read and watch these before our in-person class.\nExample (): This page contains fully annotated R code and other supplementary information that you can use as a reference for your assignments and project. This is only a reference page—you don’t have to necessarily do anything here. Some sections also contain videos of me live coding the examples so you can see what it looks like to work with R in real time. This page will be very helpful as you work on your assignments.\nAssignment (): This page contains the instructions for each assignment. Weekly reports are due by noon on the day of class. Other assignments are due by 11:59 PM on the day they’re listed.\n\n\n\n\n\n\n\nSubscribe!\n\n\n\nYou can subscribe to this calendar URL in Outlook, Google Calendar, or Apple Calendar:\n\n\n\n Download\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nContent\n\n\nExample\n\n\nAssignment\n\n\n\n\n\n\nSession 1\n\n\n\n\nAugust 22\n\n\nIntroduction to the course\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 2\n\n\n\n\nAugust 24\n\n\nBasic data structures in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 3\n\n\n\n\nAugust 29\n\n\nRmarkdown, pseudocode, and literate programming\n\n\n\n\n\n\n\n\n\n\n\n\n\nAugust 30\n\n\nSelf-Evaluation 1 due  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 4\n\n\n\n\nAugust 31\n\n\nRepetitive tasks, pipes, and functional programming\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 5\n\n\n\n\nSeptember 5\n\n\nNo Class(Labor Day)\n\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 1\n\n\n\n\nSeptember 6\n\n\nHomework 1  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nContent\n\n\nExample\n\n\nAssignment\n\n\n\n\n\n\nSession 6\n\n\n\n\nSeptember 7\n\n\nSpatial data is special data\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 7\n\n\n\n\nSeptember 12\n\n\nSpatial data as vectors\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 8\n\n\n\n\nSeptember 14\n\n\nOperations with vector data I\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 9\n\n\n\n\nSeptember 19\n\n\nOperations with vector data II\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 10\n\n\n\n\nSeptember 21\n\n\nSpatial data as matrices and rasters\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 11\n\n\n\n\nSeptember 26\n\n\nOperations with raster data I\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 12\n\n\n\n\nSeptember 28\n\n\nOperations with raster data II\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 13\n\n\n\n\nOctober 3\n\n\nCombining vector and raster operations  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 2\n\n\n\n\nOctober 4\n\n\nHomework 2  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nContent\n\n\nExample\n\n\nAssignment\n\n\n\n\n\n\nSession 14\n\n\n\n\nOctober 5\n\n\nBuilding analysis databates using attributes\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 15\n\n\n\n\nOctober 10\n\n\nBuilding analysis databates using location\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 16\n\n\n\n\nOctober 12\n\n\nAssessing spatial autocorrelation\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 17\n\n\n\n\nOctober 17\n\n\nPoint pattern analysis and hypothesis testing\n\n\n\n\n\n\n\n\n\n\n\n\n\nOctober 18\n\n\nSelf-Evaluation 2 due\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 18\n\n\n\n\nOctober 19\n\n\nInterpolation\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 19\n\n\n\n\nOctober 24\n\n\nMultivariate statistical analysis I\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 20\n\n\n\n\nOctober 26\n\n\nMultivariate statistical analysis II\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 21\n\n\n\n\nOctober 31\n\n\nMultivariate statistical analysis III\n\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 3\n\n\n\n\nNovember 1\n\n\nHomework 3  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nContent\n\n\nExample\n\n\nAssignment\n\n\n\n\n\n\nSession 22\n\n\n\n\nNovember 2\n\n\nBasic data visualization principles\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 23\n\n\n\n\nNovember 7\n\n\nIntroduction to ggplot\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 24\n\n\n\n\nNovember 9\n\n\nMaps, truth, and cartography\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 25\n\n\n\n\nNovember 14\n\n\nStatic maps in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 26\n\n\n\n\nNovember 16\n\n\nBuilding better maps\n\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 4\n\n\n\n\nNovember 18\n\n\nHomework 4  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 27\n\n\n\n\nNovember 21\n\n\nNo Class\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 28\n\n\n\n\nNovember 23\n\n\nNo Class(Fall Break)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 29\n\n\n\n\nNovember 28\n\n\nIntroduction to interactive maps I(Fall Break)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 30\n\n\n\n\nNovember 30\n\n\nInteractive maps II\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nContent\n\n\nExample\n\n\nAssignment\n\n\n\n\n\n\nFinal Project Draft\n\n\n\n\nDecember 2\n\n\nFinal Project Draft  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 31\n\n\n\n\nDecember 5\n\n\nConclusion\n\n\n\n\n\n\n\n\n\n\n\n\n\nSession 32\n\n\n\n\nDecember 7\n\n\nFinal Project Workday\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinal Project\n\n\n\n\nDecember 15\n\n\nFinal Project Due  (submit by 23:59:00)\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecember 16\n\n\nFinal Self-Evaluation Due  (submit by 23:59:00)"
   },
   {
+    "objectID": "slides/01-slides.html#todays-plan",
+    "href": "slides/01-slides.html#todays-plan",
+    "title": "Getting Started",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\n\nIntroductions\nWhy (not) R?\nCourse logistics and resources\nTesting out RStudio, git, and GitHub Classroom"
+  },
+  {
+    "objectID": "slides/01-slides.html#about-me",
+    "href": "slides/01-slides.html#about-me",
+    "title": "Getting Started",
+    "section": "About Me",
+    "text": "About Me\n\n\n\n\nWhat I do\nMy path to this point\nWhy I teach this course"
+  },
+  {
+    "objectID": "slides/01-slides.html#what-about-you",
+    "href": "slides/01-slides.html#what-about-you",
+    "title": "Getting Started",
+    "section": "What about you?",
+    "text": "What about you?\n\n\nWhere are you from?\nWhat do you like most about Boise?\nWhat do you miss most about “home”?\nWhat is your research?"
+  },
+  {
+    "objectID": "slides/01-slides.html#why-r",
+    "href": "slides/01-slides.html#why-r",
+    "title": "Getting Started",
+    "section": "Why R?",
+    "text": "Why R?\n\n\n\n\nOpen Source\nHuge useR community\nIntegrated analysis pipelines\nReproducible workflows\n\n\n\n\nCodePlot\n\n\n\nlibrary(maps)\nlibrary(socviz)\nlibrary(tidyverse)\nparty_colors <- c(\"#2E74C0\", \"#CB454A\") \nus_states <- map_data(\"state\")\nelection$region <- tolower(election$state)\nus_states_elec <- left_join(us_states, election)\np0 <- ggplot(data = us_states_elec,\n             mapping = aes(x = long, y = lat,\n                           group = group, \n                           fill = party))\np1 <- p0 + geom_polygon(color = \"gray90\", \n                        size = 0.1) +\n    coord_map(projection = \"albers\", \n              lat0 = 39, lat1 = 45) \np2 <- p1 + scale_fill_manual(values = party_colors) +\n    labs(title = \"Election Results 2016\", \n         fill = NULL)"
+  },
+  {
+    "objectID": "slides/01-slides.html#why-not-r-1",
+    "href": "slides/01-slides.html#why-not-r-1",
+    "title": "Getting Started",
+    "section": "Why not R?",
+    "text": "Why not R?\n\n\n\nCoding can be hard…\nMemory challenges\nSpeed\nDecision fatigue\n\n\n\n## ---\n## Error: could not find function \"performance\"\n## ---\n##  [1] \"Error in if (str_count(string = f[[j]], pattern = \\\"\\\\\\\\S+\\\") == 1) { : \\n  argument is of length zero\"   \n## ---\n## Error in eval(expr, envir, enclos) : object 'x' not found\n## ---\n## Error in file(file, \"rt\") : cannot open the connection\n## ---\n## Error in UseMethod(\"as.data.table\") : \n##   no applicable method for 'as.data.table' applied to an object of class \"table\"\n## ---"
+  },
+  {
+    "objectID": "slides/01-slides.html#getting-help",
+    "href": "slides/01-slides.html#getting-help",
+    "title": "Getting Started",
+    "section": "Getting Help",
+    "text": "Getting Help\n\n\n\nGoogle it!!\n\nUse the exact error message\nInclude the package name\ninclude “R” in the search\n\n\n\n\nStack Overflow\n\nReproducible examples\n\nPackage “issue” pages\nr_spatial slack channel\nCommon errors\n\n\n\n\nAsk Me"
+  },
+  {
+    "objectID": "slides/01-slides.html#logistics",
+    "href": "slides/01-slides.html#logistics",
+    "title": "Getting Started",
+    "section": "Logistics",
+    "text": "Logistics\n\n\nMeet on Mondays and Wednesdays\n~45 min lecture, 30 min practice\n4 major sections\nReadings"
+  },
+  {
+    "objectID": "slides/01-slides.html#course-webpage",
+    "href": "slides/01-slides.html#course-webpage",
+    "title": "Getting Started",
+    "section": "Course Webpage",
+    "text": "Course Webpage\nhttps://isdrfall22.classes.spaseslab.com/\n\n\nSyllabus\nSchedule\nLectures\nAssignments\nResources"
+  },
+  {
+    "objectID": "slides/01-slides.html#assignments",
+    "href": "slides/01-slides.html#assignments",
+    "title": "Getting Started",
+    "section": "Assignments",
+    "text": "Assignments\n\nCheck out the syllabus for more on grading!\n\n\n\n\n\nSelf-reflections (3x)\n\nYour goals for the course\nEvaluation criteria\nChecking in\n\nCoding exercises (4x)\n\nProblem solving\nReproducible workflows\nThinking critically\n\n\n\n\nFinal project (1st draft, final draft)\n\nPractice a full analysis workflow\nIntegrate analysis & visuals to tell a story"
+  },
+  {
+    "objectID": "slides/01-slides.html#orientation-to-rstudio-and-our-rstudio-server",
+    "href": "slides/01-slides.html#orientation-to-rstudio-and-our-rstudio-server",
+    "title": "Getting Started",
+    "section": "Orientation to RStudio and our RStudio server",
+    "text": "Orientation to RStudio and our RStudio server"
+  },
+  {
+    "objectID": "slides/01-slides.html#git-and-github-classroom",
+    "href": "slides/01-slides.html#git-and-github-classroom",
+    "title": "Getting Started",
+    "section": "Git and Github classroom",
+    "text": "Git and Github classroom\nIntroduce yourself to Git"
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "Syllabus",
     "section": "",
-    "text": "Dr. Matt Williamson\n   4123 Environmental Research Building\n   aheiss@gsu.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\n\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:00–2:45 PM\n   Mathematics 126\n   Slack"
+    "text": "Dr. Matt Williamson\n   4123 Environmental Research Building\n   mattwilliamson@boisestate.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\n\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:30–2:45 PM\n   Mathematics 126\n   Slack"
   },
   {
     "objectID": "syllabus.html#course-description",
@@ -82,19 +418,5 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Intro to Spatial Data in R",
-    "section": "",
-    "text": "Instructor\n\n   Dr. Matt Williamson\n   4123 Environmental Research Building\n   aheiss@gsu.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\nCourse details\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:00–2:45 PM\n   Mathematics 126\n   Slack\n\n\n\nContacting me\nE-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 48 hours (really), but also remember that life can be busy and chaotic for everyone (including me!), so if I don’t respond right away, don’t worry!"
-  },
-  {
-    "objectID": "content/index.html",
-    "href": "content/index.html",
-    "title": "Readings and slides",
-    "section": "",
-    "text": "View all slides in new window  Download PDF of all slides\n\nThe slides are also embedded on each page. You can click in the slides and navigate through them with ← and →. If you type ? (or shift + /) while viewing the slides you can see a list of slide-specific commands (like f for fullscreen or p for presenter mode if you want to see my notes)."
   }
 ]

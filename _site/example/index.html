@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intro to Spatial Data in R - Readings and slides</title>
+<title>Intro to Spatial Data in R - Examples</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,13 +57,13 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<meta property="og:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta property="og:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta property="og:title" content="Intro to Spatial Data in R - Examples">
+<meta property="og:description" content="This section has some worked examples demonstrating the use of different packages and giving some ‘roadmaps’ for completing different spatial operations.">
 <meta property="og:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta property="og:site-name" content="Intro to Spatial Data in R">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta name="twitter:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta name="twitter:title" content="Intro to Spatial Data in R - Examples">
+<meta name="twitter:description" content="This section has some worked examples demonstrating the use of different packages and giving some ‘roadmaps’ for completing different spatial operations.">
 <meta name="twitter:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta name="twitter:creator" content="@MwilliamsonMatt">
 <meta name="twitter:card" content="summary_large_image">
@@ -90,13 +90,13 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="../schedule.html">Schedule</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/index.html" aria-current="page">Content</a>
+    <a class="nav-link" href="../content/index.html">Content</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../assignment/index.html">Assignments</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../example/index.html">Examples</a>
+    <a class="nav-link active" href="../example/index.html" aria-current="page">Examples</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../resource/index.html">Resources</a>
@@ -123,7 +123,7 @@ ul.task-list{list-style: none;}
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Readings and slides</h1>
+      <h1 class="quarto-secondary-nav-title">Examples</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -146,14 +146,14 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/index.html" class="sidebar-item-text sidebar-link active">Readings and slides</a>
+  <a href="../example/index.html" class="sidebar-item-text sidebar-link active">Examples</a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Course content</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Getting started</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -161,142 +161,57 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link">1: Introduction to the course</a>
+  <a href="../example/getting-setup.qmd" class="sidebar-item-text sidebar-link">Setup</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Spatial operations in R</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example/vector-intro.qmd" class="sidebar-item-text sidebar-link">Vector data</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link">2: Basic data structures in R</a>
+  <a href="../example/raster-intro.qmd" class="sidebar-item-text sidebar-link">Raster data</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/03-content.qmd" class="sidebar-item-text sidebar-link">3: Rmarkdown, pseudocode, and literate programming</a>
+  <a href="../example/combining-data.qmd" class="sidebar-item-text sidebar-link">Integrating vector and raster data</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Statistical workflows</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example/intro-analysis.qmd" class="sidebar-item-text sidebar-link">Building dataframes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/04-content.qmd" class="sidebar-item-text sidebar-link">4: Repetitive tasks, pipes, and functional programming</a>
+  <a href="../example/pattern-analysis.qmd" class="sidebar-item-text sidebar-link">Analyzing patterns</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/06-content.qmd" class="sidebar-item-text sidebar-link">6: Spatial data is special data</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/07-content.qmd" class="sidebar-item-text sidebar-link">7: Spatial data as vectors</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/08-content.qmd" class="sidebar-item-text sidebar-link">8: Operations with vector data I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/09-content.qmd" class="sidebar-item-text sidebar-link">9: Operations with vector data II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/10-content.qmd" class="sidebar-item-text sidebar-link">10: Spatial data as matrices and rasters</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/11-content.qmd" class="sidebar-item-text sidebar-link">11: Operations with raster data I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/12-content.qmd" class="sidebar-item-text sidebar-link">12: Operations with raster data II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/13-content.qmd" class="sidebar-item-text sidebar-link">13: Combining vector and raster operations</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/14-content.qmd" class="sidebar-item-text sidebar-link">14: Building analysis databates using attributes</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/15-content.qmd" class="sidebar-item-text sidebar-link">15: Building analysis databates using location</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/16-content.qmd" class="sidebar-item-text sidebar-link">16: Assessing spatial autocorrelation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/17-content.qmd" class="sidebar-item-text sidebar-link">17: Point pattern analysis and hypothesis testing</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/18-content.qmd" class="sidebar-item-text sidebar-link">18: Interpolation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/19-content.qmd" class="sidebar-item-text sidebar-link">19: Multivariate statistical analysis I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/20-content.qmd" class="sidebar-item-text sidebar-link">20: Multivariate statistical analysis II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/21-content.qmd" class="sidebar-item-text sidebar-link">21: Multivariate statistical analysis III</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/22-content.qmd" class="sidebar-item-text sidebar-link">22: Basic data visualization principles</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/23-content.qmd" class="sidebar-item-text sidebar-link">23: Introduction to ggplot</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/24-content.qmd" class="sidebar-item-text sidebar-link">24: Maps, truth, and cartography</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/25-content.qmd" class="sidebar-item-text sidebar-link">25: Static maps in R</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/26-content.qmd" class="sidebar-item-text sidebar-link">26: Building better maps</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/29-content.qmd" class="sidebar-item-text sidebar-link">29: Introduction to interactive maps I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/30-content.qmd" class="sidebar-item-text sidebar-link">30: Introduction to interactive maps II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/31-content.qmd" class="sidebar-item-text sidebar-link">31: Conclusion</a>
+  <a href="../example/stat-analysis.qmd" class="sidebar-item-text sidebar-link">Spatial Models</a>
   </div>
 </li>
       </ul>
@@ -311,16 +226,23 @@ ul.task-list{list-style: none;}
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">Readings and slides</h1>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Examples</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
 
 </header>
 
-<p>Each class session has a set of required readings that you should complete <strong><em>before</em></strong> watching the lecture. On each class session page you’ll see buttons for opening the presentation in a new tab or for downloading a PDF of the slides in case you want to print them or store them on your computer:</p>
-<p class="buttons" style="text-align:center;">
-<span class="btn btn-danger"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> View all slides in new window</span> <span class="btn btn-danger"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Download PDF of all slides</span>
-</p>
-<p>The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen or <kbd>p</kbd> for presenter mode if you want to see my notes).</p>
+<p>This section has some worked examples demonstrating the use of different packages and giving some ‘roadmaps’ for completing different spatial operations. These are mostly my opinions, your mileage may vary, but I’ll try to justify why I do things the way that I do so that you can make an informed choice when you decide to deviate from that path.</p>
 
 
 

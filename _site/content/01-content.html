@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intro to Spatial Data in R - Readings and slides</title>
+<title>Intro to Spatial Data in R - Getting Started</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -15,6 +15,25 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -57,13 +76,13 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<meta property="og:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta property="og:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta property="og:title" content="Intro to Spatial Data in R - Getting Started">
+<meta property="og:description" content="Today we’ll focus on getting oriented to the course and the tools we’ll be using throughout the semester.">
 <meta property="og:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta property="og:site-name" content="Intro to Spatial Data in R">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta name="twitter:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta name="twitter:title" content="Intro to Spatial Data in R - Getting Started">
+<meta name="twitter:description" content="Today we’ll focus on getting oriented to the course and the tools we’ll be using throughout the semester.">
 <meta name="twitter:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta name="twitter:creator" content="@MwilliamsonMatt">
 <meta name="twitter:card" content="summary_large_image">
@@ -123,7 +142,7 @@ ul.task-list{list-style: none;}
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Readings and slides</h1>
+      <h1 class="quarto-secondary-nav-title">Getting Started</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -146,7 +165,7 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/index.html" class="sidebar-item-text sidebar-link active">Readings and slides</a>
+  <a href="../content/index.html" class="sidebar-item-text sidebar-link">Readings and slides</a>
   </div>
 </li>
       </ul>
@@ -161,7 +180,7 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link">1: Introduction to the course</a>
+  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link active">1: Introduction to the course</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -306,25 +325,102 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">Readings and slides</h1>
+<h1 class="title d-none d-lg-block display-7">Getting Started</h1>
 
+<div class="date-block bg-content text-white p-2">
+  <p class="date">Content for Monday, August 22, 2022</p>
+</div>
 </header>
 
-<p>Each class session has a set of required readings that you should complete <strong><em>before</em></strong> watching the lecture. On each class session page you’ll see buttons for opening the presentation in a new tab or for downloading a PDF of the slides in case you want to print them or store them on your computer:</p>
-<p class="buttons" style="text-align:center;">
-<span class="btn btn-danger"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> View all slides in new window</span> <span class="btn btn-danger"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Download PDF of all slides</span>
+<p>Today we’ll focus on getting oriented to the course and the tools we’ll be using throughout the semester. Readings are designed to help understand some of the ‘rules’ of R syntax and develop an understanding for manipulating different types of data in R.</p>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<ul>
+<li><p>The <a href="../syllabus.html">syllabus</a>, <a href="../content/index.html">content</a>, <a href="../example/index.html">examples</a>, and <a href="../assigment/index.qmd">assignments</a> pages for this class</p></li>
+<li><p><i class="fa-solid fa-book" aria-hidden="true"></i> <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">Chapter 1 - 6</a> in Venables et al., <em>An Introduction to R</em> <span class="citation" data-cites="venables2009introduction">(<a href="#ref-venables2009introduction" role="doc-biblioref">Venables et al. 2009</a>)</span> - for a quick refresher on data types in R (it’s only 30 pages)</p></li>
+<li><p><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> <a href="https://intro2r.com/">Chapters 1-2</a> in Douglas et al., <em>An Introduction to R</em> - provides another intro to R that’s been updated and is an open-source book.</p></li>
+<li><p><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> <a href="https://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a> - all you really need to know to be a proficient user of git for version control and reproducible workflows.</p></li>
+</ul>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>By the end of today you should:</p>
+<ul>
+<li><p>Be able to articulate the organization of the course, the approach to grading, and the requirements for the final project</p></li>
+<li><p>Be able to access the RStudio Server and Github classroom</p></li>
+<li><p>Be able to clone the first self-reflection and assignment and know the process for submitting assignments</p></li>
+</ul>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p>The slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
+<p>
+<a class="btn btn-danger" target="_blank" href="../slides/01-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a> <a class="btn btn-danger" target="_blank" href="../slides/01-slides.pdf" role="button"><i class="fa-solid fa-file-pdf"></i> Download PDF of all slides</a>
 </p>
-<p>The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen or <kbd>p</kbd> for presenter mode if you want to see my notes).</p>
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="introductions-tab" data-toggle="tab" href="#introductions" role="tab" aria-controls="introductions" aria-selected="true">Introductions</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="why-not-r-tab" data-toggle="tab" href="#why-not-r" role="tab" aria-controls="why-not-r" aria-selected="false">Why (not) R?</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="assignments-reflections-expectations-tab" data-toggle="tab" href="#assignments-reflections-expectations" role="tab" aria-controls="assignments-reflections-expectations" aria-selected="false">Assignments, reflections, expectations</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="git-and-github-classroom-tab" data-toggle="tab" href="#git-and-github-classroom" role="tab" aria-controls="git-and-github-classroom" aria-selected="false">Git and github classroom</a>
+</li>
+</ul>
+<div id="slide-tabs" class="tab-content">
+<div id="introductions" class="tab-pane fade show active" role="tabpanel" aria-labelledby="introductions-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#title">
+</iframe>
+</div>
+</div>
+<div id="why-not-r" class="tab-pane fade" role="tabpanel" aria-labelledby="why-not-r-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#why-not-r">
+</iframe>
+</div>
+</div>
+<div id="assignments-reflections-expectations" class="tab-pane fade" role="tabpanel" aria-labelledby="assignments-reflections-expectations-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#Class Details">
+</iframe>
+</div>
+</div>
+<div id="git-and-github-classroom" class="tab-pane fade" role="tabpanel" aria-labelledby="git-and-github-classroom-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#class-details">
+</iframe>
+</div>
+</div>
+</div>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography">
+<div id="ref-venables2009introduction" class="csl-entry" role="doc-biblioentry">
+Venables, W. N., D. M. Smith, R. D. C. Team, and others. 2009. An introduction to r. Citeseer.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

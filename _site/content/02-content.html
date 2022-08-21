@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intro to Spatial Data in R - Readings and slides</title>
+<title>Intro to Spatial Data in R - Basic Data Structures in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,13 +57,13 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<meta property="og:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta property="og:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta property="og:title" content="Intro to Spatial Data in R - Basic Data Structures in R">
+<meta property="og:description" content="Today we’ll focus on how R organizes data and how you can managed and manipulate data in R.">
 <meta property="og:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta property="og:site-name" content="Intro to Spatial Data in R">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta name="twitter:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta name="twitter:title" content="Intro to Spatial Data in R - Basic Data Structures in R">
+<meta name="twitter:description" content="Today we’ll focus on how R organizes data and how you can managed and manipulate data in R.">
 <meta name="twitter:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta name="twitter:creator" content="@MwilliamsonMatt">
 <meta name="twitter:card" content="summary_large_image">
@@ -123,7 +123,7 @@ ul.task-list{list-style: none;}
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Readings and slides</h1>
+      <h1 class="quarto-secondary-nav-title">Basic Data Structures in R</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -146,7 +146,7 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/index.html" class="sidebar-item-text sidebar-link active">Readings and slides</a>
+  <a href="../content/index.html" class="sidebar-item-text sidebar-link">Readings and slides</a>
   </div>
 </li>
       </ul>
@@ -166,7 +166,7 @@ ul.task-list{list-style: none;}
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link">2: Basic data structures in R</a>
+  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link active">2: Basic data structures in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -306,23 +306,94 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#readings" id="toc-readings" class="nav-link active" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">Readings and slides</h1>
+<h1 class="title d-none d-lg-block display-7">Basic Data Structures in R</h1>
 
+<div class="date-block bg-content text-white p-2">
+  <p class="date">Content for Wednesday, August 24, 2022</p>
+</div>
 </header>
 
-<p>Each class session has a set of required readings that you should complete <strong><em>before</em></strong> watching the lecture. On each class session page you’ll see buttons for opening the presentation in a new tab or for downloading a PDF of the slides in case you want to print them or store them on your computer:</p>
-<p class="buttons" style="text-align:center;">
-<span class="btn btn-danger"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> View all slides in new window</span> <span class="btn btn-danger"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Download PDF of all slides</span>
+<p>Today we’ll focus on how <code>R</code> organizes data and how you can managed and manipulate data in R. Readings are designed to give you more information how <code>R</code> conceptualizes data and how various rules and conventions affect your ability to access and manipulate data.</p>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<ul>
+<li><p><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> <a href="https://intro2r.com/">Chapter 3</a> in Douglas et al., <em>An Introduction to R</em> - provides another intro to R that’s been updated and is an open-source book.</p></li>
+<li><p><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> <a href="https://codeblog.jonskeet.uk/2010/08/29/writing-the-perfect-question/">Writing the perfect question</a> - a blogpost by Jon Skeet that describes the general etiquette for asking coding questions that are likely to get answered.</p></li>
+<li><p><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> [Reprex Do’s and Don’ts] (https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html) - provides an overview of the components of a reproducible example and the use of the <code>reprex</code> package to generate them.</p></li>
+</ul>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>By the end of today you should:</p>
+<ul>
+<li><p>Be able to articulate the organization of the course, the approach to grading, and the requirements for the final project</p></li>
+<li><p>Be able to access the RStudio Server and Github classroom</p></li>
+<li><p>Be able to clone the first self-reflection and assignment and know the process for submitting assignments</p></li>
+</ul>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p>The slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
+<p>
+<a class="btn btn-danger" target="_blank" href="../slides/01-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a> <a class="btn btn-danger" target="_blank" href="../slides/01-slides.pdf" role="button"><i class="fa-solid fa-file-pdf"></i> Download PDF of all slides</a>
 </p>
-<p>The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen or <kbd>p</kbd> for presenter mode if you want to see my notes).</p>
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="basic-data-structures-in-r-tab" data-toggle="tab" href="#basic-data-structures-in-r" role="tab" aria-controls="basic-data-structures-in-r" aria-selected="true">Basic Data Structures in R</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="accessing-subsets-of-data-tab" data-toggle="tab" href="#accessing-subsets-of-data" role="tab" aria-controls="accessing-subsets-of-data" aria-selected="false">Accessing subsets of data</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="manipulating-and-combining-data-tab" data-toggle="tab" href="#manipulating-and-combining-data" role="tab" aria-controls="manipulating-and-combining-data" aria-selected="false">Manipulating and combining data</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="getting-help-tab" data-toggle="tab" href="#getting-help" role="tab" aria-controls="getting-help" aria-selected="false">Getting help</a>
+</li>
+</ul>
+<div id="slide-tabs" class="tab-content">
+<div id="basic-data-structures-in-r" class="tab-pane fade show active" role="tabpanel" aria-labelledby="basic-data-structures-in-r-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#title">
+</iframe>
+</div>
+</div>
+<div id="accessing-subsets-of-data" class="tab-pane fade" role="tabpanel" aria-labelledby="accessing-subsets-of-data-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#why-not-r">
+</iframe>
+</div>
+</div>
+<div id="manipulating-and-combining-data" class="tab-pane fade" role="tabpanel" aria-labelledby="manipulating-and-combining-data-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#Class Details">
+</iframe>
+</div>
+</div>
+<div id="getting-help" class="tab-pane fade" role="tabpanel" aria-labelledby="getting-help-tab">
+<div class="ratio ratio-16x9">
+<iframe src="../slides/01-slides.html#class-details">
+</iframe>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

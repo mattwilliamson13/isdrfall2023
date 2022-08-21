@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intro to Spatial Data in R - Readings and slides</title>
+<title>Intro to Spatial Data in R - Getting started with R Spatial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,13 +57,13 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<meta property="og:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta property="og:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta property="og:title" content="Intro to Spatial Data in R - Getting started with R Spatial">
+<meta property="og:description" content="I highly recommend subscribing to the R Weekly newsletter. This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.">
 <meta property="og:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta property="og:site-name" content="Intro to Spatial Data in R">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Intro to Spatial Data in R - Readings and slides">
-<meta name="twitter:description" content="Each class session has a set of required readings that you should complete before watching the lecture.">
+<meta name="twitter:title" content="Intro to Spatial Data in R - Getting started with R Spatial">
+<meta name="twitter:description" content="I highly recommend subscribing to the R Weekly newsletter. This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.">
 <meta name="twitter:image" content="https://isdrfall22.classes.spaseslab.com/files/social-image-f22.png">
 <meta name="twitter:creator" content="@MwilliamsonMatt">
 <meta name="twitter:card" content="summary_large_image">
@@ -90,7 +90,7 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="../schedule.html">Schedule</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/index.html" aria-current="page">Content</a>
+    <a class="nav-link" href="../content/index.html">Content</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../assignment/index.html">Assignments</a>
@@ -99,7 +99,7 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="../example/index.html">Examples</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resource/index.html">Resources</a>
+    <a class="nav-link active" href="../resource/index.html" aria-current="page">Resources</a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://ecostatsbsu.slack.com/archives/CV4DEJ8M7"><i class="bi bi-slack" role="img" aria-label="Slack">
@@ -123,7 +123,7 @@ ul.task-list{list-style: none;}
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Readings and slides</h1>
+      <h1 class="quarto-secondary-nav-title">Getting started with R Spatial</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -146,14 +146,24 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/index.html" class="sidebar-item-text sidebar-link active">Readings and slides</a>
+  <a href="../resource/index.html" class="sidebar-item-text sidebar-link">Resources</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resource/lastyear.html" class="sidebar-item-text sidebar-link">Last year’s class</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resource/data.html" class="sidebar-item-text sidebar-link">Fun datasets</a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Course content</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Guides</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -161,142 +171,22 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link">1: Introduction to the course</a>
+  <a href="../resource/install.html" class="sidebar-item-text sidebar-link">Installing R, RStudio, and tidyverse</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link">2: Basic data structures in R</a>
+  <a href="../resource/r.html" class="sidebar-item-text sidebar-link active">Getting started with R Spatial</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/03-content.qmd" class="sidebar-item-text sidebar-link">3: Rmarkdown, pseudocode, and literate programming</a>
+  <a href="../resource/rmarkdown.html" class="sidebar-item-text sidebar-link">Authoring in Rmarkdown and Quarto</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/04-content.qmd" class="sidebar-item-text sidebar-link">4: Repetitive tasks, pipes, and functional programming</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/06-content.qmd" class="sidebar-item-text sidebar-link">6: Spatial data is special data</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/07-content.qmd" class="sidebar-item-text sidebar-link">7: Spatial data as vectors</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/08-content.qmd" class="sidebar-item-text sidebar-link">8: Operations with vector data I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/09-content.qmd" class="sidebar-item-text sidebar-link">9: Operations with vector data II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/10-content.qmd" class="sidebar-item-text sidebar-link">10: Spatial data as matrices and rasters</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/11-content.qmd" class="sidebar-item-text sidebar-link">11: Operations with raster data I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/12-content.qmd" class="sidebar-item-text sidebar-link">12: Operations with raster data II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/13-content.qmd" class="sidebar-item-text sidebar-link">13: Combining vector and raster operations</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/14-content.qmd" class="sidebar-item-text sidebar-link">14: Building analysis databates using attributes</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/15-content.qmd" class="sidebar-item-text sidebar-link">15: Building analysis databates using location</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/16-content.qmd" class="sidebar-item-text sidebar-link">16: Assessing spatial autocorrelation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/17-content.qmd" class="sidebar-item-text sidebar-link">17: Point pattern analysis and hypothesis testing</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/18-content.qmd" class="sidebar-item-text sidebar-link">18: Interpolation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/19-content.qmd" class="sidebar-item-text sidebar-link">19: Multivariate statistical analysis I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/20-content.qmd" class="sidebar-item-text sidebar-link">20: Multivariate statistical analysis II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/21-content.qmd" class="sidebar-item-text sidebar-link">21: Multivariate statistical analysis III</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/22-content.qmd" class="sidebar-item-text sidebar-link">22: Basic data visualization principles</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/23-content.qmd" class="sidebar-item-text sidebar-link">23: Introduction to ggplot</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/24-content.qmd" class="sidebar-item-text sidebar-link">24: Maps, truth, and cartography</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/25-content.qmd" class="sidebar-item-text sidebar-link">25: Static maps in R</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/26-content.qmd" class="sidebar-item-text sidebar-link">26: Building better maps</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/29-content.qmd" class="sidebar-item-text sidebar-link">29: Introduction to interactive maps I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/30-content.qmd" class="sidebar-item-text sidebar-link">30: Introduction to interactive maps II</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/31-content.qmd" class="sidebar-item-text sidebar-link">31: Conclusion</a>
+  <a href="../resource/git.html" class="sidebar-item-text sidebar-link">Helpful git links</a>
   </div>
 </li>
       </ul>
@@ -306,23 +196,65 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-r" id="toc-learning-r" class="nav-link active" data-scroll-target="#learning-r">Learning R</a>
+  <ul class="collapse">
+  <li><a href="#general-r-resources" id="toc-general-r-resources" class="nav-link" data-scroll-target="#general-r-resources">General R Resources</a></li>
+  <li><a href="#r-spatial-resources" id="toc-r-spatial-resources" class="nav-link" data-scroll-target="#r-spatial-resources">R Spatial Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">Readings and slides</h1>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Getting started with R Spatial</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
 
 </header>
 
-<p>Each class session has a set of required readings that you should complete <strong><em>before</em></strong> watching the lecture. On each class session page you’ll see buttons for opening the presentation in a new tab or for downloading a PDF of the slides in case you want to print them or store them on your computer:</p>
-<p class="buttons" style="text-align:center;">
-<span class="btn btn-danger"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> View all slides in new window</span> <span class="btn btn-danger"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Download PDF of all slides</span>
-</p>
-<p>The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen or <kbd>p</kbd> for presenter mode if you want to see my notes).</p>
+<section id="learning-r" class="level2">
+<h2 class="anchored" data-anchor-id="learning-r">Learning R</h2>
+<p>I highly recommend subscribing to the <a href="https://rweekly.org/">R Weekly newsletter</a>. This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.</p>
+<p>Searching for help with R on Google can sometimes be tricky because the program name is a single letter. Google is generally smart enough to figure out what you mean when you search for “r scatterplot”, but if it does struggle, try searching for “rstats” instead (e.g.&nbsp;“rstats scatterplot”). Also, since most of your R work in this class will deal with <strong>ggplot2</strong>, it’s often easier to just search for that instead of the letter “r” (e.g.&nbsp;“ggplot scatterplot”).</p>
+<p>These resources are also really really helpful:</p>
+<section id="general-r-resources" class="level3">
+<h3 class="anchored" data-anchor-id="general-r-resources">General R Resources</h3>
+<ul>
+<li><a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf"><strong>An Introduction to R</strong></a>: <em>The</em> definitive introductory text by Venables, Smith, and the R Core Team.</li>
+<li><a href="https://swirlstats.com/"><strong>Swirl</strong></a>: A set of free, self-contained tutorials that run from within your RStudio terminal.</li>
+<li><a href="https://r4ds.had.co.nz/"><strong>R for Data Science</strong></a>: A free online book for learning the basics of R and the tidyverse.</li>
+<li><a href="https://www.rstudio.com/resources/cheatsheets/"><strong>R and RStudio cheat sheets</strong></a>: A large collection of simple cheat sheets for RStudio, <strong>ggplot2</strong>, and other R-related things.</li>
+<li><a href="http://stat545.com/"><strong>Stat 545</strong></a>: <a href="https://twitter.com/JennyBryan">Dr.&nbsp;Jenny Bryan</a> at RStudio has an entire introductory course in R, visualization, and data analysis online.</li>
+<li><a href="http://www2.stat.duke.edu/courses/Fall17/sta112.01/"><strong>STA 112FS: Data Science</strong></a>: <a href="https://twitter.com/minebocek">Dr.&nbsp;Mine Çetinkaya-Rundel</a> at the University of Edinburgh / Duke University has an entire introductory course in R, visualization, and data science online.</li>
+<li><a href="http://cslu.ohsu.edu/~bedricks/courses/cs631/"><strong>CSE 631: Principles &amp; Practice of Data Visualization</strong></a>: Yet another introductory course for R and ggplot2 by <a href="https://twitter.com/apreshill">Dr.&nbsp;Alison Presmanes Hill</a> at RStudio.</li>
+</ul>
+</section>
+<section id="r-spatial-resources" class="level3">
+<h3 class="anchored" data-anchor-id="r-spatial-resources">R Spatial Resources</h3>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/blob/master/sf.pdf"><strong>sf cheatsheet</strong></a>: An at-a-glance description of the various <strong>sf</strong> verbs and their application.</p></li>
+<li><p><a href="https://geocompr.robinlovelace.net/"><strong>Geocomputation with R</strong></a>: Online version of the textbook by Lovelace, Nowosad, and Muenchow.</p></li>
+<li><p>[<strong>Robert’s Page</strong>]</p></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
