@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.38">
+  <meta name="generator" content="quarto-1.0.37">
 
   <meta name="author" content="Matt Williamson">
   <title>Intro to Spatial Data in R - Getting Started</title>
@@ -632,10 +632,78 @@
 </section>
 <section id="orientation-to-rstudio-and-our-rstudio-server" class="slide level2">
 <h2>Orientation to RStudio and our RStudio server</h2>
+
+<img data-src="img/slide_1/rstudio.png" class="r-stretch"></section></section>
+<section>
+<section id="git-and-github-classroom" class="title-slide slide level1 center" data-background="#0033A0">
+<h1>Git and Github classroom</h1>
+
 </section>
-<section id="git-and-github-classroom" class="slide level2">
-<h2>Git and Github classroom</h2>
-<h3 id="introduce-yourself-to-git">Introduce yourself to Git</h3>
+<section id="introduce-yourself-to-git" class="slide level2">
+<h2>Introduce yourself to Git</h2>
+<ol type="1">
+<li>Lots of ways, but one easy way is:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(usethis) <span class="co">#you may need to install this using install.packages('usethis')</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jane Doe"</span>, <span class="at">user.email =</span> <span class="st">"jane@example.org"</span>) <span class="co">#your info here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Generate a PAT token if you don’t have one <strong>(make sure you save it somewhere)</strong></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="introduce-yourself-to-git-contd" class="slide level2">
+<h2>Introduce yourself to Git (cont’d)</h2>
+<ol start="3" type="1">
+<li>Store your credentials for use (times out after 1 hr)</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Verify</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_get</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="joining-the-assignment-and-cloning-the-repo" class="slide level2">
+<h2>Joining the assignment and cloning the repo</h2>
+<ol type="1">
+<li><p>Click this <a href="ttps://classroom.github.com/a/BscSehQr">link</a></p></li>
+<li><p>Bring the project into RStudio</p></li>
+</ol>
+<ul>
+<li>Go to File&gt;New Project and choose the “Version Control” option</li>
+<li>Select “Git” (Not Subversion)</li>
+<li>Paste the link from the “Clone Repository” button into the “Repository URL” space</li>
+</ul>
+</section>
+<section id="the-git-workflow" class="slide level2">
+<h2>The git workflow</h2>
+<ul>
+<li><p>Make sure to <strong>pull</strong> everytime you start working on a project</p></li>
+<li><p>Make some changes to code</p></li>
+<li><p>Save those changes</p></li>
+<li><p>Commit your changes</p></li>
+<li><p>Push your work to the remote!</p></li>
+</ul>
+</section></section>
+<section>
+<section id="wrapup" class="title-slide slide level1 center" data-background="#0033A0">
+<h1>Wrapup</h1>
+
+</section>
+<section id="checking-in" class="slide level2">
+<h2>Checking in</h2>
+<ol type="1">
+<li><p>What are some advantages and disadvantages of using <code>R</code> for spatial analysis</p></li>
+<li><p>What can I clarify about the course?</p></li>
+<li><p>How do you feel about git and github classroom? How can I make that easier for you?</p></li>
+</ol>
 
 <div class="footer footer-default">
 

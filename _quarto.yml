@@ -57,8 +57,8 @@ website:
       - icon: github
         href: "https://github.com/BSU-Spatial-Data-in-R-Fall2022"
         aria-label: GitHub
-      - icon: '<i class="fab fa-r-project"></i>'
-        href: "https://rstudio.boisestate.edu/"
+      - icon: cloud-fill
+        href: "https://rstudio-lxp-01.boisestate.edu/auth-sign-in?appUri=%2F"
         aria-label: Rstudio  
 
   sidebar:

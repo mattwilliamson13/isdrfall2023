@@ -357,11 +357,39 @@
     "text": "Orientation to RStudio and our RStudio server"
   },
   {
-    "objectID": "slides/01-slides.html#git-and-github-classroom",
-    "href": "slides/01-slides.html#git-and-github-classroom",
+    "objectID": "slides/01-slides.html#introduce-yourself-to-git",
+    "href": "slides/01-slides.html#introduce-yourself-to-git",
     "title": "Getting Started",
-    "section": "Git and Github classroom",
-    "text": "Git and Github classroom\nIntroduce yourself to Git"
+    "section": "Introduce yourself to Git",
+    "text": "Introduce yourself to Git\n\nLots of ways, but one easy way is:\n\n\nlibrary(usethis) #you may need to install this using install.packages('usethis')\nuse_git_config(user.name = \"Jane Doe\", user.email = \"jane@example.org\") #your info here\n\n\nGenerate a PAT token if you don’t have one (make sure you save it somewhere)\n\n\nusethis::create_github_token()"
+  },
+  {
+    "objectID": "slides/01-slides.html#introduce-yourself-to-git-contd",
+    "href": "slides/01-slides.html#introduce-yourself-to-git-contd",
+    "title": "Getting Started",
+    "section": "Introduce yourself to Git (cont’d)",
+    "text": "Introduce yourself to Git (cont’d)\n\nStore your credentials for use (times out after 1 hr)\n\n\ngitcreds::gitcreds_set()\n\n\nVerify\n\n\ngitcreds::gitcreds_get()"
+  },
+  {
+    "objectID": "slides/01-slides.html#joining-the-assignment-and-cloning-the-repo",
+    "href": "slides/01-slides.html#joining-the-assignment-and-cloning-the-repo",
+    "title": "Getting Started",
+    "section": "Joining the assignment and cloning the repo",
+    "text": "Joining the assignment and cloning the repo\n\nClick this link\nBring the project into RStudio\n\n\nGo to File>New Project and choose the “Version Control” option\nSelect “Git” (Not Subversion)\nPaste the link from the “Clone Repository” button into the “Repository URL” space"
+  },
+  {
+    "objectID": "slides/01-slides.html#the-git-workflow",
+    "href": "slides/01-slides.html#the-git-workflow",
+    "title": "Getting Started",
+    "section": "The git workflow",
+    "text": "The git workflow\n\nMake sure to pull everytime you start working on a project\nMake some changes to code\nSave those changes\nCommit your changes\nPush your work to the remote!"
+  },
+  {
+    "objectID": "slides/01-slides.html#checking-in",
+    "href": "slides/01-slides.html#checking-in",
+    "title": "Getting Started",
+    "section": "Checking in",
+    "text": "Checking in\n\nWhat are some advantages and disadvantages of using R for spatial analysis\nWhat can I clarify about the course?\nHow do you feel about git and github classroom? How can I make that easier for you?"
   },
   {
     "objectID": "slides/02-slides.html#todays-plan",

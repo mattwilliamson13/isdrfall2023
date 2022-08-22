@@ -95,7 +95,7 @@ I am happy to help you work through your R coding challenges, but there are a lo
 
 ### R and RStudio
 
-R is free, but it can sometimes be a pain to install and configure especially when dealing with spatial packages (we'll talk more about why this is during class). To make life easier, I have set up an online [RStudio server](http://rstudio.cloud/) service, which lets you run a full instance of RStudio in your web browser. This means you won't have to install anything on your computer and we should be able to avoid a number of the machine-specific issues that pop-up when 20 students have 20 different computers, operating systems (OS), etc. If you haven't installed R on your local machine and would like some help getting that set up, there' a useful set of [instructions for installing R, RStudio, and all the tidyverse packages here.](/resource/install/)
+R is free, but it can sometimes be a pain to install and configure especially when dealing with spatial packages (we'll talk more about why this is during class). To make life easier, I have set up an online [RStudio server](https://rstudio-lxp-01.boisestate.edu/auth-sign-in?appUri=%2F) service, which lets you run a full instance of RStudio in your web browser. This means you won't have to install anything on your computer and we should be able to avoid a number of the machine-specific issues that pop-up when 20 students have 20 different computers, operating systems (OS), etc. If you haven't installed R on your local machine and would like some help getting that set up, there' a useful set of [instructions for installing R, RStudio, and all the tidyverse packages here.](/resource/install/)
 
 
 ### Git and Github Classroom
