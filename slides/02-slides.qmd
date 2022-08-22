@@ -34,5 +34,7 @@ format:
   
 ## Data structures
 
+# Manipulating data in R {background="#0033A0"}
 
+# Getting help {background="#0033A0"}
   
