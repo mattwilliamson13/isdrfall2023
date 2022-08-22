@@ -2,10 +2,18 @@
 .Rhistory
 .RData
 .Ruserdata
-.DS_Store
-Thumbs.db
-public
-gadm36_KEN_1_pk.rds
 
 /.quarto/
-_site/*
+/_site/
+/_freeze/
+
+slides/*.pdf
+slides/*.html
+slides/**/*_cache/*
+projects/*.zip
+
+# knitr and caching stuff
+**/*_files/*
+**/*_cache/*
+
+README.html
