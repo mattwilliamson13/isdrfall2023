@@ -1,0 +1,33 @@
+---
+title: "Assignments"
+---
+
+The main goals of this class is class is to get you comfortable with the manipulation, analysis, and visualization of spatial data using the `R` computing environment. These assignments are designed to help you practice those skills and reflect on your progress. All of the assignments have their own repository in our GitHub classroom, so you'll submit them there. I'll transfer grades over to Canvas so you'll have an idea where you're at in the course, but we won't use Canvas for much else.
+
+## Self-reflections
+
+This course is collaborative. I'm hoping to provide a broad suite of information that can help you analyze spatial data for your graduate research and beyond. That said, you know more than I do about your personal and professional objectives. During the course of the semester, I'll ask you to [submit 3 self-reflections](/assignment/self-reflections.qmd). The first should help me get to know you and get us on the same page with respect to your goals for the course. The second and third will help us assess your progress relative to those goals and identify ways to make sure you're getting to where you want to go. **These self-reflections are the foundation of how you'll be 'graded' in this course, so they are mandatory and need to be submitted by the due date**
+
+## Problem sets
+
+I've created [four assignments](/assignment/assignment.qmd) to practice outlining a workflow, writing R code, and troubleshooting errors. Each assignment integrates concepts from multiple class sessions in an effort to cement new concepts and make sure you don't forget things you learned earlier in the semester. As such, they involve multiple sections and may take some time. Each week I'll announce which sections of the homework are most applicable so that you know about where you should be in terms of completing it. The idea is to have you work a bit on the homework throughout each unit. This is to reduce the likelihood that you'll spend 10 hours on it the day before it's due and also to encourage you to get in the habit of using `git` to keep track of your progress.
+
+I'll be grading these according to:
+* **Please Resubmit**: This indicates that either your code does not run as written (i.e., your Rmarkdown document will not compile on my computer), you did not use Git as instructed, and/or that your responses to the questions I posed indicate that you do not quite understand the material as well as I would like. You’ll need to schedule an appointment to talk with me and we’ll work out what you need to do to get credit for the assignment. Although there isn’t a hard deadline for this resubmission, the assignments build on each other so it’s in your best interest to complete the resubmission before the next assignment. Failure to resubmit will result in no credit for the assignment.
+
+* **Resubmit If You Like**: This indicates that all of the code works as written and that you used Git, but that you may have missed some important concepts. Your are welcome to resubmit the assignment and address my comments to help polish the final product, but it is not required for you to get credit for the assignment.
+
+* **Good To Go**: All of your code works, you completed the necessary Git steps, and all of the pieces are there and polished. I may have some minor comments, but I don’t need you to address them for this assignment.
+
+
+:::{.callout-tip}
+**Late Work**: There is no such thing as 'late work' with these assignments. Life happens, sometimes things take longer to finish than you expect. If you turn it in, I'll give you feedback. That said, the assignments build on each other so it's probably best to avoid falling too far behind. 
+:::
+
+## Final project
+
+At the end of the course, you will demonstrate your knowledge of spatial analysis workflows through a final project that requires you to integrate a variety of spatial datasets, analyze the data with respect to a question of interest, and create visuals that help you interpret the data.
+
+[Complete details for the final project are here.](/assignment/final-proj.qmd)
+
+There is no final exam. This project is your final exam.

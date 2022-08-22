@@ -135,18 +135,26 @@ website:
             - assignment/index.qmd
         - section: "Self Assessments"
           contents:
-            - assignment/assignment/self-eval1.qmd
-            - assignment/assignment/self-eval2.qmd
-            - assignment/assignment/self-eval3.qmd
+            - text: "Self-reflection 1" 
+              file: assignment/self-eval1.qmd
+            - text: "Self-reflection 2" 
+              file: assignment/self-eval2.qmd
+            - text: "Self-reflection 3" 
+              file: assignment/self-eval3.qmd
         - section: "Homework"
           contents:
-            - assignment/01-intro.qmd
-            - assignment/02-spatialops.qmd
-            - assignment/03-spatialmod.qmd
-            - assignment/04-dataviz.qmd
+            - text: "Introducing the course" 
+              file: assignment/01-intro.qmd
+            - text: "Spatial Data Operations" 
+              file: assignment/02-spatialops.qmd
+            - text: "Spatial Models" 
+              file: assignment/03-spatialmod.qmd
+            - text: "Data Visualization" 
+              file: assignment/04-dataviz.qmd
         - section: "Final Project"
           contents:
-            - assignment/final-proj.qmd
+            - text: "Instructions" 
+              file: assignment/final-proj.qmd
 
     - title: "Examples"
       contents:
@@ -184,7 +192,7 @@ website:
         - section: "Guides"
           contents:
             - resource/install.qmd
-            - resource/markdown.qmd
+            - resource/r.qmd
             - resource/rmarkdown.qmd
             - resource/git.qmd
             

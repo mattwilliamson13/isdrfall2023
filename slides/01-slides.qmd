@@ -1,0 +1,228 @@
+---
+title: "Getting Started"
+subtitle: "HES 505 Fall 2022: Session 1"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+---
+
+# Welcome to Space!! {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
+
+::: footer 
+
+image courtesy of NASA/JPL-Caltech/Univ. of Ariz., Public domain, via Wikimedia Commons
+:::
+## Today's Plan {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
+
+:::{style="font-size: 1.2em; text-align: middle; margin-top: 2em"}
+- Introductions
+
+- Why (not) R?
+
+- Course logistics and resources
+
+- Testing out RStudio, git, and GitHub Classroom
+:::
+
+# Introductions {background="#0033A0"}
+
+## About Me
+
+::: columns
+::: {.column width="40%"}
+::: incremental
+-   What I do
+
+-   My path to this point
+
+-   Why I teach this course
+:::
+:::
+::: {.column width="60%"}
+![](img/slide_1/imp_resist.png){.absolute top="10"}
+:::
+:::
+
+## What about you? { background-image="img/slide_1/camasprairie.jpeg"}
+:::{style="font-size: 1.2em; text-align: center; margin-top: 2em"}
+- Where are you from?
+
+- What do you like most about Boise? 
+
+- What do you miss most about "home"?
+
+- What is your research?
+:::
+
+# Why (not) R? {background="#0033A0"}
+
+## Why R?
+
+::: columns
+::: {.column width="30%"}
+::: incremental
+
+-   Open Source
+
+-   Huge useR community
+
+-   Integrated analysis pipelines
+
+-   Reproducible workflows
+:::
+:::
+
+::: {.column width="70%"}
+
+::: panel-tabset
+### Code
+
+```{r}
+#| echo: true
+library(maps)
+library(socviz)
+library(tidyverse)
+party_colors <- c("#2E74C0", "#CB454A") 
+us_states <- map_data("state")
+election$region <- tolower(election$state)
+us_states_elec <- left_join(us_states, election)
+p0 <- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat,
+                           group = group, 
+                           fill = party))
+p1 <- p0 + geom_polygon(color = "gray90", 
+                        size = 0.1) +
+    coord_map(projection = "albers", 
+              lat0 = 39, lat1 = 45) 
+p2 <- p1 + scale_fill_manual(values = party_colors) +
+    labs(title = "Election Results 2016", 
+         fill = NULL)
+```
+
+### Plot
+
+```{r}
+#| echo: false
+p2
+```
+:::
+:::
+:::
+
+## Why not R? 
+
+::: columns
+::: {.column width="30%"}
+
+-   Coding can be hard...
+
+-   Memory challenges
+
+-   Speed
+
+-   Decision fatigue
+:::
+::: {.column width="70%"}
+```{r}
+#| echo: true
+## ---
+## Error: could not find function "performance"
+## ---
+##  [1] "Error in if (str_count(string = f[[j]], pattern = \"\\\\S+\") == 1) { : \n  argument is of length zero"   
+## ---
+## Error in eval(expr, envir, enclos) : object 'x' not found
+## ---
+## Error in file(file, "rt") : cannot open the connection
+## ---
+## Error in UseMethod("as.data.table") : 
+##   no applicable method for 'as.data.table' applied to an object of class "table"
+## ---
+```
+:::
+:::
+
+## Getting Help
+::: columns
+::: {.column width="50%"}
+- Google it!! 
+  - Use the exact error message
+  - Include the package name
+  - include "R" in the search
+:::
+::: {.column width="50%"}
+- Stack Overflow
+  - Reproducible examples 
+- Package "issue" pages
+- r_spatial slack channel
+- [Common errors](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md)
+:::
+:::
+::: {style="font-size: 1.2em; text-align: center"} 
+**Ask Me**
+:::
+
+# Class Details {background="#0033A0"}
+
+## Logistics { background-image="img/slide_1/bison.jpeg"}
+
+:::{style="font-size: 1.2em; text-align: center; margin-top: 2em; color:#fff"}
+- Meet on Mondays and Wednesdays
+
+- ~45 min lecture, 30 min practice
+
+- 4 major sections
+
+- Readings 
+:::
+
+## Course Webpage { background-image="img/slide_1/hellroaring.jpeg"}
+
+[https://isdrfall22.classes.spaseslab.com/](https://isdrfall22.classes.spaseslab.com/)
+
+:::{style="font-size: 1.2em; margin-top: 1.5em; color: #fff"}
+- Syllabus
+
+- Schedule
+
+- Lectures
+
+- Assignments
+
+- Resources
+:::
+
+## Assignments
+::: {style="font-size: 1.2em; text-align: center"} 
+**Check out the syllabus for more on grading!**
+:::
+::: incremental
+::: columns
+::: {.column width="50%"}
+- **Self-reflections** (3x)
+  - Your goals for the course
+  - Evaluation criteria
+  - Checking in
+
+- **Coding exercises** (4x)
+  - Problem solving
+  - Reproducible workflows
+  - Thinking critically
+:::
+::: {.column width="50%"}
+- **Final project** (1st draft, final draft)
+  - Practice a full analysis workflow
+  - Integrate analysis & visuals to tell a story
+::: 
+:::
+:::
+
+# Getting started {background="#0033A0"}
+
+## Orientation to RStudio and our RStudio server
+
+## Git and Github classroom
+
+### Introduce yourself to Git

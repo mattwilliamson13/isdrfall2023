@@ -1,0 +1,8 @@
+---
+title: "Authoring in Rmarkdown and Quarto"
+---
+
+[Rmarkdown] and [Quarto] are two powerful ways to combine writing (or presentations) and analysis into a single reproducible workflow. Although they can be a little more cumbersome to use than traditional word processors (e.g., Word or Pages) or presentation software (e.g., PowerPoint or Keynotes), they have the benefit of allowing you to keep all of the pieces of your manuscripts or presentations in one place. Change some data or analysis? The whole manuscript or presentation should update without forcing you to try and find all of the places where that change might alter your writing or slides. It may take a little getting used to, but the fact that both Rmarkdown and Quarto can utilize the power of LaTeX typesetting means that you'll ultimately be able to produce publication quality equations, tables, and figures all in one place. 
+
+*This webpage and all of my slides were built with Quarto* (and last year's was built with Rmarkdown and blogdown). Having gone through the process of learning how make that work, I'm convinced that having a working knowledge of one or both of these is useful. As such, you'll be using Rmarkdown or Quarto (your choice) to complete your assignments and render them to html. To help you get started here are a few links:
+

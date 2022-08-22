@@ -1,0 +1,46 @@
+---
+title: "Getting Started"
+date: "2022-08-22"
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "BIhz1dz5Vws", "Introductions", 'title', TRUE,
+  "f-sOSXyeeJE", "Why (not) R?", "why-not-r", FALSE,
+  "Z2foqSMWnGU", "Assignments, reflections, expectations", "Class Details", FALSE,
+  "D4LoEctZxHE", "Git and github classroom", "class-details", FALSE
+)
+```
+
+Today we'll focus on getting oriented to the course and the tools we'll be using throughout the semester. Readings are designed to help understand some of the 'rules' of R syntax and develop an understanding for manipulating different types of data in R.
+
+## Readings
+
+- The [syllabus](/syllabus.qmd), [content](/content/index.qmd), [examples](/example/index.qmd), and [assignments](/assigment/index.qmd) pages for this class
+
+- {{< fa book >}} [Chapter 1 - 6](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in Venables et al., *An Introduction to R* [@venables2009introduction] - for a quick refresher on data types in R (it's only 30 pages)
+
+- {{< fa arrow-up-right-from-square >}} [Chapters 1-2](https://intro2r.com/) in Douglas et al., *An Introduction to R* - provides another intro to R that's been updated and is an open-source book.
+
+- {{< fa arrow-up-right-from-square >}} [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) - all you really need to know to be a proficient user of git for version control and reproducible workflows.
+
+## Objectives
+By the end of today you should:
+
+* Be able to articulate the organization of the course, the approach to grading, and the requirements for the final project
+
+* Be able to access the RStudio Server and Github classroom
+
+* Be able to clone the first self-reflection and assignment and know the process for submitting assignments
+
+## Slides
+
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/01-slides")
+slide_tabs(slide_details, "/slides/01-slides.html")
+```

@@ -1,0 +1,5 @@
+---
+title: "Examples"
+---
+
+This section has some worked examples demonstrating the use of different packages and giving some 'roadmaps' for completing different spatial operations. These are mostly my opinions, your mileage may vary, but I'll try to justify why I do things the way that I do so that you can make an informed choice when you decide to deviate from that path.

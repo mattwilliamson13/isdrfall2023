@@ -1,0 +1,6 @@
+---
+title: "Last year's class"
+---
+
+Last year was the first time I taught this class in it's current format. I built a number of worked examples to try to clarify how different parts of a spatial workflow come together. Although the examples are far from perfect (I'm hoping this year's are better), the page does have a number of potentially useful pieces. Check out the [examples](https://isdrfall21.classes.spaseslab.com/example/) to access these.
+

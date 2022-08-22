@@ -1,0 +1,38 @@
+---
+title: "Basic Data Structures in R"
+subtitle: "HES 505 Fall 2022: Session 2"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+---
+
+## Today's Plan {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
+
+:::{style="font-size: 1.2em; text-align: middle; margin-top: 2em"}
+
+- Understanding data types and their role in `R`
+
+- Reading, subsetting, and manipulating data
+
+- Getting help
+:::
+
+# Data types and structures {background="#0033A0"}
+
+## Data types
+
+* Definition
+
+* Four most common
+  * __Numeric__
+  * __Integer__
+  * __Logical__
+  * __Character__
+  
+## Data structures
+
+
+  

@@ -1,0 +1,5 @@
+---
+title: "Resources"
+---
+
+I have included a bunch of extra resources and guides related to R and coding, potentially interesting data, and cool visualizations. Let me know when you find fun things to include here!

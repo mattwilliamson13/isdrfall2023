@@ -32,7 +32,7 @@
     "href": "assignment/final-proj.html#assessment",
     "title": "Final Project",
     "section": "Assessment",
-    "text": "Assessment\nYou’ll submit a draft of the final report on December 7. I’ll give you feedback based on your project and on your objectives for the course. Grading of the assignment will be based on the degree to which it demonstrates that you have achieved your own objectives for the course. Thus, when you are designing your project, make sure that you have your initial objectives in mind."
+    "text": "Assessment\nYou’ll submit a draft of the final report on December 7. I’ll give you feedback based on your project and on your objectives for the course. You’ll then have a chance to address my feedback before turning in your final draft on December 15. Your final self-assessment will ask you to reflect on your objectives for the course and evaluate the degree to which your final project demonstrates that you achieved your objectives. Thus, when you are designing your project, make sure that you have your initial objectives in mind.\n\n\n\n\n\n\nTip\n\n\n\nA note on grades: You will be responsible for assessing how well your assignment demonstrates that you achieved your objectives. I reserve the right to change the grade you’ve given yourself, but will provide clear justification for why I’m doing that. Without a completed self-assessment there is no grade for your final project, so please make sure you complete it."
   },
   {
     "objectID": "assignment/index.html",
@@ -144,14 +144,14 @@
     "href": "content/02-content.html#readings",
     "title": "Basic Data Structures in R",
     "section": "Readings",
-    "text": "Readings\n\n Chapter 3 in Douglas et al., An Introduction to R - provides another intro to R that’s been updated and is an open-source book.\n Writing the perfect question - a blogpost by Jon Skeet that describes the general etiquette for asking coding questions that are likely to get answered.\n [Reprex Do’s and Don’ts] (https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html) - provides an overview of the components of a reproducible example and the use of the reprex package to generate them."
+    "text": "Readings\n\n Chapter 3 in Douglas et al., An Introduction to R - provides another intro to R that’s been updated and is an open-source book.\n Writing the perfect question - a blogpost by Jon Skeet that describes the general etiquette for asking coding questions that are likely to get answered.\n Reprex Do’s and Don’ts - provides an overview of the components of a reproducible example and the use of the reprex package to generate them."
   },
   {
     "objectID": "content/02-content.html#objectives",
     "href": "content/02-content.html#objectives",
     "title": "Basic Data Structures in R",
     "section": "Objectives",
-    "text": "Objectives\nBy the end of today you should:\n\nBe able to articulate the organization of the course, the approach to grading, and the requirements for the final project\nBe able to access the RStudio Server and Github classroom\nBe able to clone the first self-reflection and assignment and know the process for submitting assignments"
+    "text": "Objectives\nBy the end of today you should:\n\nBe able to distinguish the major datatypes used in R and deploy functions to determine the data type of a given object.\nBe able to subset and manipulate data using base R and the tidyverse\nUnderstand the key elements of getting help with coding errors"
   },
   {
     "objectID": "content/02-content.html#slides",
@@ -439,5 +439,12 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
+  },
+  {
+    "objectID": "slides/02-slides.html#todays-plan",
+    "href": "slides/02-slides.html#todays-plan",
+    "title": "Basic Data Structures in R",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\n\nUnderstanding data types and their role in R\nReading, subsetting, and manipulating data\nGetting help"
   }
 ]
