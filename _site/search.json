@@ -364,6 +364,27 @@
     "text": "Git and Github classroom\nIntroduce yourself to Git"
   },
   {
+    "objectID": "slides/02-slides.html#todays-plan",
+    "href": "slides/02-slides.html#todays-plan",
+    "title": "Basic Data Structures in R",
+    "section": "Today’s Plan",
+    "text": "Today’s Plan\n\n\nUnderstanding data types and their role in R\nReading, subsetting, and manipulating data\nGetting help"
+  },
+  {
+    "objectID": "slides/02-slides.html#data-types",
+    "href": "slides/02-slides.html#data-types",
+    "title": "Basic Data Structures in R",
+    "section": "Data types",
+    "text": "Data types\n\nDefinition\nFour most common\n\nNumeric\nInteger\nLogical\nCharacter"
+  },
+  {
+    "objectID": "slides/02-slides.html#data-structures",
+    "href": "slides/02-slides.html#data-structures",
+    "title": "Basic Data Structures in R",
+    "section": "Data structures",
+    "text": "Data structures"
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "Syllabus",
@@ -439,12 +460,5 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
-  },
-  {
-    "objectID": "slides/02-slides.html#todays-plan",
-    "href": "slides/02-slides.html#todays-plan",
-    "title": "Basic Data Structures in R",
-    "section": "Today’s Plan",
-    "text": "Today’s Plan\n\n\nUnderstanding data types and their role in R\nReading, subsetting, and manipulating data\nGetting help"
   }
 ]
