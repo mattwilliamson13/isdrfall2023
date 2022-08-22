@@ -5,6 +5,7 @@ project:
   resources:
     - "files/"
     - "projects/"
+    - "assignment/"
     - "slides/*.html"
     - "slides/*.pdf"
     - "slides/img/"
@@ -153,8 +154,7 @@ website:
               file: assignment/04-dataviz.qmd
         - section: "Final Project"
           contents:
-            - text: "Instructions" 
-              file: assignment/final-proj.qmd
+            - assignment/final-proj.qmd
 
     - title: "Examples"
       contents:
