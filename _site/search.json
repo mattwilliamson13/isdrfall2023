@@ -179,7 +179,7 @@
     "href": "index.html",
     "title": "Intro to Spatial Data in R",
     "section": "",
-    "text": "Instructor\n\n   Dr. Matt Williamson\n   4123 Environmental Research Building\n   mattwilliamson@boisestate.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\nCourse details\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:30–2:45 PM\n   Mathematics 126\n   Slack\n\n\n\nContacting me\nE-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 48 hours (really), but also remember that life can be busy and chaotic for everyone (including me!), so if I don’t respond right away, don’t worry!"
+    "text": "Instructor\n\n   Dr. Matt Williamson\n   4125 Environmental Research Building\n   mattwilliamson@boisestate.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\nCourse details\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:30–2:45 PM\n   Mathematics 126\n   Slack\n\n\n\nContacting me\nE-mail and Slack are the best ways to get in contact with me. I will try to respond to all course-related e-mails and Slack messages within 48 hours (really), but also remember that life can be busy and chaotic for everyone (including me!), so if I don’t respond right away, don’t worry!"
   },
   {
     "objectID": "resource/data.html",
@@ -403,21 +403,21 @@
     "href": "slides/02-slides.html#data-types",
     "title": "Basic Data Structures in R",
     "section": "Data types",
-    "text": "Data types\n\nDefinition\nFour most common\n\nNumeric\nInteger\nLogical\nCharacter"
+    "text": "Data types\n\nThe basic schema that R uses to store data.\nCreates expectations for allowable values\nSets the “rules” for how your data can be manipulated\nAffects storage and combination with other data types\nFour most common: Logical, Numeric, Integer, Character\nMost data structures in R combine various versions of these types"
   },
   {
     "objectID": "slides/02-slides.html#data-structures",
     "href": "slides/02-slides.html#data-structures",
     "title": "Basic Data Structures in R",
     "section": "Data structures",
-    "text": "Data structures"
+    "text": "Data structures\n\nLots of options for how R stores data\nStructure determines which functions work and how they behave\nlength(), str(), summary(), head(), and tail() can help you explore\nMost of the RSpatial data structures build on these basic structures"
   },
   {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "Syllabus",
     "section": "",
-    "text": "Dr. Matt Williamson\n   4123 Environmental Research Building\n   mattwilliamson@boisestate.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\n\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:30–2:45 PM\n   Mathematics 126\n   Slack"
+    "text": "Dr. Matt Williamson\n   4125 Environmental Research Building\n   mattwilliamson@boisestate.edu\n   MwilliamsonMatt\n   Schedule an appointment\n\n\n\n\n\n   Mondays and Wednesdays\n   August 22–December 16, 2022\n   1:30–2:45 PM\n   Mathematics 126\n   Slack"
   },
   {
     "objectID": "syllabus.html#course-description",
@@ -488,5 +488,103 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
+  },
+  {
+    "objectID": "slides/02-slides.html#logical-data",
+    "href": "slides/02-slides.html#logical-data",
+    "title": "Basic Data Structures in R",
+    "section": "Logical Data",
+    "text": "Logical Data\n\nData take on the value of either TRUE or FALSE.\nSpecial type of logical called NA to represent missing values\nCan be coerced to integers when numeric data is requires (TRUE = 1; FALSE = 0)"
+  },
+  {
+    "objectID": "slides/02-slides.html#numeric-data",
+    "href": "slides/02-slides.html#numeric-data",
+    "title": "Basic Data Structures in R",
+    "section": "Numeric Data",
+    "text": "Numeric Data\n\nAll of the elements of an object (or variable) are numbers that could have decimals\nR can store this as either double (at least 2 decimal points) or integer\n\n\nx <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10\ntypeof(x) #how is R storing the object?\n\n[1] \"double\"\n\nclass(x) #describes how R will treat the object \n\n[1] \"numeric\""
+  },
+  {
+    "objectID": "slides/02-slides.html#integer-data",
+    "href": "slides/02-slides.html#integer-data",
+    "title": "Basic Data Structures in R",
+    "section": "Integer Data",
+    "text": "Integer Data\n\nInteger data is a special case of numeric data with no decimals\n\n\nmode(x) <- \"integer\"\nx\n\n [1] -1  9  9 -2  9  6 -1 -6 -6 -9\n\nclass(x)\n\n[1] \"integer\"\n\ntypeof(x)\n\n[1] \"integer\"\n\nz <- sample.int(100, size=10) #sample 10 integers between 1 and 100\ntypeof(z)\n\n[1] \"integer\"\n\nclass(z)\n\n[1] \"integer\""
+  },
+  {
+    "objectID": "slides/02-slides.html#character",
+    "href": "slides/02-slides.html#character",
+    "title": "Basic Data Structures in R",
+    "section": "Character",
+    "text": "Character\n\nRepresent string values\nStrings tend to be a word or multiple words\nCan be used with logical tests\n\n\nchar <- c(\"Sarah\", \"Tracy\", \"Jon\") #use c() to combine multiple entries\ntypeof(char)\n\n[1] \"character\"\n\nchar == \"Jon\"\n\n[1] FALSE FALSE  TRUE\n\nchar[char==\"Jon\"] <- \"Jeff\"\nchar\n\n[1] \"Sarah\" \"Tracy\" \"Jeff\""
+  },
+  {
+    "objectID": "slides/02-slides.html#factors",
+    "href": "slides/02-slides.html#factors",
+    "title": "Basic Data Structures in R",
+    "section": "Factors",
+    "text": "Factors\n\nA special case of character data\nData contains a limited number of possible character strings (categorical variables)\nThe levels of a factor describe the possible values (all others coerced to NA)\n\n\n(sex <- factor(c(\"female\", \"female\", \"male\", \"female\", \"male\")))  #by default levels are ordered alphabetically\n\n[1] female female male   female male  \nLevels: female male\n\n(sex <- factor(sex, levels = c(\"male\", \"female\"))) #changing the order of the levels\n\n[1] female female male   female male  \nLevels: male female"
+  },
+  {
+    "objectID": "slides/02-slides.html#coercion",
+    "href": "slides/02-slides.html#coercion",
+    "title": "Basic Data Structures in R",
+    "section": "Coercion",
+    "text": "Coercion\n\nSometimes certain functions require a particular class of data require conversion (or coercion)\nChanging the mode can do this implicitly\nWe can use the as.xxx command to do it explicitly\n\n\ntext <- c(\"test1\", \"test2\", \"test1\", \"test1\") # create a character vector\nclass(text)\n\n[1] \"character\"\n\ntext_factor <- as.factor(text) # transform to factor\nclass(text_factor) # recheck the class\n\n[1] \"factor\"\n\nlevels(text_factor)\n\n[1] \"test1\" \"test2\"\n\nas.numeric(text_factor)\n\n[1] 1 2 1 1"
+  },
+  {
+    "objectID": "slides/02-slides.html#logical-data-contd",
+    "href": "slides/02-slides.html#logical-data-contd",
+    "title": "Basic Data Structures in R",
+    "section": "Logical Data (cont’d)",
+    "text": "Logical Data (cont’d)\n\nCan be the outcome of logical test\n\n\nx <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10\n(y <- x > 5) #test whether the values are greater than 5 and assign to object y\n\n [1] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE\n\ntypeof(y) #how is R storing the object?\n\n[1] \"logical\"\n\nmean(y) #gives the proportion of y that is greater than 5\n\n[1] 0.4\n\nx[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA\nis.na(x) #check which values are NA\n\n [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE"
+  },
+  {
+    "objectID": "slides/02-slides.html#character-data",
+    "href": "slides/02-slides.html#character-data",
+    "title": "Basic Data Structures in R",
+    "section": "Character Data",
+    "text": "Character Data\n\nRepresent string values\nStrings tend to be a word or multiple words\nCan be used with logical tests\n\n\nchar <- c(\"Sarah\", \"Tracy\", \"Jon\") #use c() to combine multiple entries\ntypeof(char)\n\n[1] \"character\"\n\nchar == \"Jon\"\n\n[1] FALSE FALSE  TRUE\n\nchar[char==\"Jon\"] <- \"Jeff\"\nchar\n\n[1] \"Sarah\" \"Tracy\" \"Jeff\""
+  },
+  {
+    "objectID": "slides/02-slides.html#vectors",
+    "href": "slides/02-slides.html#vectors",
+    "title": "Basic Data Structures in R",
+    "section": "Vectors",
+    "text": "Vectors\n\nA 1-dimensional collection of elements with the same data type\nCombining two datatypes makes R choose\n\n\nseries.1 <- seq(10)\nseries.2 <- seq(from = 0.5, to = 5, by = 0.5)\nseries.abc <- letters[1:10]\nlength(series.1)\n\n[1] 10\n\nlength(series.2)\n\n[1] 10\n\nclass(c(series.abc, series.1)) #combine characters with numbers\n\n[1] \"character\""
+  },
+  {
+    "objectID": "slides/02-slides.html#vectors-contd",
+    "href": "slides/02-slides.html#vectors-contd",
+    "title": "Basic Data Structures in R",
+    "section": "Vectors (cont’d)",
+    "text": "Vectors (cont’d)\n\nCan combine them or perform ‘vectorized’ operations\n\n\nseries.comb <- c(series.1, series.2)\nlength(series.comb)\n\n[1] 20\n\nseries.add <- series.1 + series.2\nlength(series.add)\n\n[1] 10\n\nhead(series.add)\n\n[1] 1.5 3.0 4.5 6.0 7.5 9.0\n\n\n\nWhat happens if you try to add the character vector to the numeric vector?"
+  },
+  {
+    "objectID": "slides/02-slides.html#matrices",
+    "href": "slides/02-slides.html#matrices",
+    "title": "Basic Data Structures in R",
+    "section": "Matrices",
+    "text": "Matrices\n\nAn extension of the numeric or character vectors to include 2-dimensions (rows and columns)\nArrays extend the idea to multiple dimensions\nElements of matrix must have the same data type\n\n\n(m <- matrix(1:6, nrow = 2, ncol = 3)) #default is to fill by columns\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\ndim(m)\n\n[1] 2 3\n\n(m <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE))\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n\ndim(m)\n\n[1] 2 3"
+  },
+  {
+    "objectID": "slides/02-slides.html#lists",
+    "href": "slides/02-slides.html#lists",
+    "title": "Basic Data Structures in R",
+    "section": "Lists",
+    "text": "Lists"
+  },
+  {
+    "objectID": "slides/02-slides.html#data-frames",
+    "href": "slides/02-slides.html#data-frames",
+    "title": "Basic Data Structures in R",
+    "section": "Data Frames",
+    "text": "Data Frames"
+  },
+  {
+    "objectID": "slides/02-slides.html#tibbles",
+    "href": "slides/02-slides.html#tibbles",
+    "title": "Basic Data Structures in R",
+    "section": "Tibbles",
+    "text": "Tibbles"
   }
 ]

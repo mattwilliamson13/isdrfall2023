@@ -32,8 +32,9 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
+$light:         $gray-300 !default;
 $dark:          $gray-800 !default;
+$code-block-bg: $gray-300  !default;
 
 $font-family-sans-serif:      Fira Sans Condensed, sans-serif !default;
 $font-family-serif:           Barlow, serif !default;  /* Not actually a serif font but whatever */
@@ -57,7 +58,7 @@ $link-color: $orange;
 $link-hover-color: $red;
 
 $monokai-bg: #2e3440;
-
+$code-block-bg: lighten(#0033A0, 70%);
 
 /*-- scss:rules --*/
 h2 {
@@ -256,6 +257,7 @@ main {
 // Shrink blocks of code
 pre.text, pre.sourceCode, .cell-output pre {
   font-size: 0.775em;
+  background-color: $code-block-bg;
 }
 
 // Slight bottom margin to output
@@ -273,11 +275,12 @@ pre.text, pre.sourceCode, .cell-output pre {
 .cell-output, pre.text {
   border: none;
   padding: .4em;
-  background-color: $monokai-bg;
+  background-color: $code-block-bg;
   border: 1px solid $monokai-bg;
   border-radius: .25rem;
 }
 
 pre.text {
-  color: #ffffff;
+  color: #0c368a;
 }
+

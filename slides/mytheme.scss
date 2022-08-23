@@ -10,6 +10,9 @@ $body-color: #000 !default;
 $link-color: #D64309 !default;
 $selection-bg: #26351c !default;
 $text-muted: lighten(#D64309, 30%);
+$code-color: #cc0000;
+$code-block-bg: #daeff2;
+$code-block-border-color: #000000;
 
 // headings
 $presentation-heading-font: "Palatino Linotype", "Book Antiqua", Palatino,
@@ -20,4 +23,21 @@ $presentation-heading-color: #D64309 !default;
 
 .reveal a {
   line-height: 1.3em;
+}
+
+.reveal pre code {
+  background-color: $body-bg;
+  color: $body-color;
+}
+
+.reveal pre.sourceCode code {
+  @if variable-exists(code-block-color) {
+    color: $code-block-color;
+  }
+
+  background-color: $code-block-bg;
+  color: $body-color;
+  padding: 6px 9px;
+  max-height: 500px;
+  white-space: pre;
 }

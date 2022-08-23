@@ -265,7 +265,7 @@ gitcreds::gitcreds_get()
 
 ## Joining the assignment and cloning the repo
 
-1. Click this [link](ttps://classroom.github.com/a/BscSehQr)
+1. Click this [link](https://classroom.github.com/a/BscSehQr)
 
 2. Bring the project into RStudio
 
@@ -294,3 +294,6 @@ gitcreds::gitcreds_get()
 2. What can I clarify about the course?
 
 3. How do you feel about git and github classroom? How can I make that easier for you?
+
+# End
+

@@ -24,16 +24,158 @@ format:
 
 ## Data types
 
-* Definition
+* The basic schema that `R` uses to store data.
+ * Creates expectations for allowable values
+ * Sets the "rules" for how your data can be manipulated
+ * Affects storage and combination with other data types
 
-* Four most common
-  * __Numeric__
-  * __Integer__
-  * __Logical__
-  * __Character__
-  
+* Four most common: __Logical__, __Numeric__, __Integer__, __Character__
+
+* Most data structures in `R` combine various versions of these types 
+
+## Logical Data
+
+* Data take on the value of either `TRUE` or `FALSE`. 
+* Special type of logical called `NA` to represent missing values
+* Can be coerced to integers when numeric data is requires (`TRUE` = 1; `FALSE` = 0)
+
+## Logical Data (cont'd)
+* Can be the outcome of logical test
+```{r}
+#| echo: true
+x <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10
+(y <- x > 5) #test whether the values are greater than 5 and assign to object y
+typeof(y) #how is R storing the object?
+mean(y) #gives the proportion of y that is greater than 5
+x[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA
+is.na(x) #check which values are NA
+```
+
+## Numeric Data
+
+* All of the elements of an object (or variable) are numbers that _could_ have decimals
+* `R` can store this as either _double_ (at least 2 decimal points) or _integer_
+
+```{r}
+#| echo: true
+x <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10
+typeof(x) #how is R storing the object?
+class(x) #describes how R will treat the object 
+```
+
+## Integer Data
+* __Integer__ data is a special case of numeric data with no decimals
+
+```{r}
+#| echo: true
+mode(x) <- "integer"
+x
+class(x)
+typeof(x)
+
+z <- sample.int(100, size=10) #sample 10 integers between 1 and 100
+typeof(z)
+class(z)
+```
+
+## Character Data
+
+* Represent _string_ values
+* __Strings__ tend to be a word or multiple words
+* Can be used with logical tests
+
+```{r}
+#| echo: true
+char <- c("Sarah", "Tracy", "Jon") #use c() to combine multiple entries
+typeof(char)
+char == "Jon"
+char[char=="Jon"] <- "Jeff"
+char
+```
+
+## Factors
+
+* A special case of character data
+
+* Data contains a limited number of possible character strings (categorical variables)
+
+* The `levels` of a factor describe the possible values (all others coerced to `NA`)
+
+```{r}
+#| echo: true
+(sex <- factor(c("female", "female", "male", "female", "male")))  #by default levels are ordered alphabetically
+(sex <- factor(sex, levels = c("male", "female"))) #changing the order of the levels
+
+```
+
+## Coercion
+
+* Sometimes certain functions require a particular `class` of data require conversion (or coercion)
+* Changing the `mode` can do this implicitly
+* We can use the `as.xxx` command to do it explicitly
+
+```{r}
+#| echo: true
+text <- c("test1", "test2", "test1", "test1") # create a character vector
+class(text)
+text_factor <- as.factor(text) # transform to factor
+class(text_factor) # recheck the class
+levels(text_factor)
+as.numeric(text_factor)
+```
+
 ## Data structures
+* Lots of options for how `R` stores data
+* Structure determines which functions work and how they behave
+* `length()`, `str()`, `summary()`, `head()`, and `tail()` can help you explore
+* Most of the `RSpatial` data structures build on these basic structures
 
+## Vectors
+* A 1-dimensional collection of elements with the same data type
+* Combining two datatypes makes `R` choose
+
+```{r}
+#| echo: true
+series.1 <- seq(10)
+series.2 <- seq(from = 0.5, to = 5, by = 0.5)
+series.abc <- letters[1:10]
+length(series.1)
+length(series.2)
+class(c(series.abc, series.1)) #combine characters with numbers
+```
+
+## Vectors (cont'd)
+* Can combine them or perform 'vectorized' operations
+
+```{r}
+#| echo: true
+series.comb <- c(series.1, series.2)
+length(series.comb)
+series.add <- series.1 + series.2
+length(series.add)
+head(series.add)
+```
+* __What happens if you try to add the character vector to the numeric vector?__
+
+## Matrices
+
+* An extension of the numeric or character vectors to include 2-dimensions (rows and columns)
+* Arrays extend the idea to multiple dimensions
+* Elements of matrix must have the same data type
+
+```{r}
+#| echo: true
+(m <- matrix(1:6, nrow = 2, ncol = 3)) #default is to fill by columns
+dim(m)
+(m <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE))
+```
+## Lists
+* Hold a variety of different data types and structures including more lists. 
+* Use a lot for functional programming (next week).
+
+## Data Frames
+
+## Tibbles
 # Manipulating data in R {background="#0033A0"}
 
 # Getting help {background="#0033A0"}
