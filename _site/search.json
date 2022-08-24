@@ -392,18 +392,25 @@
     "text": "Checking in\n\nWhat are some advantages and disadvantages of using R for spatial analysis\nWhat can I clarify about the course?\nHow do you feel about git and github classroom? How can I make that easier for you?"
   },
   {
+    "objectID": "slides/02-slides.html#checking-in",
+    "href": "slides/02-slides.html#checking-in",
+    "title": "Basic Data Structures in R",
+    "section": "Checking in",
+    "text": "Checking in\n\nWhat are some advantages and disadvantages of using R for spatial analysis\nWhat can I clarify about the course?\nHow do you feel about git and github classroom? How can I make that easier for you?"
+  },
+  {
     "objectID": "slides/02-slides.html#todays-plan",
     "href": "slides/02-slides.html#todays-plan",
     "title": "Basic Data Structures in R",
     "section": "Today’s Plan",
-    "text": "Today’s Plan\n\n\nUnderstanding data types and their role in R\nReading, subsetting, and manipulating data\nGetting help"
+    "text": "Today’s Plan\n\n\nUnderstanding data types and their role in R\nReading, subsetting, and manipulating data\nGetting help\nFirst assignment is live!"
   },
   {
     "objectID": "slides/02-slides.html#data-types",
     "href": "slides/02-slides.html#data-types",
     "title": "Basic Data Structures in R",
     "section": "Data types",
-    "text": "Data types\n\nThe basic schema that R uses to store data.\nCreates expectations for allowable values\nSets the “rules” for how your data can be manipulated\nAffects storage and combination with other data types\nFour most common: Logical, Numeric, Integer, Character\nMost data structures in R combine various versions of these types"
+    "text": "Data types\n\n\nThe basic schema that R uses to store data.\nCreates expectations for allowable values\nSets the “rules” for how your data can be manipulated\nAffects storage and combination with other data types\nFour most common: Logical, Numeric, Integer, Character"
   },
   {
     "objectID": "slides/02-slides.html#logical-data",
@@ -417,7 +424,7 @@
     "href": "slides/02-slides.html#logical-data-contd",
     "title": "Basic Data Structures in R",
     "section": "Logical Data (cont’d)",
-    "text": "Logical Data (cont’d)\n\nCan be the outcome of logical test\n\n\nx <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10\n(y <- x > 5) #test whether the values are greater than 5 and assign to object y\n\n [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE\n\ntypeof(y) #how is R storing the object?\n\n[1] \"logical\"\n\nmean(y) #gives the proportion of y that is greater than 5\n\n[1] 0.2\n\nx[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA\nis.na(x) #check which values are NA\n\n [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE"
+    "text": "Logical Data (cont’d)\n\nCan be the outcome of logical test\n\n\nx <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10\n(y <- x > 5) #test whether the values are greater than 5 and assign to object y\n\n [1]  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE\n\ntypeof(y) #how is R storing the object?\n\n[1] \"logical\"\n\nmean(y) #gives the proportion of y that is greater than 5\n\n[1] 0.5\n\nx[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA\nis.na(x) #check which values are NA\n\n [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE"
   },
   {
     "objectID": "slides/02-slides.html#numeric-data",
@@ -431,7 +438,7 @@
     "href": "slides/02-slides.html#integer-data",
     "title": "Basic Data Structures in R",
     "section": "Integer Data",
-    "text": "Integer Data\n\nInteger data is a special case of numeric data with no decimals\n\n\nmode(x) <- \"integer\"\nx\n\n [1]  9 -1  0  9  4 -5  0 -9 -8  1\n\nclass(x)\n\n[1] \"integer\"\n\ntypeof(x)\n\n[1] \"integer\"\n\nz <- sample.int(100, size=10) #sample 10 integers between 1 and 100\ntypeof(z)\n\n[1] \"integer\"\n\nclass(z)\n\n[1] \"integer\""
+    "text": "Integer Data\n\nInteger data is a special case of numeric data with no decimals\n\n\nmode(x) <- \"integer\"\nx\n\n [1]  0 -5  8 -1 -9  7  7 -6  8  0\n\nclass(x)\n\n[1] \"integer\"\n\ntypeof(x)\n\n[1] \"integer\"\n\nz <- sample.int(100, size=10) #sample 10 integers between 1 and 100\ntypeof(z)\n\n[1] \"integer\"\n\nclass(z)\n\n[1] \"integer\""
   },
   {
     "objectID": "slides/02-slides.html#character-data",
@@ -452,7 +459,7 @@
     "href": "slides/02-slides.html#coercion",
     "title": "Basic Data Structures in R",
     "section": "Coercion",
-    "text": "Coercion\n\nSometimes certain functions require a particular class of data require conversion (or coercion)\nChanging the mode can do this implicitly\nWe can use the as.xxx command to do it explicitly\n\n\ntext <- c(\"test1\", \"test2\", \"test1\", \"test1\") # create a character vector\nclass(text)\n\n[1] \"character\"\n\ntext_factor <- as.factor(text) # transform to factor\nclass(text_factor) # recheck the class\n\n[1] \"factor\"\n\nlevels(text_factor)\n\n[1] \"test1\" \"test2\"\n\nas.numeric(text_factor)\n\n[1] 1 2 1 1"
+    "text": "Coercion\n\nSometimes certain functions require a particular class of data require conversion (or coercion)\nmode - implicitly; as.xxx - explicitly\n\n\ntext <- c(\"test1\", \"test2\", \"test1\", \"test1\") # create a character vector\nclass(text)\n\n[1] \"character\"\n\ntext_factor <- as.factor(text) # transform to factor\nclass(text_factor) # recheck the class\n\n[1] \"factor\"\n\nlevels(text_factor)\n\n[1] \"test1\" \"test2\"\n\nas.numeric(text_factor)\n\n[1] 1 2 1 1"
   },
   {
     "objectID": "slides/02-slides.html#data-structures",
@@ -487,35 +494,35 @@
     "href": "slides/02-slides.html#lists",
     "title": "Basic Data Structures in R",
     "section": "Lists",
-    "text": "Lists\n\nHold a variety of different data types and structures including more lists.\nUse a lot for functional programming (next week).\n\n\n(x <- list(1, \"a\", TRUE, 1+4))\n\n[[1]]\n[1] 1\n\n[[2]]\n[1] \"a\"\n\n[[3]]\n[1] TRUE\n\n[[4]]\n[1] 5"
+    "text": "Lists\n\nHold a variety of different data types and structures including more lists.\nUse a lot for functional programming (next week).\n\n\n(xlist <- list(a = \"Waldo\", b = 1:10, data = head(mtcars)))\n\n$a\n[1] \"Waldo\"\n\n$b\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$data\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1"
   },
   {
     "objectID": "slides/02-slides.html#lists-contd",
     "href": "slides/02-slides.html#lists-contd",
     "title": "Basic Data Structures in R",
     "section": "Lists (cont’d)",
-    "text": "Lists (cont’d)\n\nLists store information in slots\nAdding names to a list can help with accessing data\n\n\n(xlist <- list(a = \"Waldo\", b = 1:10, data = head(mtcars)))\n\n$a\n[1] \"Waldo\"\n\n$b\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$data\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1\n\nnames(xlist)\n\n[1] \"a\"    \"b\"    \"data\"\n\nclass(xlist$data)\n\n[1] \"data.frame\""
+    "text": "Lists (cont’d)\n\nLists store information in slots\nAdding names to a list can help with accessing data\n\n\nnames(xlist)\n\n[1] \"a\"    \"b\"    \"data\"\n\nclass(xlist$data)\n\n[1] \"data.frame\""
   },
   {
     "objectID": "slides/02-slides.html#data-frames",
     "href": "slides/02-slides.html#data-frames",
     "title": "Basic Data Structures in R",
     "section": "Data Frames",
-    "text": "Data Frames\n\nResemble tabular datasets used in spreadsheet programs\nLong vs. wide data\nSpecial type of list where every element has the same length (but can have different types of data)\n\n\n(dat <- data.frame(id = letters[1:5], x = 1:5, y = rep(date(),times=5 )))\n\n  id x                        y\n1  a 1 Wed Aug 24 10:50:03 2022\n2  b 2 Wed Aug 24 10:50:03 2022\n3  c 3 Wed Aug 24 10:50:03 2022\n4  d 4 Wed Aug 24 10:50:03 2022\n5  e 5 Wed Aug 24 10:50:03 2022\n\nis.list(dat)\n\n[1] TRUE\n\nclass(dat)\n\n[1] \"data.frame\""
+    "text": "Data Frames\n\nResemble tabular datasets used in spreadsheet programs\nLong vs. wide data\nSpecial type of list where every element has the same length (but can have different types of data)\n\n\n(dat <- data.frame(id = letters[1:5], x = 1:5, y = rep(date(),times=5 )))\n\n  id x                        y\n1  a 1 Wed Aug 24 12:59:21 2022\n2  b 2 Wed Aug 24 12:59:21 2022\n3  c 3 Wed Aug 24 12:59:21 2022\n4  d 4 Wed Aug 24 12:59:21 2022\n5  e 5 Wed Aug 24 12:59:21 2022\n\nis.list(dat)\n\n[1] TRUE\n\nclass(dat)\n\n[1] \"data.frame\""
   },
   {
     "objectID": "slides/02-slides.html#data-frames-contd",
     "href": "slides/02-slides.html#data-frames-contd",
     "title": "Basic Data Structures in R",
     "section": "Data Frames (cont’d)",
-    "text": "Data Frames (cont’d)\n\nLots of ways to access and summarize data in data frames\nUseful for making sure your functions are working as intended\n\n\nstr(dat) #compact summary of the structure of a dataframe\n\n'data.frame':   5 obs. of  3 variables:\n $ id: chr  \"a\" \"b\" \"c\" \"d\" ...\n $ x : int  1 2 3 4 5\n $ y : chr  \"Wed Aug 24 10:50:03 2022\" \"Wed Aug 24 10:50:03 2022\" \"Wed Aug 24 10:50:03 2022\" \"Wed Aug 24 10:50:03 2022\" ...\n\nsummary(dat) #estimate summary statistics of data frame\n\n      id                  x          y            \n Length:5           Min.   :1   Length:5          \n Class :character   1st Qu.:2   Class :character  \n Mode  :character   Median :3   Mode  :character  \n                    Mean   :3                     \n                    3rd Qu.:4                     \n                    Max.   :5"
+    "text": "Data Frames (cont’d)\n\nLots of ways to access and summarize data in data frames\nUseful for making sure your functions are working as intended\n\n\nstr(dat) #compact summary of the structure of a dataframe\n\n'data.frame':   5 obs. of  3 variables:\n $ id: chr  \"a\" \"b\" \"c\" \"d\" ...\n $ x : int  1 2 3 4 5\n $ y : chr  \"Wed Aug 24 12:59:21 2022\" \"Wed Aug 24 12:59:21 2022\" \"Wed Aug 24 12:59:21 2022\" \"Wed Aug 24 12:59:21 2022\" ...\n\nsummary(dat) #estimate summary statistics of data frame\n\n      id                  x          y            \n Length:5           Min.   :1   Length:5          \n Class :character   1st Qu.:2   Class :character  \n Mode  :character   Median :3   Mode  :character  \n                    Mean   :3                     \n                    3rd Qu.:4                     \n                    Max.   :5"
   },
   {
     "objectID": "slides/02-slides.html#data-frames-one-more-time",
     "href": "slides/02-slides.html#data-frames-one-more-time",
     "title": "Basic Data Structures in R",
     "section": "Data Frames (one more time)",
-    "text": "Data Frames (one more time)\n\nSpecial cases of names (colnames and rownames)\n\n\ncolnames(dat) #get the names of the variables stored in the data frame\n\n[1] \"id\" \"x\"  \"y\" \n\ndat$y\n\n[1] \"Wed Aug 24 10:50:03 2022\" \"Wed Aug 24 10:50:03 2022\"\n[3] \"Wed Aug 24 10:50:03 2022\" \"Wed Aug 24 10:50:03 2022\"\n[5] \"Wed Aug 24 10:50:03 2022\""
+    "text": "Data Frames (one more time)\n\nSpecial cases of names (colnames and rownames)\n\n\ncolnames(dat) #get the names of the variables stored in the data frame\n\n[1] \"id\" \"x\"  \"y\" \n\ndat$y\n\n[1] \"Wed Aug 24 12:59:21 2022\" \"Wed Aug 24 12:59:21 2022\"\n[3] \"Wed Aug 24 12:59:21 2022\" \"Wed Aug 24 12:59:21 2022\"\n[5] \"Wed Aug 24 12:59:21 2022\""
   },
   {
     "objectID": "slides/02-slides.html#tibbles",
@@ -550,7 +557,7 @@
     "href": "slides/02-slides.html#reading-data-contd-1",
     "title": "Basic Data Structures in R",
     "section": "Reading Data (cont’d)",
-    "text": "Reading Data (cont’d)\n\n\n   \"speed\"              \"dist\"    \n Length:50          Min.   : 4.0  \n Class :character   1st Qu.:12.0  \n Mode  :character   Median :15.0  \n                    Mean   :15.4  \n                    3rd Qu.:19.0  \n                    Max.   :25.0  \n\n\n# A tibble: 6 × 2\n  `\"speed\"` `\"dist\"`\n  <chr>        <dbl>\n1 \"\\\"1\\\"\"          4\n2 \"\\\"2\\\"\"          4\n3 \"\\\"3\\\"\"          7\n4 \"\\\"4\\\"\"          7\n5 \"\\\"5\\\"\"          8\n6 \"\\\"6\\\"\"          9\n\n\nWhat do you notice??"
+    "text": "Reading Data (cont’d)\n\nsummary(cars_tv)\n\n   \"speed\"              \"dist\"    \n Length:50          Min.   : 4.0  \n Class :character   1st Qu.:12.0  \n Mode  :character   Median :15.0  \n                    Mean   :15.4  \n                    3rd Qu.:19.0  \n                    Max.   :25.0  \n\nhead(cars_tv)\n\n# A tibble: 6 × 2\n  `\"speed\"` `\"dist\"`\n  <chr>        <dbl>\n1 \"\\\"1\\\"\"          4\n2 \"\\\"2\\\"\"          4\n3 \"\\\"3\\\"\"          7\n4 \"\\\"4\\\"\"          7\n5 \"\\\"5\\\"\"          8\n6 \"\\\"6\\\"\"          9\n\n\nWhat do you notice??"
   },
   {
     "objectID": "slides/02-slides.html#selecting-data",
@@ -606,11 +613,18 @@
     "href": "slides/02-slides.html#changing-data-1",
     "title": "Basic Data Structures in R",
     "section": "Changing Data",
-    "text": "Changing Data\n\nCreating new variables\nCan use $\n\n\nhead(mtcars, 3)\n\n               mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\n\nmtcars$hpwt <- mtcars$hp/mtcars$wt\nhead(mtcars[,c(1, 5:12)],3)\n\n               mpg drat    wt  qsec vs am gear carb     hpwt\nMazda RX4     21.0 3.90 2.620 16.46  0  1    4    4 41.98473\nMazda RX4 Wag 21.0 3.90 2.875 17.02  0  1    4    4 38.26087\nDatsun 710    22.8 3.85 2.320 18.61  1  1    4    1 40.08621\n\n\n## Changing Data\n\nCreating new variables\nUsing tidyverse, mutate creates new variables for the entire dataset\n\n\nmtcars_update <- mtcars %>% \n  mutate(., hpwt = hp/wt)\nhead(mtcars_update[,c(1, 5:12)], 3)\n\n               mpg drat    wt  qsec vs am gear carb     hpwt\nMazda RX4     21.0 3.90 2.620 16.46  0  1    4    4 41.98473\nMazda RX4 Wag 21.0 3.90 2.875 17.02  0  1    4    4 38.26087\nDatsun 710    22.8 3.85 2.320 18.61  1  1    4    1 40.08621"
+    "text": "Changing Data\n\nCreating new variables\nCan use $\n\n\nhead(mtcars, 3)\n\n               mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\n\nmtcars$hpwt <- mtcars$hp/mtcars$wt\nhead(mtcars[,c(1, 5:12)],3)\n\n               mpg drat    wt  qsec vs am gear carb     hpwt\nMazda RX4     21.0 3.90 2.620 16.46  0  1    4    4 41.98473\nMazda RX4 Wag 21.0 3.90 2.875 17.02  0  1    4    4 38.26087\nDatsun 710    22.8 3.85 2.320 18.61  1  1    4    1 40.08621"
   },
   {
     "objectID": "slides/02-slides.html#changing-data-2",
     "href": "slides/02-slides.html#changing-data-2",
+    "title": "Basic Data Structures in R",
+    "section": "Changing Data",
+    "text": "Changing Data\n\nCreating new variables\nUsing tidyverse, mutate creates new variables for the entire dataset\n\n\nmtcars_update <- mtcars %>% \n  mutate(., hpwt = hp/wt)\nhead(mtcars_update[,c(1, 5:12)], 3)\n\n               mpg drat    wt  qsec vs am gear carb     hpwt\nMazda RX4     21.0 3.90 2.620 16.46  0  1    4    4 41.98473\nMazda RX4 Wag 21.0 3.90 2.875 17.02  0  1    4    4 38.26087\nDatsun 710    22.8 3.85 2.320 18.61  1  1    4    1 40.08621"
+  },
+  {
+    "objectID": "slides/02-slides.html#changing-data-3",
+    "href": "slides/02-slides.html#changing-data-3",
     "title": "Basic Data Structures in R",
     "section": "Changing Data",
     "text": "Changing Data\n\nCreating new variables\nUsing summarise creates group level summaries\n\n\nmtcars_group <- mtcars %>% \n group_by(., cyl) %>% \n  summarise(., meanmpg = mean(mpg))\nmtcars_group\n\n# A tibble: 3 × 2\n    cyl meanmpg\n  <dbl>   <dbl>\n1     4    26.7\n2     6    19.7\n3     8    15.1"

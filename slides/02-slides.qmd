@@ -9,8 +9,15 @@ format:
     show-slide-number: print
     self-contained: true  
 ---
+## Checking in
 
-## Today's Plan {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
+1. What are some advantages and disadvantages of using `R` for spatial analysis
+
+2. What can I clarify about the course?
+
+3. How do you feel about git and github classroom? How can I make that easier for you?
+
+## Today's Plan {background-image="img/slide_2/hudbay.jpeg" background-opacity="0.5"}
 
 :::{style="font-size: 1.2em; text-align: middle; margin-top: 2em"}
 
@@ -19,12 +26,14 @@ format:
 - Reading, subsetting, and manipulating data
 
 - Getting help
+
+- [First assignment](https://classroom.github.com/a/VQuj0UjY) is live!
 :::
 
 # Data types and structures {background="#0033A0"}
 
-## Data types
-
+## Data types {background-image="img/slide_2/iceberg.jpeg" background-opacity="0.6"}
+:::{style="text-align: middle; margin-top: 0.5em"}
 * The basic schema that `R` uses to store data.
  * Creates expectations for allowable values
  * Sets the "rules" for how your data can be manipulated
@@ -32,9 +41,9 @@ format:
 
 * Four most common: __Logical__, __Numeric__, __Integer__, __Character__
 
-* Most data structures in `R` combine various versions of these types 
+:::
 
-## Logical Data
+## Logical Data {background="#43464B" background-image="img/slide_2/ducks.jpeg" background-opacity="0.5"}
 
 * Data take on the value of either `TRUE` or `FALSE`. 
 * Special type of logical called `NA` to represent missing values
@@ -112,8 +121,7 @@ char
 ## Coercion
 
 * Sometimes certain functions require a particular `class` of data require conversion (or coercion)
-* Changing the `mode` can do this implicitly
-* We can use the `as.xxx` command to do it explicitly
+* `mode` - implicitly; `as.xxx` - explicitly
 
 ```{r}
 #| echo: true
@@ -177,7 +185,7 @@ dim(m)
 
 ```{r}
 #| echo: true
-(x <- list(1, "a", TRUE, 1+4))
+(xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars)))
 ```
 ## Lists (cont'd)
 * Lists store information in `slots`
@@ -185,10 +193,10 @@ dim(m)
 
 ```{r}
 #| echo: true
-(xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars)))
 names(xlist)
 class(xlist$data)
 ```
+
 ## Data Frames
 
 * Resemble tabular datasets used in spreadsheet programs 
@@ -241,7 +249,7 @@ class(dat.tib)
 
 # Manipulating data in R {background="#0033A0"}
 
-## A Note on the `tidyverse`
+## A Note on the `tidyverse` {background-image="img/slide_2/iceberg.jpeg" background-opacity="0.6"}
 
 * A self-contained universe of packages and functions designed to work together
 
@@ -278,6 +286,7 @@ str(cars_tv)
 ```
 ## Reading Data (cont'd)
 ```{r}
+#| echo: true
 summary(cars_tv)
 head(cars_tv)
 ```
@@ -368,7 +377,8 @@ head(mtcars, 3)
 mtcars$hpwt <- mtcars$hp/mtcars$wt
 head(mtcars[,c(1, 5:12)],3)
 ```
- ## Changing Data
+ 
+## Changing Data
 
 * Creating new variables
 * Using `tidyverse`, `mutate` creates new variables for the entire dataset
@@ -394,7 +404,7 @@ mtcars_group
 
 # Getting help {background="#0033A0"}
 
-## 2 Kinds of Errors
+## 2 Kinds of Errors {background="#43464B" background-image="img/slide_2/ducks.jpeg" background-opacity="0.6"}
 
 * **Syntax Errors**: Your code won't actually run
 * **Semantic Errors**: Your code runs without error, but the result is unexpected
@@ -418,3 +428,5 @@ mtcars_group
 * Includes both code and your operating environment info
 
 * See the `reprex` package.
+
+# Wrap-up
