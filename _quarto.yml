@@ -206,6 +206,7 @@ website:
     right: |
       Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)<br>
       [View the source at {{< fa brands github >}} GitHub]({{< var course.github >}})
+      Based on websites designed by [Andrew Heiss](https://github.com/andrewheiss/evalf22.classes.andrewheiss.com)
 format:
   html:
     theme:

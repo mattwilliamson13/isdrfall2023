@@ -7,6 +7,7 @@ format:
     theme: mytheme.scss
     slide-number: true
     show-slide-number: print
+    self-contained: true  
 ---
 
 # Welcome to Space!! {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}

@@ -27,15 +27,17 @@ $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
 $primary:       $blue !default;
-$secondary:     $gray-500 !default;
+$secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-300 !default;
+$light:         $black !default;
 $dark:          $gray-800 !default;
-$code-block-bg: $gray-300  !default;
-
+$body-color:    $black !default;
+$code-color:    #cc0000;
+$code-block-bg: #daeff2;
+$code-block-border-color: #000000;
 $font-family-sans-serif:      Fira Sans Condensed, sans-serif !default;
 $font-family-serif:           Barlow, serif !default;  /* Not actually a serif font but whatever */
 
@@ -276,10 +278,26 @@ pre.text, pre.sourceCode, .cell-output pre {
   border: none;
   padding: .4em;
   background-color: $code-block-bg;
+  color: $body-color;
   border: 1px solid $monokai-bg;
   border-radius: .25rem;
 }
+pre code {
+  background-color: $body-bg;
+  color: $body-color;
+}
 
+pre.sourceCode code {
+  @if variable-exists(code-block-color) {
+    color: $code-block-color;
+  }
+
+  background-color: $code-block-bg;
+  color: $body-color;
+  padding: 6px 9px;
+  max-height: 500px;
+  white-space: pre;
+}
 pre.text {
   color: #0c368a;
 }

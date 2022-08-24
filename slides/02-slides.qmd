@@ -7,6 +7,7 @@ format:
     theme: mytheme.scss
     slide-number: true
     show-slide-number: print
+    self-contained: true  
 ---
 
 ## Today's Plan {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
@@ -173,10 +174,247 @@ dim(m)
 * Hold a variety of different data types and structures including more lists. 
 * Use a lot for functional programming (next week).
 
+
+```{r}
+#| echo: true
+(x <- list(1, "a", TRUE, 1+4))
+```
+## Lists (cont'd)
+* Lists store information in `slots`
+* Adding `names` to a list can help with accessing data
+
+```{r}
+#| echo: true
+(xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars)))
+names(xlist)
+class(xlist$data)
+```
 ## Data Frames
 
+* Resemble tabular datasets used in spreadsheet programs 
+
+* Long vs. wide data 
+
+* Special type of list where every element has the same length (but can have different types of data)
+
+```{r}
+#| echo: true
+(dat <- data.frame(id = letters[1:5], x = 1:5, y = rep(date(),times=5 )))
+is.list(dat)
+class(dat)
+```
+## Data Frames (cont'd)
+* Lots of ways to access and summarize data in data frames
+* Useful for making sure your functions are working as intended
+
+```{r}
+#| echo: true
+str(dat) #compact summary of the structure of a dataframe
+summary(dat) #estimate summary statistics of data frame
+```
+
+## Data Frames (one more time)
+* Special cases of `names` (`colnames` and `rownames`)
+
+```{r}
+#| echo: true
+colnames(dat) #get the names of the variables stored in the data frame
+dat$y
+```
+
 ## Tibbles
+* Similar to data frames, but allow for _lists within columns_
+* Designed for use with the `tidyverse`
+* Foundation of `sf` objects
+
+```{r}
+#| echo: true
+library(tidyverse) #load the package necessary
+dat.tib <- tibble(dat)
+is.list(dat.tib)
+
+## [1] TRUE
+
+class(dat.tib)
+```
+
+
 # Manipulating data in R {background="#0033A0"}
 
+## A Note on the `tidyverse`
+
+* A self-contained universe of packages and functions designed to work together
+
+* Rely on "verbs" to make coding more intuitive
+
+* Benefits and drawbacks
+
+## Reading Data
+* The first step in any data analysis
+
+* Depends on the file type (`.csv`, `.txt`, `.shp`)
+
+* CHECK YOURSELF
+
+```{r}
+#| echo: true
+cars <- read.table('file/cars.txt')
+str(cars)
+summary(cars)
+```
+
+## Reading Data (cont'd)
+
+* `tidyverse` convention is to use "verb_object"
+
+* For reading data that means `read_` instead of `read.`
+
+* Different default behaviors!!
+
+```{r}
+#| echo: true
+cars_tv <- read_table('file/cars.txt')
+str(cars_tv)
+```
+## Reading Data (cont'd)
+```{r}
+summary(cars_tv)
+head(cars_tv)
+```
+
+**What do you notice??**
+
+## Selecting Data
+
+* We often want to access subsets of our data
+* For named objects we can use `$`
+
+```{r}
+#| echo: true
+speed <- cars$speed #assign the whole speed column to an object
+head(speed)
+
+```
+## Selecting Data (cont'd)
+
+* More generally we can use `[]` (can use index and logicals)
+```{r}
+#| echo: true
+(speed2 <- cars$speed[2]) # get the vector named speed and take the 2nd element in that vector
+(speed3 <- cars[4,2]) #get the vector located in the 2nd column and take the 4th element
+(speed20 <- cars[cars$speed > 20,]) #return all columns where speed >20
+
+```
+
+## Selecting Data (cont'd)
+* For lists we use `[[]]` to access a particular slot and `[]` to access data in that slot
+
+```{r}
+#| echo: true
+xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars))
+xlist[[3]][1,2] #get the 3rd slot in the list and return the value in the 1st row, 2nd column
+```
+
+## Selecting Data (cont'd)
+
+* In the `tidyverse` we use `select()` to choose columns
+
+* The ` %>% ` operator allows us to link steps together
+```{r}
+#| echo: true
+speed <- read.table('file/cars.txt') %>% 
+  select(., speed)
+head(speed)
+```
+## Selecting Data (cont'd)
+* Use `slice` to get rows based on position
+```{r}
+#| echo: true
+(speed2 <- read.table('file/cars.txt') %>% 
+  select(., speed) %>% 
+   slice(., 2))
+```
+
+## Selecting Data (cont'd)
+* Use`filter` to choose rows that meet a condition
+
+```{r}
+#| echo: true
+(speed2 <- read.table('file/cars.txt') %>% 
+  filter(., speed > 20))
+```
+## Changing Data
+
+* Updating data (CAUTION)
+
+* Often using a combination of index and logicals
+
+```{r}
+#| echo: true
+x <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10
+x[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA
+is.na(x) #check which values are NA
+```
+
+## Changing Data
+
+* Creating new variables
+* Can use `$` 
+
+```{r}
+#| echo: true
+head(mtcars, 3)
+
+mtcars$hpwt <- mtcars$hp/mtcars$wt
+head(mtcars[,c(1, 5:12)],3)
+```
+ ## Changing Data
+
+* Creating new variables
+* Using `tidyverse`, `mutate` creates new variables for the entire dataset
+```{r}
+#| echo: true
+mtcars_update <- mtcars %>% 
+  mutate(., hpwt = hp/wt)
+head(mtcars_update[,c(1, 5:12)], 3)
+```
+
+
+## Changing Data
+
+* Creating new variables
+* Using `summarise` creates group level summaries
+```{r}
+#| echo: true
+mtcars_group <- mtcars %>% 
+ group_by(., cyl) %>% 
+  summarise(., meanmpg = mean(mpg))
+mtcars_group
+```
+
 # Getting help {background="#0033A0"}
-  
+
+## 2 Kinds of Errors
+
+* **Syntax Errors**: Your code won't actually run
+* **Semantic Errors**: Your code runs without error, but the result is unexpected
+
+## Asking good questions
+
+* What are you trying to do?
+
+* What isn't working?
+
+* What are you expecting?
+
+* Why aren't common solutions working?
+
+## Reproducible examples
+
+* Don't require someone to have your data or your computer
+
+* Minimal amount of information and code to reproduce your error
+
+* Includes both code and your operating environment info
+
+* See the `reprex` package.
