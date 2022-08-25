@@ -1,0 +1,18 @@
+---
+title: "Quarto, literate programming, and pseudocode"
+subtitle: "HES 505 Fall 2022: Session 3"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+## Objectives
+
+1. Introduce `Quarto` as a means of documenting your work
+
+2. Describe pseudocode and its utility for desiging an analysis
+
+3. Practice the github workflow

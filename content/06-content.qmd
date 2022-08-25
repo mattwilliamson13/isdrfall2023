@@ -1,0 +1,41 @@
+---
+title: "Spatial Data is Special Data"
+date: "2022-09-7"
+---
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "UbQ8IW3UI9E", "Defining location", "projections", FALSE,
+  "DldFVc08YY4", "The CRS", "crs", FALSE,
+  "_TclSs8iLMY", "Other important elements", "elements", FALSE
+)
+```
+
+## Readings
+
+- <i class="fas fa-book"></i> [Coordinate Reference Systems](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro) Section 2.4 in Lovelace et al., *Geocomputation with R* [@lovelace_geocomputation_2019]
+
+- <i class="fas fa-book"></i> [Chapter 1: Introduction ](https://saylordotorg.github.io/text_essentials-of-geographic-information-systems/s05-introduction.html) in Essentials of Geographic Information Systems by Campbell and Shin [@campbell_essentials_2011]
+
+- <i class="fas fa-external-link-square-alt"></i> [Scale and Projections](https://open.lib.umn.edu/mapping/chapter/3-scale-and-projections/) - a portion of _Mapping, Society, and Technology_ an Laura Matson and Melinda Kernik.
+
+## Objectives
+By the end of today, you should be able to:
+
+* Describe several ways to load spatial data into `R`
+
+* Define a coordinate reference system and describe why it is important
+
+* Identify the different ways projections are expressed in `R` and `gdal`
+
+* Describe the other key elements of spatial data
+
+## Slides
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/06-slides")
+slide_tabs(slide_details, "/slides/06-slides.html")
+```

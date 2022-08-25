@@ -1,0 +1,19 @@
+---
+title: "Repetitive Tasks and Functional Programming"
+subtitle: "HES 505 Fall 2022: Session 4"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+## Objectives
+
+1. Describe the basic components of functions
+
+2. Introduce the `apply` and `map` family of functions 
+
+3. Practice designing functions for repetitive tasks

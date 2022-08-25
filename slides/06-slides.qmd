@@ -1,0 +1,21 @@
+---
+title: "Spatial Data is Special Data"
+subtitle: "HES 505 Fall 2022: Session 6"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+## Objectives
+
+* Describe several ways to load spatial data into `R`
+
+* Define a coordinate reference system and describe why it is important
+
+* Identify the different ways projections are expressed in `R` and `gdal`
+
+* Describe the other key elements of spatial data

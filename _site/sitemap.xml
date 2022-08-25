@@ -2,90 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/assignment/01-intro.html</loc>
-    <lastmod>2022-08-24T19:00:09.161Z</lastmod>
+    <lastmod>2022-08-25T18:48:16.354Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/assignment/final-proj.html</loc>
-    <lastmod>2022-08-24T19:00:09.713Z</lastmod>
+    <lastmod>2022-08-25T18:48:16.854Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/assignment/index.html</loc>
-    <lastmod>2022-08-24T19:00:10.265Z</lastmod>
+    <lastmod>2022-08-25T18:48:17.377Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/assignment/self-eval1.html</loc>
-    <lastmod>2022-08-24T19:00:10.781Z</lastmod>
+    <lastmod>2022-08-25T18:48:17.860Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/assignment/self-eval2.html</loc>
-    <lastmod>2022-08-24T19:00:11.261Z</lastmod>
+    <lastmod>2022-08-25T18:48:18.323Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/assignment/self-eval3.html</loc>
-    <lastmod>2022-08-24T19:00:11.708Z</lastmod>
+    <lastmod>2022-08-25T18:48:18.753Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/content/01-content.html</loc>
-    <lastmod>2022-08-24T19:00:12.310Z</lastmod>
+    <lastmod>2022-08-25T18:48:19.355Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/content/02-content.html</loc>
-    <lastmod>2022-08-24T19:00:12.847Z</lastmod>
+    <lastmod>2022-08-25T18:48:19.915Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isdrfall22.classes.spaseslab.com/content/03-content.html</loc>
+    <lastmod>2022-08-25T18:48:23.329Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isdrfall22.classes.spaseslab.com/content/04-content.html</loc>
+    <lastmod>2022-08-25T18:48:25.055Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isdrfall22.classes.spaseslab.com/content/06-content.html</loc>
+    <lastmod>2022-08-25T18:48:26.832Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/content/index.html</loc>
-    <lastmod>2022-08-24T19:00:13.323Z</lastmod>
+    <lastmod>2022-08-25T18:48:27.256Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/example/index.html</loc>
-    <lastmod>2022-08-24T19:00:13.796Z</lastmod>
+    <lastmod>2022-08-25T18:48:27.680Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/index.html</loc>
-    <lastmod>2022-08-24T19:00:14.287Z</lastmod>
+    <lastmod>2022-08-25T18:48:28.133Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/data.html</loc>
-    <lastmod>2022-08-24T19:00:14.771Z</lastmod>
+    <lastmod>2022-08-25T18:48:28.593Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/git.html</loc>
-    <lastmod>2022-08-24T19:00:15.239Z</lastmod>
+    <lastmod>2022-08-25T18:48:28.994Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/index.html</loc>
-    <lastmod>2022-08-24T19:00:15.686Z</lastmod>
+    <lastmod>2022-08-25T18:48:29.439Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/install.html</loc>
-    <lastmod>2022-08-24T19:00:16.184Z</lastmod>
+    <lastmod>2022-08-25T18:48:29.898Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/lastyear.html</loc>
-    <lastmod>2022-08-24T19:00:16.616Z</lastmod>
+    <lastmod>2022-08-25T18:48:30.311Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/r.html</loc>
-    <lastmod>2022-08-24T19:00:17.085Z</lastmod>
+    <lastmod>2022-08-25T18:48:30.726Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/resource/rmarkdown.html</loc>
-    <lastmod>2022-08-24T19:00:17.526Z</lastmod>
+    <lastmod>2022-08-25T18:48:31.126Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/schedule.html</loc>
-    <lastmod>2022-08-24T19:00:18.423Z</lastmod>
+    <lastmod>2022-08-25T18:48:31.952Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/slides/01-slides.html</loc>
-    <lastmod>2022-08-24T19:00:23.627Z</lastmod>
+    <lastmod>2022-08-25T18:48:37.034Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/slides/02-slides.html</loc>
-    <lastmod>2022-08-24T19:00:28.961Z</lastmod>
+    <lastmod>2022-08-25T18:48:42.149Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isdrfall22.classes.spaseslab.com/slides/03-slides.html</loc>
+    <lastmod>2022-08-25T18:48:46.258Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isdrfall22.classes.spaseslab.com/slides/04-slides.html</loc>
+    <lastmod>2022-08-25T18:48:50.451Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isdrfall22.classes.spaseslab.com/slides/06-slides.html</loc>
+    <lastmod>2022-08-25T18:48:54.709Z</lastmod>
   </url>
   <url>
     <loc>https://isdrfall22.classes.spaseslab.com/syllabus.html</loc>
-    <lastmod>2022-08-24T19:00:29.961Z</lastmod>
+    <lastmod>2022-08-25T18:48:55.854Z</lastmod>
   </url>
 </urlset>

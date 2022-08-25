@@ -76,7 +76,7 @@ website:
               file: content/01-content.qmd
             - text: "2: Basic data structures in R"
               file: content/02-content.qmd
-            - text: "3: Rmarkdown, pseudocode, and literate programming"
+            - text: "3: Quarto, pseudocode, and literate programming"
               file: content/03-content.qmd
             - text: "4: Repetitive tasks, pipes, and functional programming"
               file: content/04-content.qmd

@@ -1,7 +1,7 @@
 group,subgroup,date,date_end,title,deadline,content,example,assignment,note
 Getting started,Session 1,2022-08-22,,Introduction to the course,,content/01-content,example/getting-setup,,
 Getting started,Session 2,2022-08-24,,Basic data structures in R,,content/02-content,,,
-Getting started,Session 3,2022-08-29,,"Rmarkdown, pseudocode, and literate programming",,content/03-content,,,
+Getting started,Session 3,2022-08-29,,"Quarto, pseudocode, and literate programming",,content/03-content,,,
 Getting started,Session 3,,2022-08-30,Self-Evaluation 1 due,11:59 PM,,,assignment/self-eval1,
 Getting started,Session 4,2022-08-31,,"Repetitive tasks, pipes, and functional programming",,content/04-content,,,
 Getting started,Session 5,2022-09-05,,No Class,,,,,(Labor Day)
