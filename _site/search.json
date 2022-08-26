@@ -189,6 +189,13 @@
     "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nUsing Quarto\n\n\nLiterate programming\n\n\nPlanning your workflow"
   },
   {
+    "objectID": "content/04-content.html",
+    "href": "content/04-content.html",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "",
+    "text": "Functions - from Wickham et al., R for Data Science (Wickham and Grolemund 2016) describes the logic of functions and how to approach them with R and the tidyverse."
+  },
+  {
     "objectID": "content/04-content.html#objectives",
     "href": "content/04-content.html#objectives",
     "title": "Repetitive Tasks and Functional Programming",

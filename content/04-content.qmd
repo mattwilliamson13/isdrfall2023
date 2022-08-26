@@ -14,7 +14,9 @@ slide_details <- tibble::tribble(
 ```
 
 ## Readings
-
+<i class="fas fa-book"></i> [Functions](https://r4ds.hadley.nz/functions.html) - from Wickham et al., *R for Data Science* [@wickham2016r] describes the logic of functions and how to approach them with `R`
+ and the `tidyverse`.
+ 
 ## Objectives
 
 ## Slides
