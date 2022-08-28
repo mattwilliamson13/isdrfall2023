@@ -5,6 +5,7 @@ project:
   resources:
     - "files/"
     - "projects/"
+    - "resource/"
     - "assignment/"
     - "slides/*.html"
     - "slides/*.pdf"
@@ -210,7 +211,7 @@ website:
 format:
   html:
     theme:
-      - litera
+      - united
       - html/custom.scss
     toc: true
     highlight-style: monokai
