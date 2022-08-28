@@ -211,8 +211,8 @@ website:
 format:
   html:
     theme:
-      - united
+      - litera
       - html/custom.scss
     toc: true
-    highlight-style: monokai
+    highlight-style: github
     
