@@ -1,9 +1,5 @@
 ---
 title: "Getting Setup"
-format:
-  html: 
-    theme: united
-    self-contained: true
 ---
 
 ## Let's "git" started
