@@ -1,0 +1,95 @@
+---
+title: "Getting Setup"
+format:
+  html: 
+    theme: united
+    self-contained: true
+---
+
+## Let's "git" started
+
+We are using GitHub classroom for all of the assignments in this course. This allows each of you to have your own repositories for version control and backup of your code without the worries of stepping on someone else toes. The goal of this class is not to have you become a 'master' of all things git, but I am hoping you'll learn the utility of version control and adopt as much of it as make sense for you and your workflows. 
+
+### Accept the invitation to the assignment repo
+
+The first thing you'll need to do is accept the invitation to 'assignment-1` repository (repo). This _should_ automatically clone (make an exact copy) of the assignment repo in your personal account. 
+
+### Making sure Rstudio server can access your GitHub account
+
+Unfortunately, GitHub has ended its support for username/password remote authentication. Instead, it uses something called a Personal Access Token. You can read more about it [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) if you are interested, but the easiest way to deal with this is by following Jenny Bryan's [happygitwithr](https://happygitwithr.com/credential-caching.html#credential-caching) recommended approach:
+
+1. Introduce yourself to git: 
+There are a number of ways to do this, but I find this to be the easiest
+
+```{r introgit, eval=FALSE}
+library(usethis) #you may need to install this using install.packages('usethis')
+use_git_config(user.name = "Jane Doe", user.email = "jane@example.org") #your info here
+```
+
+2. Get a PAT if you don't have one already (make sure you save it somewhere)
+
+```{r getpat, eval=FALSE}
+usethis::create_github_token()
+```
+
+3. Store your credential for use in RStudio
+```{r storepat, eval=FALSE}
+library(gitcreds) #may need to install this too
+
+gitcreds_set() #should prompt you for your pat - paste it here
+
+```
+
+4. Verify that Rstudio has saved your credential
+```{r patverify, eval=FALSE}
+gitcreds_get()
+
+```
+
+R should return something that looks like this:
+
+```{r gitsuccess, echo=FALSE, out.width="70%"}
+knitr::include_graphics("img/01/credentialsuccess.png", error = FALSE)
+```
+
+### Bring the project into RStudio
+
+2. Go to File>New Project and choose the "Version Control" option
+3. Select "Git" (Not Subversion)
+4. paste the link from the "Clone Repository" button into the "Repository URL" space
+
+### Verify that the "Git" tab is available and that your project is shown in the upper right-hand corner
+
+Assuming all this has worked, you should be able to click on the "Git" tab and see something like this:
+
+```{r gittab, echo=FALSE, out.width="70%"}
+knitr::include_graphics("img/01/gittab.png", error = FALSE)
+```
+
+### Basic workflow
+
+1. Everytime you begin working on code, make sure you "Pull" from the remote repository to make sure you have the most recent version of things (this is especially important when you are collaborating with people).
+
+2. Make some changes to code
+
+3. Save those changes
+
+4. "Commit" those changes - Think of commits as 'breadcrumbs' they help you remember where you were in the coding process in case you need to revert back to a previous version. Your commit messages should help you remember what was 'happening' in the code when you made the commit. In general, you should save and commit fairly frequently and especially everytime you do something 'consequential'. Git allows you to 'turn back time', but that's only useful if you left enough information to get back to where you want to be.
+
+5. Push your work to the remote - when you're done working on the project for the day, push your local changes to the remote. This will ensure that if you switch computers or if someone else is going to work on the project, you (or they) will have the most recent version. Plus, if you don't do this, step 1 will really mess you up.
+
+## Quarto
+
+This is a [Quarto document](https://quarto.org/docs/get-started/authoring/rstudio.html) (in fact, this whole webpage and all of the slides were built with Quarto). Quarto uses the `knitr` package to render files containing `R`, `python`, and `julia` to  [Markdown](https://daringfireball.net/projects/markdown/) as a means of rendering code, text, math, figures, and tables to a variety of formats.
+
+![](/example/img/01/rstudio_qmd_workflow.png){.border fig-alt="Workflow diagram starting with a qmd file, then knitr, then md, then pandoc, then PDF, MS Word, or HTML." fig-align="center"}
+
+Markdown is a simple formatting syntax for authoring HTML documents (it's the basis for the Readme docs that GitHub creates for you). From there, `RStudio` calls [pandoc](https://pandoc.org/) to render the markdown file into your chosen output format. **I'm telling you this because there will be times when some part of this pipeline may break and you'll need to know where the errors might be coming from.**
+
+You can create new Rmarkdown documents by going to File >> New File >> New Rmarkdown (we'll be using html for this class)
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+
+There are lots of helpful resources to help you get started using Rmarkdown. There's a [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and a much longer [user's guide](https://bookdown.org/yihui/rmarkdown/). I don't expect you to become an expert in Rmarkdown, but it is a helpful way to keep all of your thougths and code together in a single, coherent document. Getting proficient in Rmarkdown and git allows you to work with collaborators on an analysis, graphics, and manuscript all within a single platform. This fully-integrated workflow takes practice and patience (especially when you have collaborators that are new to this approach), this course is just an initial step down that path. I'll do my best to keep it simple - please let me know if you have questions! 
+
