@@ -8,8 +8,8 @@ source(here::here("R", "slide-things.R"))
 
 slide_details <- tibble::tribble(
   ~youtube_id,   ~title, ~slide, ~active,
-  "BIhz1dz5Vws", "Using Quarto", 'title', TRUE,
-  "f-sOSXyeeJE", "Literate programming", "why-not-r", FALSE,
+  "BIhz1dz5Vws", "Literate programming", 'title', TRUE,
+  "f-sOSXyeeJE", "Introducing Quarto", "why-not-r", FALSE,
   "Z2foqSMWnGU", "Planning your workflow", "Class Details", FALSE,
 )
 ```
@@ -24,7 +24,7 @@ Today we'll focus on some of the tools for reproducible workflows using `R`. We'
 
 - <i class="fas fa-book"></i> [The Whole Game](https://r4ds.hadley.nz/whole-game.html) - from Wickham et al., *R for Data Science* [@wickham2016r]. Focus on the sections that begin with "Workflow" to get a sense for how we'll start putting the pieces together.
 
-- <i class="fas fa-book"></i> [Scripts, algorithms, and functions][https://geocompr.robinlovelace.net/algorithms.html] - chapter 11 in in Lovelace et al., *Geocomputation with R* [@lovelace_geocomputation_2019] introduces some concepts behind geospatial programming. A few of these pieces will make more sense in the next few weeks, but the general advice on constructing code and planning analyses is useful now.
+- <i class="fas fa-book"></i> [Scripts, algorithms, and functions](https://geocompr.robinlovelace.net/algorithms.html) - chapter 11 in in Lovelace et al., *Geocomputation with R* [@lovelace_geocomputation_2019] introduces some concepts behind geospatial programming. A few of these pieces will make more sense in the next few weeks, but the general advice on constructing code and planning analyses is useful now.
 
 ## Objectives
 By the end of today you should:

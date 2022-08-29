@@ -172,7 +172,7 @@
     "href": "content/03-content.html#readings",
     "title": "Quarto, pseudocode, and literate programming",
     "section": "Readings",
-    "text": "Readings\n\n Authoring in Quarto - an intro to Quarto for developing different kinds of documents. Lots of other resources linked here!!\n Pseudocode: what it is and how to write it - A nice blogpost by Sara Metawalli the sketches out the logic of pseudocode and why it can be helpful.\n The Whole Game - from Wickham et al., R for Data Science (Wickham and Grolemund 2016). Focus on the sections that begin with “Workflow” to get a sense for how we’ll start putting the pieces together.\n [Scripts, algorithms, and functions][https://geocompr.robinlovelace.net/algorithms.html] - chapter 11 in in Lovelace et al., Geocomputation with R (Lovelace et al. 2019) introduces some concepts behind geospatial programming. A few of these pieces will make more sense in the next few weeks, but the general advice on constructing code and planning analyses is useful now."
+    "text": "Readings\n\n Authoring in Quarto - an intro to Quarto for developing different kinds of documents. Lots of other resources linked here!!\n Pseudocode: what it is and how to write it - A nice blogpost by Sara Metawalli the sketches out the logic of pseudocode and why it can be helpful.\n The Whole Game - from Wickham et al., R for Data Science (Wickham and Grolemund 2016). Focus on the sections that begin with “Workflow” to get a sense for how we’ll start putting the pieces together.\n Scripts, algorithms, and functions - chapter 11 in in Lovelace et al., Geocomputation with R (Lovelace et al. 2019) introduces some concepts behind geospatial programming. A few of these pieces will make more sense in the next few weeks, but the general advice on constructing code and planning analyses is useful now."
   },
   {
     "objectID": "content/03-content.html#objectives",
@@ -186,7 +186,7 @@
     "href": "content/03-content.html#slides",
     "title": "Quarto, pseudocode, and literate programming",
     "section": "Slides",
-    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nUsing Quarto\n\n\nLiterate programming\n\n\nPlanning your workflow"
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nLiterate programming\n\n\nIntroducing Quarto\n\n\nPlanning your workflow"
   },
   {
     "objectID": "content/04-content.html",
@@ -249,7 +249,14 @@
     "href": "example/getting-setup.html#quarto",
     "title": "Getting Setup",
     "section": "Quarto",
-    "text": "Quarto\nThis is a Quarto document (in fact, this whole webpage and all of the slides were built with Quarto). Quarto uses the knitr package to render files containing R, python, and julia to Markdown as a means of rendering code, text, math, figures, and tables to a variety of formats.\n\n\n\n\n\nMarkdown is a simple formatting syntax for authoring HTML documents (it’s the basis for the Readme docs that GitHub creates for you). From there, RStudio calls pandoc to render the markdown file into your chosen output format. I’m telling you this because there will be times when some part of this pipeline may break and you’ll need to know where the errors might be coming from.\nYou can create new Rmarkdown documents by going to File >> New File >> New Rmarkdown (we’ll be using html for this class)\nWhen you click the Knit button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.\nThere are lots of helpful resources to help you get started using Rmarkdown. There’s a cheatsheet and a much longer user’s guide. I don’t expect you to become an expert in Rmarkdown, but it is a helpful way to keep all of your thougths and code together in a single, coherent document. Getting proficient in Rmarkdown and git allows you to work with collaborators on an analysis, graphics, and manuscript all within a single platform. This fully-integrated workflow takes practice and patience (especially when you have collaborators that are new to this approach), this course is just an initial step down that path. I’ll do my best to keep it simple - please let me know if you have questions!"
+    "text": "Quarto\nThis is a Quarto document (in fact, this whole webpage and all of the slides were built with Quarto). Quarto uses the knitr package to render files containing R, python, and julia to Markdown as a means of rendering code, text, math, figures, and tables to a variety of formats.\n\n\n\n\n\nMarkdown is a simple formatting syntax for authoring HTML documents (it’s the basis for the Readme docs that GitHub creates for you). From there, RStudio calls pandoc to render the markdown file into your chosen output format. I’m telling you this because there will be times when some part of this pipeline may break and you’ll need to know where the errors might be coming from.\nYou can create new Quarto documents by going to File >> New File >> New Quarto Document (or Presentation). There are lots of new documents devoted to Quarto, but some of them may assume you have some familiarity with Markdown or Rmarkdown. As such, I’m keeping this links to helpful Rmarkdown resources like this cheatsheet and a much longer user’s guide in case you need more in-depth discussion of some of the ideas behind authoring in Quarto. I don’t expect you to become an expert in Quarto, but it is a helpful way to keep all of your thoughts and code together in a single, coherent document. Getting proficient in Quarto and git allows you to work with collaborators on an analysis, graphics, and manuscript all within a single platform. This fully-integrated workflow takes practice and patience (especially when you have collaborators that are new to this approach), this course is just an initial step down that path. I’ll do my best to keep it simple - please let me know if you have questions!"
+  },
+  {
+    "objectID": "example/getting-setup.html#the-example",
+    "href": "example/getting-setup.html#the-example",
+    "title": "Getting Setup",
+    "section": "The Example",
+    "text": "The Example\n\nSetup\nThe University of Exeter has been conducting an ongoing survey to understand the age at which the belief in Santa Claus begins to drop off. A sample of the data is located in your assignment01 folder. Our task is to bring the data into R, conduct some preliminary exploration of the data, and then fit a model to the data to see if age predicts belief in Santa. We’ll start by branching off of the master Quarto doc in our GitHub repo and then work through the steps together.\n\n\nPseudocode\nBefore we get started, let’s sketch out the steps in our analysis using pseudocode.\n\n\n\n\n\nProgramming\nNow that we have the basic steps in place, let’s transform the pseudocode into a repeatable Quarto document that explains what we’re doing, why, and what we found.\n\n\nRendering the document\nWhen you click the Render button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document."
   },
   {
     "objectID": "example/index.html",
@@ -735,11 +742,74 @@
     "text": "Reproducible examples\n\nDon’t require someone to have your data or your computer\nMinimal amount of information and code to reproduce your error\nIncludes both code and your operating environment info\nSee the reprex package."
   },
   {
-    "objectID": "slides/03-slides.html#objectives",
-    "href": "slides/03-slides.html#objectives",
+    "objectID": "slides/03-slides.html#for-today",
+    "href": "slides/03-slides.html#for-today",
     "title": "Quarto, literate programming, and pseudocode",
-    "section": "Objectives",
-    "text": "Objectives\n\nIntroduce Quarto as a means of documenting your work\nDescribe pseudocode and its utility for desiging an analysis\nPractice the github workflow"
+    "section": "For today",
+    "text": "For today\n\nIntroduce literate programming\nDescribe pseudocode and its utility for designing an analysis\nIntroduce Quarto as a means of documenting your work\nPractice workflow"
+  },
+  {
+    "objectID": "slides/03-slides.html#what-is-literate-progamming",
+    "href": "slides/03-slides.html#what-is-literate-progamming",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "What is literate progamming?",
+    "text": "What is literate progamming?\n\nLet us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.\n\n— Donald Knuth, CSLI, 1984"
+  },
+  {
+    "objectID": "slides/03-slides.html#what-is-literate-programming",
+    "href": "slides/03-slides.html#what-is-literate-programming",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "What is literate programming?",
+    "text": "What is literate programming?\n\nDocumentation containing code (not vice versa!)\nDirect connection between code and explanation\nConvey meaning to humans rather than telling computer what to do!\nMultiple “scales” possible"
+  },
+  {
+    "objectID": "slides/03-slides.html#why-literate-programming",
+    "href": "slides/03-slides.html#why-literate-programming",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "Why literate programming?",
+    "text": "Why literate programming?\n\nYour analysis scripts are computer software\nIntegrate math, figures, code, and narrative in one place\nExplaining something helps you learn it"
+  },
+  {
+    "objectID": "slides/03-slides.html#pseudocode-and-literate-programming",
+    "href": "slides/03-slides.html#pseudocode-and-literate-programming",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "Pseudocode and literate programming",
+    "text": "Pseudocode and literate programming\n\nAn informal way of writing the ‘logic’ of your program\nBalance between readability and precision\nAvoid syntactic drift"
+  },
+  {
+    "objectID": "slides/03-slides.html#writing-pseudocode",
+    "href": "slides/03-slides.html#writing-pseudocode",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "Writing pseudocode",
+    "text": "Writing pseudocode\n\n\n\nFocus on statements\nMathematical operations\nConditionals\nIteration\nExceptions"
+  },
+  {
+    "objectID": "slides/03-slides.html#what-is-quarto",
+    "href": "slides/03-slides.html#what-is-quarto",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "What is Quarto?",
+    "text": "What is Quarto?\n\nA multi-language platform for developing reproducible documents\nA ‘lab notebook’ for your analyses\nAllows transparent, reproducible scientific reports and presentations"
+  },
+  {
+    "objectID": "slides/03-slides.html#key-components",
+    "href": "slides/03-slides.html#key-components",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "Key components",
+    "text": "Key components\n\nMetadata and global options: YAML\nText, figures, and tables: Markdown and LaTeX\nCode: knitr (or jupyter if you’re into that sort of thing)"
+  },
+  {
+    "objectID": "slides/03-slides.html#yaml---yet-another-markup-language",
+    "href": "slides/03-slides.html#yaml---yet-another-markup-language",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "YAML - Yet Another Markup Language",
+    "text": "YAML - Yet Another Markup Language\n\nAllows you to set (or change) output format\nProvide options that apply to the entire document\nSpacing matters!\n\n ## Formatting Text\n\nBasic formatting via Markdown\nFancier options using Divs and spans via Pandoc\nFenced Divs start and end with ::: (can be any number >3 but must match)"
+  },
+  {
+    "objectID": "slides/03-slides.html#adding-code-chunks",
+    "href": "slides/03-slides.html#adding-code-chunks",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "Adding Code Chunks",
+    "text": "Adding Code Chunks\n\nUse 3x ``` on each end\nInclude the engine {r} (or python or Julia)\nInclude options beneath the “fence” using a hashpipe (#|)"
   },
   {
     "objectID": "slides/04-slides.html#objectives",
