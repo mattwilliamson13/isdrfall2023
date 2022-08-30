@@ -95,6 +95,7 @@ format:
 3. Spacing matters!
 
 ![](img/slide_3/yaml_ex.png)
+
 ## Formatting Text
 
 - Basic formatting via Markdown

@@ -14,10 +14,23 @@ slide_details <- tibble::tribble(
 ```
 
 ## Readings
-<i class="fas fa-book"></i> [Functions](https://r4ds.hadley.nz/functions.html) - from Wickham et al., *R for Data Science* [@wickham2016r] describes the logic of functions and how to approach them with `R`
- and the `tidyverse`.
+<i class="fas fa-book"></i> [Functions](https://r4ds.hadley.nz/functions.html) - from Wickham et al., *R for Data Science* [@wickham2016r] describes the logic of functions and how to approach them with `R` and the `tidyverse`.
  
+ <i class="fas fa-book"></i> [Iteration](https://r4ds.had.co.nz/iteration.html#iteration) - from Wickham et al., *R for Data Science* [@wickham2016r] provides an introduction to iteration using `for` loops and then builds on that to introduce the  `map` family of functions.
+
+<i class="fas fa-book"></i> [The Apply Family](http://uc-r.github.io/apply_family) - from the UC Business Analytics R Programming Guide provides a nice reference on the `apply` family. These functions are very powerful, but their syntax isn't as intuitive.
+
 ## Objectives
+
+By the end of today, you should be able to:
+
+1. Describe the benefit of functions
+
+2. Describe the basic components of functions
+
+3. Design your own simple functions
+
+4. Use the `apply` and `map` families of functions to automate repetitive tasks
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.

@@ -17,3 +17,32 @@ format:
 2. Introduce the `apply` and `map` family of functions 
 
 3. Practice designing functions for repetitive tasks
+
+## What are functions?
+
+## Why use functions?
+
+# Designing Functions
+
+## Key elements
+
+## Structure of functions: Names
+
+## Structure of functions: Arguments
+
+## Structure of functions: Operations
+
+## Structure of functions: Return
+
+## Functions in functions
+
+## Tips for writing functions
+
+# Repetitive Tasks
+
+## Loops
+
+## The `apply` family
+
+## The `map` family
+

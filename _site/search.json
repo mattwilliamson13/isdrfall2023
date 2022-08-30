@@ -193,14 +193,14 @@
     "href": "content/04-content.html",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "",
-    "text": "Functions - from Wickham et al., R for Data Science (Wickham and Grolemund 2016) describes the logic of functions and how to approach them with R and the tidyverse."
+    "text": "Functions - from Wickham et al., R for Data Science (Wickham and Grolemund 2016) describes the logic of functions and how to approach them with R and the tidyverse.\n Iteration - from Wickham et al., R for Data Science (Wickham and Grolemund 2016) provides an introduction to iteration using for loops and then builds on that to introduce the map family of functions.\n The Apply Family - from the UC Business Analytics R Programming Guide provides a nice reference on the apply family. These functions are very powerful, but their syntax isn’t as intuitive."
   },
   {
     "objectID": "content/04-content.html#objectives",
     "href": "content/04-content.html#objectives",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Objectives",
-    "text": "Objectives"
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nDescribe the benefit of functions\nDescribe the basic components of functions\nDesign your own simple functions\nUse the apply and map families of functions to automate repetitive tasks"
   },
   {
     "objectID": "content/04-content.html#slides",
@@ -802,7 +802,14 @@
     "href": "slides/03-slides.html#yaml---yet-another-markup-language",
     "title": "Quarto, literate programming, and pseudocode",
     "section": "YAML - Yet Another Markup Language",
-    "text": "YAML - Yet Another Markup Language\n\nAllows you to set (or change) output format\nProvide options that apply to the entire document\nSpacing matters!\n\n ## Formatting Text\n\nBasic formatting via Markdown\nFancier options using Divs and spans via Pandoc\nFenced Divs start and end with ::: (can be any number >3 but must match)"
+    "text": "YAML - Yet Another Markup Language\n\nAllows you to set (or change) output format\nProvide options that apply to the entire document\nSpacing matters!"
+  },
+  {
+    "objectID": "slides/03-slides.html#formatting-text",
+    "href": "slides/03-slides.html#formatting-text",
+    "title": "Quarto, literate programming, and pseudocode",
+    "section": "Formatting Text",
+    "text": "Formatting Text\n\nBasic formatting via Markdown\nFancier options using Divs and spans via Pandoc\nFenced Divs start and end with ::: (can be any number >3 but must match)"
   },
   {
     "objectID": "slides/03-slides.html#adding-code-chunks",
@@ -817,6 +824,90 @@
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Objectives",
     "text": "Objectives\n\nDescribe the basic components of functions\nIntroduce the apply and map family of functions\nPractice designing functions for repetitive tasks"
+  },
+  {
+    "objectID": "slides/04-slides.html#what-are-functions",
+    "href": "slides/04-slides.html#what-are-functions",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "What are functions?",
+    "text": "What are functions?"
+  },
+  {
+    "objectID": "slides/04-slides.html#why-use-functions",
+    "href": "slides/04-slides.html#why-use-functions",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Why use functions?",
+    "text": "Why use functions?"
+  },
+  {
+    "objectID": "slides/04-slides.html#key-elements",
+    "href": "slides/04-slides.html#key-elements",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Key elements",
+    "text": "Key elements"
+  },
+  {
+    "objectID": "slides/04-slides.html#structure-of-functions-names",
+    "href": "slides/04-slides.html#structure-of-functions-names",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Structure of functions: Names",
+    "text": "Structure of functions: Names"
+  },
+  {
+    "objectID": "slides/04-slides.html#structure-of-functions-arguments",
+    "href": "slides/04-slides.html#structure-of-functions-arguments",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Structure of functions: Arguments",
+    "text": "Structure of functions: Arguments"
+  },
+  {
+    "objectID": "slides/04-slides.html#structure-of-functions-operations",
+    "href": "slides/04-slides.html#structure-of-functions-operations",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Structure of functions: Operations",
+    "text": "Structure of functions: Operations"
+  },
+  {
+    "objectID": "slides/04-slides.html#structure-of-functions-return",
+    "href": "slides/04-slides.html#structure-of-functions-return",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Structure of functions: Return",
+    "text": "Structure of functions: Return"
+  },
+  {
+    "objectID": "slides/04-slides.html#functions-in-functions",
+    "href": "slides/04-slides.html#functions-in-functions",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Functions in functions",
+    "text": "Functions in functions"
+  },
+  {
+    "objectID": "slides/04-slides.html#tips-for-writing-functions",
+    "href": "slides/04-slides.html#tips-for-writing-functions",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Tips for writing functions",
+    "text": "Tips for writing functions"
+  },
+  {
+    "objectID": "slides/04-slides.html#loops",
+    "href": "slides/04-slides.html#loops",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Loops",
+    "text": "Loops"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-apply-family",
+    "href": "slides/04-slides.html#the-apply-family",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "The apply family",
+    "text": "The apply family"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-map-family",
+    "href": "slides/04-slides.html#the-map-family",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "The map family",
+    "text": "The map family"
   },
   {
     "objectID": "slides/06-slides.html#objectives",
