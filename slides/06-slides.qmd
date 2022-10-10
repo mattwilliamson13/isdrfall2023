@@ -10,12 +10,308 @@ format:
     self-contained: true  
 ---
 
+# Space Exploration {background="#0033A0"}
+
 ## Objectives
+
+* Articulate why we care about space
+
+* Describe elements of spatial data
+
+* Define a coordinate reference system and its importance
 
 * Describe several ways to load spatial data into `R`
 
-* Define a coordinate reference system and describe why it is important
+* Identify projections in `R`
 
-* Identify the different ways projections are expressed in `R` and `gdal`
 
-* Describe the other key elements of spatial data
+## Locations, Relations, and Understanding
+
+* **Geography** uses _location_ to understand how social and physical processes give rise to the environment we experience
+
+* **Geographic Information Systems** provide a structure for storing, visualizing, and describing _location_ data.
+
+* **GeoComputation** and **GIScience** integrate math, stats, and high-performance computing to move beyond description. 
+
+
+## Location lets us ask:
+
+* Questions about geographic distribution
+ 
+* Questions about geographic interaction
+ 
+* Questions about geographic change
+ 
+* Questions about geographic association
+
+* _Questions about causation?_
+
+
+## Location vs. Place
+
+* **Place:** an area having unique **physical** and **human** characteristics **interconnected** with other places
+
+* **Location:** the actual position on the earth's surface
+
+* **Sense of Place:** the emotions someone attaches to an area based on experiences
+
+* Place is *location plus meaning*
+
+## Describing Location
+
+- __nominal: (potentially contested) place names__
+
+- __absolute: the physical location on the earth's surface__
+
+## Describing Absolute Locations
+
+- **Coordinates:** 2 or more measurements that specify location relative to a _reference system_
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+- Cartesian coordinate system
+
+- _origin (O)_ = the point at which both measurement systems intersect
+
+- Adaptable to multiple dimensions (e.g. *z* for altitude)
+:::
+:::
+::: {.column width="40%"}
+![Cartesian Coordinate System](img/slide_6/CartesianCoordinateSystem.png)
+:::
+:::
+
+## Locations on a Globe
+
+- The earth is not flat...
+
+::: columns
+::: {.column width="40%"}
+![Latitude and Longitude](img/slide_6/Latitude_and_Longitude.png)
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+- Global Reference Systems (GRS)
+
+- _Graticule_: the grid formed by the intersection of longitude and latitude
+
+- The graticule is based on an ellipsoid model of earth's surface and contained in the _datum_
+:::
+:::
+:::
+## Global Reference Systems
+::: {style="font-size: 1.2em; text-align: center"}
+__The *datum* describes which ellipsoid to use and the precise relations between locations on earth's surface and Cartesian coordinates__
+:::
+
+- Geodetic datums (e.g., `WGS84`): distance from earth's center of gravity
+
+- Local data (e.g., `NAD83`): better models for local variation in earth's surface
+
+## The Earth is Not Flat
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+- But maps, screens, and publications are...
+
+- **Projections** describe *how* the data should be translated to a flat surface
+
+- Rely on 'developable surfaces'
+:::
+:::
+::: {.column width="40%"}
+![Developable Surfaces](img/slide_6/projections.png)
+:::
+::: 
+ 
+::: {style="font-size: 1.1em; text-align: center"}
+[__Projection necessarily induces some form of distortion (tearing, compression, or shearing(__]{style="color:#771C6D"}
+:::
+
+## Choosing Projections
+
+::: columns
+::: {.column width="40%"}
+![](img/slide_6/distortion.png)
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+
+- Some projections minimize distortion of angle, area, or distance
+
+- Others attempt to avoid extreme distortion of any kind 
+
+- Particularly challenging for raster data
+:::
+:::
+:::
+
+## Choosing Projections
+
+- Equal-area for thematic maps
+
+- Conformal for presentations
+
+- Mercator or equidistant for navigation and distance
+
+
+# Mapping Location in `R` {background="#0033A0"}
+
+## Data Types and `R` Packages
+
+::: columns
+::: {.column width="60%"}
+### Data Types
+
+- Vector Data
+  - Point features
+  - Line features
+  - Area features (polygons)
+
+- Raster Data
+  - Spatially continuous field
+  - Based on pixels (not points)
+:::
+::: {.column width="30%"}
+![](img/slide_6/sf_hexagon.png)
+
+![](img/slide_6/terra_hexagon.png){height=72%, width=72%}
+
+:::
+:::
+## Mapping loaction: Coordinate Reference Systems 
+
+- Includes: Datum, ellipsoid, units, and other information (e.g., False Easting, Central Meridian) to further map the projection to the GCS
+
+- Not all projections have/require all of the parameters
+
+- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs]))
+
+- Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
+
+## Mapping loaction: Coordinate Reference Systems 
+
+- Primarily accessed using `sf::st_crs()` or `terra::crs()`
+```{r}
+#| echo: true
+#| eval: false
+f <- rast(system.file("ex/meuse.tif", package="terra"))
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+st_crs(nc)
+crs(nc)
+```
+## Mapping location: Extent
+
+* **Extent:** The amount of the Earth's surface represented by the mapped features
+
+`R` has a very specific definition of extent: the rectangular region encompassed by the data
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+library(sf)
+library(tidyverse)
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+plot(st_geometry(nc))
+plot(st_make_grid(st_bbox(nc), n=1), add=TRUE, border = "blue")
+
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+
+library(terra)
+meuse <- rast(system.file("ex/meuse.tif", package="terra"))
+plot(meuse)
+plot(ext(meuse), add=TRUE, border = "blue")
+
+```
+
+:::
+:::
+
+## Using `R` to access the extent
+
+- Using `st_bbox()` from the `sf` package
+
+```{r}
+#| echo: true
+nc.shp <- st_read(system.file("shape/nc.shp", package="sf")) 
+meuse.rst <- rast(system.file("ex/meuse.tif", package="terra"))
+st_bbox(nc.shp)
+st_bbox(meuse.rst)
+```
+## Using `R` to access the extent
+
+- Using `ext()` from the `terra` package
+
+```{r}
+#| echo: true
+ext(nc.shp)
+ext(meuse.rst)
+```
+
+## Mapping location: Resolution
+
+
+- **Resolution:** the accuracy that the location and shape of a map's features can be depicted
+
+- **Minimum Mapping Unit:** The minimum size and dimensions that can be reliably represented at a given _map scale_. 
+
+- Map scale vs. scale of analysis
+
+## Mapping location: Resolution
+
+```{r}
+#| fig-align: center
+
+f <- rast(system.file("ex/meuse.tif", package="terra"))
+s1 <- rast(extent = ext(f), resolution = c(500,500))
+s2 <- rast(extent = ext(f), resolution = c(1,1))
+s3 <- rast(extent = ext(f), resolution = c(100,100))
+f1 <- terra::resample(f,s1)
+f2 <- terra::resample(f, s2)
+f3 <- terra::resample(f, s3)
+
+par(mfrow = c(1,3))
+plot(f2)
+plot(f3)
+plot(f1)
+par(mfrow = c(1,1))
+```
+
+## Using `R` to access resolution
+
+* Thematically defined for `vector` datasets (check your metadata!!)
+
+* Using `res()` in `terra`
+
+```{r}
+#| echo: true
+f <- rast(system.file("ex/meuse.tif", package="terra"))
+res(f)
+```
+
+# Recap {background="#0033A0"}
+
+## Today's goals
+
+* Articulate why we care about space
+
+* Describe elements of spatial data
+
+* Define a coordinate reference system and its importance
+
+* Describe several ways to load spatial data into `R`
+
+* Identify projections in `R`

@@ -20,29 +20,276 @@ format:
 
 ## What are functions?
 
+- A specific `class` of `R` object (can call `function` inside `functions`)
+
+```{r}
+#| echo: true
+rg <- paste("The range of mpg is", sum(mean(mtcars$mpg), sd(mtcars$mpg)), "-", sum(mean(mtcars$mpg), -sd(mtcars$mpg)))
+rg
+```
+- A self-contained (i.e., modular) piece of code that performs a specific task
+
+- Allows powerful customization and extension of `R`
+
 ## Why use functions?
 
-# Designing Functions
+- Copy-and-paste and repetitive typing are _prone to errors_
 
-## Key elements
+- Evocative names and modular code make your analysis more tractable
+
+- Update in one place!
+
+::: {style="font-size: 1.2em; text-align: center"} 
+**If you are copy-and-pasting more than 2x, consider a function!**
+:::
+
+# Designing Functions {background="#0033A0"}
+
+## Getting started
+
+- Sketch out the steps in the algorithm (pseudocode!)
+
+- Develop working code for each step
+
+- Anonymize
+
+```{r}
+#| eval: false
+#| echo: true
+
+do_something <- function(arg1, arg2, arg3){
+  intermediate_process <- manipulate(arg1,arg2, arg3)
+  clean_output <- cleanup(intermediate_process)
+  return(clean_output)
+}
+
+```
 
 ## Structure of functions: Names
+::: columns
+::: {.column width="60%"}
+- What will your function do?
+
+- Short, but clear!
+
+- Avoid using reserved words or functions that already exist
+
+- Use `snake_case` 
+:::
+::: {.column width="40%"}
+```{r}
+#| eval: false
+#| echo: true
+
+something <- function(...){
+  <<body>>
+}
+```
+::: {style="font-size: 0.8em; text-align: center"} 
+**Not Great**
+:::
+```{r}
+#| eval: false
+#| echo: true
+
+do_something_ultraspecific <- function(...){
+  <<body>>
+}
+```
+::: {style="font-size: 0.8em; text-align: center"} 
+**Better**
+:::
+```{r}
+#| eval: false
+#| echo: true
+
+do_something <- function(...){
+  <<body>>
+}
+```
+::: {style="font-size: 0.8em; text-align: center"} 
+**Pretty good**
+:::
+:::
+:::
 
 ## Structure of functions: Arguments
 
-## Structure of functions: Operations
+- Provide the data that the function will work on
+
+- Provide other arguments that control the details of the computation (often with defaults)
+
+- Called by name or position (names should be descriptive)
+
+```{r}
+#| echo: true
+nums <- rnorm(n = 1000, mean=2, sd=1.5)
+```
+
+::: {style="font-size: 0.8em; text-align: center"} 
+**Same As**
+:::
+```{r}
+#| echo: true
+nums <- rnorm(1000, 2, 1.5)
+```
+
+## Structure of functions: Body
+
+- The body of the function appears between the `{}`
+
+- This is where the function does its work
+
+```{r}
+#| echo: true
+# Compute confidence interval around mean using normal approximation
+mean_ci <- function(x, conf = 0.95) {
+  se <- sd(x) / sqrt(length(x))
+  alpha <- 1 - conf
+  mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))
+}
+
+x <- runif(100)
+mean_ci(x)
+mean_ci(x, conf = 0.99)
+```
 
 ## Structure of functions: Return
 
-## Functions in functions
+- Default is to return the last argument evaluated
 
-## Tips for writing functions
+- Can use `return()` to return an earlier value
 
-# Repetitive Tasks
+- Can use `list` to return multiple values
+
+- A note on the Environment
+
+```{r}
+#| echo: true
+mean_ci <- function(x, conf = 0.95) {
+  se <- sd(x) / sqrt(length(x))
+  alpha <- 1 - conf
+  ci <- mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))
+  myresults <- list(alpha = alpha, ci = ci, se = se)
+  return(myresults)
+}
+
+ci_result <- mean_ci(x)
+```
+## Structure of functions: Return
+
+```{r}
+#| echo: true
+str(ci_result)
+```
+
+
+# Repetitive Tasks {background="#0033A0"}
+
+
+## Iteration
+
+- Another tool for reducing code duplication
+
+- **Iteration** for when you need to repeat the same task on different columns or datasets
+
+- **Imperative** iteration uses loops (`for` and `while`)
+
+- **Functional** iteration combines functions with the `apply` family to break computational challenges into independent pieces.
 
 ## Loops
 
+- Use _counters_ (`for`) or _conditionals_ (`while`) to repeat a set of tasks
+
+- 3 key components
+  - **Output** - before you can loop, you need a place to store the results
+  - **Sequence** - defines what you are looping over
+  - **Body** - defines what the code is actually doing
+
+## Loops
+  
+```{r}
+#| echo: true
+library(tidyverse)
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+output <- vector("double", ncol(df))  # 1. output
+for (i in seq_along(df)) {            # 2. sequence
+  output[[i]] <- median(df[[i]])      # 3. body
+}
+output
+#> [1] -0.24576245 -0.28730721 -0.05669771  0.14426335
+
+```
+  
+
 ## The `apply` family
+
+- Vectorized functions that eliminate explicit `for` loops
+
+- Differ by the `class` they work on and the output they return
+
+- `apply`, `lapply` are most common; extensions for parallel processing (e.g., `parallel::mclapply`)
+
+## The `apply` family
+
+- `apply` for vectors and data frames
+
+- Args: `X` for the data, `MARGIN` how will the function be applied, (1=rows, 2=columns), `FUN` for your function, `...` for other arguments to the function
+
+```{r}
+#| echo: true
+apply(mtcars, 2, mean)
+
+```
+
+## The `apply` family
+
+- `lapply` for lists (either input or output)
+
+- Args: `X` for the data, `FUN` for your function, `...` for other arguments to the function
+
+```{r}
+#| echo: true
+data <- list(item1 = 1:4, 
+             item2 = rnorm(10), 
+             item3 = rnorm(20, 1), 
+             item4 = rnorm(100, 5))
+
+# get the mean of each list item 
+lapply(data, mean)
+```
 
 ## The `map` family
 
+- Similar to `apply`, but more consistent input/output
+
+- All take a vector for input
+
+- Difference is based on the output you expect
+
+- Integrates with `tidyverse`
+
+## The `map` family
+
+- `map()`: output is a list
+- `map_int()`: output is an integer vector
+- `map_lgl()`: output is a logical vector
+- `map_dbl()`: output is a double vector
+- `map_chr()`: output is a character vector
+- `map_df()`, `map_dfr()`, `map_dfc()`: output is a dataframe (`r` and `c` specify how to combine the data)
+
+## Some parting thoughts
+
+- Transparency vs. speed
+
+- Testing
+
+- Moving forward
+
+# Back to our example {background="#0033A0"}

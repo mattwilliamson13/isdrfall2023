@@ -1,0 +1,359 @@
+---
+title: "Building Spatial Databases with Attributes"
+subtitle: "HES 505 Fall 2022: Session 14"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+```{r}
+#| include: false
+library(tidyverse)
+library(pander)
+library(sf)
+library(igraph)
+library(terra)
+library(spData)
+```
+# Today's Plan {background="#43464B" background-image="img/slide_14/bison.png"}
+
+
+## Objectives
+
+- By the end of today, you should be able to:
+
+  - Define _spatial analysis_
+
+  - Describe the steps in planning a spatial analysis
+
+  - Understand the structure of relational databases
+
+  - Begin building a database for spatial analysis
+
+# What is spatial analysis? {background="#0033A0"}
+
+## What is spatial analysis?
+> "The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data".
+`r tufte::quote_footer('--- ESRI Dictionary')`
+
+## What is spatial analysis?
+
+::: columns
+::: {.column width="60%"}
+
+- The process of turning maps into information
+
+- Any- or everything we do with GIS
+
+- The use of computational and statistical algorithms to understand the relations between things that co-occur in space.
+:::
+::: {.column width="40%"}
+![John Snow's cholera outbreak map](img/slide_14/Snow-cholera-map.png)
+:::
+:::
+
+## Common goals for spatial analysis
+
+::: columns
+::: {.column width="60%"}
+![courtesy of [NatureServe](https://www.natureserve.org/products/species-distribution-modeling)](img/slide_14/stand-land_modeling_process_0.png){width=700, height=500}
+:::
+::: {.column width="40%"}
+
+- Describe and visualize locations or events
+
+- Quantify patterns
+
+- Characterize 'suitability'
+
+- Determine (statistical) relations
+:::
+:::
+
+## Common pitfalls of spatial analysis
+
+- __Locational Fallacy:__ Error due to the spatial characterization chosen for elements of study
+
+
+- __Atomic Fallacy:__ Applying conclusions from individuals to entire spatial units
+
+
+- __Ecological Fallacy:__ Applying conclusions from aggregated information to individuals
+
+::: {style="font-size: 0.7em"}
+> Spatial analysis is an inherently complex endeavor and one that is advancing rapidly. So-called "best practices" for addressing many of these issues are still being developed and debated. This doesn't mean you shouldn't do spatial analysis, but you should keep these things in mind as you design, implement, and interpret your analyses
+:::
+
+# Workflows for spatial analysis {background="#0033A0"}
+
+## Workflows for spatial analysis
+
+::: columns
+::: {.column width="60%"}
+- Acquisition (not really a focus, but see [Resources](content/resource/))
+
+- Geoprocessing 
+
+- Analysis 
+
+- Visualization 
+:::
+::: {.column width="40%"}
+![courtesy of [University of Illinois](https://guides.library.illinois.edu/c.php?g=348425&p=5443868)](img/slide_14/acquire_analyze_present.png)
+:::
+:::
+
+## Geoprocessing
+
+__Manipulation of data for subsequent use__
+
+- Alignment 
+
+- Data cleaning and transformation 
+
+- Combination of multiple datasets 
+
+- Selection and subsetting 
+
+# Databases and attributes {background="#0033A0"}
+
+## Databases and attributes
+
+::: columns
+::: {.column width="40%"}
+![courtesy of [Giscommons](https://giscommons.org/data-tables-and-data-preprocessing/)](img/slide_14/4.1.png)
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+- Previous focus has been largely on _location_
+
+- Geographic data often also includes non-spatial data
+
+- Attributes: Non-spatial information that further describes a spatial feature
+
+- Typically stored in tables where each row represents a spatial feature
+  - Wide vs. long format
+:::
+:::
+:::
+
+## Common attribute operations
+
+- `sf` designed to work with `tidyverse`
+
+- Allows use of `dplyr` data manipulation verbs 
+
+- Can use `scales` package for units
+
+- Also allows `%>%` to chain together multiple steps
+
+- geometries are "sticky"
+
+- Pay attention to masking!!
+
+## Revisiting the `tidyverse` 
+* Fields contain individual attributes
+
+* Selecting fields
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+colnames(world)
+head(world)[,1:3] %>% 
+  st_drop_geometry()
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+world %>%
+  dplyr::select(name_long, continent) %>%
+  st_drop_geometry() %>% 
+  head(.) 
+```
+:::
+:::
+
+## Revisiting the `tidyverse`
+* Features refer to the individual observations in the dataset
+* Selecting features
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+head(world)[1:3, 1:3] %>% 
+  st_drop_geometry()
+
+```
+:::
+::: {.column width="50%"}
+```{r wrldfiltr}
+#| echo: true
+world %>%
+  filter(continent == "Asia") %>% 
+    dplyr::select(name_long, continent) %>%
+  st_drop_geometry() %>% 
+  head(.)
+```
+:::
+:::
+
+## Revisiting the `tidyverse` 
+
+* Creating new fields 
+
+
+```{r}
+#| echo: true
+world %>%
+  filter(continent == "Asia") %>% 
+    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%
+  mutate(., dens = pop/area_km2,
+         totGDP = gdpPercap * pop) %>%
+  st_drop_geometry() %>% 
+  head(.)
+```
+
+## Revisiting the `tidyverse` 
+
+* Creating new fields 
+
+```{r}
+world2 <- world %>%
+  filter(continent == "Asia") %>% 
+    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%
+  mutate(., dens = pop/area_km2,
+         totGDP = gdpPercap * pop)
+plot(world2[c("dens", "totGDP")])
+```
+
+## Revisiting the `tidyverse` 
+
+* Aggregating data
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+world %>%
+  st_drop_geometry(.) %>% 
+  group_by(continent) %>%
+  summarize(pop = sum(pop, na.rm = TRUE))
+```
+:::
+::: {.column width="50%"}
+```{r wrldagg}
+worldpop <-  world %>%
+  group_by(continent) %>%
+  summarize(pop = sum(pop, na.rm = TRUE))
+plot(worldpop["pop"])
+```
+:::
+:::
+
+# Joining (a)spatial data {background="#0033A0"}
+
+
+## Joining (a)spatial data
+
+::: columns
+::: {.column width="40%"}
+- Requires a "key" field 
+
+- Multiple outcomes possible
+
+- Think about your final data form
+:::
+::: {.column width="60%"}
+![](img/slide_14/types-of-relationship-in-Database.png) 
+:::
+:::
+
+## Left Join
+
+- Useful for adding other attributes not in your spatial data
+
+- Returns all of the records in `x` attributed with `y`
+
+- Pay attention to the number of rows!
+
+## Left Join
+
+```{r}
+source(here::here("R", "left_join.R"))
+```
+![](img/slide_14/left-join.gif)
+
+## Left Join
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+head(coffee_data)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+world_coffee = left_join(world, coffee_data)
+nrow(world_coffee)
+```
+:::
+:::
+
+## Left Join
+
+```{r}
+plot(world_coffee["coffee_production_2017"])
+```
+
+## Inner Join
+
+- Useful for subsetting to "complete" records
+
+- Returns all of the records in `x` with matching `y`
+
+- Pay attention to the number of rows!
+
+## Inner Join
+
+```{r}
+source(here::here("R", "inner_join.R"))
+```
+![](img/slide_14/inner-join.gif)
+
+## Inner Join
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+world_coffee_inner = inner_join(world, coffee_data)
+nrow(world_coffee_inner)
+```
+::: 
+::: {.column width="50%"}
+```{r}
+#| echo: true
+setdiff(coffee_data$name_long, world$name_long)
+```
+:::
+:::
+
+## Inner Join
+```{r}
+plot(world_coffee_inner["coffee_production_2017"])
+```
+
+# Other Joins
+
+* `right_`, `outer_`, and `anti_`
+
+* Spatial Joins (next week)

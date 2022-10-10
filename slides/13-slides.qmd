@@ -1,0 +1,390 @@
+---
+title: "Combining Raster and Vector Data"
+subtitle: "HES 505 Fall 2022: Session 13"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+# Today's Plan {background="#43464B" background-image="img/slide_10/NEDUS.gif" background-opacity="0.7"}
+
+::: footer
+Image Source: USGS
+:::
+
+## Objectives
+
+- By the end of today, you should be able to:
+
+  - Clip, crop, or extend vector and raster data so that extents align
+
+  - Convert between raster and vector datasets
+
+  - Generate new rasters describing the spatial arrangement of vector data
+
+  - Extract raster values as attributes of vector data
+
+# Modifying the Extent {background="#0033A0"}
+
+## Dealing with Different Extents
+
+::: columns
+::: {.column width="50%"}
+- Raster extents often larger than our analysis
+
+- Reducing memory and computational resources
+
+- Making attractive maps
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+library(sf)
+library(terra)
+library(spDataLarge)
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+zion = read_sf(system.file("vector/zion.gpkg", package = "spDataLarge"))
+zion = st_transform(zion, crs(srtm))
+plot(srtm)
+plot(st_geometry(zion), add=TRUE, col="blue")
+```
+:::
+:::
+
+## Using `terra::crop()`
+
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(srtm)
+plot(ext(zion), add=TRUE, border="red")
+plot(zion, add=TRUE, col="blue")
+
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+- Coordinate Reference System must be the same for both objects
+
+- Crop is based on the (converted) `SpatExtent` of the 2nd object
+
+- `snap` describes how `y` will be aligned to the raster
+
+- Returns all data within the extent
+:::
+:::
+:::
+
+## Using `terra::crop()`
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+library(sf)
+library(terra)
+library(spDataLarge)
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+zion = read_sf(system.file("vector/zion.gpkg", package = "spDataLarge"))
+zion = st_transform(zion, crs(srtm))
+
+crs(srtm) == crs(zion)
+srtm.crop <- crop(x=srtm, y=zion, snap="near")
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(srtm.crop)
+plot(zion, add=TRUE, col="blue")
+```
+:::
+:::
+
+## Using `mask()`
+::: {style="font-size: 0.7em"}
+* Often want to get rid of all values outside of vector
+
+* Can set `mask=TRUE` in `crop()` (`y` must be `SpatVector`)
+
+* Or use `mask()`
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+srtm.crop.msk <- crop(x=srtm, y=vect(zion), snap="near", mask=TRUE)
+plot(srtm.crop.msk)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+srtm.msk <- mask(srtm.crop, vect(zion))
+plot(srtm.msk)
+```
+:::
+:::
+
+## Using `mask()`
+::: {style="font-size: 0.7em"}
+* Allows more control over what the mask does
+
+* Can set `maskvalues` and `updatevalues` to change the resulting raster
+
+* Can also use `inverse` to mask out the vector
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+srtm.msk <- mask(srtm.crop, vect(zion), updatevalue=-1000)
+plot(srtm.msk)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+srtm.msk <- mask(srtm.crop, vect(zion), inverse=TRUE, updatevalue=0)
+plot(srtm.msk)
+```
+:::
+:::
+
+## Extending boundaries
+::: {style="font-size: 0.7em"}
+* Vector slightly larger than raster
+
+* Especially when using buffered datasets
+
+* Can use `extend`
+
+* Not exact; depends on `snap()`
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+
+zion.buff <-  zion %>% 
+  st_buffer(., 10000)
+srtm.ext <- extend(srtm, vect(zion.buff))
+ext(srtm.ext)
+ext(vect(zion.buff))
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 4.5
+#| fig-height: 4.5
+plot(ext(zion.buff))
+plot(srtm, add=TRUE)
+```
+:::
+:::
+
+# Converting Between Formats {background="#0033A0"}
+
+## Converting Between Formats
+
+* Using coercion (`as`, `rast`, `vect`) can change `class`, but not data model
+
+* Sometimes we need to actually change the data model
+
+## Converting Vectors to Rasters Using `rasterize`
+
+* A special kind of data aggregation
+
+* `x` is your `SpatVector` object
+
+* `y` is a template raster with the appropriate CRS, resolution, and extent
+
+* `fun` allows you to specify the value of the resulting raster
+
+## Using `rasterize`
+::: {style="font-size: 0.7em"}
+* Presence/Absence
+* `field` specifies which value should be returned to non-empty cells
+:::
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+cycle_hire_osm = spData::cycle_hire_osm
+cycle_hire_osm_projected = st_transform(cycle_hire_osm, "EPSG:27700")
+raster_template = rast(ext(cycle_hire_osm_projected), resolution = 1000,
+                       crs = st_crs(cycle_hire_osm_projected)$wkt)
+ch_raster1 = rasterize(cycle_hire_osm_projected, raster_template,
+                       field = 1)
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(ch_raster1)
+
+```
+:::
+:::
+
+## Using `rasterize`
+::: {style="font-size: 0.7em"}
+* The `fun` argument specifies how we aggregate the data
+
+* Useful for counting occurrences (using `length`)
+:::
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+ch_raster2 = rasterize(cycle_hire_osm_projected, raster_template, 
+                       fun = "length")
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(ch_raster2)
+
+```
+:::
+:::
+
+## Using `rasterize`
+::: {style="font-size: 0.7em"}
+* The `fun` argument specifies how we aggregate the data
+
+* Can use a variety of functions
+:::
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+ch_raster3 = rasterize(cycle_hire_osm_projected, raster_template, 
+                       field = "capacity", fun = sum)
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(ch_raster3)
+```
+:::
+:::
+
+## Lines and Polygons
+
+* Can use `rasterize` or `stars::st_rasterize`
+* Result depends on the `touches` argument
+
+![](img/slide_13/rasterizing-raster-1.png){width=450, height=450}
+
+
+
+## Converting rasters to vectors
+
+* Less common, but can convert to vector data
+
+* `as.points`, `as.countour`, and `polygonize`
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+dem = rast(system.file("raster/dem.tif", package = "spDataLarge"))
+cl = as.contour(dem)
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(dem, axes = FALSE)
+plot(cl, add = TRUE)
+```
+:::
+:::
+
+# Generating New Data {background="#0033A0"}
+
+## Generating New Data
+
+* Sometimes we want a raster describing the spatial context of vector data
+
+* `distance` is a simple method
+
+* We'll use interpolation in the next few weeks
+
+## Generating Distance Rasters
+* returns a distance matrix or `SpatRaster`
+
+
+```{r}
+#| echo: true
+cycle_hire_osm = spData::cycle_hire_osm
+cycle_hire_osm_projected = st_transform(cycle_hire_osm, "EPSG:27700")
+
+cycle_dist <- distance(vect(cycle_hire_osm_projected))
+head(as.matrix(cycle_dist))[1:5, 1:5]
+```
+
+## Generating Distance Rasters
+* returns a distance matrix or `SpatRaster`
+
+```{r}
+#| echo: true
+raster_template = rast(ext(cycle_hire_osm_projected), resolution = 100,
+                       crs = st_crs(cycle_hire_osm_projected)$wkt)
+ch_raster1 = rasterize(cycle_hire_osm_projected, raster_template,
+                       field = 1)
+
+ch_dist_rast <- distance(ch_raster1)
+plot(ch_dist_rast)
+```
+
+
+## Creating Vector Data by Extraction
+
+* Sometimes we want to use rasters to create new attributes
+
+* `fun` controls how the cells are aggregated
+
+
+```{r}
+#| echo: true
+cycle_hire_osm = spData::cycle_hire_osm
+cycle_hire_osm_proj_buff <- st_transform(cycle_hire_osm, "EPSG:27700") %>% 
+  st_buffer(., 5000) %>% 
+  as(., "SpatVector")
+
+cycle_ext <- extract(ch_dist_rast, cycle_hire_osm_proj_buff)
+head(cycle_ext)
+```

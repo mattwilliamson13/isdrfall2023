@@ -1,0 +1,44 @@
+---
+title: "Operations With Raster Data II"
+date: "2022-09-28"
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "BIhz1dz5Vws", "Revisiting Projections", 'title', TRUE,
+  "f-sOSXyeeJE", "Cell-based operations", "why-not-r", FALSE,
+  "Z2foqSMWnGU", "Global operations", "Class Details", FALSE,
+  "Z2foqSManGZ", "Context methods", "Class Details", FALSE,
+)
+```
+## Readings
+One of the most attractive reasons for using the raster data model (and `terra`, specifically) is the relative ease and speed with which you can manipulate values within a raster or combine multiple rasters to generate new data. We'll focus on that today.
+
+- <i class="fas fa-external-link-square-alt"></i> The [`terra` package vignette](https://rspatial.org/terra/pkg/1-introduction.html#) describes the new raster functions available in `terra`, their relationship to those in the `raster` package, and the changes in syntax between the two.
+
+- <i class="fas fa-book"></i> The [Raster GIS Operations in R with terra](https://www.ecologi.st/spatial-r/raster-gis-operations-in-r-with-terra.html) chapter from Jasper Slingsby's "A Minimal Introduction to GIS (in R)" bookdown project has worked examples of many of the operations we'll learn today.
+
+## Objectives
+
+By the end of today, you should be able to: 
+
+- Access and manipulate cell values of a raster
+
+- Generate new rasters using mathematical functions
+
+- Summarize rasters using global functions
+
+- Generate new rasters describing the spatial context of individual cells
+
+
+
+## Slides
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/12-slides")
+slide_tabs(slide_details, "/slides/12-slides.html")
+```

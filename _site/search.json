@@ -221,14 +221,182 @@
     "href": "content/06-content.html#objectives",
     "title": "Spatial Data is Special Data",
     "section": "Objectives",
-    "text": "Objectives\nBy the end of today, you should be able to:\n\nDescribe several ways to load spatial data into R\nDefine a coordinate reference system and describe why it is important\nIdentify the different ways projections are expressed in R and gdal\nDescribe the other key elements of spatial data"
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nArticulate why we care about space\nDescribe elements of spatial data\nDefine a coordinate reference system and its importance\nDescribe several ways to load spatial data into R\nIdentify, assign, and change projections R"
   },
   {
     "objectID": "content/06-content.html#slides",
     "href": "content/06-content.html#slides",
     "title": "Spatial Data is Special Data",
     "section": "Slides",
-    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nDefining location\n\n\nThe CRS\n\n\nOther important elements"
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nGeography\n\n\nProjections\n\n\nSpatial Data in R"
+  },
+  {
+    "objectID": "content/07-content.html",
+    "href": "content/07-content.html",
+    "title": "Spatial Data as Vectors",
+    "section": "",
+    "text": "The introductory vignette for the sf package has a lot of useful info on sf objects and conventions.\n Section 2.2 on Vector Data and Sections 5.1-5.3 on Geographic Operations in Lovelace et al. (Lovelace et al. 2019) - for more details about vectors and geometric operations on vectors.\n Section 3.1 and 3.2 of Spatial Data Science, a bookdown project by Edzer Pebesma and Roger Bivand (of the sf, sp, rgeos, and rgdal packages)"
+  },
+  {
+    "objectID": "content/07-content.html#objectives",
+    "href": "content/07-content.html#objectives",
+    "title": "Spatial Data as Vectors",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nArticulate the role of the data model in geographic information systems\nDescribe the key elements of vector data\nUse the sf package to read and manipulate vector data\nDefine geometry in the context of vector objects and troubleshoot common problems"
+  },
+  {
+    "objectID": "content/07-content.html#slides",
+    "href": "content/07-content.html#slides",
+    "title": "Spatial Data as Vectors",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nGeography\n\n\nProjections\n\n\nSpatial Data in R"
+  },
+  {
+    "objectID": "content/08-content.html",
+    "href": "content/08-content.html",
+    "title": "Operations on Vector Data I",
+    "section": "",
+    "text": "We are going to continue building on the use of the vector data model so we’ll keep working through the readings from last session.\n\n The introductory vignette for the sf package has a lot of useful info on sf objects and conventions.\n Section 2.2 on Vector Data and Sections 5.1-5.3 on Geographic Operations in Lovelace et al. (Lovelace et al. 2019) - for more details about vectors and geometric operations on vectors.\n Section 3.1 and 3.2 of Spatial Data Science, a bookdown project by Edzer Pebesma and Roger Bivand (of the sf, sp, rgeos, and rgdal packages)"
+  },
+  {
+    "objectID": "content/08-content.html#objectives",
+    "href": "content/08-content.html#objectives",
+    "title": "Operations on Vector Data I",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nDefine valid geometries and approaches for validating geometries in R\nUnderstand predicates and measures in the context of spatial operations in sf\nUse st_* to evaluate attributes of geometries and calculate measurements"
+  },
+  {
+    "objectID": "content/08-content.html#slides",
+    "href": "content/08-content.html#slides",
+    "title": "Operations on Vector Data I",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nValid Geometries\n\n\nPredicates\n\n\nMeasurements"
+  },
+  {
+    "objectID": "content/09-content.html",
+    "href": "content/09-content.html",
+    "title": "Operations on Vector Data II",
+    "section": "",
+    "text": "We are going to continue building on the use of the vector data model so we’ll keep working through the readings from last session.\n\n The introductory vignette for the sf package has a lot of useful info on sf objects and conventions.\n Section 2.2 on Vector Data and Sections 5.1-5.3 on Geographic Operations in Lovelace et al. (Lovelace et al. 2019) - for more details about vectors and geometric operations on vectors.\n Section 3.1 and 3.2 of Spatial Data Science, a bookdown project by Edzer Pebesma and Roger Bivand (of the sf, sp, rgeos, and rgdal packages)"
+  },
+  {
+    "objectID": "content/09-content.html#objectives",
+    "href": "content/09-content.html#objectives",
+    "title": "Operations on Vector Data II",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nComplete a workflow for identifying and remedying invalid geometries\nDescribe the various unary, binary, and n-ary transformers\nUse predicates and dplyr::filter to subset spatial data"
+  },
+  {
+    "objectID": "content/09-content.html#slides",
+    "href": "content/09-content.html#slides",
+    "title": "Operations on Vector Data II",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nFinal Project\n\n\nTransformations\n\n\nSubsetting"
+  },
+  {
+    "objectID": "content/10-content.html",
+    "href": "content/10-content.html",
+    "title": "Spatial data as matrices and rasters",
+    "section": "",
+    "text": "Today we’ll be exploring the raster data model and how it is implemented within the spatial packages in the R computing environment. These chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for raster proccessing in R.\n\n The raster package vignette has a number of helpful examples for different workflows with raster objects in R.\n The terra package vignette describes the new raster functions available in terra, their relationship to those in the raster package, and the changes in syntax between the two.\n The Functional Programming and Measuring performance from Advanced R (Wickham 2019) provide an excellent introduction to developing your own functions for repeated operations and ways to optimise code for large problems. Raster data processing often involves repeating (sometimes multiple) steps 100s of times. These chapters introduce strategies for developing functions for repeated operations and identfying and fixing bottlenecks in those functions."
+  },
+  {
+    "objectID": "content/10-content.html#objectives",
+    "href": "content/10-content.html#objectives",
+    "title": "Spatial data as matrices and rasters",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nDescribe the raster data model and its representation in R\nAccess the elements that define a raster\nBuild rasters from scratch using matrix operations and terra"
+  },
+  {
+    "objectID": "content/10-content.html#slides",
+    "href": "content/10-content.html#slides",
+    "title": "Spatial data as matrices and rasters",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nThe Raster Data Model\n\n\nComponents of Rasters in R\n\n\nBuilding Rasters"
+  },
+  {
+    "objectID": "content/11-content.html",
+    "href": "content/11-content.html",
+    "title": "Operations With Raster Data I",
+    "section": "",
+    "text": "Now that we’ve learned a bit about the raster data model, we’ll begin using terra to manage and manipulate rasters. We’ll start with some of the predicate and measure functions and build up to more complex transformations.\n\n The terra package vignette describes the new raster functions available in terra, their relationship to those in the raster package, and the changes in syntax between the two.\n The Raster GIS Operations in R with terra chapter from Jasper Slingsby’s “A Minimal Introduction to GIS (in R)” bookdown project has worked examples of many of the operations we’ll learn today."
+  },
+  {
+    "objectID": "content/11-content.html#objectives",
+    "href": "content/11-content.html#objectives",
+    "title": "Operations With Raster Data I",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nEvaluate logical conditions with raster data\nCalculate different measures of raster data\nAlign rasters for spatial processing"
+  },
+  {
+    "objectID": "content/11-content.html#slides",
+    "href": "content/11-content.html#slides",
+    "title": "Operations With Raster Data I",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nPredicates\n\n\nMeasures\n\n\nAligning Rasters"
+  },
+  {
+    "objectID": "content/12-content.html",
+    "href": "content/12-content.html",
+    "title": "Operations With Raster Data II",
+    "section": "",
+    "text": "One of the most attractive reasons for using the raster data model (and terra, specifically) is the relative ease and speed with which you can manipulate values within a raster or combine multiple rasters to generate new data. We’ll focus on that today.\n\n The terra package vignette describes the new raster functions available in terra, their relationship to those in the raster package, and the changes in syntax between the two.\n The Raster GIS Operations in R with terra chapter from Jasper Slingsby’s “A Minimal Introduction to GIS (in R)” bookdown project has worked examples of many of the operations we’ll learn today."
+  },
+  {
+    "objectID": "content/12-content.html#objectives",
+    "href": "content/12-content.html#objectives",
+    "title": "Operations With Raster Data II",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nAccess and manipulate cell values of a raster\nGenerate new rasters using mathematical functions\nSummarize rasters using global functions\nGenerate new rasters describing the spatial context of individual cells"
+  },
+  {
+    "objectID": "content/12-content.html#slides",
+    "href": "content/12-content.html#slides",
+    "title": "Operations With Raster Data II",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nRevisiting Projections\n\n\nCell-based operations\n\n\nGlobal operations\n\n\nContext methods"
+  },
+  {
+    "objectID": "content/13-content.html",
+    "href": "content/13-content.html",
+    "title": "Combining Raster and Vector Data",
+    "section": "",
+    "text": "As we move towards a complete geospatial statistical workflow, we’ll need to be able to combine data from both raster and vector datasets. Sometimes that will mean simply converting from one format to another. In other cases, we’ll need to create new datasets based on calculations that integrate different data models. We’ll do some of that today.\n\n The Integrating rasters and vectors chapter of Michael Dorman’s Introduction to Spatial Data Programming with R online textbook has a number of worked examples combining vector and raster data.\n Raster-vector interactions Chapter 6 in Lovelace et al., Geocomputation with R (Lovelace et al. 2019) has a great description of why you might do some of these things in your analysis."
+  },
+  {
+    "objectID": "content/13-content.html#objectives",
+    "href": "content/13-content.html#objectives",
+    "title": "Combining Raster and Vector Data",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nClip, crop, or extend vector and raster data so that extents align\nConvert between raster and vector datasets\nGenerate new rasters describing the spatial arrangement of vector data\nExtract raster values as attributes of vector data"
+  },
+  {
+    "objectID": "content/13-content.html#slides",
+    "href": "content/13-content.html#slides",
+    "title": "Combining Raster and Vector Data",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nModifying the extent\n\n\nConversions\n\n\nDistance\n\n\nExtractions"
+  },
+  {
+    "objectID": "content/14-content.html",
+    "href": "content/14-content.html",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "",
+    "text": "Today we’ll begin exploring typical workflows for spatial analysis by working with attribute data. Attributes generally provide additional information about a location that we can use for visualization and analysis. Unlike spatial operations that we’ll explore next week, attribute data do not all require geographic information (but they do need some means of relating to a geography). These chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for attribute operations in R.\n\n The Tidy Data and Relational Data sections from R For Data Science (Wickham and Grolemund 2016) provide a great overview to data cleaning and manipulation functions available in the tidyverse.\n Doing things with multiple tables has a lot of nice visual examples of for using the _join functions in dplyr.\n This article (Di Minin et al. 2021) provides a recent recap of a variety of reasons why we may need to combine data from multiple, often disparate, sources."
+  },
+  {
+    "objectID": "content/14-content.html#objectives",
+    "href": "content/14-content.html#objectives",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nDefine spatial analysis\nDescribe the steps in planning a spatial analysis\nUnderstand the structure of relational databases\nBegin building a database for spatial analysis"
+  },
+  {
+    "objectID": "content/14-content.html#slides",
+    "href": "content/14-content.html#slides",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nBuilding spatial databases based on attributes\n\n\nWorkflows for spatial analysis\n\n\nDatabases and attributes\n\n\nCommon attribute operations\n\n\nJoining (a)spatial data"
   },
   {
     "objectID": "content/index.html",
@@ -242,7 +410,7 @@
     "href": "example/getting-setup.html",
     "title": "Getting Setup",
     "section": "",
-    "text": "We are using GitHub classroom for all of the assignments in this course. This allows each of you to have your own repositories for version control and backup of your code without the worries of stepping on someone else toes. The goal of this class is not to have you become a ‘master’ of all things git, but I am hoping you’ll learn the utility of version control and adopt as much of it as make sense for you and your workflows.\n\n\nThe first thing you’ll need to do is accept the invitation to ’assignment-1` repository (repo). This should automatically clone (make an exact copy) of the assignment repo in your personal account.\n\n\n\nUnfortunately, GitHub has ended its support for username/password remote authentication. Instead, it uses something called a Personal Access Token. You can read more about it here if you are interested, but the easiest way to deal with this is by following Jenny Bryan’s happygitwithr recommended approach:\n\nIntroduce yourself to git: There are a number of ways to do this, but I find this to be the easiest\n\n\n\nCode\nlibrary(usethis) #you may need to install this using install.packages('usethis')\nuse_git_config(user.name = \"Jane Doe\", user.email = \"jane@example.org\") #your info here\n\n\n\nGet a PAT if you don’t have one already (make sure you save it somewhere)\n\n\n\nCode\nusethis::create_github_token()\n\n\n\nStore your credential for use in RStudio\n\n\n\nCode\nlibrary(gitcreds) #may need to install this too\n\ngitcreds_set() #should prompt you for your pat - paste it here\n\n\n\nVerify that Rstudio has saved your credential\n\n\n\nCode\ngitcreds_get()\n\n\nR should return something that looks like this:\n\n\n\n\n\n\n\n\n\nGo to File>New Project and choose the “Version Control” option\nSelect “Git” (Not Subversion)\npaste the link from the “Clone Repository” button into the “Repository URL” space\n\n\n\n\nAssuming all this has worked, you should be able to click on the “Git” tab and see something like this:\n\n\n\n\n\n\n\n\n\nEverytime you begin working on code, make sure you “Pull” from the remote repository to make sure you have the most recent version of things (this is especially important when you are collaborating with people).\nMake some changes to code\nSave those changes\n“Commit” those changes - Think of commits as ‘breadcrumbs’ they help you remember where you were in the coding process in case you need to revert back to a previous version. Your commit messages should help you remember what was ‘happening’ in the code when you made the commit. In general, you should save and commit fairly frequently and especially everytime you do something ‘consequential’. Git allows you to ‘turn back time’, but that’s only useful if you left enough information to get back to where you want to be.\nPush your work to the remote - when you’re done working on the project for the day, push your local changes to the remote. This will ensure that if you switch computers or if someone else is going to work on the project, you (or they) will have the most recent version. Plus, if you don’t do this, step 1 will really mess you up."
+    "text": "We are using GitHub classroom for all of the assignments in this course. This allows each of you to have your own repositories for version control and backup of your code without the worries of stepping on someone else toes. The goal of this class is not to have you become a ‘master’ of all things git, but I am hoping you’ll learn the utility of version control and adopt as much of it as make sense for you and your workflows.\n\n\nThe first thing you’ll need to do is accept the invitation to ’assignment-1` repository (repo). This should automatically clone (make an exact copy) of the assignment repo in your personal account.\n\n\n\nUnfortunately, GitHub has ended its support for username/password remote authentication. Instead, it uses something called a Personal Access Token. You can read more about it here if you are interested, but the easiest way to deal with this is by following Jenny Bryan’s happygitwithr recommended approach:\n\nIntroduce yourself to git: There are a number of ways to do this, but I find this to be the easiest\n\n\n\nCode\nlibrary(usethis) #you may need to install this using install.packages('usethis')\nuse_git_config(user.name = \"Matt Williamson\", user.email = \"mattwilliamson@boisestate.edu\") #your info here\n\n\n\nGet a PAT if you don’t have one already (make sure you save it somewhere)\n\n\n\nCode\nusethis::create_github_token()\n\n\n\nStore your credential for use in RStudio\n\n\n\nCode\nlibrary(gitcreds) #may need to install this too\n\ngitcreds_set() #should prompt you for your pat - paste it here\n\n\n\nVerify that Rstudio has saved your credential\n\n\n\nCode\ngitcreds_get()\n\n\nR should return something that looks like this:\n\n\n\n\n\n\n\n\n\nGo to File>New Project and choose the “Version Control” option\nSelect “Git” (Not Subversion)\npaste the link from the “Clone Repository” button into the “Repository URL” space\n\n\n\n\nAssuming all this has worked, you should be able to click on the “Git” tab and see something like this:\n\n\n\n\n\n\n\n\n\nEverytime you begin working on code, make sure you “Pull” from the remote repository to make sure you have the most recent version of things (this is especially important when you are collaborating with people).\nMake some changes to code\nSave those changes\n“Commit” those changes - Think of commits as ‘breadcrumbs’ they help you remember where you were in the coding process in case you need to revert back to a previous version. Your commit messages should help you remember what was ‘happening’ in the code when you made the commit. In general, you should save and commit fairly frequently and especially everytime you do something ‘consequential’. Git allows you to ‘turn back time’, but that’s only useful if you left enough information to get back to where you want to be.\nPush your work to the remote - when you’re done working on the project for the day, push your local changes to the remote. This will ensure that if you switch computers or if someone else is going to work on the project, you (or they) will have the most recent version. Plus, if you don’t do this, step 1 will really mess you up."
   },
   {
     "objectID": "example/getting-setup.html#quarto",
@@ -256,7 +424,7 @@
     "href": "example/getting-setup.html#the-example",
     "title": "Getting Setup",
     "section": "The Example",
-    "text": "The Example\n\nSetup\nThe University of Exeter has been conducting an ongoing survey to understand the age at which the belief in Santa Claus begins to drop off. A sample of the data is located in your assignment01 folder. Our task is to bring the data into R, conduct some preliminary exploration of the data, and then fit a model to the data to see if age predicts belief in Santa. We’ll start by branching off of the master Quarto doc in our GitHub repo and then work through the steps together.\n\n\nPseudocode\nBefore we get started, let’s sketch out the steps in our analysis using pseudocode.\n\n\n\n\n\nProgramming\nNow that we have the basic steps in place, let’s transform the pseudocode into a repeatable Quarto document that explains what we’re doing, why, and what we found.\n\n\nRendering the document\nWhen you click the Render button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document."
+    "text": "The Example\n\nSetup\nThe University of Exeter has been conducting an ongoing survey to understand the age at which the belief in Santa Claus begins to drop off. A sample of the data is located in your assignment01 folder. Our task is to bring the data into R, conduct some preliminary exploration of the data, and then fit a model to the data to see if age predicts belief in Santa. We’ll start by branching off of the master Quarto doc in our GitHub repo and then work through the steps together.\n\n\nPseudocode\nBefore we get started, let’s sketch out the steps in our analysis using pseudocode. If you take a look at the tasks I’ve outlined above, you might construct your pseudocode like this:\n\n\nCode\nLOAD: all packages that we need for the analysis\nREAD: Data located in isthereasanta.txt\nCHECK: Data structure and values\nCLEAN: Are there odd values?\nPLOT: Age vs Belief\nMODEL: GLM of Age vs. belief\n\n\n\n\nProgramming\nNow that we have the basic steps in place, let’s transform the pseudocode into a repeatable Quarto document that explains what we’re doing, why, and what we found.\n\nLoad the packages\nPart of what makes R so powerful for data analysis is the number of ready-made functions and packages that are designed for all the things. That said, you can’t take advantage of that power if you don’t load them into your session so that their functions become available. In general, it’s best to do that first thing your document so that other folks can see what packages are necessary before you start running analyses. If you pay attention when these packages load, you may see warnings that a function is masked. This happens because two (or more) packages have functions with the same name. We can be explicit about which version we want by using packagename::functionname(). You’ll see that more later this semester.\n\n\nCode\nlibrary(tidyverse)\n\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.3.6     ✔ purrr   0.3.4\n✔ tibble  3.1.8     ✔ dplyr   1.0.9\n✔ tidyr   1.2.0     ✔ stringr 1.4.1\n✔ readr   2.1.2     ✔ forcats 0.5.1\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\n\n\n\nRead the Data\nBased on our pseudocode our first step is the read the data. We can create headings in Quarto using different numbers of # symbols to keep things organized. The code below uses ``` to create the code chunk and then {r} to tell Quarto which environment to use when running it. I’m specifying a filepath because I’m not working within our git repo, this isn’t great practice, but it’s necessary for the webpage to render correctly. We use paste0 to combine the filepath with the file name (isthereasanta.txt) then read in the data using read_table.\n\n\nCode\nfilepath <- \"/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2022/assignment01/\"\n#READ\nsanta <- read_table(paste0(filepath, \"isthereasanta.txt\"))\n\n\n\n── Column specification ────────────────────────────────────────────────────────\ncols(\n  Believe = col_logical(),\n  Age = col_double(),\n  Gender = col_character(),\n  Presents = col_double(),\n  Behaviour = col_character()\n)\n\n\n\n\nCheck out the Data\nNow that we’ve got the data loaded and assigned it to the santa object. It’s always a good idea to take a look and make sure things look the way you expect, check for NAs, and get a basic understanding of the way your data is being represented by R. This process will get more involved once we start working with spatial data, but it’s good to get in the habit now. We’ll start by looking at the first few rows (using head()), then get a sense for the classes of data using str(), and check for any NAs.\n\n\nCode\nhead(santa)\n\n\n# A tibble: 6 × 5\n  Believe   Age Gender Presents Behaviour\n  <lgl>   <dbl> <chr>     <dbl> <chr>    \n1 FALSE       9 male         25 naughty  \n2 TRUE       NA male         20 nice     \n3 TRUE        4 female       30 nice     \n4 TRUE        4 male         34 naughty  \n5 FALSE      10 female       27 nice     \n6 FALSE      NA female       43 naughty  \n\n\nCode\nstr(santa)\n\n\nspec_tbl_df [50 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ Believe  : logi [1:50] FALSE TRUE TRUE TRUE FALSE FALSE ...\n $ Age      : num [1:50] 9 NA 4 4 10 NA 4 6 8 8 ...\n $ Gender   : chr [1:50] \"male\" \"male\" \"female\" \"male\" ...\n $ Presents : num [1:50] 25 20 30 34 27 43 21 23 32 17 ...\n $ Behaviour: chr [1:50] \"naughty\" \"nice\" \"nice\" \"naughty\" ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   Believe = col_logical(),\n  ..   Age = col_double(),\n  ..   Gender = col_character(),\n  ..   Presents = col_double(),\n  ..   Behaviour = col_character()\n  .. )\n\n\nCode\nany(is.na(santa))\n\n\n[1] TRUE\n\n\nYou’ll notice a few things. First, because we read this in using the read_table function, the result is a tibble. As such, head() returns both the data and the classes. This makes the result of str() largely redundant (note that if santa were a data.frame this would not be true). The combination of any() with is.na() asks whether any of the cells in santa have an NA value. You can see that there are NAs. Most statistical modeling functions in R don’t like NAs so we’ll try to clean those up here. Before we clean them, let’s try to learn what they are. We can use which() to identify the locations of the NAs.\n\n\nCode\nwhich(is.na(santa), arr.ind = TRUE)\n\n\n     row col\n[1,]   2   2\n[2,]   6   2\n[3,]  20   2\n\n\nWe see that all of them are in the age column (our key predictor variable!). We could also have discovered this using summary().\n\n\nCode\nsummary(santa)\n\n\n  Believe             Age           Gender             Presents   \n Mode :logical   Min.   : 4.00   Length:50          Min.   : 3.0  \n FALSE:25        1st Qu.: 5.00   Class :character   1st Qu.:20.0  \n TRUE :25        Median : 7.00   Mode  :character   Median :26.5  \n                 Mean   : 6.83                      Mean   :27.0  \n                 3rd Qu.: 9.00                      3rd Qu.:33.5  \n                 Max.   :10.00                      Max.   :57.0  \n                 NA's   :3                                        \n  Behaviour        \n Length:50         \n Class :character  \n Mode  :character  \n                   \n                   \n                   \n                   \n\n\n\n\nClean the data\nDeciding how to clean NAs is an important decision. Many people choose to drop any incomplete records. We can do that with complete.cases() and see that the resulting object now has only 47 rows.\n\n\nCode\nsanta_complete_cases <- santa[complete.cases(santa),]\n\n\nDropping the incomplete cases may seem like a “safe” approach, but what if there is some systematic reason for the data to be incomplete. Maybe older people are less likely to provide their age? If that’s the case, then dropping these cases may bias our dataset and the models that result. In that case, we may decide to “impute” values for the NAs based on some principled approach. We’ll talk more about what it means to take a principled approach to imputation later in this class. For now, let’s just try to strategies: 1 where we assign the mean() value of age and one where we assign the max() value (to reflect our hypothesis that older people may not provide their age). We’ll do this by using the ifelse() function. Note that we can only do this because all of the NAs are in a single column.\n\n\nCode\nsanta_mean <- santa\nsanta_mean$Age <- ifelse(is.na(santa_mean$Age), round(mean(santa_mean$Age, na.rm=TRUE),digits=0), santa_mean$Age)\n\nsanta_max <- santa\nsanta_max$Age <- ifelse(is.na(santa_max$Age), max(santa_max$Age, na.rm=TRUE), santa_max$Age)\n\n\n\n\nPlot the Data\nNow that we have a few clean datasets, let’s just take a quick look to see if our intuition is correct about the relationship between age and belief in santa. The idea isn’t so much to “prove” your hypothesis, but rather to get to know your data better as a means of identifying potential outliers and thinking about the distribution of your data.\n\n\nCode\nplot(Believe ~ Age, data=santa_complete_cases, main=\"Age vs. Belief in Santa (complete cases)\")\n\n\n\n\n\nCode\nplot(Believe ~ Age, data=santa_mean, main=\"Age vs. Belief in Santa (Age at mean)\")\n\n\n\n\n\nCode\nplot(Believe ~ Age, data=santa_max, main=\"Age vs. Belief in Santa (Age at max)\")\n\n\n\n\n\nThese plots highlight two things. First, because Believe is a logical variable, the only possible outcomes are 0 and 1. This means we can’t fit a typical linear regression (we’ll use a logistic regression instead). Also, we notice that our choice of imputation strategy makes a difference! Let’s fit some models and see what kind of difference it makes.\n\n\nFit Some Models\nWe’ll be using a generalized linear model for this analysis. The details will come up later, but for now, let’s keep it simple. The syntax for the glm() function is relatively straightforward. First we specify the model Believe ~ Age, then we tell it what family binomial(link=\"logit\"), then we remind R of the data. We use the binomial family because there are only 2 possible outcomes (TRUE and FALSE).\n\n\nCode\nfit_complete_cases <- glm(Believe ~ Age, family=binomial(link=\"logit\"), data=santa_complete_cases)\nfit_mean <- glm(Believe ~ Age, family=binomial(link=\"logit\"), data=santa_mean)\nfit_max <- glm(Believe ~ Age, family=binomial(link=\"logit\"), data=santa_max)\n\nsummary(fit_complete_cases)$coef\n\n\n              Estimate Std. Error   z value     Pr(>|z|)\n(Intercept)  6.1939449   1.686432  3.672810 0.0002398983\nAge         -0.8909717   0.233676 -3.812851 0.0001373730\n\n\nCode\nsummary(fit_mean)$coef\n\n\n              Estimate Std. Error   z value     Pr(>|z|)\n(Intercept)  6.1309466  1.6636430  3.685254 0.0002284749\nAge         -0.8912996  0.2329537 -3.826081 0.0001301993\n\n\nCode\nsummary(fit_max)$coef\n\n\n             Estimate Std. Error   z value     Pr(>|z|)\n(Intercept)  5.549176  1.5120932  3.669864 0.0002426799\nAge         -0.784327  0.2043065 -3.838973 0.0001235502\n\n\nWe see the older a person is, the less likely they are to believe in Santa! We also see that the choice of how we handle NAs affects the size of the effect, but not the direction. In class, we’ll write a function to simulate some new data based on this model and see if our results are robust to different assumptions.\n\n\n\nRendering the document\nWhen you click the Render button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document."
   },
   {
     "objectID": "example/index.html",
@@ -830,91 +998,1190 @@
     "href": "slides/04-slides.html#what-are-functions",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "What are functions?",
-    "text": "What are functions?"
+    "text": "What are functions?\n\nA specific class of R object (can call function inside functions)\n\n\nrg <- paste(\"The range of mpg is\", sum(mean(mtcars$mpg), sd(mtcars$mpg)), \"-\", sum(mean(mtcars$mpg), -sd(mtcars$mpg)))\nrg\n\n[1] \"The range of mpg is 26.1175730520891 - 14.0636769479109\"\n\n\n\nA self-contained (i.e., modular) piece of code that performs a specific task\nAllows powerful customization and extension of R"
   },
   {
     "objectID": "slides/04-slides.html#why-use-functions",
     "href": "slides/04-slides.html#why-use-functions",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Why use functions?",
-    "text": "Why use functions?"
+    "text": "Why use functions?\n\nCopy-and-paste and repetitive typing are prone to errors\nEvocative names and modular code make your analysis more tractable\nUpdate in one place!\n\n\nIf you are copy-and-pasting more than 2x, consider a function!"
   },
   {
-    "objectID": "slides/04-slides.html#key-elements",
-    "href": "slides/04-slides.html#key-elements",
+    "objectID": "slides/04-slides.html#getting-started",
+    "href": "slides/04-slides.html#getting-started",
     "title": "Repetitive Tasks and Functional Programming",
-    "section": "Key elements",
-    "text": "Key elements"
+    "section": "Getting started",
+    "text": "Getting started\n\nSketch out the steps in the algorithm (pseudocode!)\nDevelop working code for each step\nAnonymize\n\n\ndo_something <- function(arg1, arg2, arg3){\n  intermediate_process <- manipulate(arg1,arg2, arg3)\n  clean_output <- cleanup(intermediate_process)\n  return(clean_output)\n}"
   },
   {
     "objectID": "slides/04-slides.html#structure-of-functions-names",
     "href": "slides/04-slides.html#structure-of-functions-names",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Structure of functions: Names",
-    "text": "Structure of functions: Names"
+    "text": "Structure of functions: Names\n\n\n\nWhat will your function do?\nShort, but clear!\nAvoid using reserved words or functions that already exist\nUse snake_case\n\n\n\nsomething <- function(...){\n}\n\n\nNot Great\n\n\ndo_something_ultraspecific <- function(...){\n}\n\n\nBetter\n\n\ndo_something <- function(...){\n}\n\n\nPretty good"
   },
   {
     "objectID": "slides/04-slides.html#structure-of-functions-arguments",
     "href": "slides/04-slides.html#structure-of-functions-arguments",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Structure of functions: Arguments",
-    "text": "Structure of functions: Arguments"
+    "text": "Structure of functions: Arguments\n\nProvide the data that the function will work on\nProvide other arguments that control the details of the computation (often with defaults)\nCalled by name or position (names should be descriptive)\n\n\nnums <- rnorm(n = 1000, mean=2, sd=1.5)\n\n\nSame As\n\n\nnums <- rnorm(1000, 2, 1.5)"
   },
   {
-    "objectID": "slides/04-slides.html#structure-of-functions-operations",
-    "href": "slides/04-slides.html#structure-of-functions-operations",
+    "objectID": "slides/04-slides.html#structure-of-functions-body",
+    "href": "slides/04-slides.html#structure-of-functions-body",
     "title": "Repetitive Tasks and Functional Programming",
-    "section": "Structure of functions: Operations",
-    "text": "Structure of functions: Operations"
+    "section": "Structure of functions: Body",
+    "text": "Structure of functions: Body\n\nThe body of the function appears between the {}\nThis is where the function does its work\n\n\n# Compute confidence interval around mean using normal approximation\nmean_ci <- function(x, conf = 0.95) {\n  se <- sd(x) / sqrt(length(x))\n  alpha <- 1 - conf\n  mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))\n}\n\nx <- runif(100)\nmean_ci(x)\n\n[1] 0.4328836 0.5415704\n\nmean_ci(x, conf = 0.99)\n\n[1] 0.4158077 0.5586463"
   },
   {
     "objectID": "slides/04-slides.html#structure-of-functions-return",
     "href": "slides/04-slides.html#structure-of-functions-return",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Structure of functions: Return",
-    "text": "Structure of functions: Return"
+    "text": "Structure of functions: Return\n\nDefault is to return the last argument evaluated\nCan use return() to return an earlier value\nCan use list to return multiple values\nA note on the Environment\n\n\nmean_ci <- function(x, conf = 0.95) {\n  se <- sd(x) / sqrt(length(x))\n  alpha <- 1 - conf\n  ci <- mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))\n  myresults <- list(alpha = alpha, ci = ci, se = se)\n  return(myresults)\n}\n\nci_result <- mean_ci(x)"
   },
   {
-    "objectID": "slides/04-slides.html#functions-in-functions",
-    "href": "slides/04-slides.html#functions-in-functions",
+    "objectID": "slides/04-slides.html#structure-of-functions-return-1",
+    "href": "slides/04-slides.html#structure-of-functions-return-1",
     "title": "Repetitive Tasks and Functional Programming",
-    "section": "Functions in functions",
-    "text": "Functions in functions"
+    "section": "Structure of functions: Return",
+    "text": "Structure of functions: Return\n\nstr(ci_result)\n\nList of 3\n $ alpha: num 0.05\n $ ci   : num [1:2] 0.433 0.542\n $ se   : num 0.0277"
   },
   {
-    "objectID": "slides/04-slides.html#tips-for-writing-functions",
-    "href": "slides/04-slides.html#tips-for-writing-functions",
+    "objectID": "slides/04-slides.html#iteration",
+    "href": "slides/04-slides.html#iteration",
     "title": "Repetitive Tasks and Functional Programming",
-    "section": "Tips for writing functions",
-    "text": "Tips for writing functions"
+    "section": "Iteration",
+    "text": "Iteration\n\nAnother tool for reducing code duplication\nIteration for when you need to repeat the same task on different columns or datasets\nImperative iteration uses loops (for and while)\nFunctional iteration combines functions with the apply family to break computational challenges into independent pieces."
   },
   {
     "objectID": "slides/04-slides.html#loops",
     "href": "slides/04-slides.html#loops",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "Loops",
-    "text": "Loops"
+    "text": "Loops\n\nUse counters (for) or conditionals (while) to repeat a set of tasks\n3 key components\n\nOutput - before you can loop, you need a place to store the results\nSequence - defines what you are looping over\nBody - defines what the code is actually doing"
+  },
+  {
+    "objectID": "slides/04-slides.html#loops-1",
+    "href": "slides/04-slides.html#loops-1",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Loops",
+    "text": "Loops\n\nlibrary(tidyverse)\ndf <- tibble(\n  a = rnorm(10),\n  b = rnorm(10),\n  c = rnorm(10),\n  d = rnorm(10)\n)\n\noutput <- vector(\"double\", ncol(df))  # 1. output\nfor (i in seq_along(df)) {            # 2. sequence\n  output[[i]] <- median(df[[i]])      # 3. body\n}\noutput\n\n[1] -0.5016472 -0.3887528  0.2770325  0.2178513\n\n#> [1] -0.24576245 -0.28730721 -0.05669771  0.14426335"
   },
   {
     "objectID": "slides/04-slides.html#the-apply-family",
     "href": "slides/04-slides.html#the-apply-family",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "The apply family",
-    "text": "The apply family"
+    "text": "The apply family\n\nVectorized functions that eliminate explicit for loops\nDiffer by the class they work on and the output they return\napply, lapply are most common; extensions for parallel processing (e.g., parallel::mclapply)"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-apply-family-1",
+    "href": "slides/04-slides.html#the-apply-family-1",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "The apply family",
+    "text": "The apply family\n\napply for vectors and data frames\nArgs: X for the data, MARGIN how will the function be applied, (1=rows, 2=columns), FUN for your function, ... for other arguments to the function\n\n\napply(mtcars, 2, mean)\n\n       mpg        cyl       disp         hp       drat         wt       qsec \n 20.090625   6.187500 230.721875 146.687500   3.596563   3.217250  17.848750 \n        vs         am       gear       carb \n  0.437500   0.406250   3.687500   2.812500"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-apply-family-2",
+    "href": "slides/04-slides.html#the-apply-family-2",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "The apply family",
+    "text": "The apply family\n\nlapply for lists (either input or output)\nArgs: X for the data, FUN for your function, ... for other arguments to the function\n\n\ndata <- list(item1 = 1:4, \n             item2 = rnorm(10), \n             item3 = rnorm(20, 1), \n             item4 = rnorm(100, 5))\n\n# get the mean of each list item \nlapply(data, mean)\n\n$item1\n[1] 2.5\n\n$item2\n[1] -0.3173127\n\n$item3\n[1] 1.294093\n\n$item4\n[1] 5.088717"
   },
   {
     "objectID": "slides/04-slides.html#the-map-family",
     "href": "slides/04-slides.html#the-map-family",
     "title": "Repetitive Tasks and Functional Programming",
     "section": "The map family",
-    "text": "The map family"
+    "text": "The map family\n\nSimilar to apply, but more consistent input/output\nAll take a vector for input\nDifference is based on the output you expect\nIntegrates with tidyverse"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-map-family-1",
+    "href": "slides/04-slides.html#the-map-family-1",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "The map family",
+    "text": "The map family\n\nmap(): output is a list\nmap_int(): output is an integer vector\nmap_lgl(): output is a logical vector\nmap_dbl(): output is a double vector\nmap_chr(): output is a character vector\nmap_df(), map_dfr(), map_dfc(): output is a dataframe (r and c specify how to combine the data)"
+  },
+  {
+    "objectID": "slides/04-slides.html#some-parting-thoughts",
+    "href": "slides/04-slides.html#some-parting-thoughts",
+    "title": "Repetitive Tasks and Functional Programming",
+    "section": "Some parting thoughts",
+    "text": "Some parting thoughts\n\nTransparency vs. speed\nTesting\nMoving forward"
   },
   {
     "objectID": "slides/06-slides.html#objectives",
     "href": "slides/06-slides.html#objectives",
     "title": "Spatial Data is Special Data",
     "section": "Objectives",
-    "text": "Objectives\n\nDescribe several ways to load spatial data into R\nDefine a coordinate reference system and describe why it is important\nIdentify the different ways projections are expressed in R and gdal\nDescribe the other key elements of spatial data"
+    "text": "Objectives\n\nArticulate why we care about space\nDescribe elements of spatial data\nDefine a coordinate reference system and its importance\nDescribe several ways to load spatial data into R\nIdentify projections in R"
+  },
+  {
+    "objectID": "slides/06-slides.html#locations-relations-and-understanding",
+    "href": "slides/06-slides.html#locations-relations-and-understanding",
+    "title": "Spatial Data is Special Data",
+    "section": "Locations, Relations, and Understanding",
+    "text": "Locations, Relations, and Understanding\n\nGeography uses location to understand how social and physical processes give rise to the environment we experience\nGeographic Information Systems provide a structure for storing, visualizing, and describing location data.\nGeoComputation and GIScience integrate math, stats, and high-performance computing to move beyond description."
+  },
+  {
+    "objectID": "slides/06-slides.html#location-lets-us-ask",
+    "href": "slides/06-slides.html#location-lets-us-ask",
+    "title": "Spatial Data is Special Data",
+    "section": "Location lets us ask:",
+    "text": "Location lets us ask:\n\nQuestions about geographic distribution\nQuestions about geographic interaction\nQuestions about geographic change\nQuestions about geographic association\nQuestions about causation?"
+  },
+  {
+    "objectID": "slides/06-slides.html#location-vs.-place",
+    "href": "slides/06-slides.html#location-vs.-place",
+    "title": "Spatial Data is Special Data",
+    "section": "Location vs. Place",
+    "text": "Location vs. Place\n\nPlace: an area having unique physical and human characteristics interconnected with other places\nLocation: the actual position on the earth’s surface\nSense of Place: the emotions someone attaches to an area based on experiences\nPlace is location plus meaning"
+  },
+  {
+    "objectID": "slides/06-slides.html#describing-location",
+    "href": "slides/06-slides.html#describing-location",
+    "title": "Spatial Data is Special Data",
+    "section": "Describing Location",
+    "text": "Describing Location\n\nnominal: (potentially contested) place names\nabsolute: the physical location on the earth’s surface"
+  },
+  {
+    "objectID": "slides/06-slides.html#describing-absolute-locations",
+    "href": "slides/06-slides.html#describing-absolute-locations",
+    "title": "Spatial Data is Special Data",
+    "section": "Describing Absolute Locations",
+    "text": "Describing Absolute Locations\n\nCoordinates: 2 or more measurements that specify location relative to a reference system\n\n\n\n\n\nCartesian coordinate system\norigin (O) = the point at which both measurement systems intersect\nAdaptable to multiple dimensions (e.g. z for altitude)\n\n\n\n\n\n\nCartesian Coordinate System"
+  },
+  {
+    "objectID": "slides/06-slides.html#locations-on-a-globe",
+    "href": "slides/06-slides.html#locations-on-a-globe",
+    "title": "Spatial Data is Special Data",
+    "section": "Locations on a Globe",
+    "text": "Locations on a Globe\n\nThe earth is not flat…\n\n\n\n\n\n\nLatitude and Longitude\n\n\n\n\n\nGlobal Reference Systems (GRS)\nGraticule: the grid formed by the intersection of longitude and latitude\nThe graticule is based on an ellipsoid model of earth’s surface and contained in the datum"
+  },
+  {
+    "objectID": "slides/06-slides.html#global-reference-systems",
+    "href": "slides/06-slides.html#global-reference-systems",
+    "title": "Spatial Data is Special Data",
+    "section": "Global Reference Systems",
+    "text": "Global Reference Systems\n\nThe datum describes which ellipsoid to use and the precise relations between locations on earth’s surface and Cartesian coordinates\n\n\nGeodetic datums (e.g., WGS84): distance from earth’s center of gravity\nLocal data (e.g., NAD83): better models for local variation in earth’s surface"
+  },
+  {
+    "objectID": "slides/06-slides.html#the-earth-is-not-flat",
+    "href": "slides/06-slides.html#the-earth-is-not-flat",
+    "title": "Spatial Data is Special Data",
+    "section": "The Earth is Not Flat",
+    "text": "The Earth is Not Flat\n\n\n\n\nBut maps, screens, and publications are…\nProjections describe how the data should be translated to a flat surface\nRely on ‘developable surfaces’\n\n\n\n\n\n\nDevelopable Surfaces\n\n\n\n\n\nProjection necessarily induces some form of distortion (tearing, compression, or shearing("
+  },
+  {
+    "objectID": "slides/06-slides.html#choosing-projections",
+    "href": "slides/06-slides.html#choosing-projections",
+    "title": "Spatial Data is Special Data",
+    "section": "Choosing Projections",
+    "text": "Choosing Projections\n\n\n\n\n\n\nSome projections minimize distortion of angle, area, or distance\nOthers attempt to avoid extreme distortion of any kind\nParticularly challenging for raster data"
+  },
+  {
+    "objectID": "slides/06-slides.html#choosing-projections-1",
+    "href": "slides/06-slides.html#choosing-projections-1",
+    "title": "Spatial Data is Special Data",
+    "section": "Choosing Projections",
+    "text": "Choosing Projections\n\nEqual-area for thematic maps\nConformal for presentations\nMercator or equidistant for navigation and distance"
+  },
+  {
+    "objectID": "slides/06-slides.html#data-types-and-r-packages",
+    "href": "slides/06-slides.html#data-types-and-r-packages",
+    "title": "Spatial Data is Special Data",
+    "section": "Data Types and R Packages",
+    "text": "Data Types and R Packages\n\n\nData Types\n\nVector Data\n\nPoint features\nLine features\nArea features (polygons)\n\nRaster Data\n\nSpatially continuous field\nBased on pixels (not points)"
+  },
+  {
+    "objectID": "slides/06-slides.html#mapping-loaction-coordinate-reference-systems",
+    "href": "slides/06-slides.html#mapping-loaction-coordinate-reference-systems",
+    "title": "Spatial Data is Special Data",
+    "section": "Mapping loaction: Coordinate Reference Systems",
+    "text": "Mapping loaction: Coordinate Reference Systems\n\nIncludes: Datum, ellipsoid, units, and other information (e.g., False Easting, Central Meridian) to further map the projection to the GCS\nNot all projections have/require all of the parameters\nR stores these data in several formats (EPSG, Proj, and WKT)\nLots of projection info available at spatialreference.org"
+  },
+  {
+    "objectID": "slides/06-slides.html#mapping-loaction-coordinate-reference-systems-1",
+    "href": "slides/06-slides.html#mapping-loaction-coordinate-reference-systems-1",
+    "title": "Spatial Data is Special Data",
+    "section": "Mapping loaction: Coordinate Reference Systems",
+    "text": "Mapping loaction: Coordinate Reference Systems\n\nPrimarily accessed using sf::st_crs() or terra::crs()\n\n\nf <- rast(system.file(\"ex/meuse.tif\", package=\"terra\"))\nnc <- st_read(system.file(\"shape/nc.shp\", package=\"sf\"))\nst_crs(nc)\ncrs(nc)"
+  },
+  {
+    "objectID": "slides/06-slides.html#mapping-location-extent",
+    "href": "slides/06-slides.html#mapping-location-extent",
+    "title": "Spatial Data is Special Data",
+    "section": "Mapping location: Extent",
+    "text": "Mapping location: Extent\n\nExtent: The amount of the Earth’s surface represented by the mapped features\n\nR has a very specific definition of extent: the rectangular region encompassed by the data"
+  },
+  {
+    "objectID": "slides/06-slides.html#using-r-to-access-the-extent",
+    "href": "slides/06-slides.html#using-r-to-access-the-extent",
+    "title": "Spatial Data is Special Data",
+    "section": "Using R to access the extent",
+    "text": "Using R to access the extent\n\nUsing st_bbox() from the sf package\n\n\nnc.shp <- st_read(system.file(\"shape/nc.shp\", package=\"sf\")) \n\nReading layer `nc' from data source \n  `/Library/Frameworks/R.framework/Versions/4.2/Resources/library/sf/shape/nc.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 100 features and 14 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965\nGeodetic CRS:  NAD27\n\nmeuse.rst <- rast(system.file(\"ex/meuse.tif\", package=\"terra\"))\nst_bbox(nc.shp)\n\n     xmin      ymin      xmax      ymax \n-84.32385  33.88199 -75.45698  36.58965 \n\nst_bbox(meuse.rst)\n\n  xmin   ymin   xmax   ymax \n178400 329400 181600 334000"
+  },
+  {
+    "objectID": "slides/06-slides.html#using-r-to-access-the-extent-1",
+    "href": "slides/06-slides.html#using-r-to-access-the-extent-1",
+    "title": "Spatial Data is Special Data",
+    "section": "Using R to access the extent",
+    "text": "Using R to access the extent\n\nUsing ext() from the terra package\n\n\next(nc.shp)\n\nSpatExtent : -84.3238525390625, -75.4569778442383, 33.8819923400879, 36.5896492004395 (xmin, xmax, ymin, ymax)\n\next(meuse.rst)\n\nSpatExtent : 178400, 181600, 329400, 334000 (xmin, xmax, ymin, ymax)"
+  },
+  {
+    "objectID": "slides/06-slides.html#mapping-location-resolution",
+    "href": "slides/06-slides.html#mapping-location-resolution",
+    "title": "Spatial Data is Special Data",
+    "section": "Mapping location: Resolution",
+    "text": "Mapping location: Resolution\n\nResolution: the accuracy that the location and shape of a map’s features can be depicted\nMinimum Mapping Unit: The minimum size and dimensions that can be reliably represented at a given map scale.\nMap scale vs. scale of analysis"
+  },
+  {
+    "objectID": "slides/06-slides.html#mapping-location-resolution-1",
+    "href": "slides/06-slides.html#mapping-location-resolution-1",
+    "title": "Spatial Data is Special Data",
+    "section": "Mapping location: Resolution",
+    "text": "Mapping location: Resolution"
+  },
+  {
+    "objectID": "slides/06-slides.html#using-r-to-access-resolution",
+    "href": "slides/06-slides.html#using-r-to-access-resolution",
+    "title": "Spatial Data is Special Data",
+    "section": "Using R to access resolution",
+    "text": "Using R to access resolution\n\nThematically defined for vector datasets (check your metadata!!)\nUsing res() in terra\n\n\nf <- rast(system.file(\"ex/meuse.tif\", package=\"terra\"))\nres(f)\n\n[1] 40 40"
+  },
+  {
+    "objectID": "slides/06-slides.html#todays-goals",
+    "href": "slides/06-slides.html#todays-goals",
+    "title": "Spatial Data is Special Data",
+    "section": "Today’s goals",
+    "text": "Today’s goals\n\nArticulate why we care about space\nDescribe elements of spatial data\nDefine a coordinate reference system and its importance\nDescribe several ways to load spatial data into R\nIdentify projections in R"
+  },
+  {
+    "objectID": "slides/07-slides.html#objectives",
+    "href": "slides/07-slides.html#objectives",
+    "title": "Spatial Data as Vectors",
+    "section": "Objectives",
+    "text": "Objectives\n\nArticulate the role of the data model in geographic information systems\nDescribe the key elements of vector data\nUse the sf package to read and manipulate vector data\nDefine geometry in the context of vector objects and troubleshoot common problems"
+  },
+  {
+    "objectID": "slides/07-slides.html#what-is-a-data-model",
+    "href": "slides/07-slides.html#what-is-a-data-model",
+    "title": "Spatial Data as Vectors",
+    "section": "What is a data model?",
+    "text": "What is a data model?\n\n\nData: a collection of discrete values that describe phenomena\nYour brain stores millions of pieces of data\nComputers are not your brain\n\nNeed to organize data systematically\nBe able to display and access efficiently\nNeed to be able to store and access repeatedly\n\nData models solve this problem"
+  },
+  {
+    "objectID": "slides/07-slides.html#types-of-spatial-data-models",
+    "href": "slides/07-slides.html#types-of-spatial-data-models",
+    "title": "Spatial Data as Vectors",
+    "section": "2 Types of Spatial Data Models",
+    "text": "2 Types of Spatial Data Models\n\nRaster: grid-cell tessellation of an area. Each raster describes the value of a single phenomenon. More next week…\nVector: (many) attributes associated with locations defined by coordinates"
+  },
+  {
+    "objectID": "slides/07-slides.html#the-vector-data-model",
+    "href": "slides/07-slides.html#the-vector-data-model",
+    "title": "Spatial Data as Vectors",
+    "section": "The Vector Data Model",
+    "text": "The Vector Data Model\n\n\n\n\nVertices (i.e., discrete x-y locations) define the shape of the vector\nThe organization of those vertices define the shape of the vector\nGeneral types: points, lines, polygons\n\n\n\n\n\n\nImage Source: Colin Williams (NEON)"
+  },
+  {
+    "objectID": "slides/07-slides.html#vectors-in-action",
+    "href": "slides/07-slides.html#vectors-in-action",
+    "title": "Spatial Data as Vectors",
+    "section": "Vectors in Action",
+    "text": "Vectors in Action\n\n\nUseful for locations with discrete, well-defined boundaries\nVery precise (not necessarily accurate)\nNot the same as the vector data class\n\n\n\nImage Source: QGIS User’s manual"
+  },
+  {
+    "objectID": "slides/07-slides.html#representing-vector-data-in-r",
+    "href": "slides/07-slides.html#representing-vector-data-in-r",
+    "title": "Spatial Data as Vectors",
+    "section": "Representing vector data in R",
+    "text": "Representing vector data in R\n\n\n\n\n\nFrom Lovelace et al.\n\n\n\n\n\nsf hierarchy reflects increasing complexity of geometry\n\nst_point, st_linestring, st_polygon for single features\nst_multi* for multiple features of the same type\nst_geometrycollection for multiple feature types\nst_as_sfc creates the geometry list column for many sf operations"
+  },
+  {
+    "objectID": "slides/07-slides.html#points",
+    "href": "slides/07-slides.html#points",
+    "title": "Spatial Data as Vectors",
+    "section": "Points",
+    "text": "Points\n\nlibrary(sf)\nproj <- st_crs('+proj=longlat +datum=WGS84')\nlong <- c(-116.7, -120.4, -116.7, -113.5, -115.5, -120.8, -119.5, -113.7, -113.7, -110.7)\nlat <- c(45.3, 42.6, 38.9, 42.1, 35.7, 38.9, 36.2, 39, 41.6, 36.9)\nst_multipoint(cbind(long, lat)) %>% st_sfc(., crs = proj)\n\nGeometry set for 1 feature \nGeometry type: MULTIPOINT\nDimension:     XY\nBounding box:  xmin: -120.8 ymin: 35.7 xmax: -110.7 ymax: 45.3\nCRS:           +proj=longlat +datum=WGS84"
+  },
+  {
+    "objectID": "slides/07-slides.html#points-1",
+    "href": "slides/07-slides.html#points-1",
+    "title": "Spatial Data as Vectors",
+    "section": "Points",
+    "text": "Points\n\nplot(st_multipoint(cbind(long, lat)) %>% \n                   st_sfc(., crs = proj))"
+  },
+  {
+    "objectID": "slides/07-slides.html#lines",
+    "href": "slides/07-slides.html#lines",
+    "title": "Spatial Data as Vectors",
+    "section": "Lines",
+    "text": "Lines\n\nlon <- c(-116.8, -114.2, -112.9, -111.9, -114.2, -115.4, -117.7)\nlat <- c(41.3, 42.9, 42.4, 39.8, 37.6, 38.3, 37.6)\nlonlat <- cbind(lon, lat)\npts <- st_multipoint(lonlat)\n\nsfline <- st_multilinestring(list(pts[1:3,], pts[4:7,]))\nstr(sfline)\n\nList of 2\n $ : num [1:3, 1:2] -116.8 -114.2 -112.9 41.3 42.9 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : NULL\n  .. ..$ : chr [1:2] \"lon\" \"lat\"\n $ : num [1:4, 1:2] -111.9 -114.2 -115.4 -117.7 39.8 ...\n  ..- attr(*, \"dimnames\")=List of 2\n  .. ..$ : NULL\n  .. ..$ : chr [1:2] \"lon\" \"lat\"\n - attr(*, \"class\")= chr [1:3] \"XY\" \"MULTILINESTRING\" \"sfg\""
+  },
+  {
+    "objectID": "slides/07-slides.html#lines-1",
+    "href": "slides/07-slides.html#lines-1",
+    "title": "Spatial Data as Vectors",
+    "section": "Lines",
+    "text": "Lines\n\nplot(st_multilinestring(list(pts[1:3,], pts[4:7,])))"
+  },
+  {
+    "objectID": "slides/07-slides.html#polygons",
+    "href": "slides/07-slides.html#polygons",
+    "title": "Spatial Data as Vectors",
+    "section": "Polygons",
+    "text": "Polygons\n\nouter = matrix(c(0,0,10,0,10,10,0,10,0,0),ncol=2, byrow=TRUE)\nhole1 = matrix(c(1,1,1,2,2,2,2,1,1,1),ncol=2, byrow=TRUE)\nhole2 = matrix(c(5,5,5,6,6,6,6,5,5,5),ncol=2, byrow=TRUE)\ncoords = list(outer, hole1, hole2)\npl1 = st_polygon(coords)"
+  },
+  {
+    "objectID": "slides/07-slides.html#polygons-1",
+    "href": "slides/07-slides.html#polygons-1",
+    "title": "Spatial Data as Vectors",
+    "section": "Polygons",
+    "text": "Polygons\n\nplot(pl1)"
+  },
+  {
+    "objectID": "slides/07-slides.html#but-what-about-actual-data",
+    "href": "slides/07-slides.html#but-what-about-actual-data",
+    "title": "Spatial Data as Vectors",
+    "section": "But what about actual data?",
+    "text": "But what about actual data?\n\nConvert a data frame to sf object\n\nUseful for situations where point locations given as columns in spreadsheet\nRequires that you the projection used when the data were collected\nUsing the meuse dataset (use ?sp::meuse to learn more about it)\n\n\n\nlibrary(sp)\ndata(meuse)\nhead(meuse, n=3)[,1:10]\n\n       x      y cadmium copper lead zinc  elev       dist   om ffreq\n1 181072 333611    11.7     85  299 1022 7.909 0.00135803 13.6     1\n2 181025 333558     8.6     81  277 1141 6.983 0.01222430 14.0     1\n3 181165 333537     6.5     68  199  640 7.800 0.10302900 13.0     1"
+  },
+  {
+    "objectID": "slides/07-slides.html#plotting-sf-objects",
+    "href": "slides/07-slides.html#plotting-sf-objects",
+    "title": "Spatial Data as Vectors",
+    "section": "Plotting sf objects",
+    "text": "Plotting sf objects\n\nQuick way to check your data\nRemember that sf has geometry and attributes\n\n\nplot(meuse_sf)"
+  },
+  {
+    "objectID": "slides/07-slides.html#plotting-sf-objects-1",
+    "href": "slides/07-slides.html#plotting-sf-objects-1",
+    "title": "Spatial Data as Vectors",
+    "section": "Plotting sf objects",
+    "text": "Plotting sf objects\n\nplot(meuse_sf['lead'])"
+  },
+  {
+    "objectID": "slides/07-slides.html#plotting-sf-objects-2",
+    "href": "slides/07-slides.html#plotting-sf-objects-2",
+    "title": "Spatial Data as Vectors",
+    "section": "Plotting sf objects",
+    "text": "Plotting sf objects\n\nplot(st_geometry(meuse_sf))"
+  },
+  {
+    "objectID": "slides/07-slides.html#common-problems-with-vector-data",
+    "href": "slides/07-slides.html#common-problems-with-vector-data",
+    "title": "Spatial Data as Vectors",
+    "section": "Common Problems with Vector Data",
+    "text": "Common Problems with Vector Data\n\n\n\n\nVectors and scale\nSlivers and overlaps\nUndershoots and overshoots\nSelf-intersections and rings\n\n\n\n\n\n\nTopology Errors - Saylor Acad.\n\n\n\n\n\nWe’ll use st_is_valid() to check this, but fixing can be tricky"
+  },
+  {
+    "objectID": "slides/07-slides.html#fixing-problematic-topology",
+    "href": "slides/07-slides.html#fixing-problematic-topology",
+    "title": "Spatial Data as Vectors",
+    "section": "Fixing Problematic Topology",
+    "text": "Fixing Problematic Topology\n\nst_make_valid() for simple cases\nst_buffer with dist=0\nMore complex errors need more complex approaches"
+  },
+  {
+    "objectID": "slides/07-slides.html#a-note-on-vectors",
+    "href": "slides/07-slides.html#a-note-on-vectors",
+    "title": "Spatial Data as Vectors",
+    "section": "A Note on Vectors",
+    "text": "A Note on Vectors\n\nMoving forward we will rely primarily on the sf package for vector manipulation. Some packages require objects to be a different class. terra, for example, relies on SpatVectors. You can use as() to coerce objects from one type to another (assuming a method exists). You can also explore other packages. Many packages provide access to the ‘spatial’ backbones of R (like geos and gdal), they just differ in how the “verbs” are specified. For sf operations the st_ prefix is typical. For rgeos operations, the g prefix is common."
+  },
+  {
+    "objectID": "slides/08-slides.html#objectives",
+    "href": "slides/08-slides.html#objectives",
+    "title": "Vector Operations Part 1",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nUnderstand predicates and measures in the context of spatial operations in sf\nDefine valid geometries and approaches for assessing geometries in R\nUse st_* and sf_* to evaluate attributes of geometries and calculate measurements"
+  },
+  {
+    "objectID": "slides/08-slides.html#revisiting-simple-features",
+    "href": "slides/08-slides.html#revisiting-simple-features",
+    "title": "Vector Operations Part 1",
+    "section": "Revisiting Simple Features",
+    "text": "Revisiting Simple Features\n\n\n\n\nThe sf package relies on a simple feature data model to represent geometries\n\nhierarchical\nstandardized methods\ncomplementary binary and human-readable encoding\n\n\n\n\n\n\n\n\n\n\n\n\ntype\ndescription\n\n\n\n\nPOINT\nsingle point geometry\n\n\nMULTIPOINT\nset of points\n\n\nLINESTRING\nsingle linestring (two or more points connected by straight lines)\n\n\nMULTILINESTRING\nset of linestrings\n\n\nPOLYGON\nexterior ring with zero or more inner rings, denoting holes\n\n\nMULTIPOLYGON\nset of polygons\n\n\nGEOMETRYCOLLECTION\nset of the geometries above"
+  },
+  {
+    "objectID": "slides/08-slides.html#standaridized-methods",
+    "href": "slides/08-slides.html#standaridized-methods",
+    "title": "Vector Operations Part 1",
+    "section": "Standaridized Methods",
+    "text": "Standaridized Methods\n\nWe can categorize sf operations based on what they return and/or how many geometries they accept as input.\n\n\n\n\n\nOutput Categories\n\nPredicates: evaluate a logical statement asserting that a property is TRUE\nMeasures: return a numeric value with units based on the units of the CRS\nTransformations: create new geometries based on input geometries.\n\n\n\n\n\n\nInput Geometries\n\nUnary: operate on a single geometry at a time (meaning that if you have a MULTI* object the function works on each geometry individually)\nBinary: operate on pairs of geometries\nn-ary: operate on sets of geometries"
+  },
+  {
+    "objectID": "slides/08-slides.html#remembering-valid-geometries",
+    "href": "slides/08-slides.html#remembering-valid-geometries",
+    "title": "Vector Operations Part 1",
+    "section": "Remembering Valid Geometries",
+    "text": "Remembering Valid Geometries\n\nA linestring is simple if it does not intersect\n\n\n\n\nlibrary(sf)\n(ls = st_linestring(rbind(c(0,0), c(1,1), \n                          c(2,2), c(0,2), \n                          c(1,1), c(2,0))))\nc(is_simple = st_is_simple(ls))\n\nis_simple \n    FALSE"
+  },
+  {
+    "objectID": "slides/08-slides.html#remembering-valid-geometries-1",
+    "href": "slides/08-slides.html#remembering-valid-geometries-1",
+    "title": "Vector Operations Part 1",
+    "section": "Remembering Valid Geometries",
+    "text": "Remembering Valid Geometries\n\n\n\n\nValid polygons\n\nAre closed (i.e., the last vertex equals the first)\nHave holes (inner rings) that inside the the exterior boundary\nHave holes that touch the exterior at no more than one vertex (they don’t extend across a line)\n\nFor multipolygons, adjacent polygons touch only at points\n\nDo not repeat their own path"
+  },
+  {
+    "objectID": "slides/08-slides.html#empty-geometries",
+    "href": "slides/08-slides.html#empty-geometries",
+    "title": "Vector Operations Part 1",
+    "section": "Empty Geometries",
+    "text": "Empty Geometries\n\nEmpty geometries arise when an operation produces NULL outcomes (like looking for the intersection between two non-intersecting polygons)\nsf allows empty geometries to make sure that information about the data type is retained\nSimilar to a data.frame with no rows or a list with NULL values\nMost vector operations require simple, valid geometries"
+  },
+  {
+    "objectID": "slides/08-slides.html#using-unary-predicates",
+    "href": "slides/08-slides.html#using-unary-predicates",
+    "title": "Vector Operations Part 1",
+    "section": "Using Unary Predicates",
+    "text": "Using Unary Predicates\n\nUnary predicates accept single geometries (or geometry collections)\nProvide helpful ways to check whether your data is ready to analyze\nUse the st_ prefix and return TRUE/FALSE\n\n\n\n\n\n\n\n\n\npredicate\nasks…\n\n\n\n\nis_simple\nis the geometry self-intersecting (i.e., simple)?\n\n\nis_valid\nis the geometry valid?\n\n\nis_empty\nis the geometry column of an object empty?\n\n\nis_longlat\ndoes the object have geographic coordinates? (FALSE if coords are projected, NA if no crs)\n\n\nis(geometry, class)\nis the geometry of a particular class?"
+  },
+  {
+    "objectID": "slides/08-slides.html#using-unary-predicates-1",
+    "href": "slides/08-slides.html#using-unary-predicates-1",
+    "title": "Vector Operations Part 1",
+    "section": "Using Unary Predicates",
+    "text": "Using Unary Predicates\n\n\n\nnc <- st_read(\n  system.file(\"shape/nc.shp\", package=\"sf\"), \n  quiet=TRUE)\nplot(st_geometry(nc))\n\n\n\n\n\n\nst_is_longlat(nc)\n\n[1] TRUE\n\nany(is.na(st_is_valid(nc)))\n\n[1] FALSE"
+  },
+  {
+    "objectID": "slides/08-slides.html#checking-geometries-with-unary-predicates",
+    "href": "slides/08-slides.html#checking-geometries-with-unary-predicates",
+    "title": "Vector Operations Part 1",
+    "section": "Checking Geometries With Unary Predicates",
+    "text": "Checking Geometries With Unary Predicates\n\nBefore conducting costly analyses, it’s worth checking for:\n\n\n\nempty geometries, using any(is.na(st_dimension(x)))\ncorrupt geometries, using any(is.na(st_is_valid(x)))\ninvalid geometries, using any(na.omit(st_is_valid(x)) == FALSE); in case of corrupt and/or invalid geometries,\nin case of invalid geometries, query the reason for invalidity by st_is_valid(x, reason = TRUE)\n\n\nInvalid geometries will require transformation (next week!)"
+  },
+  {
+    "objectID": "slides/08-slides.html#binary-predicates-1",
+    "href": "slides/08-slides.html#binary-predicates-1",
+    "title": "Vector Operations Part 1",
+    "section": "Binary Predicates",
+    "text": "Binary Predicates\n\n\nAccept exactly two geometries (or collections)\nAlso return logical outcomes\nBased on the Dimensionally Extended 9-Intersection Model (DE-9IM)\n\n\n\n\n\n\npredicate\nmeaning\ninverse of\n\n\n\n\ncontains\nNone of the points of A are outside B\nwithin\n\n\ncontains_properly\nA contains B and B has no points in common with the boundary of A\n\n\n\ncovers\nNo points of B lie in the exterior of A\ncovered_by\n\n\ncovered_by\nInverse of covers\n\n\n\ncrosses\nA and B have some but not all interior points in common\n\n\n\ndisjoint\nA and B have no points in common\nintersects\n\n\nequals\nA and B are topologically equal: node order or number of nodes may differ; identical to A contains B AND A within B\n\n\n\nequals_exact\nA and B are geometrically equal, and have identical node order\n\n\n\nintersects\nA and B are not disjoint\ndisjoint\n\n\nis_within_distance\nA is closer to B than a given distance\n\n\n\nwithin\nNone of the points of B are outside A\ncontains\n\n\ntouches\nA and B have at least one boundary point in common, but no interior points\n\n\n\noverlaps\nA and B have some points in common; the dimension of these is identical to that of A and B\n\n\n\nrelate\ngiven a mask pattern, return whether A and B adhere to this pattern"
+  },
+  {
+    "objectID": "slides/08-slides.html#measures-1",
+    "href": "slides/08-slides.html#measures-1",
+    "title": "Vector Operations Part 1",
+    "section": "Measures",
+    "text": "Measures\nUnary Measures\n\nReturn quantities of individual geometries\n\n\n\n\n\n\n\n\n\nmeasure\nreturns\n\n\n\n\ndimension\n0 for points, 1 for linear, 2 for polygons, possibly NA for empty geometries\n\n\narea\nthe area of a geometry\n\n\nlength\nthe length of a linear geometry\n\n\n\n\nBinary Measures\n\nst_distance returns the distance between pairs of geometries"
+  },
+  {
+    "objectID": "slides/09-slides.html#your-final-project",
+    "href": "slides/09-slides.html#your-final-project",
+    "title": "Vector Operations Part 1I",
+    "section": "Your final project",
+    "text": "Your final project\n\nAt least 5 datasets total (1 tabular, 1 vector, 1 raster, and 2 of your choosing)\nChoose 1 statistical approach to address your research question\nVisualizations - minimum of 3. 1 location map; the others should help address your question\nSubmission formats\nA note about your discussion"
+  },
+  {
+    "objectID": "slides/09-slides.html#objectives",
+    "href": "slides/09-slides.html#objectives",
+    "title": "Vector Operations Part 1I",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nComplete a workflow for identifying and remedying invalid geometries\nDescribe the various unary, binary, and n-ary transformers\nUse predicates and dplyr::filter to subset spatial data"
+  },
+  {
+    "objectID": "slides/09-slides.html#revisiting-predicates-and-measures",
+    "href": "slides/09-slides.html#revisiting-predicates-and-measures",
+    "title": "Vector Operations Part 1I",
+    "section": "Revisiting predicates and measures",
+    "text": "Revisiting predicates and measures\n\nPredicates: evaluate a logical statement asserting that a property is TRUE\nMeasures: return a numeric value with units based on the units of the CRS\nUnary, binary, and n-ary distinguish how many geometries each function accepts and returns"
+  },
+  {
+    "objectID": "slides/09-slides.html#transformations",
+    "href": "slides/09-slides.html#transformations",
+    "title": "Vector Operations Part 1I",
+    "section": "Transformations",
+    "text": "Transformations\n\n\nTransformations: create new geometries based on input geometries"
+  },
+  {
+    "objectID": "slides/09-slides.html#unary-transformations",
+    "href": "slides/09-slides.html#unary-transformations",
+    "title": "Vector Operations Part 1I",
+    "section": "Unary Transformations",
+    "text": "Unary Transformations\n\n\n\n\n\n\n\n\ntransformer\nreturns a geometry …\n\n\n\n\ncentroid\nof type POINT with the geometry’s centroid\n\n\nbuffer\nthat is this larger (or smaller) than the input geometry, depending on the buffer size\n\n\njitter\nthat was moved in space a certain amount, using a bivariate uniform distribution\n\n\nwrap_dateline\ncut into pieces that do no longer cover the dateline\n\n\nboundary\nwith the boundary of the input geometry\n\n\nconvex_hull\nthat forms the convex hull of the input geometry\n\n\nline_merge\nafter merging connecting LINESTRING elements of a MULTILINESTRING into longer LINESTRINGs.\n\n\nmake_valid\nthat is valid\n\n\nnode\nwith added nodes to linear geometries at intersections without a node; only works on individual linear geometries\n\n\npoint_on_surface\nwith a (arbitrary) point on a surface\n\n\npolygonize\nof type polygon, created from lines that form a closed ring"
+  },
+  {
+    "objectID": "slides/09-slides.html#unary-transformations-contd",
+    "href": "slides/09-slides.html#unary-transformations-contd",
+    "title": "Vector Operations Part 1I",
+    "section": "Unary Transformations (cont’d)",
+    "text": "Unary Transformations (cont’d)\n\n\n\n\n\n\n\n\ntransformer\nreturns a geometry …\n\n\n\n\nsegmentize\na (linear) geometry with nodes at a given density or minimal distance\n\n\nsimplify\nsimplified by removing vertices/nodes (lines or polygons)\n\n\nsplit\nthat has been split with a splitting linestring\n\n\ntransform\ntransformed or convert to a new coordinate reference system (chapter @ref(cs))\n\n\ntriangulate\nwith Delauney triangulated polygon(s) (figure @ref(fig:vor))\n\n\nvoronoi\nwith the Voronoi tessellation of an input geometry (figure @ref(fig:vor))\n\n\nzm\nwith removed or added Z and/or M coordinates\n\n\ncollection_extract\nwith subgeometries from a GEOMETRYCOLLECTION of a particular type\n\n\ncast\nthat is converted to another type\n\n\n+\nthat is shifted over a given vector\n\n\n*\nthat is multiplied by a scalar or matrix"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-uses-of-unary-transformers",
+    "href": "slides/09-slides.html#common-uses-of-unary-transformers",
+    "title": "Vector Operations Part 1I",
+    "section": "Common uses of Unary Transformers",
+    "text": "Common uses of Unary Transformers\n\nCreating valid geometries\nReprojecting your data\nCombining or changing geometries"
+  },
+  {
+    "objectID": "slides/09-slides.html#binary-transformers",
+    "href": "slides/09-slides.html#binary-transformers",
+    "title": "Vector Operations Part 1I",
+    "section": "Binary Transformers",
+    "text": "Binary Transformers\n\n\n\n\n\n\n\n\n\nfunction\nreturns\ninfix operator\n\n\n\n\nintersection\nthe overlapping geometries for pair of geometries\n&\n\n\nunion\nthe combination of the geometries; removes internal boundaries and duplicate points, nodes or line pieces\n|\n\n\ndifference\nthe geometries of the first after removing the overlap with the second geometry\n/\n\n\nsym_difference\nthe combinations of the geometries after removing where they intersect; the negation (opposite) of intersection\n%/%\n\n\ncrop\ncrop an sf object to a specific rectangle"
+  },
+  {
+    "objectID": "slides/09-slides.html#binary-transformers-1",
+    "href": "slides/09-slides.html#binary-transformers-1",
+    "title": "Vector Operations Part 1I",
+    "section": "Binary Transformers",
+    "text": "Binary Transformers"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-uses-of-binary-transformers",
+    "href": "slides/09-slides.html#common-uses-of-binary-transformers",
+    "title": "Vector Operations Part 1I",
+    "section": "Common Uses of Binary Transformers",
+    "text": "Common Uses of Binary Transformers\n\nRelating partially overlapping datasets to each other\nReducing the extent of vector objects"
+  },
+  {
+    "objectID": "slides/09-slides.html#n-ary-transformers",
+    "href": "slides/09-slides.html#n-ary-transformers",
+    "title": "Vector Operations Part 1I",
+    "section": "N-ary Transformers",
+    "text": "N-ary Transformers\n\nSimilar to Binary (except st_crop)\nunion can be applied to a set of geometries to return its geometrical union\nintersection and difference take a single argument, but operate (sequentially) on all pairs, triples, quadruples, etc."
+  },
+  {
+    "objectID": "slides/09-slides.html#subsetting-data-1",
+    "href": "slides/09-slides.html#subsetting-data-1",
+    "title": "Vector Operations Part 1I",
+    "section": "Subsetting Data",
+    "text": "Subsetting Data\n\nOften want to restrict analyses to particular locations\nCan combine predicates with [] to subset based on geography\nCan also use dplyr::filter and dplyr::select to subset using attributes"
+  },
+  {
+    "objectID": "slides/09-slides.html#using-predicates",
+    "href": "slides/09-slides.html#using-predicates",
+    "title": "Vector Operations Part 1I",
+    "section": "Using predicates",
+    "text": "Using predicates\n\nCan combine predicates with [] to subset based on topological relations\nx[y, , op = st_intersects]\nst_filter( x = x, y = y, .predicate = st_intersects)"
+  },
+  {
+    "objectID": "slides/09-slides.html#using-dplyr",
+    "href": "slides/09-slides.html#using-dplyr",
+    "title": "Vector Operations Part 1I",
+    "section": "Using dplyr",
+    "text": "Using dplyr\n\n\nfilter returns rows that match a criteria\nselect returns columns\n\n\n\n\n\nlibrary(tidyverse)\ndurham.cty <- nc %>% \n  filter(., NAME == \"Durham\")\n## We can also use the bracket approach\ndurham.cty2 <- nc[nc$NAME == \"Durham\",]\n\nplot(st_geometry(nc))\nplot(st_geometry(durham.cty), add=TRUE, col=\"blue\")\n\n\n\n\n\n\nnc.select <- nc %>% \n  select(., c(\"BIR79\", \"SID79\"))\nplot(nc.select)"
+  },
+  {
+    "objectID": "slides/10-slides.html#objectives",
+    "href": "slides/10-slides.html#objectives",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Objectives",
+    "text": "Objectives\n\nBy the end of today, you should be able to:\n\nDescribe the raster data model and its representation in R\nAccess the elements that define a raster\nBuild rasters from scratch using matrix operations and terra"
+  },
+  {
+    "objectID": "slides/10-slides.html#defining-the-raster-data-model-1",
+    "href": "slides/10-slides.html#defining-the-raster-data-model-1",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Defining the Raster Data Model",
+    "text": "Defining the Raster Data Model\n\n\n\n\nVector data describe the “exact” locations of features on a landscape (including a Cartesian landscape)\nRaster data represent spatially continuous phenomena (NA is possible)\nDepict the alignment of data on a regular lattice (often a square)\n\nOperations mimic those for matrix objects in R\n\nGeometry is implicit; the spatial extent and number of rows and columns define the cell size"
+  },
+  {
+    "objectID": "slides/10-slides.html#types-of-raster-data",
+    "href": "slides/10-slides.html#types-of-raster-data",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Types of Raster Data",
+    "text": "Types of Raster Data\n\n\n\n\n\n\n\n\n\n\nRegular: constant cell size; axes aligned with Easting and Northing\nRotated: constant cell size; axes not aligned with Easting and Northing\nSheared: constant cell size; axes not parallel\nRectilinear: cell size varies along a dimension\nCurvilinear: cell size and orientation dependent on the other dimension"
+  },
+  {
+    "objectID": "slides/10-slides.html#types-of-raster-data-1",
+    "href": "slides/10-slides.html#types-of-raster-data-1",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Types of Raster Data",
+    "text": "Types of Raster Data\n\nContinuous: numeric data representing a measurement (e.g., elevation, precipitation)\nCategorical: integer data representing factors (e.g., land use, land cover)"
+  },
+  {
+    "objectID": "slides/10-slides.html#continuous-rasters",
+    "href": "slides/10-slides.html#continuous-rasters",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Continuous Rasters",
+    "text": "Continuous Rasters\n\n\n\nmintemp <- rast(\"ftp://ftp.hafro.is/pub/data/rasters/Iceland_minbtemp.tif\")\nmintemp\n\nclass       : SpatRaster \ndimensions  : 340, 375, 1  (nrow, ncol, nlyr)\nresolution  : 2000, 2000  (x, y)\nextent      : -1050226, -300225.9, -699984.3, -19984.32  (xmin, xmax, ymin, ymax)\ncoord. ref. : +proj=laea +lat_0=69 +lon_0=-4 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs \nsource      : Iceland_minbtemp.tif \nname        : Iceland_minbtemp \nmin value   :       -0.9982879 \nmax value   :        8.6031137"
+  },
+  {
+    "objectID": "slides/10-slides.html#categorical-rasters",
+    "href": "slides/10-slides.html#categorical-rasters",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Categorical Rasters",
+    "text": "Categorical Rasters\n\n\n\n\nRequires a classification matrix and coercion to factor\nlevels allows you to define the categories\n\n\n\n# Create classification matrix\ncm <- matrix(c(\n  -2, 2, 0,\n  2, 4, 1,\n  4, 10, 2), ncol = 3, byrow = TRUE)\n\n# Create a raster with integers\ntemp_reclass <- classify(mintemp, cm)\ntempcats <- c(\"cold\", \"mild\", \"warm\")\nlevels(temp_reclass) <- tempcats\ncats(temp_reclass)\n\n[[1]]\n  value category\n1     0     cold\n2     1     mild\n3     2     warm"
+  },
+  {
+    "objectID": "slides/10-slides.html#adding-dimensions",
+    "href": "slides/10-slides.html#adding-dimensions",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Adding Dimensions",
+    "text": "Adding Dimensions\n\nWhen data are aligned in space and/or time, more efficient to process as ‘cubes’ or ‘stacks’\nBands of satellite imagery, multiple predictors, spatio-temporal data"
+  },
+  {
+    "objectID": "slides/10-slides.html#a-note-about-support",
+    "href": "slides/10-slides.html#a-note-about-support",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "A note about support",
+    "text": "A note about support\n\n\nWe talked briefly about the agr option in the st_sf() function\nagr refers to the attribute-geometry-relationship which can be:\n\nconstant = applies to every point in the geometry (lines and polygons are just lots of points)\nidentity = a value unique to a geometry\naggregate = a single value that integrates data across the geometry\n\nSupport is the area to which an attribute applies.\nRasters can have point (attribute refers to the cell center) or cell (attribute refers to an area similar to the pixel) support"
+  },
+  {
+    "objectID": "slides/10-slides.html#rasters-in-r-1",
+    "href": "slides/10-slides.html#rasters-in-r-1",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Rasters in R",
+    "text": "Rasters in R\n\n\nraster - the original workhorse package; built on sp, rgdal, and rgeos\n\nRasterLayer, RasterStack, and RasterBrick classes\n\nterra - relatively new; developed by the raster folks, but designed to be much faster\n\nSpatRaster and SpatVector classes\n\nstars - developed by sf package developers; tidyverse compatible; designed for spatio-temporal data\n\nstars class\nCrosswalk between raster and stars is available here\nOnly way to deal with rectilinear and curvilinear data"
+  },
+  {
+    "objectID": "slides/10-slides.html#rasters-with-terra",
+    "href": "slides/10-slides.html#rasters-with-terra",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Rasters with terra",
+    "text": "Rasters with terra\n\nsyntax is different for terra compared to sf\nRepresentation in Environment is also different\nCan break pipes, Be Explicit"
+  },
+  {
+    "objectID": "slides/10-slides.html#rasters-by-construction",
+    "href": "slides/10-slides.html#rasters-by-construction",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Rasters by Construction",
+    "text": "Rasters by Construction\n\n\n\nmtx <- matrix(1:16, nrow=4)\nmtx\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    5    9   13\n[2,]    2    6   10   14\n[3,]    3    7   11   15\n[4,]    4    8   12   16\n\nrstr <- terra::rast(mtx)\nrstr\n\nclass       : SpatRaster \ndimensions  : 4, 4, 1  (nrow, ncol, nlyr)\nresolution  : 1, 1  (x, y)\nextent      : 0, 4, 0, 4  (xmin, xmax, ymin, ymax)\ncoord. ref. :  \nsource      : memory \nname        : lyr.1 \nmin value   :     1 \nmax value   :    16 \n\n\n\n\n\n\n\n\n\n\n\nNote: you must have raster or terra loaded for plot() to work on Rast* objects; otherwise you get Error in as.double(y) : cannot coerce type 'S4' to vector of type 'double'"
+  },
+  {
+    "objectID": "slides/10-slides.html#rasters-by-construction-origin",
+    "href": "slides/10-slides.html#rasters-by-construction-origin",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Rasters by Construction: Origin",
+    "text": "Rasters by Construction: Origin\n\nOrigin defines the location of the intersection of the x and y axes\n\n\n\n\nr <- rast(xmin=-4, xmax = 9.5, ncols=10)\nr[] <- runif(ncell(r))\norigin(r)\n\n[1] 0.05 0.00\n\nr2 <- r\norigin(r2) <- c(2,2)"
+  },
+  {
+    "objectID": "slides/10-slides.html#rasters-by-construction-resolution",
+    "href": "slides/10-slides.html#rasters-by-construction-resolution",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Rasters by Construction: Resolution",
+    "text": "Rasters by Construction: Resolution\n\n\nGeometry is implicit; the spatial extent and number of rows and columns define the cell size\nResolution (res) defines the length and width of an individual pixel\n\n\n\n\n\nr <- rast(xmin=-4, xmax = 9.5, \n          ncols=10)\nres(r)\n\n[1] 1.35 1.00\n\nr2 <- rast(xmin=-4, xmax = 5, \n           ncols=10)\nres(r2)\n\n[1] 0.9 1.0\n\n\n\n\nr <- rast(xmin=-4, xmax = 9.5, \n          res=c(0.5,0.5))\nncol(r)\n\n[1] 27\n\nr2 <- rast(xmin=-4, xmax = 9.5, \n           res=c(5,5))\nncol(r2)\n\n[1] 3"
+  },
+  {
+    "objectID": "slides/10-slides.html#rasters-from-files",
+    "href": "slides/10-slides.html#rasters-from-files",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Rasters from Files",
+    "text": "Rasters from Files\n\nBuilding rasters useful for templates\nMore common to read from files\n\n\nr <- rast(system.file(\"ex/elev.tif\", package=\"terra\"))\nr\n\nclass       : SpatRaster \ndimensions  : 90, 95, 1  (nrow, ncol, nlyr)\nresolution  : 0.008333333, 0.008333333  (x, y)\nextent      : 5.741667, 6.533333, 49.44167, 50.19167  (xmin, xmax, ymin, ymax)\ncoord. ref. : lon/lat WGS 84 (EPSG:4326) \nsource      : elev.tif \nname        : elevation \nmin value   :       141 \nmax value   :       547"
+  },
+  {
+    "objectID": "slides/10-slides.html#accessing-raster-attributes-coordinate-reference-system",
+    "href": "slides/10-slides.html#accessing-raster-attributes-coordinate-reference-system",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Accessing Raster Attributes: Coordinate Reference System",
+    "text": "Accessing Raster Attributes: Coordinate Reference System\n\nterra stores CRS in WKT format\nCan set and access using EPSG and proj (deprecated)\nPay attention to case\n\n\nr <- rast(system.file(\"ex/elev.tif\", package=\"terra\"))\ncrs(r)\n\n[1] \"GEOGCRS[\\\"WGS 84\\\",\\n    DATUM[\\\"World Geodetic System 1984\\\",\\n        ELLIPSOID[\\\"WGS 84\\\",6378137,298.257223563,\\n            LENGTHUNIT[\\\"metre\\\",1]]],\\n    PRIMEM[\\\"Greenwich\\\",0,\\n        ANGLEUNIT[\\\"degree\\\",0.0174532925199433]],\\n    CS[ellipsoidal,2],\\n        AXIS[\\\"geodetic latitude (Lat)\\\",north,\\n            ORDER[1],\\n            ANGLEUNIT[\\\"degree\\\",0.0174532925199433]],\\n        AXIS[\\\"geodetic longitude (Lon)\\\",east,\\n            ORDER[2],\\n            ANGLEUNIT[\\\"degree\\\",0.0174532925199433]],\\n    ID[\\\"EPSG\\\",4326]]\""
+  },
+  {
+    "objectID": "slides/10-slides.html#accessing-raster-attributes-coordinate-reference-system-1",
+    "href": "slides/10-slides.html#accessing-raster-attributes-coordinate-reference-system-1",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Accessing Raster Attributes: Coordinate Reference System",
+    "text": "Accessing Raster Attributes: Coordinate Reference System\n\nr <- rast(system.file(\"ex/elev.tif\", package=\"terra\"))\ncrs(r, describe=TRUE)\n\n    name authority code area         extent\n1 WGS 84      EPSG 4326 <NA> NA, NA, NA, NA\n\ncrs(r, proj=TRUE)\n\n[1] \"+proj=longlat +datum=WGS84 +no_defs\"\n\ncrs(r, parse=TRUE)\n\n [1] \"GEOGCRS[\\\"WGS 84\\\",\"                                   \n [2] \"    DATUM[\\\"World Geodetic System 1984\\\",\"             \n [3] \"        ELLIPSOID[\\\"WGS 84\\\",6378137,298.257223563,\"   \n [4] \"            LENGTHUNIT[\\\"metre\\\",1]]],\"                \n [5] \"    PRIMEM[\\\"Greenwich\\\",0,\"                           \n [6] \"        ANGLEUNIT[\\\"degree\\\",0.0174532925199433]],\"    \n [7] \"    CS[ellipsoidal,2],\"                                \n [8] \"        AXIS[\\\"geodetic latitude (Lat)\\\",north,\"       \n [9] \"            ORDER[1],\"                                 \n[10] \"            ANGLEUNIT[\\\"degree\\\",0.0174532925199433]],\"\n[11] \"        AXIS[\\\"geodetic longitude (Lon)\\\",east,\"       \n[12] \"            ORDER[2],\"                                 \n[13] \"            ANGLEUNIT[\\\"degree\\\",0.0174532925199433]],\"\n[14] \"    ID[\\\"EPSG\\\",4326]]\""
+  },
+  {
+    "objectID": "slides/10-slides.html#accessing-raster-attributes-bounding-box",
+    "href": "slides/10-slides.html#accessing-raster-attributes-bounding-box",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Accessing Raster Attributes: Bounding box",
+    "text": "Accessing Raster Attributes: Bounding box\n\n\nterra uses ext() to get or set the extent/bounding box\nFills cells with NA\n\n\n\n\n\next(r)\n\nSpatExtent : 5.74166666666667, 6.53333333333333, 49.4416666666667, 50.1916666666667 (xmin, xmax, ymin, ymax)\n\nr2 <- r\next(r2) <- c(5, 7, 48, 52)\next(r2)\n\nSpatExtent : 5, 7, 48, 52 (xmin, xmax, ymin, ymax)"
+  },
+  {
+    "objectID": "slides/10-slides.html#converting-vectors-to-rasters",
+    "href": "slides/10-slides.html#converting-vectors-to-rasters",
+    "title": "Spatial Data as Matrices and Rasters",
+    "section": "Converting vectors to rasters",
+    "text": "Converting vectors to rasters\n\nSometimes necessary to convert between data models\nraster::rasterize, terra::rasterize, stars::st_rasterize, and fasterize::fasterize all will convert polygons to raster data\nstars::st_polygonize will work in the opposite direction\nterra::vect will read in vectors as SpatVectors or coerce sf to SpatVector"
+  },
+  {
+    "objectID": "slides/11-slides.html#objectives",
+    "href": "slides/11-slides.html#objectives",
+    "title": "Operations With Raster Data I",
+    "section": "Objectives",
+    "text": "Objectives\n\nBy the end of today, you should be able to:\n\nEvaluate logical conditions with raster data\nCalculate different measures of raster data\nAlign rasters for spatial processing"
+  },
+  {
+    "objectID": "slides/11-slides.html#revisitng-the-raster-data-model",
+    "href": "slides/11-slides.html#revisitng-the-raster-data-model",
+    "title": "Operations With Raster Data I",
+    "section": "Revisitng the Raster Data Model",
+    "text": "Revisitng the Raster Data Model\n\n\n\n\nRaster data represent spatially continuous phenomena (NA is possible)\nDepict the alignment of data on a regular lattice (often a square)\n\nOperations mimic those for matrix objects in R\n\nGeometry is implicit; the spatial extent and number of rows and columns define the cell size"
+  },
+  {
+    "objectID": "slides/11-slides.html#extending-predicates",
+    "href": "slides/11-slides.html#extending-predicates",
+    "title": "Operations With Raster Data I",
+    "section": "Extending predicates",
+    "text": "Extending predicates\n\nPredicates: evaluate a logical statement asserting that a property is TRUE\nterra does not follow the same hierarchy as sf so a little trickier"
+  },
+  {
+    "objectID": "slides/11-slides.html#unary-predicates-in-terra",
+    "href": "slides/11-slides.html#unary-predicates-in-terra",
+    "title": "Operations With Raster Data I",
+    "section": "Unary predicates in terra",
+    "text": "Unary predicates in terra\n\nCan tell us qualities of a raster dataset\nMany similar operations for SpatVector class (note use of .)\n\n\n\n\n\n\n\n\n\npredicate\nasks…\n\n\n\n\nis.lonlat\nDoes the object have a longitude/latitude CRS?\n\n\ninMemory\nis the object stored in memory?\n\n\nis.factor\nAre there categorical layers?\n\n\nhasValues\nDo the cells have values?"
+  },
+  {
+    "objectID": "slides/11-slides.html#unary-predicates-in-terra-1",
+    "href": "slides/11-slides.html#unary-predicates-in-terra-1",
+    "title": "Operations With Raster Data I",
+    "section": "Unary predicates in terra",
+    "text": "Unary predicates in terra\n\n\n\n\nglobal: tests if the raster covers all longitudes (from -180 to 180 degrees) such that the extreme columns are in fact adjacent\n\n\nr <- rast()\nis.lonlat(r)\n\n[1] TRUE\n\nis.lonlat(r, global=TRUE)\n\n[1] TRUE\n\n\n\n\n\n\nperhaps: If TRUE and the crs is unknown, the method returns TRUE if the coordinates are plausible for longitude/latitude\n\n\ncrs(r) <- \"\"\nis.lonlat(r)\n\n[1] NA\n\nis.lonlat(r, perhaps=TRUE, warn=FALSE)\n\n[1] TRUE\n\n\n\ncrs(r) <- \"+proj=lcc +lat_1=48 +lat_2=33 +lon_0=-100 +ellps=WGS84\"\nis.lonlat(r)\n\n[1] FALSE"
+  },
+  {
+    "objectID": "slides/11-slides.html#binary-predicates-in-terra",
+    "href": "slides/11-slides.html#binary-predicates-in-terra",
+    "title": "Operations With Raster Data I",
+    "section": "Binary predicates in terra",
+    "text": "Binary predicates in terra\n\nTake exactly 2 inputs, return 1 matrix of cell locs where value is TRUE\nadjacent: identifies cells adajcent to a set of raster cells"
+  },
+  {
+    "objectID": "slides/11-slides.html#unary-measures-in-terra",
+    "href": "slides/11-slides.html#unary-measures-in-terra",
+    "title": "Operations With Raster Data I",
+    "section": "Unary measures in terra",
+    "text": "Unary measures in terra\n\nSlightly more flexible than sf\nOne result for each layer in a stack\n\n\n\n\n\n\n\n\n\nmeasure\nreturns\n\n\n\n\ncellSize\narea of individual cells\n\n\nexpanse\nsummed area of all cells\n\n\nvalues\nreturns all cell values\n\n\nncol\nnumber of columns\n\n\nnrow\nnumber of rows\n\n\nncell\nnumber of cells\n\n\nres\nresolution\n\n\next\nminimum and maximum of x and y coords\n\n\norigin\nthe orgin of a SpatRaster\n\n\ncrs\nthe coordinate reference system\n\n\ncats\ncategories of a categorical raster"
+  },
+  {
+    "objectID": "slides/11-slides.html#binary-measures-in-terra",
+    "href": "slides/11-slides.html#binary-measures-in-terra",
+    "title": "Operations With Raster Data I",
+    "section": "Binary measures in terra",
+    "text": "Binary measures in terra\n\nReturns a matrix or SpatRaster describing the measure\n\n\n\n\n\n\n\n\n\nmeasure\nreturns\n\n\n\n\ndistance\nshortest distance to non-NA or vector object\n\n\ngridDistance\nshortest distance through adjacent grid cells\n\n\ncostDistance\nShortest distance considering cell-varying friction\n\n\ndirection\nazimuth to cells that are not NA"
+  },
+  {
+    "objectID": "slides/11-slides.html#projecting-raster-data",
+    "href": "slides/11-slides.html#projecting-raster-data",
+    "title": "Operations With Raster Data I",
+    "section": "Projecting raster data",
+    "text": "Projecting raster data\n\n\n\n\nTransformation from lat/long to planar CRS involves some loss of precision\nNew cell values estimated using overlap with original cells\nInterpolation for continuous data, nearest neighbor for categorical data\nEqual-area projections are preferred; especially for large areas\n\n\n\n\n\nr <- rast(xmin=-110, xmax=-90, ymin=40, ymax=60, ncols=40, nrows=40)\nvalues(r) <- 1:ncell(r)\nplot(r)"
+  },
+  {
+    "objectID": "slides/11-slides.html#projecting-raster-data-1",
+    "href": "slides/11-slides.html#projecting-raster-data-1",
+    "title": "Operations With Raster Data I",
+    "section": "Projecting raster data",
+    "text": "Projecting raster data\n\n\n\nsimple method; alignment not guaranteed\n\n\nnewcrs <- \"+proj=robin +datum=WGS84\"\npr1 <- terra::project(r, newcrs)\nplot(pr1)\n\n\n\n\n\n\nproviding a template to ensure alignment"
+  },
+  {
+    "objectID": "slides/11-slides.html#changing-resolutions",
+    "href": "slides/11-slides.html#changing-resolutions",
+    "title": "Operations With Raster Data I",
+    "section": "Changing resolutions",
+    "text": "Changing resolutions\n\naggregate, disaggregate, resample allow changes in cell size\naggregate requires a function (e.g., mean() or min()) to determine what to do with the grouped values\nresample allows changes in cell size and shifting of cell centers (slower)"
+  },
+  {
+    "objectID": "slides/11-slides.html#changing-resolutions-aggregate",
+    "href": "slides/11-slides.html#changing-resolutions-aggregate",
+    "title": "Operations With Raster Data I",
+    "section": "Changing resolutions: aggregate",
+    "text": "Changing resolutions: aggregate\n\n\n\nr <- rast()\nvalues(r) <- 1:ncell(r)\nplot(r)\n\n\n\n\n]\n\n\nra <- aggregate(r, 20)\nplot(ra)"
+  },
+  {
+    "objectID": "slides/11-slides.html#changing-resolutions-disagg",
+    "href": "slides/11-slides.html#changing-resolutions-disagg",
+    "title": "Operations With Raster Data I",
+    "section": "Changing resolutions: disagg",
+    "text": "Changing resolutions: disagg\n\n\n\nra <- aggregate(r, 20)\nplot(ra)\n\n\n\n\n\n\nrd <- disagg(r, 20)\nplot(rd)"
+  },
+  {
+    "objectID": "slides/11-slides.html#changing-resolutions-resample",
+    "href": "slides/11-slides.html#changing-resolutions-resample",
+    "title": "Operations With Raster Data I",
+    "section": "Changing Resolutions: resample",
+    "text": "Changing Resolutions: resample\n\nr <- rast(nrow=3, ncol=3, xmin=0, xmax=10, ymin=0, ymax=10)\nvalues(r) <- 1:ncell(r)\ns <- rast(nrow=25, ncol=30, xmin=1, xmax=11, ymin=-1, ymax=11)\nx <- resample(r, s, method=\"bilinear\")"
+  },
+  {
+    "objectID": "slides/11-slides.html#on-weds",
+    "href": "slides/11-slides.html#on-weds",
+    "title": "Operations With Raster Data I",
+    "section": "On Weds",
+    "text": "On Weds\n\nTransformations of data and coverage\nRaster math\nCell-based functions"
+  },
+  {
+    "objectID": "slides/12-slides.html#objectives",
+    "href": "slides/12-slides.html#objectives",
+    "title": "Operations With Raster Data II",
+    "section": "Objectives",
+    "text": "Objectives\n\nBy the end of today, you should be able to:\n\nAccess and manipulate cell values\nGenerate new rasters using mathematical functions\nSummarize rasters using global functions\nGenerate new rasters describing the spatial context of individual cells"
+  },
+  {
+    "objectID": "slides/12-slides.html#revisiting-projections",
+    "href": "slides/12-slides.html#revisiting-projections",
+    "title": "Operations With Raster Data II",
+    "section": "Revisiting Projections",
+    "text": "Revisiting Projections\n\nproject changes the entire coordinate reference system\n\n\n\n\n\nlibrary(terra)\na <- rast(ncols=40, nrows=40, xmin=-110, xmax=-90, ymin=40, ymax=60, \n          crs=\"+proj=longlat +datum=WGS84\")\nvalues(a) <- 1:ncell(a)\nnewcrs=\"+proj=lcc +lat_1=48 +lat_2=33 +lon_0=-100 +datum=WGS84\"\nb <- rast(ncols=94, nrows=124, xmin=-944881, xmax=935118, ymin=4664377, ymax=7144377, crs=newcrs)\nw <- project(a, b)\n\n\n\n\n\n\n\n\n\norigin(a)\n\n[1] 0 0\n\norigin(w)\n\n[1] -4881.5  4377.0\n\next(a)\n\nSpatExtent : -110, -90, 40, 60 (xmin, xmax, ymin, ymax)\n\next(w)\n\nSpatExtent : -944881, 935118, 4664377, 7144377 (xmin, xmax, ymin, ymax)\n\nres(a)\n\n[1] 0.5 0.5\n\nres(w)\n\n[1] 19999.99 20000.00"
+  },
+  {
+    "objectID": "slides/12-slides.html#revisiting-projections-1",
+    "href": "slides/12-slides.html#revisiting-projections-1",
+    "title": "Operations With Raster Data II",
+    "section": "Revisiting Projections",
+    "text": "Revisiting Projections\n\n\nresample transfers values between SpatRaster objects that do not align\nMust have same crs\n\n\n\n\n\n\na <- rast(ncols=40, nrows=40, xmin=-110, xmax=-90, ymin=40, ymax=60, \n          crs=\"+proj=longlat +datum=WGS84\")\nvalues(a) <- 1:ncell(a)\n\nb <- rast(ncols=94, nrows=124, xmin=-111, xmax=-80, ymin=45, ymax=65)\nw <- resample(a, b)\n\n\n\n\n\n\n\n\n\n\norigin(a)\n\n[1] 0 0\n\norigin(b)\n\n[1] 0.1382979 0.0000000\n\norigin(w)\n\n[1] 0.1382979 0.0000000\n\nres(a)\n\n[1] 0.5 0.5\n\nres(b)\n\n[1] 0.3297872 0.1612903\n\nres(w)\n\n[1] 0.3297872 0.1612903"
+  },
+  {
+    "objectID": "slides/12-slides.html#revisiting-projections-2",
+    "href": "slides/12-slides.html#revisiting-projections-2",
+    "title": "Operations With Raster Data II",
+    "section": "Revisiting Projections",
+    "text": "Revisiting Projections\n\nif origin and extent are the same consider using aggregate, disagg, extend or crop"
+  },
+  {
+    "objectID": "slides/12-slides.html#accessing-cell-values",
+    "href": "slides/12-slides.html#accessing-cell-values",
+    "title": "Operations With Raster Data II",
+    "section": "Accessing Cell Values",
+    "text": "Accessing Cell Values\n\nWe can extract or change cell values using []\n\n\na <- rast(ncols=10, nrows=10, xmin=-110, xmax=-100, ymin=40, ymax=50, \n          crs=\"+proj=longlat +datum=WGS84\")\nvalues(a) <- 1\nb1 <- a\nb2 <- a\nb1[5,5] <- 10\nb2[1, 1:10 ] <- runif(10,4,10)"
+  },
+  {
+    "objectID": "slides/12-slides.html#raster-math",
+    "href": "slides/12-slides.html#raster-math",
+    "title": "Operations With Raster Data II",
+    "section": "Raster Math",
+    "text": "Raster Math\n\nPerforms cell-wise calculations on 1 (or more) SpatRasters\nGenerally works the same as matrix operations\nAll layers must be aligned"
+  },
+  {
+    "objectID": "slides/12-slides.html#raster-math-1",
+    "href": "slides/12-slides.html#raster-math-1",
+    "title": "Operations With Raster Data II",
+    "section": "Raster Math",
+    "text": "Raster Math\n\nr <- rast(ncol=5, nrow=5)\nvalues(r) <- 1:ncell(r)\nr2 <- r*2\nr3 <- t(r)\nr4 <- r + r2"
+  },
+  {
+    "objectID": "slides/12-slides.html#cell-wise-operations-1",
+    "href": "slides/12-slides.html#cell-wise-operations-1",
+    "title": "Operations With Raster Data II",
+    "section": "Cell-wise operations",
+    "text": "Cell-wise operations\n\nterra has a special set of apply functions\napp, lapp, tapp\napp applies a function to the values of each cell\nlapp applies a function using the layer as the value\ntapp applies the function to a subset of layers"
+  },
+  {
+    "objectID": "slides/12-slides.html#cell-wise-operations-2",
+    "href": "slides/12-slides.html#cell-wise-operations-2",
+    "title": "Operations With Raster Data II",
+    "section": "Cell-wise operations",
+    "text": "Cell-wise operations\n\nr <- rast(ncols=10, nrows=10)\nvalues(r) <- 1:ncell(r)\nf <- function(i) (i+1) * 2 * i + sqrt(i)\ns <- app(r, f)"
+  },
+  {
+    "objectID": "slides/12-slides.html#cell-wise-operations-3",
+    "href": "slides/12-slides.html#cell-wise-operations-3",
+    "title": "Operations With Raster Data II",
+    "section": "Cell-wise Operations",
+    "text": "Cell-wise Operations\n\ns <- rast(system.file(\"ex/logo.tif\", package=\"terra\")) + 1  \nss <- s[[2:1]]\n\nfvi <- function(x, y){ (x - y ) / (x + y) } \nx <- lapp(ss, fun=fvi)"
+  },
+  {
+    "objectID": "slides/12-slides.html#global-methods",
+    "href": "slides/12-slides.html#global-methods",
+    "title": "Operations With Raster Data II",
+    "section": "Global Methods",
+    "text": "Global Methods\n\nProvide summaries of 1 or more layers\nUse zonal to extract values from one layer based on categorical layer\n\n\n\n\nr <- rast(ncols=10, nrows=10)\nvalues(r) <- 1:ncell(r)\nz <- rast(r)\nvalues(z) <- rep(c(1:2, NA, 3:4), each=20)\nnames(z) <- \"zone\"\na <-  zonal(r, z, \"sum\", na.rm=TRUE)\nb <- zonal(r, z, \"sum\", na.rm=TRUE, as.raster=TRUE)\nplot(b)"
+  },
+  {
+    "objectID": "slides/12-slides.html#context-specific-functions",
+    "href": "slides/12-slides.html#context-specific-functions",
+    "title": "Operations With Raster Data II",
+    "section": "Context-specific Functions",
+    "text": "Context-specific Functions\n\ndistance and relatives are based on relationships between cells\nfocal provides moving windows for smoothing data\nterrain allows calculation of slope, ruggedness, aspect using elevation rasters\nshade calculates hillshade based on terrain"
+  },
+  {
+    "objectID": "slides/12-slides.html#using-focal",
+    "href": "slides/12-slides.html#using-focal",
+    "title": "Operations With Raster Data II",
+    "section": "Using focal",
+    "text": "Using focal\n\nfocal requires a window (w) or weights matrix\nna.policy determines how to deal with NAs in the smoother\nfillvalue and expand tell terra what to do at the edges\n\n\nr <- rast(ncols=10, nrows=10, ext(0, 10, 0, 10))\nvalues(r) <- 1:ncell(r)\n\nf <- focal(r, w=3, fun=function(x, ...) quantile(x, c(.25, .5, .75), ...), na.rm=TRUE) \nplot(f)"
+  },
+  {
+    "objectID": "slides/12-slides.html#using-focal-1",
+    "href": "slides/12-slides.html#using-focal-1",
+    "title": "Operations With Raster Data II",
+    "section": "Using focal",
+    "text": "Using focal"
+  },
+  {
+    "objectID": "slides/13-slides.html#objectives",
+    "href": "slides/13-slides.html#objectives",
+    "title": "Combining Raster and Vector Data",
+    "section": "Objectives",
+    "text": "Objectives\n\nBy the end of today, you should be able to:\n\nClip, crop, or extend vector and raster data so that extents align\nConvert between raster and vector datasets\nGenerate new rasters describing the spatial arrangement of vector data\nExtract raster values as attributes of vector data"
+  },
+  {
+    "objectID": "slides/13-slides.html#dealing-with-different-extents",
+    "href": "slides/13-slides.html#dealing-with-different-extents",
+    "title": "Combining Raster and Vector Data",
+    "section": "Dealing with Different Extents",
+    "text": "Dealing with Different Extents\n\n\n\nRaster extents often larger than our analysis\nReducing memory and computational resources\nMaking attractive maps"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-terracrop",
+    "href": "slides/13-slides.html#using-terracrop",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using terra::crop()",
+    "text": "Using terra::crop()\n\n\n\n\n\n\n\n\n\n\nCoordinate Reference System must be the same for both objects\nCrop is based on the (converted) SpatExtent of the 2nd object\nsnap describes how y will be aligned to the raster\nReturns all data within the extent"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-terracrop-1",
+    "href": "slides/13-slides.html#using-terracrop-1",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using terra::crop()",
+    "text": "Using terra::crop()\n\n\n\n\nlibrary(sf)\nlibrary(terra)\nlibrary(spDataLarge)\nsrtm = rast(system.file(\"raster/srtm.tif\", package = \"spDataLarge\"))\nzion = read_sf(system.file(\"vector/zion.gpkg\", package = \"spDataLarge\"))\nzion = st_transform(zion, crs(srtm))\n\ncrs(srtm) == crs(zion)\n\n[1] TRUE\n\nsrtm.crop <- crop(x=srtm, y=zion, snap=\"near\")"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-mask",
+    "href": "slides/13-slides.html#using-mask",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using mask()",
+    "text": "Using mask()\n\n\nOften want to get rid of all values outside of vector\nCan set mask=TRUE in crop() (y must be SpatVector)\nOr use mask()\n\n\n\n\n\nsrtm.crop.msk <- crop(x=srtm, y=vect(zion), snap=\"near\", mask=TRUE)\nplot(srtm.crop.msk)\n\n\n\n\n\n\nsrtm.msk <- mask(srtm.crop, vect(zion))\nplot(srtm.msk)"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-mask-1",
+    "href": "slides/13-slides.html#using-mask-1",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using mask()",
+    "text": "Using mask()\n\n\nAllows more control over what the mask does\nCan set maskvalues and updatevalues to change the resulting raster\nCan also use inverse to mask out the vector\n\n\n\n\n\nsrtm.msk <- mask(srtm.crop, vect(zion), updatevalue=-1000)\nplot(srtm.msk)\n\n\n\n\n\n\nsrtm.msk <- mask(srtm.crop, vect(zion), inverse=TRUE, updatevalue=0)\nplot(srtm.msk)"
+  },
+  {
+    "objectID": "slides/13-slides.html#extending-boundaries",
+    "href": "slides/13-slides.html#extending-boundaries",
+    "title": "Combining Raster and Vector Data",
+    "section": "Extending boundaries",
+    "text": "Extending boundaries\n\n\nVector slightly larger than raster\nEspecially when using buffered datasets\nCan use extend\nNot exact; depends on snap()\n\n\n\n\n\nzion.buff <-  zion %>% \n  st_buffer(., 10000)\nsrtm.ext <- extend(srtm, vect(zion.buff))\next(srtm.ext)\n\nSpatExtent : -113.343749879444, -112.74791654615, 37.0479167631968, 37.5979167631601 (xmin, xmax, ymin, ymax)\n\next(vect(zion.buff))\n\nSpatExtent : -113.343652923976, -112.747986193365, 37.0477357596604, 37.5977812137969 (xmin, xmax, ymin, ymax)"
+  },
+  {
+    "objectID": "slides/13-slides.html#converting-between-formats-1",
+    "href": "slides/13-slides.html#converting-between-formats-1",
+    "title": "Combining Raster and Vector Data",
+    "section": "Converting Between Formats",
+    "text": "Converting Between Formats\n\nUsing coercion (as, rast, vect) can change class, but not data model\nSometimes we need to actually change the data model"
+  },
+  {
+    "objectID": "slides/13-slides.html#converting-vectors-to-rasters-using-rasterize",
+    "href": "slides/13-slides.html#converting-vectors-to-rasters-using-rasterize",
+    "title": "Combining Raster and Vector Data",
+    "section": "Converting Vectors to Rasters Using rasterize",
+    "text": "Converting Vectors to Rasters Using rasterize\n\nA special kind of data aggregation\nx is your SpatVector object\ny is a template raster with the appropriate CRS, resolution, and extent\nfun allows you to specify the value of the resulting raster"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-rasterize",
+    "href": "slides/13-slides.html#using-rasterize",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using rasterize",
+    "text": "Using rasterize\n\n\nPresence/Absence\nfield specifies which value should be returned to non-empty cells\n\n\n\n\n\n\ncycle_hire_osm = spData::cycle_hire_osm\ncycle_hire_osm_projected = st_transform(cycle_hire_osm, \"EPSG:27700\")\nraster_template = rast(ext(cycle_hire_osm_projected), resolution = 1000,\n                       crs = st_crs(cycle_hire_osm_projected)$wkt)\nch_raster1 = rasterize(cycle_hire_osm_projected, raster_template,\n                       field = 1)"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-rasterize-1",
+    "href": "slides/13-slides.html#using-rasterize-1",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using rasterize",
+    "text": "Using rasterize\n\n\nThe fun argument specifies how we aggregate the data\nUseful for counting occurrences (using length)\n\n\n\n\n\n\nch_raster2 = rasterize(cycle_hire_osm_projected, raster_template, \n                       fun = \"length\")"
+  },
+  {
+    "objectID": "slides/13-slides.html#using-rasterize-2",
+    "href": "slides/13-slides.html#using-rasterize-2",
+    "title": "Combining Raster and Vector Data",
+    "section": "Using rasterize",
+    "text": "Using rasterize\n\n\nThe fun argument specifies how we aggregate the data\nCan use a variety of functions\n\n\n\n\n\n\nch_raster3 = rasterize(cycle_hire_osm_projected, raster_template, \n                       field = \"capacity\", fun = sum)"
+  },
+  {
+    "objectID": "slides/13-slides.html#lines-and-polygons",
+    "href": "slides/13-slides.html#lines-and-polygons",
+    "title": "Combining Raster and Vector Data",
+    "section": "Lines and Polygons",
+    "text": "Lines and Polygons\n\nCan use rasterize or stars::st_rasterize\nResult depends on the touches argument"
+  },
+  {
+    "objectID": "slides/13-slides.html#converting-rasters-to-vectors",
+    "href": "slides/13-slides.html#converting-rasters-to-vectors",
+    "title": "Combining Raster and Vector Data",
+    "section": "Converting rasters to vectors",
+    "text": "Converting rasters to vectors\n\nLess common, but can convert to vector data\nas.points, as.countour, and polygonize\n\n\n\n\n\ndem = rast(system.file(\"raster/dem.tif\", package = \"spDataLarge\"))\ncl = as.contour(dem)"
+  },
+  {
+    "objectID": "slides/13-slides.html#generating-new-data-1",
+    "href": "slides/13-slides.html#generating-new-data-1",
+    "title": "Combining Raster and Vector Data",
+    "section": "Generating New Data",
+    "text": "Generating New Data\n\nSometimes we want a raster describing the spatial context of vector data\ndistance is a simple method\nWe’ll use interpolation in the next few weeks"
+  },
+  {
+    "objectID": "slides/13-slides.html#generating-distance-rasters",
+    "href": "slides/13-slides.html#generating-distance-rasters",
+    "title": "Combining Raster and Vector Data",
+    "section": "Generating Distance Rasters",
+    "text": "Generating Distance Rasters\n\nreturns a distance matrix or SpatRaster\n\n\ncycle_hire_osm = spData::cycle_hire_osm\ncycle_hire_osm_projected = st_transform(cycle_hire_osm, \"EPSG:27700\")\n\ncycle_dist <- distance(vect(cycle_hire_osm_projected))\nhead(as.matrix(cycle_dist))[1:5, 1:5]\n\n          1         2        3         4         5\n1    0.0000 2550.9619 1736.118  407.1558 1922.3728\n2 2550.9619    0.0000 1072.401 2820.4804  725.2172\n3 1736.1178 1072.4011    0.000 1908.1413  360.7490\n4  407.1558 2820.4804 1908.141    0.0000 2148.0087\n5 1922.3728  725.2172  360.749 2148.0087    0.0000"
+  },
+  {
+    "objectID": "slides/13-slides.html#generating-distance-rasters-1",
+    "href": "slides/13-slides.html#generating-distance-rasters-1",
+    "title": "Combining Raster and Vector Data",
+    "section": "Generating Distance Rasters",
+    "text": "Generating Distance Rasters\n\nreturns a distance matrix or SpatRaster\n\n\nraster_template = rast(ext(cycle_hire_osm_projected), resolution = 100,\n                       crs = st_crs(cycle_hire_osm_projected)$wkt)\nch_raster1 = rasterize(cycle_hire_osm_projected, raster_template,\n                       field = 1)\n\nch_dist_rast <- distance(ch_raster1)\nplot(ch_dist_rast)"
+  },
+  {
+    "objectID": "slides/13-slides.html#creating-vector-data-by-extraction",
+    "href": "slides/13-slides.html#creating-vector-data-by-extraction",
+    "title": "Combining Raster and Vector Data",
+    "section": "Creating Vector Data by Extraction",
+    "text": "Creating Vector Data by Extraction\n\nSometimes we want to use rasters to create new attributes\nfun controls how the cells are aggregated\n\n\ncycle_hire_osm = spData::cycle_hire_osm\ncycle_hire_osm_proj_buff <- st_transform(cycle_hire_osm, \"EPSG:27700\") %>% \n  st_buffer(., 5000) %>% \n  as(., \"SpatVector\")\n\ncycle_ext <- extract(ch_dist_rast, cycle_hire_osm_proj_buff)\nhead(cycle_ext)\n\n  ID    lyr.1\n1  1 1360.147\n2  1 1280.625\n3  1 1204.159\n4  1 1131.371\n5  1 1063.015\n6  1 1000.000"
+  },
+  {
+    "objectID": "slides/14-slides.html#objectives",
+    "href": "slides/14-slides.html#objectives",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Objectives",
+    "text": "Objectives\n\nBy the end of today, you should be able to:\n\nDefine spatial analysis\nDescribe the steps in planning a spatial analysis\nUnderstand the structure of relational databases\nBegin building a database for spatial analysis"
+  },
+  {
+    "objectID": "slides/14-slides.html#what-is-spatial-analysis-1",
+    "href": "slides/14-slides.html#what-is-spatial-analysis-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "What is spatial analysis?",
+    "text": "What is spatial analysis?\n\n“The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data”.\n\n— ESRI Dictionary"
+  },
+  {
+    "objectID": "slides/14-slides.html#what-is-spatial-analysis-2",
+    "href": "slides/14-slides.html#what-is-spatial-analysis-2",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "What is spatial analysis?",
+    "text": "What is spatial analysis?\n\n\n\nThe process of turning maps into information\nAny- or everything we do with GIS\nThe use of computational and statistical algorithms to understand the relations between things that co-occur in space.\n\n\n\n\n\nJohn Snow’s cholera outbreak map"
+  },
+  {
+    "objectID": "slides/14-slides.html#common-goals-for-spatial-analysis",
+    "href": "slides/14-slides.html#common-goals-for-spatial-analysis",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Common goals for spatial analysis",
+    "text": "Common goals for spatial analysis\n\n\n\n\n\ncourtesy of NatureServe\n\n\n\n\nDescribe and visualize locations or events\nQuantify patterns\nCharacterize ‘suitability’\nDetermine (statistical) relations"
+  },
+  {
+    "objectID": "slides/14-slides.html#common-pitfalls-of-spatial-analysis",
+    "href": "slides/14-slides.html#common-pitfalls-of-spatial-analysis",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Common pitfalls of spatial analysis",
+    "text": "Common pitfalls of spatial analysis\n\nLocational Fallacy: Error due to the spatial characterization chosen for elements of study\nAtomic Fallacy: Applying conclusions from individuals to entire spatial units\nEcological Fallacy: Applying conclusions from aggregated information to individuals\n\n\n\nSpatial analysis is an inherently complex endeavor and one that is advancing rapidly. So-called “best practices” for addressing many of these issues are still being developed and debated. This doesn’t mean you shouldn’t do spatial analysis, but you should keep these things in mind as you design, implement, and interpret your analyses"
+  },
+  {
+    "objectID": "slides/14-slides.html#workflows-for-spatial-analysis-1",
+    "href": "slides/14-slides.html#workflows-for-spatial-analysis-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Workflows for spatial analysis",
+    "text": "Workflows for spatial analysis\n\n\n\nAcquisition (not really a focus, but see Resources)\nGeoprocessing\nAnalysis\nVisualization\n\n\n\n\n\ncourtesy of University of Illinois"
+  },
+  {
+    "objectID": "slides/14-slides.html#geoprocessing",
+    "href": "slides/14-slides.html#geoprocessing",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Geoprocessing",
+    "text": "Geoprocessing\nManipulation of data for subsequent use\n\nAlignment\nData cleaning and transformation\nCombination of multiple datasets\nSelection and subsetting"
+  },
+  {
+    "objectID": "slides/14-slides.html#databases-and-attributes-1",
+    "href": "slides/14-slides.html#databases-and-attributes-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Databases and attributes",
+    "text": "Databases and attributes\n\n\n\n\n\ncourtesy of Giscommons\n\n\n\n\n\nPrevious focus has been largely on location\nGeographic data often also includes non-spatial data\nAttributes: Non-spatial information that further describes a spatial feature\nTypically stored in tables where each row represents a spatial feature\n\nWide vs. long format"
+  },
+  {
+    "objectID": "slides/14-slides.html#common-attribute-operations",
+    "href": "slides/14-slides.html#common-attribute-operations",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Common attribute operations",
+    "text": "Common attribute operations\n\nsf designed to work with tidyverse\nAllows use of dplyr data manipulation verbs\nCan use scales package for units\nAlso allows %>% to chain together multiple steps\ngeometries are “sticky”\nPay attention to masking!!"
+  },
+  {
+    "objectID": "slides/14-slides.html#revisiting-the-tidyverse",
+    "href": "slides/14-slides.html#revisiting-the-tidyverse",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Revisiting the tidyverse",
+    "text": "Revisiting the tidyverse\n\nFields contain individual attributes\nSelecting fields\n\n\n\n\ncolnames(world)\n\n [1] \"iso_a2\"    \"name_long\" \"continent\" \"region_un\" \"subregion\" \"type\"     \n [7] \"area_km2\"  \"pop\"       \"lifeExp\"   \"gdpPercap\" \"geom\"     \n\nhead(world)[,1:3] %>% \n  st_drop_geometry()\n\n# A tibble: 6 × 3\n  iso_a2 name_long      continent    \n* <chr>  <chr>          <chr>        \n1 FJ     Fiji           Oceania      \n2 TZ     Tanzania       Africa       \n3 EH     Western Sahara Africa       \n4 CA     Canada         North America\n5 US     United States  North America\n6 KZ     Kazakhstan     Asia         \n\n\n\n\nworld %>%\n  dplyr::select(name_long, continent) %>%\n  st_drop_geometry() %>% \n  head(.) \n\n# A tibble: 6 × 2\n  name_long      continent    \n  <chr>          <chr>        \n1 Fiji           Oceania      \n2 Tanzania       Africa       \n3 Western Sahara Africa       \n4 Canada         North America\n5 United States  North America\n6 Kazakhstan     Asia"
+  },
+  {
+    "objectID": "slides/14-slides.html#revisiting-the-tidyverse-1",
+    "href": "slides/14-slides.html#revisiting-the-tidyverse-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Revisiting the tidyverse",
+    "text": "Revisiting the tidyverse\n\nFeatures refer to the individual observations in the dataset\nSelecting features\n\n\n\n\nhead(world)[1:3, 1:3] %>% \n  st_drop_geometry()\n\n# A tibble: 3 × 3\n  iso_a2 name_long      continent\n* <chr>  <chr>          <chr>    \n1 FJ     Fiji           Oceania  \n2 TZ     Tanzania       Africa   \n3 EH     Western Sahara Africa   \n\n\n\n\nworld %>%\n  filter(continent == \"Asia\") %>% \n    dplyr::select(name_long, continent) %>%\n  st_drop_geometry() %>% \n  head(.)\n\n# A tibble: 6 × 2\n  name_long   continent\n  <chr>       <chr>    \n1 Kazakhstan  Asia     \n2 Uzbekistan  Asia     \n3 Indonesia   Asia     \n4 Timor-Leste Asia     \n5 Israel      Asia     \n6 Lebanon     Asia"
+  },
+  {
+    "objectID": "slides/14-slides.html#revisiting-the-tidyverse-2",
+    "href": "slides/14-slides.html#revisiting-the-tidyverse-2",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Revisiting the tidyverse",
+    "text": "Revisiting the tidyverse\n\nCreating new fields\n\n\nworld %>%\n  filter(continent == \"Asia\") %>% \n    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%\n  mutate(., dens = pop/area_km2,\n         totGDP = gdpPercap * pop) %>%\n  st_drop_geometry() %>% \n  head(.)\n\n# A tibble: 6 × 7\n  name_long   continent       pop gdpPercap area_km2   dens  totGDP\n  <chr>       <chr>         <dbl>     <dbl>    <dbl>  <dbl>   <dbl>\n1 Kazakhstan  Asia       17288285    23587. 2729811.   6.33 4.08e11\n2 Uzbekistan  Asia       30757700     5371.  461410.  66.7  1.65e11\n3 Indonesia   Asia      255131116    10003. 1819251. 140.   2.55e12\n4 Timor-Leste Asia        1212814     6263.   14715.  82.4  7.60e 9\n5 Israel      Asia        8215700    31702.   22991. 357.   2.60e11\n6 Lebanon     Asia        5603279    13831.   10099. 555.   7.75e10"
+  },
+  {
+    "objectID": "slides/14-slides.html#revisiting-the-tidyverse-3",
+    "href": "slides/14-slides.html#revisiting-the-tidyverse-3",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Revisiting the tidyverse",
+    "text": "Revisiting the tidyverse\n\nCreating new fields"
+  },
+  {
+    "objectID": "slides/14-slides.html#revisiting-the-tidyverse-4",
+    "href": "slides/14-slides.html#revisiting-the-tidyverse-4",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Revisiting the tidyverse",
+    "text": "Revisiting the tidyverse\n\nAggregating data\n\n\n\n\nworld %>%\n  st_drop_geometry(.) %>% \n  group_by(continent) %>%\n  summarize(pop = sum(pop, na.rm = TRUE))\n\n# A tibble: 8 × 2\n  continent                      pop\n  <chr>                        <dbl>\n1 Africa                  1154946633\n2 Antarctica                       0\n3 Asia                    4311408059\n4 Europe                   669036256\n5 North America            565028684\n6 Oceania                   37757833\n7 Seven seas (open ocean)          0\n8 South America            412060811"
+  },
+  {
+    "objectID": "slides/14-slides.html#joining-aspatial-data-1",
+    "href": "slides/14-slides.html#joining-aspatial-data-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Joining (a)spatial data",
+    "text": "Joining (a)spatial data\n\n\n\nRequires a “key” field\nMultiple outcomes possible\nThink about your final data form"
+  },
+  {
+    "objectID": "slides/14-slides.html#left-join",
+    "href": "slides/14-slides.html#left-join",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Left Join",
+    "text": "Left Join\n\nUseful for adding other attributes not in your spatial data\nReturns all of the records in x attributed with y\nPay attention to the number of rows!"
+  },
+  {
+    "objectID": "slides/14-slides.html#left-join-1",
+    "href": "slides/14-slides.html#left-join-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Left Join",
+    "text": "Left Join"
+  },
+  {
+    "objectID": "slides/14-slides.html#left-join-2",
+    "href": "slides/14-slides.html#left-join-2",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Left Join",
+    "text": "Left Join\n\n\n\nhead(coffee_data)\n\n# A tibble: 6 × 3\n  name_long                coffee_production_2016 coffee_production_2017\n  <chr>                                     <int>                  <int>\n1 Angola                                       NA                     NA\n2 Bolivia                                       3                      4\n3 Brazil                                     3277                   2786\n4 Burundi                                      37                     38\n5 Cameroon                                      8                      6\n6 Central African Republic                     NA                     NA\n\n\n\n\nworld_coffee = left_join(world, coffee_data)\nnrow(world_coffee)\n\n[1] 177"
+  },
+  {
+    "objectID": "slides/14-slides.html#left-join-3",
+    "href": "slides/14-slides.html#left-join-3",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Left Join",
+    "text": "Left Join"
+  },
+  {
+    "objectID": "slides/14-slides.html#inner-join",
+    "href": "slides/14-slides.html#inner-join",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Inner Join",
+    "text": "Inner Join\n\nUseful for subsetting to “complete” records\nReturns all of the records in x with matching y\nPay attention to the number of rows!"
+  },
+  {
+    "objectID": "slides/14-slides.html#inner-join-1",
+    "href": "slides/14-slides.html#inner-join-1",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Inner Join",
+    "text": "Inner Join"
+  },
+  {
+    "objectID": "slides/14-slides.html#inner-join-2",
+    "href": "slides/14-slides.html#inner-join-2",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Inner Join",
+    "text": "Inner Join\n\n\n\nworld_coffee_inner = inner_join(world, coffee_data)\nnrow(world_coffee_inner)\n\n[1] 45\n\n\n\n\nsetdiff(coffee_data$name_long, world$name_long)\n\n[1] \"Congo, Dem. Rep. of\" \"Others\""
+  },
+  {
+    "objectID": "slides/14-slides.html#inner-join-3",
+    "href": "slides/14-slides.html#inner-join-3",
+    "title": "Building Spatial Databases with Attributes",
+    "section": "Inner Join",
+    "text": "Inner Join"
   },
   {
     "objectID": "syllabus.html",

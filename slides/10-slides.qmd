@@ -1,0 +1,545 @@
+---
+title: "Spatial Data as Matrices and Rasters"
+subtitle: "HES 505 Fall 2022: Session 10"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+# Today's Plan {background="#43464B" background-image="img/slide_10/NEDUS.gif" background-opacity="0.7"}
+
+::: footer
+Image Source: USGS
+:::
+
+## Objectives
+
+- By the end of today, you should be able to:
+
+  - Describe the raster data model and its representation in R
+
+  - Access the elements that define a raster
+
+  - Build rasters from scratch using matrix operations and `terra`
+  
+# Defining the raster data model {background-image="img/slide_7/landscape_geometry.jpeg" background-opacity="0.5"}
+::: footer
+Image Source: QGIS User's manual
+:::
+
+# The Raster Data Model {background="#0033A0"}
+
+## Defining the Raster Data Model
+
+::: columns
+:::{.column width="50%"}
+::: {style="font-size: 0.7em"}
+*   __Vector data__ describe the "exact" locations of features on a landscape (including a Cartesian landscape)
+
+* __Raster data__ represent spatially continuous phenomena (`NA` is possible)
+
+* Depict the alignment of data on a regular lattice (often a square)
+  * Operations mimic those for `matrix` objects in `R` 
+
+* Geometry is implicit; the spatial extent and number of rows and columns define the cell size
+:::
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+library(terra)
+filename <- system.file("ex/elev.tif", package="terra")
+r <- rast(filename)
+plot(r, col=gray(0:1000/1000), main = "Elevation (m)")
+```
+:::
+:::
+
+## Types of Raster Data
+
+::: columns
+:::{.column width="50%"}
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+library(stars)
+x = 1:5
+y = 1:4
+d = st_dimensions(x = x, y = y, .raster = c("x", "y"))
+m = matrix(runif(20),5,4)
+r1 = st_as_stars(r = m, dimensions = d)
+
+r = attr(d, "raster")
+r$affine = c(0.2, -0.2)
+attr(d, "raster") = r
+r2 = st_as_stars(r = m, dimensions = d)
+
+r = attr(d, "raster")
+r$affine = c(0.1, -0.3)
+attr(d, "raster") = r
+r3 = st_as_stars(r = m, dimensions = d)
+
+x = c(1, 2, 3.5, 5, 6)
+y = c(1, 1.5, 3, 3.5)
+d = st_dimensions(x = x, y = y, .raster = c("x", "y"))
+r4 = st_as_stars(r = m, dimensions = d)
+
+grd = st_make_grid(cellsize = c(10,10), offset = c(-130,10), n = c(8,5), crs = st_crs(4326))
+r5 = st_transform(grd, "+proj=laea +lon_0=-70 +lat_0=35")
+
+par(mfrow = c(2,3), mar = c(0.1, 1, 1.1, 1))
+r1 = st_make_grid(cellsize = c(1,1), n = c(5,4), offset = c(0,0))
+plot(r1, main = "regular")
+plot(st_geometry(st_as_sf(r2)), main = "rotated")
+plot(st_geometry(st_as_sf(r3)), main = "sheared")
+plot(st_geometry(st_as_sf(r4, as_points = FALSE)), main = "rectilinear")
+plot(st_geometry((r5)), main = "curvilinear")
+par(mfrow = c(1,1), mar= c(5.1, 4.1, 4.1, 2.1))
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+* __Regular__: constant cell size; axes aligned with Easting and Northing
+
+* __Rotated__: constant cell size; axes not aligned with Easting and Northing
+
+* __Sheared__: constant cell size; axes not parallel
+
+* __Rectilinear__: cell size varies along a dimension
+
+* __Curvilinear__: cell size and orientation dependent on the other dimension
+
+:::
+:::
+:::
+
+## Types of Raster Data
+
+* __Continuous__: numeric data representing a measurement (e.g., elevation, precipitation)
+
+* __Categorical__: integer data representing factors (e.g., land use, land cover)
+
+## Continuous Rasters
+
+::: columns
+:::{.column width="50%"}
+```{r}
+#| echo: true
+mintemp <- rast("ftp://ftp.hafro.is/pub/data/rasters/Iceland_minbtemp.tif")
+mintemp
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+plot(mintemp)
+```
+:::
+:::
+
+## Categorical Rasters
+
+::: columns
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+* Requires a classification matrix and coercion to factor
+
+* `levels` allows you to define the categories
+:::
+```{r}
+#| echo: true
+# Create classification matrix
+cm <- matrix(c(
+  -2, 2, 0,
+  2, 4, 1,
+  4, 10, 2), ncol = 3, byrow = TRUE)
+
+# Create a raster with integers
+temp_reclass <- classify(mintemp, cm)
+tempcats <- c("cold", "mild", "warm")
+levels(temp_reclass) <- tempcats
+cats(temp_reclass)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(temp_reclass)
+```
+:::
+:::
+
+## Adding Dimensions
+
+* When data are aligned in space and/or time, more efficient to process as 'cubes' or 'stacks'
+
+* Bands of satellite imagery, multiple predictors, spatio-temporal data
+```{r}
+#| fig-align: center
+# (C) 2021, Jonathan Bahlmann, CC-BY-SA
+# https://github.com/Open-EO/openeo.org/tree/master/documentation/1.0/datacubes/.scripts
+# based on work by Edzer Pebesma, 2019, here: https://gist.github.com/edzer/5f1b0faa3e93073784e01d5a4bb60eca
+
+# plotting runs via a dummy stars object with x, y dimensions (no bands)
+# to not be overly dependent on an input image, time steps and bands
+# are displayed by replacing the matrix contained in the dummy stars object
+# every time something is plotted
+
+# packages, read input ----
+set.seed(1331)
+suppressPackageStartupMessages(library(colorspace))
+suppressPackageStartupMessages(library(scales))
+
+# make color palettes ----
+blues <- sequential_hcl(n = 20, h1 = 211, c1 = 80, l1 = 40, l2 = 100, p1 = 2)
+greens <- sequential_hcl(n = 20, h1 = 134, c1 = 80, l1 = 40, l2 = 100, p1 = 2)
+reds <- sequential_hcl(n = 20, h1 = 360, c1 = 80, l1 = 40, l2 = 100, p1 = 2)
+purples <- sequential_hcl(n = 20, h1 = 299, c1 = 80, l1 = 40, l2 = 100, p1 = 2)
+greys <- sequential_hcl(n = 20, h1 = 0, c1 = 0, l1 = 40, l2 = 100, p1 = 2)
+
+# matrices from raster ----
+# make input matrices from an actual raster image
+input <- read_stars("img/slide_10/iceland_delta_cutout_2.tiff") # this raster needs approx 6x7 format
+# if the input raster is changed, every image where a pixel value is written as text needs to be checked and corrected accordingly
+input <- input[,,,1:4]
+warped <- st_warp(input, crs = st_crs(input), cellsize = 200) # warp to approx. 6x7 pixel
+
+# these are only needed for resampling
+warped_highres <- st_warp(warped, crs = st_crs(warped), cellsize = 100) # with different input, cellsize must be adapted
+# this is a bit of a trick, because 3:4 is different format than 6:7
+# when downsampling, the raster of origin isn't so important anyway
+warped_lowres <- st_warp(warped_highres[,1:11,,], crs = st_crs(warped), cellsize = 390)
+# plot(warped_lowres)
+# image(warped[,,,1], text_values = TRUE)
+
+t1 <- floor(matrix(runif(42, -30, 150), ncol = 7)) # create timesteps 2 and 3 randomly
+t2 <- floor(matrix(runif(42, -250, 50), ncol = 7))
+
+# create dummy stars object ----
+make_dummy_stars <- function(x, y, d1, d2, aff) {
+  m = warped_highres[[1]][1:x,1:y,1] # underlying raster doesn't matter because it's just dummy construct
+  dim(m) = c(x = x, y = y) # named dim
+  dummy = st_as_stars(m)
+  attr(dummy, "dimensions")[[1]]$delta = d1
+  attr(dummy, "dimensions")[[2]]$delta = d2
+  attr(attr(dummy, "dimensions"), "raster")$affine = c(aff, 0.0)
+  return(dummy)
+}
+
+s <- make_dummy_stars(6, 7, 2.5, -.5714286, -1.14) # mainly used, perspective
+f <- make_dummy_stars(6, 7, 1, 1, 0) # flat
+highres <- make_dummy_stars(12, 14, 1.25, -.2857143, -.57) # for resampling
+lowres <- make_dummy_stars(3, 4, 5, -1, -2) # for resampling
+
+# matrices from image ----
+make_matrix <- function(image, band, n = 42, ncol = 7, t = 0) {
+  # this is based on an input image with >= 4 input bands
+  # n is meant to cut off NAs, ncol is y, t is random matrix for time difference
+  return(matrix(image[,,,band][[1]][1:n], ncol = ncol) - t)
+  # before: b3 <- matrix(warped[,,,1][[1]][1:42], ncol = 7) - t2
+}
+
+# now use function: 
+b1 <- make_matrix(warped, 1)
+b2 <- make_matrix(warped, 1, t = t1)
+b3 <- make_matrix(warped, 1, t = t2)
+g1 <- make_matrix(warped, 2)
+g2 <- make_matrix(warped, 2, t = t1)
+g3 <- make_matrix(warped, 2, t = t2)
+r1 <- make_matrix(warped, 3)
+r2 <- make_matrix(warped, 3, t = t1)
+r3 <- make_matrix(warped, 3, t = t2)
+n1 <- make_matrix(warped, 4)
+n2 <- make_matrix(warped, 4, t = t1)
+n3 <- make_matrix(warped, 4, t = t2)
+
+# plot functions ----
+plt = function(x, yoffset = 0, add, li = TRUE, pal, print_geom = TRUE, border = .75, breaks = "equal") {
+  # pal is color palette
+  attr(x, "dimensions")[[2]]$offset = attr(x, "dimensions")[[2]]$offset + yoffset 
+  l = st_as_sf(x, as_points = FALSE)
+  if (li)
+    pal = lighten(pal, 0.2) # + rnorm(1, 0, 0.1))
+  if (! add)
+    plot(l, axes = FALSE, breaks = breaks, pal = pal, reset = FALSE, border = grey(border), key.pos = NULL, main = NULL, xlab = "time")
+  else
+    plot(l, axes = TRUE, breaks = breaks, pal = pal, add = TRUE, border = grey(border))
+  u = st_union(l)
+  # print(u)
+  if(print_geom) {
+    plot(st_geometry(u), add = TRUE, col = NA, border = 'black', lwd = 2.5)
+  } else {
+    # not print geometry
+  }
+}
+
+pl_stack = function(s, x, y, add = TRUE, nrM, imgY = 7, inner = 1) {
+  # nrM is the timestep {1, 2, 3}, cause this function
+  # prints all 4 bands at once
+  attr(s, "dimensions")[[1]]$offset = x
+  attr(s, "dimensions")[[2]]$offset = y
+  # m = r[[1]][y + 1:nrow,x + 1:ncol,1]
+  m <- eval(parse(text=paste0("n", nrM)))
+  s[[1]] = m[,c(imgY:1)] # turn around to have same orientation as flat plot
+  plt(s, 0, TRUE,  pal = purples)
+  m <- eval(parse(text=paste0("r", nrM)))
+  s[[1]] = m[,c(imgY:1)]
+  plt(s, 1*inner, TRUE,  pal = reds)
+  m <- eval(parse(text=paste0("g", nrM)))
+  s[[1]] = m[,c(imgY:1)]
+  plt(s, 2*inner, TRUE,  pal = greens)
+  m <- eval(parse(text=paste0("b", nrM)))
+  s[[1]] = m[,c(imgY:1)]
+  plt(s, 3*inner, TRUE, pal = blues) # li FALSE deleted
+}
+
+# flat plot function
+# prints any dummy stars with any single matrix to position
+pl = function(s, x, y, add = TRUE, randomize = FALSE, pal, m, print_geom = TRUE, border = .75, breaks = "equal") {
+  # m is matrix to replace image with
+  # m <- t(m)
+  attr(s, "dimensions")[[1]]$offset = x
+  attr(s, "dimensions")[[2]]$offset = y
+  # print(m)
+  s[[1]] = m
+  plt(s, 0, add = TRUE, pal = pal, print_geom = print_geom, border = border, breaks = breaks)
+  #plot(s, text_values = TRUE)
+}
+
+print_segments <- function(x, y, seg, by = 1, lwd = 4, col = "black") {
+  seg = seg * by
+  seg[,1] <- seg[,1] + x
+  seg[,3] <- seg[,3] + x
+  seg[,2] <- seg[,2] + y
+  seg[,4] <- seg[,4] + y
+  segments(seg[,1], seg[,2], seg[,3], seg[,4], lwd = lwd, col = col)
+}
+
+# time series ----
+
+# from: cube1_ts_6x7_bigger.png
+offset = 26
+plot.new()
+#par(mar = c(3, 2, 7, 2))
+par(mar = c(0, 0, 0, 0))
+#plot.window(xlim = c(10, 50), ylim = c(-3, 10), asp = 1)
+plot.window(xlim = c(-15, 75), ylim = c(-3, 10), asp = 1)
+pl_stack(s, 0, 0, nrM = 3)
+pl_stack(s, offset, 0, nrM = 2)
+pl_stack(s, 2 * offset, 0, nrM = 1)
+# po <- matrix(c(0,-8,7,0,15,3.5,  0,1,1,5,5,14), ncol = 2)
+heads <- matrix(c(3.5, 3.5 + offset, 3.5 + 2*offset, 14,14,14), ncol = 2)
+points(heads, pch = 16) # 4 or 16
+segments(c(-8, 7, 0, 15), c(-1,-1,3,3), 3.5, 14) # first stack pyramid
+segments(c(-8, 7, 0, 15) + offset, c(-1,-1,3,3), 3.5 + offset, 14) # second stack pyramid
+segments(c(-8, 7, 0, 15) + 2*offset, c(-1,-1,3,3), 3.5 + 2*offset, 14) # third stack pyramid
+arrows(-13, 14, 72, 14, angle = 20, lwd = 2)  # timeline
+text(7.5, 3.8, "x", col = "black")
+text(-10, -2.5, "bands", srt = 90, col = "black")
+text(-4.5, 1.8, "y", srt = 27.5, col = "black")
+y = 15.8
+text(69, y, "time", col = "black")
+text(3.5, y, "2020-10-01", col = "black")
+text(3.5 + offset, y, "2020-10-13", col = "black")
+text(3.5 + 2*offset, y, "2020-10-25", col = "black")
+```
+## A note about support
+::: {style="font-size: 0.7em"}
+* We talked briefly about the `agr` option in the `st_sf()` function
+
+* `agr` refers to the attribute-geometry-relationship which can be:
+  * __constant__ = applies to every point in the geometry (lines and polygons are just lots of points)
+  * __identity__ = a value unique to a geometry
+  * __aggregate__ = a single value that integrates data across the geometry
+
+* __Support__ is the area to which an attribute applies.
+
+* Rasters can have __point__ (attribute refers to the cell center) or __cell__ (attribute refers to an area similar to the pixel) support
+:::
+
+# Rasters in `R` {background="#0033A0"}
+
+## Rasters in `R`
+::: {style="font-size: 0.7em"}
+* `raster` - the original workhorse package; built on `sp`, `rgdal`, and `rgeos`
+  * `RasterLayer`, `RasterStack`, and `RasterBrick` classes
+
+* `terra` - relatively new; developed by the `raster` folks, but designed to be much faster
+   * `SpatRaster` and `SpatVector` classes
+
+* `stars` - developed by `sf` package developers; `tidyverse` compatible; designed for spatio-temporal data
+  * `stars` class
+  *  Crosswalk between `raster` and `stars` is available [here](https://github.com/r-spatial/stars/wiki/How-%60raster%60-functions-map-to-%60stars%60-functions)
+  * Only way to deal with _rectilinear_ and _curvilinear_ data
+:::
+
+## Rasters with `terra`
+
+* syntax is different for `terra` compared to `sf`
+
+* Representation in `Environment` is also different
+
+* Can break pipes, __Be Explicit__
+
+## Rasters by Construction
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+mtx <- matrix(1:16, nrow=4)
+mtx
+rstr <- terra::rast(mtx)
+rstr
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(rstr)
+```
+:::
+:::
+::: {style="font-size: 0.5em"}
+Note: you must have `raster` or `terra` loaded for `plot()` to work on `Rast*` objects; otherwise you get `Error in as.double(y) : cannot coerce type 'S4' to vector of type 'double'`
+:::
+
+## Rasters by Construction: Origin
+
+* Origin defines the location of the intersection of the x and y axes
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+r <- rast(xmin=-4, xmax = 9.5, ncols=10)
+r[] <- runif(ncell(r))
+origin(r)
+r2 <- r
+origin(r2) <- c(2,2) 
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+par(mfrow = c(2,1))
+plot(r, xlim = c(-1, 6), ylim=c(0,7), main = "Original")
+plot(r2, xlim = c(-1, 6), ylim=c(0,7), main = "New Origin")
+par(mfrow=c(1,1))
+```
+:::
+:::
+
+## Rasters by Construction: Resolution
+::: {style="font-size: 0.7em"}
+* Geometry is implicit; the spatial extent and number of rows and columns define the cell size
+* __Resolution__ (`res`) defines the length and width of an individual pixel
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+r <- rast(xmin=-4, xmax = 9.5, 
+          ncols=10)
+res(r)
+r2 <- rast(xmin=-4, xmax = 5, 
+           ncols=10)
+res(r2)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+r <- rast(xmin=-4, xmax = 9.5, 
+          res=c(0.5,0.5))
+ncol(r)
+r2 <- rast(xmin=-4, xmax = 9.5, 
+           res=c(5,5))
+ncol(r2)
+```
+:::
+:::
+
+## Rasters from Files
+
+* Building rasters useful for templates
+* More common to read from files
+
+```{r}
+#| echo: true
+r <- rast(system.file("ex/elev.tif", package="terra"))
+r
+```
+
+## Accessing Raster Attributes: Coordinate Reference System
+
+* `terra` stores CRS in WKT format
+
+* Can set and access using `EPSG` and `proj` (deprecated)
+
+* Pay attention to case
+
+```{r}
+#| echo: true
+r <- rast(system.file("ex/elev.tif", package="terra"))
+crs(r)
+```
+
+## Accessing Raster Attributes: Coordinate Reference System
+
+
+
+```{r}
+#| echo: true
+r <- rast(system.file("ex/elev.tif", package="terra"))
+crs(r, describe=TRUE)
+crs(r, proj=TRUE)
+crs(r, parse=TRUE)
+```
+
+## Accessing Raster Attributes: Bounding box
+::: {style="font-size: 0.7em"}
+* `terra` uses `ext()` to get or set the extent/bounding box
+
+* Fills cells with `NA`
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+ext(r)
+r2 <- r
+ext(r2) <- c(5, 7, 48, 52)
+ext(r2)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+plot(ext(r2))
+plot(ext(r), add=TRUE, col="blue", main="Blue is original extent")
+```
+:::
+:::
+
+## Converting vectors to rasters
+
+* Sometimes necessary to convert between data models
+
+* `raster::rasterize`, `terra::rasterize`, `stars::st_rasterize`, and `fasterize::fasterize` all will convert polygons to raster data
+
+* `stars::st_polygonize` will work in the opposite direction
+
+* `terra::vect` will read in vectors as `SpatVectors` or coerce `sf` to `SpatVector`

@@ -1,0 +1,291 @@
+---
+title: "Operations With Raster Data II"
+subtitle: "HES 505 Fall 2022: Session 12"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+# Today's Plan {background="#43464B" background-image="img/slide_10/NEDUS.gif" background-opacity="0.7"}
+
+::: footer
+Image Source: USGS
+:::
+
+## Objectives
+
+- By the end of today, you should be able to:
+
+  - Access and manipulate cell values
+
+  - Generate new rasters using mathematical functions
+
+  - Summarize rasters using global functions
+  
+  - Generate new rasters describing the spatial context of individual cells
+  
+## Revisiting Projections
+
+* `project` changes the entire coordinate reference system
+
+::: columns
+:::{.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+library(terra)
+a <- rast(ncols=40, nrows=40, xmin=-110, xmax=-90, ymin=40, ymax=60, 
+          crs="+proj=longlat +datum=WGS84")
+values(a) <- 1:ncell(a)
+newcrs="+proj=lcc +lat_1=48 +lat_2=33 +lon_0=-100 +datum=WGS84"
+b <- rast(ncols=94, nrows=124, xmin=-944881, xmax=935118, ymin=4664377, ymax=7144377, crs=newcrs)
+w <- project(a, b)
+```
+
+```{r}
+
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,2))
+plot(a)
+plot(w)
+par(opar)
+```
+:::
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+origin(a)
+origin(w)
+ext(a)
+ext(w)
+res(a)
+res(w)
+```
+:::
+:::
+
+## Revisiting Projections
+::: {style="font-size: 0.7em"}
+
+* `resample` transfers values between SpatRaster objects that do not align
+* Must have same `crs`
+:::
+
+::: columns
+:::{.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+
+a <- rast(ncols=40, nrows=40, xmin=-110, xmax=-90, ymin=40, ymax=60, 
+          crs="+proj=longlat +datum=WGS84")
+values(a) <- 1:ncell(a)
+
+b <- rast(ncols=94, nrows=124, xmin=-111, xmax=-80, ymin=45, ymax=65)
+w <- resample(a, b)
+```
+
+```{r}
+
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,2))
+plot(a)
+plot(w)
+par(opar)
+```
+:::
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+origin(a)
+origin(b)
+origin(w)
+res(a)
+res(b)
+res(w)
+```
+:::
+:::
+:::
+
+## Revisiting Projections
+
+* if origin and extent are the same consider using `aggregate`, `disagg`, `extend` or `crop` 
+
+
+# Cell-wise operations
+
+## Accessing Cell Values
+
+* We can extract or change cell values using `[]`
+
+
+```{r}
+#| echo: true
+a <- rast(ncols=10, nrows=10, xmin=-110, xmax=-100, ymin=40, ymax=50, 
+          crs="+proj=longlat +datum=WGS84")
+values(a) <- 1
+b1 <- a
+b2 <- a
+b1[5,5] <- 10
+b2[1, 1:10 ] <- runif(10,4,10)
+
+```
+
+```{r}
+
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,3))
+plot(a)
+plot(b1)
+plot(b2)
+par(opar)
+```
+
+## Raster Math
+
+* Performs cell-wise calculations on 1 (or more) `SpatRasters`
+* Generally works the same as matrix operations 
+* All layers must be aligned
+
+## Raster Math
+
+```{r}
+#| echo: true
+r <- rast(ncol=5, nrow=5)
+values(r) <- 1:ncell(r)
+r2 <- r*2
+r3 <- t(r)
+r4 <- r + r2
+```
+
+```{r}
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,4))
+plot(r, main = "r")
+plot(r2, main = "r2")
+plot(r3, main = "r3")
+plot(r4, main = "r4")
+par(opar)
+```
+
+## Cell-wise operations
+
+* `terra` has a special set of `apply` functions
+
+* `app`, `lapp`, `tapp`
+
+* `app` applies a function to the values of each cell
+
+* `lapp` applies a function using the layer as the value
+
+* `tapp` applies the function to a subset of layers
+
+## Cell-wise operations
+
+
+```{r}
+#| echo: true
+r <- rast(ncols=10, nrows=10)
+values(r) <- 1:ncell(r)
+f <- function(i) (i+1) * 2 * i + sqrt(i)
+s <- app(r, f)
+```
+
+```{r}
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,2))
+plot(r)
+plot(s)
+par(opar)
+```
+
+## Cell-wise Operations
+```{r}
+#| echo: true
+s <- rast(system.file("ex/logo.tif", package="terra")) + 1  
+ss <- s[[2:1]]
+
+fvi <- function(x, y){ (x - y ) / (x + y) } 
+x <- lapp(ss, fun=fvi)
+```
+
+```{r}
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,2))
+plot(ss)
+plot(x)
+par(opar)
+```
+
+## Global Methods
+
+* Provide summaries of 1 or more layers
+
+* Use `zonal` to extract values from one layer based on `categorical` layer
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+r <- rast(ncols=10, nrows=10)
+values(r) <- 1:ncell(r)
+z <- rast(r)
+values(z) <- rep(c(1:2, NA, 3:4), each=20)
+names(z) <- "zone"
+a <-  zonal(r, z, "sum", na.rm=TRUE)
+b <- zonal(r, z, "sum", na.rm=TRUE, as.raster=TRUE)
+plot(b)
+```
+:::
+::: {.column width="50%"}
+```{r}
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,2))
+plot(z)
+plot(b)
+par(opar)
+```
+:::
+:::
+
+## Context-specific Functions
+
+* `distance` and relatives are based on relationships between cells
+
+* `focal` provides moving windows for smoothing data
+
+* `terrain` allows calculation of slope, ruggedness, aspect using elevation rasters
+
+* `shade` calculates hillshade based on terrain
+
+## Using `focal`
+
+* `focal` requires a window (`w`) or weights matrix
+
+* `na.policy` determines how to deal with `NA`s in the smoother
+
+* `fillvalue` and `expand` tell `terra` what to do at the edges
+
+```{r}
+#| echo: true
+r <- rast(ncols=10, nrows=10, ext(0, 10, 0, 10))
+values(r) <- 1:ncell(r)
+
+f <- focal(r, w=3, fun=function(x, ...) quantile(x, c(.25, .5, .75), ...), na.rm=TRUE) 
+plot(f)
+```
+
+## Using `focal`
+
+```{r}
+
+plot(f)
+```

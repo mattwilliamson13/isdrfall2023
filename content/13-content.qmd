@@ -1,0 +1,46 @@
+---
+title: "Combining Raster and Vector Data"
+date: "2022-10-3"
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "BIhz1dz5Vws", "Modifying the extent", 'title', TRUE,
+  "f-sOSXyeeJE", "Conversions", "why-not-r", FALSE,
+  "Z2foqSMWnGU", "Distance", "Class Details", FALSE,
+  "Z2foqSManGZ", "Extractions", "Class Details", FALSE,
+)
+```
+## Readings
+As we move towards a complete geospatial statistical workflow, we'll need to be able to combine data from both raster and vector datasets. Sometimes that will mean simply converting from one format to another. In other cases, we'll need to create new datasets based on calculations that integrate different data models. We'll do some of that today.
+
+- <i class="fas fa-external-link-square-alt"></i> The [Integrating rasters and vectors](http://132.72.155.230:3838/r/combining-rasters-and-vector-layers.html) chapter of Michael Dorman's __Introduction to Spatial Data Programming with R__ online textbook has a number of worked examples combining vector and raster data.
+
+- <i class="fas fa-book"></i> [Raster-vector interactions](https://geocompr.robinlovelace.net/raster-vector.html) Chapter 6 in Lovelace et al., *Geocomputation with R* [@lovelace_geocomputation_2019] has a great description of why you might do some of these things in your analysis.
+
+
+
+## Objectives
+
+By the end of today, you should be able to: 
+
+- Clip, crop, or extend vector and raster data so that extents align
+
+- Convert between raster and vector datasets
+
+- Generate new rasters describing the spatial arrangement of vector data
+
+- Extract raster values as attributes of vector data
+
+
+
+## Slides
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/13-slides")
+slide_tabs(slide_details, "/slides/13-slides.html")
+```

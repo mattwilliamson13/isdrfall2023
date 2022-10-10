@@ -1,0 +1,43 @@
+---
+title: "Spatial Data as Vectors"
+date: "2022-09-12"
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "BIhz1dz5Vws", "Geography", 'title', TRUE,
+  "f-sOSXyeeJE", "Projections", "why-not-r", FALSE,
+  "Z2foqSMWnGU", "Spatial Data in R", "Class Details", FALSE,
+)
+```
+
+## Readings
+
+- <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
+
+- <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. [@lovelace_geocomputation_2019] - for more details about vectors and geometric operations on vectors.
+
+- <i class="fas fa-external-link-square-alt"></i> [Section 3.1 and 3.2](https://keen-swartz-3146c4.netlify.app/geometries.html) of Spatial Data Science, a `bookdown` project by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages)
+
+## Objectives
+
+By the end of today, you should be able to: 
+
+- Articulate the role of the data model in geographic information systems
+
+- Describe the key elements of vector data
+
+- Use the `sf` package to read and manipulate vector data
+
+- Define `geometry` in the context of vector objects and troubleshoot common problems
+
+## Slides
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/07-slides")
+slide_tabs(slide_details, "/slides/07-slides.html")
+```

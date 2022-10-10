@@ -2,14 +2,15 @@
 title: "Spatial Data is Special Data"
 date: "2022-09-7"
 ---
+
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
 slide_details <- tibble::tribble(
   ~youtube_id,   ~title, ~slide, ~active,
-  "UbQ8IW3UI9E", "Defining location", "projections", FALSE,
-  "DldFVc08YY4", "The CRS", "crs", FALSE,
-  "_TclSs8iLMY", "Other important elements", "elements", FALSE
+  "BIhz1dz5Vws", "Geography", 'title', TRUE,
+  "f-sOSXyeeJE", "Projections", "why-not-r", FALSE,
+  "Z2foqSMWnGU", "Spatial Data in R", "Class Details", FALSE,
 )
 ```
 
@@ -24,13 +25,16 @@ slide_details <- tibble::tribble(
 ## Objectives
 By the end of today, you should be able to:
 
+* Articulate why we care about space
+
+* Describe elements of spatial data
+
+* Define a coordinate reference system and its importance
+
 * Describe several ways to load spatial data into `R`
 
-* Define a coordinate reference system and describe why it is important
+* Identify, assign, and change projections `R` 
 
-* Identify the different ways projections are expressed in `R` and `gdal`
-
-* Describe the other key elements of spatial data
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
