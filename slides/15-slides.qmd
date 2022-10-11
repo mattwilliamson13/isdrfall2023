@@ -1,0 +1,87 @@
+---
+title: "Building Spatial Databases based on Location"
+subtitle: "HES 505 Fall 2022: Session 15"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+# Outline for today {background="#0033A0"}
+
+- Update on assignments
+
+- Refresher: Building a spatial analysis workflow
+
+- Building a database for an analysis (part 2) based on location
+
+
+## Update on assignments
+
+- Assignment 2 due by 14 Oct
+
+- Self-assessment due 18 Oct
+
+- Resubmits
+
+- Final Project
+
+
+## Objectives
+
+By the end of today you should be able to:
+
+- Create new features based on topological relationships
+
+- Use topological subsetting to reduce features
+
+- Use spatial joins to add attributes based on location
+
+# Revisiting Spatial Analysis {background="#0033A0"}
+
+## What is spatial analysis?
+
+> "The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data".
+`r tufte::quote_footer('--- ESRI Dictionary')`
+
+## Workflows for spatial analysis
+
+::: columns
+::: {.column width="40%"}
+![courtesy of [Humboldt State University](http://gsp.humboldt.edu/olm/Lessons/GIS/06%20Vector%20Analysis%20Attributes/00_SpatialAnalysis.html)](img/slide_15/Process.png)
+:::
+::: {.column width="60%"}
+
+- Align processing with objectives
+
+- Imagining the visualizations and analysis clarifies file formats and variables
+
+- Helps build reproducibility 
+:::
+:::
+
+## Databases and Attributes
+
+::: columns
+::: {.column width="40%"}
+![courtesy of [Giscommons](https://giscommons.org/data-tables-and-data-preprocessing/)](img/slide_14/4.1.png)
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+- Attributes: Information that further describes a spatial feature
+
+- Attributes &rightarrow; predictors for analysis 
+
+- Last week focus on thematic relations between datasets
+  - Shared 'keys' help define linkages between objects
+
+- Sometimes we are interested in attributes that describe location (overlaps, contains, distance)
+
+- Sometimes we want to join based on location rather than thematic connections
+  - __Must have the same CRS__
+:::
+:::
+:::

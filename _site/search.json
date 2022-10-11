@@ -399,6 +399,34 @@
     "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nBuilding spatial databases based on attributes\n\n\nWorkflows for spatial analysis\n\n\nDatabases and attributes\n\n\nCommon attribute operations\n\n\nJoining (a)spatial data"
   },
   {
+    "objectID": "content/15-content.html",
+    "href": "content/15-content.html",
+    "title": "Building Databases with Location",
+    "section": "",
+    "text": "Today we’ll continue our development of attributes (or covariates) in our spatial databases. We’ll look at developing attributes that describe various geographic properties along with joining and subsetting based on locations."
+  },
+  {
+    "objectID": "content/15-content.html#resources",
+    "href": "content/15-content.html#resources",
+    "title": "Building Databases with Location",
+    "section": "Resources",
+    "text": "Resources\nThese chapters are not ‘prerequisite’ reading for the week, but provide a lot of helpful background for determining spatial relations between vector datasets and extracting those into attribute tables for subsequent visualization and analysis.\n\n The Spatial Data Operations Chapter in (Lovelace et al. 2019) makes the concepts of a network concrete (literally) by using a transportation route example to illustrate the various components of a network analysis in R.\n Attributes and Support of Spatial Data Science, a bookdown project by Edzer Pebesma and Roger Bivand (of the sf, sp, rgeos, and rgdal packages)"
+  },
+  {
+    "objectID": "content/15-content.html#objectives",
+    "href": "content/15-content.html#objectives",
+    "title": "Building Databases with Location",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today, you should be able to:\n\nGenerate new features using geographic data\nUse topological subsetting to reduce features based on geography\nUse spatial joins to add attributes based on location"
+  },
+  {
+    "objectID": "content/15-content.html#slides",
+    "href": "content/15-content.html#slides",
+    "title": "Building Databases with Location",
+    "section": "Slides",
+    "text": "Slides\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window  Download PDF of all slides\n\n\n\nBuilding spatial databases based on attributes\n\n\nRevisting spatial analysis\n\n\nEstimating spatial attributes\n\n\nTopological subsetting\n\n\nSpatial joins"
+  },
+  {
     "objectID": "content/index.html",
     "href": "content/index.html",
     "title": "Readings and slides",
@@ -2182,6 +2210,41 @@
     "title": "Building Spatial Databases with Attributes",
     "section": "Inner Join",
     "text": "Inner Join"
+  },
+  {
+    "objectID": "slides/15-slides.html#update-on-assignments",
+    "href": "slides/15-slides.html#update-on-assignments",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Update on assignments",
+    "text": "Update on assignments\n\nAssignment 2 due by 14 Oct\nSelf-assessment due 18 Oct\nResubmits\nFinal Project"
+  },
+  {
+    "objectID": "slides/15-slides.html#objectives",
+    "href": "slides/15-slides.html#objectives",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today you should be able to:\n\nCreate new features based on topological relationships\nUse topological subsetting to reduce features\nUse spatial joins to add attributes based on location"
+  },
+  {
+    "objectID": "slides/15-slides.html#what-is-spatial-analysis",
+    "href": "slides/15-slides.html#what-is-spatial-analysis",
+    "title": "Building Spatial Databases based on Location",
+    "section": "What is spatial analysis?",
+    "text": "What is spatial analysis?\n\n“The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data”.\n\n— ESRI Dictionary"
+  },
+  {
+    "objectID": "slides/15-slides.html#workflows-for-spatial-analysis",
+    "href": "slides/15-slides.html#workflows-for-spatial-analysis",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Workflows for spatial analysis",
+    "text": "Workflows for spatial analysis\n\n\n\n\n\ncourtesy of Humboldt State University\n\n\n\n\nAlign processing with objectives\nImagining the visualizations and analysis clarifies file formats and variables\nHelps build reproducibility"
+  },
+  {
+    "objectID": "slides/15-slides.html#databases-and-attributes",
+    "href": "slides/15-slides.html#databases-and-attributes",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Databases and Attributes",
+    "text": "Databases and Attributes\n\n\n\n\n\ncourtesy of Giscommons\n\n\n\n\n\nAttributes: Information that further describes a spatial feature\nAttributes → predictors for analysis\nLast week focus on thematic relations between datasets\n\nShared ‘keys’ help define linkages between objects\n\nSometimes we are interested in attributes that describe location (overlaps, contains, distance)\nSometimes we want to join based on location rather than thematic connections\n\nMust have the same CRS"
   },
   {
     "objectID": "syllabus.html",
