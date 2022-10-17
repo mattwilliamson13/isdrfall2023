@@ -81,7 +81,7 @@
     "href": "assignment/self-eval2.html",
     "title": "Self-reflection 2",
     "section": "",
-    "text": "This is the second of three self-reflections that you’ll complete during the course. We’ll revisit your objectives and check-in on what I can do to help you get the most out of the second half of the course. This is our mid-semester “adjustment”. As such, I’m asking that you complete this in a timely fashion and turn it in by Oct 18. You’ll need to accept the link to access the questions."
+    "text": "This is the second of three self-reflections that you’ll complete during the course. We’ll revisit your objectives and check-in on what I can do to help you get the most out of the second half of the course. This is our mid-semester “adjustment”. As such, I’m asking that you complete this in a timely fashion and turn it in by Oct 21. You’ll need to accept the link to access the questions."
   },
   {
     "objectID": "assignment/self-eval2.html#instructions",
@@ -2216,7 +2216,7 @@
     "href": "slides/15-slides.html#update-on-assignments",
     "title": "Building Spatial Databases based on Location",
     "section": "Update on assignments",
-    "text": "Update on assignments\n\nAssignment 2 due by 14 Oct\nSelf-assessment due 18 Oct\nResubmits\nFinal Project"
+    "text": "Update on assignments\n\nAssignment 2 due by 14 Oct\nSelf-assessment 2 due 21 Oct\nResubmits\nFinal Project"
   },
   {
     "objectID": "slides/15-slides.html#objectives",
@@ -2245,6 +2245,139 @@
     "title": "Building Spatial Databases based on Location",
     "section": "Databases and Attributes",
     "text": "Databases and Attributes\n\n\n\n\n\ncourtesy of Giscommons\n\n\n\n\n\nAttributes: Information that further describes a spatial feature\nAttributes → predictors for analysis\nLast week focus on thematic relations between datasets\n\nShared ‘keys’ help define linkages between objects\n\nSometimes we are interested in attributes that describe location (overlaps, contains, distance)\nSometimes we want to join based on location rather than thematic connections\n\nMust have the same CRS"
+  },
+  {
+    "objectID": "slides/15-slides.html#attributes-based-on-geometry-and-location-measures",
+    "href": "slides/15-slides.html#attributes-based-on-geometry-and-location-measures",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Attributes based on geometry and location (measures)",
+    "text": "Attributes based on geometry and location (measures)\n\nAttributes like area and length can be useful for a number of analyses\n\nEstimates of ‘effort’ in sampling designs\nOffsets for modeling rates (e.g., Poisson regression)\n\nNeed to assign the result of the function to a column in data frame (e.g., $, mutate, and summarize)\nOften useful to test before assigning"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-area",
+    "href": "slides/15-slides.html#estimating-area",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating area",
+    "text": "Estimating area\n\n\n\n\nsf bases area (and length) calculations on the map units of the CRS\nthe units library allows conversion into a variety of units\n\n\n\n\nnz.sf <- nz %>% \n  mutate(area = st_area(nz))\nhead(nz.sf$area, 3)\n\nUnits: [m^2]\n[1] 12890576439  4911565037 24588819863\n\n\n\nnz.sf$areakm <- units::set_units(st_area(nz), km^2)\nhead(nz.sf$areakm, 3)\n\nUnits: [km^2]\n[1] 12890.576  4911.565 24588.820"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-density-in-polygons",
+    "href": "slides/15-slides.html#estimating-density-in-polygons",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Density in Polygons",
+    "text": "Estimating Density in Polygons\n\n\n\n\n\n\n\n\n\n\nCreating new features based on the frequency of occurrence\nClarifying graphics\nUnderlies quadrat sampling for point patterns\nTwo steps: count and area"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-density-in-polygons-1",
+    "href": "slides/15-slides.html#estimating-density-in-polygons-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Density in Polygons",
+    "text": "Estimating Density in Polygons\n\n\n\n\n\n\n\n\n\nnz.df <- nz %>% \nmutate(counts = lengths(st_intersects(., random_nz)),\n       area = st_area(nz),\n       density = counts/area)\nhead(st_drop_geometry(nz.df[,7:10]))\n\n  counts              area              density\n1     18 12890576439 [m^2] 1.396369e-09 [1/m^2]\n2      9  4911565037 [m^2] 1.832410e-09 [1/m^2]\n3     33 24588819863 [m^2] 1.342073e-09 [1/m^2]\n4     11 12271015945 [m^2] 8.964213e-10 [1/m^2]\n5     11  8364554416 [m^2] 1.315073e-09 [1/m^2]\n6     21 14242517871 [m^2] 1.474458e-09 [1/m^2]"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-density-in-polygons-2",
+    "href": "slides/15-slides.html#estimating-density-in-polygons-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Density in Polygons",
+    "text": "Estimating Density in Polygons"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-distance",
+    "href": "slides/15-slides.html#estimating-distance",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Distance",
+    "text": "Estimating Distance\n\nAs a covariate\nFor use in covariance matrices\nAs a means of assigning connections in networks"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-single-point-distance",
+    "href": "slides/15-slides.html#estimating-single-point-distance",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Single Point Distance",
+    "text": "Estimating Single Point Distance\n\n\n\nst_distance returns distances between all features in x and all features in y\nOne-to-One relationship requires choosing a single point for y"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-single-point-distance-1",
+    "href": "slides/15-slides.html#estimating-single-point-distance-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Single Point Distance",
+    "text": "Estimating Single Point Distance\n\nSubsetting y into a single feature\n\n\n\n\ncanterbury = nz %>% filter(Name == \"Canterbury\")\ncanterbury_height = nz_height[canterbury, ]\nco = filter(nz, grepl(\"Canter|Otag\", Name))\nst_distance(nz_height[1:3, ], co)\n\nUnits: [m]\n          [,1]     [,2]\n[1,] 123537.16 15497.72\n[2,]  94282.77     0.00\n[3,]  93018.56     0.00"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-single-point-distance-2",
+    "href": "slides/15-slides.html#estimating-single-point-distance-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Single Point Distance",
+    "text": "Estimating Single Point Distance\n\nUsing nearest neighbor distances\n\n\n\n\nua <- urban_areas(cb = FALSE, progress_bar = FALSE) %>% \n  filter(., UATYP10 == \"U\") %>% \n  filter(., str_detect(NAME10, \"ID\")) %>% \n  st_transform(., crs=2163)\n\n#get index of nearest ID city\nnearest <-  st_nearest_feature(ua)\n#estimate distance\n(dist = st_distance(ua, ua[nearest,], by_element=TRUE))\n\nUnits: [m]\n[1]  61386.444  61386.444   1646.182   1646.182 136908.183 136908.183"
+  },
+  {
+    "objectID": "slides/15-slides.html#topological-subsetting-1",
+    "href": "slides/15-slides.html#topological-subsetting-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Topological Subsetting",
+    "text": "Topological Subsetting\n\n\nTopological relations describe the spatial relationships between objects\nWe can use the overlap (or not) of vector data to subset the data based on topology\nNeed valid geometries\nEasiest way is to use [ notation, but also most restrictive\n\n\n\n\n\nctby_height <-  nz_height[canterbury, ]"
+  },
+  {
+    "objectID": "slides/15-slides.html#topological-subsetting-2",
+    "href": "slides/15-slides.html#topological-subsetting-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Topological Subsetting",
+    "text": "Topological Subsetting\n\n\n\n\nLots of verbs in sf for doing this (e.g., st_intersects, st_contains, st_touches)\nsee ?geos_binary_pred for a full list\nCreates an implicit attribute (the records in x that are “in” y)\n\n\n\nUsing sparse=TRUE\n\nst_intersects(nz_height, co, \n              sparse = TRUE)[1:3] \n\n[[1]]\ninteger(0)\n\n[[2]]\n[1] 2\n\n[[3]]\n[1] 2\n\nlengths(st_intersects(nz_height, \n                      co, sparse = TRUE))[1:3] > 0\n\n[1] FALSE  TRUE  TRUE"
+  },
+  {
+    "objectID": "slides/15-slides.html#topological-subsetting-3",
+    "href": "slides/15-slides.html#topological-subsetting-3",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Topological Subsetting",
+    "text": "Topological Subsetting\n\nThe sparse option controls how the results are returned\nWe can then find out if one or more elements satisfies the criteria\n\nUsing sparse=FALSE\n\nst_intersects(nz_height, co, sparse = FALSE)[1:3,] \n\n      [,1]  [,2]\n[1,] FALSE FALSE\n[2,] FALSE  TRUE\n[3,] FALSE  TRUE\n\napply(st_intersects(nz_height, co, sparse = FALSE), 1,any)[1:3]\n\n[1] FALSE  TRUE  TRUE"
+  },
+  {
+    "objectID": "slides/15-slides.html#topological-subsetting-4",
+    "href": "slides/15-slides.html#topological-subsetting-4",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Topological Subsetting",
+    "text": "Topological Subsetting\n\n\n\ncanterbury_height3 = nz_height %>%\n  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))"
+  },
+  {
+    "objectID": "slides/15-slides.html#spatial-joins-1",
+    "href": "slides/15-slides.html#spatial-joins-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Spatial Joins",
+    "text": "Spatial Joins\n\nsf package provides st_join for vectors\nAllows joins based on the predicates (st_intersects, st_touches, st_within_distance, etc.)\nDefault is a left join"
+  },
+  {
+    "objectID": "slides/15-slides.html#spatial-joins-2",
+    "href": "slides/15-slides.html#spatial-joins-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Spatial Joins",
+    "text": "Spatial Joins\n\n\n\nset.seed(2018)\n(bb = st_bbox(world)) # the world's bounds\n\n      xmin       ymin       xmax       ymax \n-180.00000  -89.90000  179.99999   83.64513 \n\n#>   xmin   ymin   xmax   ymax \n#> -180.0  -89.9  180.0   83.6\nrandom_df = data.frame(\n  x = runif(n = 10, min = bb[1], max = bb[3]),\n  y = runif(n = 10, min = bb[2], max = bb[4])\n)\nrandom_points = random_df |> \n  st_as_sf(coords = c(\"x\", \"y\")) |> # set coordinates\n  st_set_crs(\"EPSG:4326\") # set geographic CRS\n\nrandom_joined = st_join(random_points, world[\"name_long\"])"
+  },
+  {
+    "objectID": "slides/15-slides.html#spatial-joins-3",
+    "href": "slides/15-slides.html#spatial-joins-3",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Spatial Joins",
+    "text": "Spatial Joins\n\nSometimes we may want to be less restrictive\nJust because objects don’t touch doesn’t mean they don’t relate to each other\nCan use predicates in st_join\nRemember that default is left_join (so the number of records can grow if multiple matches)"
+  },
+  {
+    "objectID": "slides/15-slides.html#spatial-joins-4",
+    "href": "slides/15-slides.html#spatial-joins-4",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Spatial Joins",
+    "text": "Spatial Joins\n\n\n\nany(st_touches(cycle_hire, cycle_hire_osm, sparse = FALSE))\n\n[1] FALSE\n\nz = st_join(cycle_hire, cycle_hire_osm, st_is_within_distance, dist = 20)\nnrow(cycle_hire)\n\n[1] 742\n\nnrow(z)\n\n[1] 762"
+  },
+  {
+    "objectID": "slides/15-slides.html#extending-joins-1",
+    "href": "slides/15-slides.html#extending-joins-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Extending Joins",
+    "text": "Extending Joins\n\n\nSometimes we are interested in analyzing locations that contain the overlap between two vectors\n\nHow much of home range a occurs on soil type b\nHow much of each Census tract is contained with a service provision area?\n\nst_intersection, st_union, and st_difference return new geometries that we can use as records in our spatial database\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nintersect_pct <- st_intersection(nc, tr_buff) %>% \n   mutate(intersect_area = st_area(.)) %>%   # create new column with shape area\n   dplyr::select(NAME, intersect_area) %>%   # only select columns needed to merge\n   st_drop_geometry()\n\nnc <- mutate(nc, county_area = st_area(nc))\n\n# Merge by county name\nnc <- merge(nc, intersect_pct, by = \"NAME\", all.x = TRUE)\n\n# Calculate coverage\nnc <- nc %>% \n   mutate(coverage = as.numeric(intersect_area/county_area))"
+  },
+  {
+    "objectID": "slides/15-slides.html#extending-joins-2",
+    "href": "slides/15-slides.html#extending-joins-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Extending Joins",
+    "text": "Extending Joins"
   },
   {
     "objectID": "syllabus.html",
@@ -2322,82 +2455,5 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
-  },
-  {
-    "objectID": "slides/15-slides.html#calculating-attributes-based-on-geometry-and-location-vector-data",
-    "href": "slides/15-slides.html#calculating-attributes-based-on-geometry-and-location-vector-data",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Calculating attributes based on geometry and location vector data",
-    "text": "Calculating attributes based on geometry and location vector data\n\nAttributes like area and length can be useful for a number of analyses\n\nEstimates of ‘effort’ in sampling designs\nOffsets for modeling rates (e.g., Poisson regression)\n\nNeed to assign the result of the function to a column in data frame (e.g., $, mutate, and summarize)\nOften useful to test before assigning"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-area",
-    "href": "slides/15-slides.html#estimating-area",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating area",
-    "text": "Estimating area\n\n\n\n\nsf bases area (and length) calculations on the map units of the CRS\nthe units library allows conversion into a variety of units\n\n\n\n\nnz.sf <- nz %>% \n  mutate(area = st_area(nz))\nhead(nz.sf$area, 3)\n\nUnits: [m^2]\n[1] 12890576439  4911565037 24588819863\n\n\n\nnz.sf$areakm <- units::set_units(st_area(nz), km^2)\nhead(nz.sf$areakm, 3)\n\nUnits: [km^2]\n[1] 12890.576  4911.565 24588.820"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-density-in-polygons",
-    "href": "slides/15-slides.html#estimating-density-in-polygons",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Density in Polygons",
-    "text": "Estimating Density in Polygons\n\n\n\n\n\n\n\n\n\n\nCreating new features based on the frequency of occurrence\nClarifying graphics\nUnderlies quadrat sampling for point patterns\nTwo steps: count and area"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-density-in-polygons-1",
-    "href": "slides/15-slides.html#estimating-density-in-polygons-1",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Density in Polygons",
-    "text": "Estimating Density in Polygons\n\n\n\n\n\n\n\n\n\nnz.df <- nz %>% \nmutate(counts = lengths(st_intersects(., random_nz)),\n       area = st_area(nz),\n       density = counts/area)\nhead(st_drop_geometry(nz.df[,7:10]))\n\n  counts              area              density\n1     23 12890576439 [m^2] 1.784249e-09 [1/m^2]\n2     13  4911565037 [m^2] 2.646814e-09 [1/m^2]\n3     28 24588819863 [m^2] 1.138729e-09 [1/m^2]\n4     22 12271015945 [m^2] 1.792843e-09 [1/m^2]\n5     18  8364554416 [m^2] 2.151938e-09 [1/m^2]\n6     18 14242517871 [m^2] 1.263821e-09 [1/m^2]"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-density-in-polygons-2",
-    "href": "slides/15-slides.html#estimating-density-in-polygons-2",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Density in Polygons",
-    "text": "Estimating Density in Polygons"
-  },
-  {
-    "objectID": "slides/15-slides.html#attributes-based-on-geometry-and-location-measures",
-    "href": "slides/15-slides.html#attributes-based-on-geometry-and-location-measures",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Attributes based on geometry and location (measures)",
-    "text": "Attributes based on geometry and location (measures)\n\nAttributes like area and length can be useful for a number of analyses\n\nEstimates of ‘effort’ in sampling designs\nOffsets for modeling rates (e.g., Poisson regression)\n\nNeed to assign the result of the function to a column in data frame (e.g., $, mutate, and summarize)\nOften useful to test before assigning"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-distance",
-    "href": "slides/15-slides.html#estimating-distance",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Distance",
-    "text": "Estimating Distance\n\nAs a covariate\nFor use in covariance matrices\nAs a means of assigning connections in networks"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-single-point-distance",
-    "href": "slides/15-slides.html#estimating-single-point-distance",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Single Point Distance",
-    "text": "Estimating Single Point Distance\n\n\n\nst_distance returns distances between all features in x and all features in y\nOne-to-One relationship requires choosing a single point for y"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-single-point-distance-1",
-    "href": "slides/15-slides.html#estimating-single-point-distance-1",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Single Point Distance",
-    "text": "Estimating Single Point Distance\n\nSubsetting y into a single feature\n\n\n\n\ncanterbury = nz %>% filter(Name == \"Canterbury\")\ncanterbury_height = nz_height[canterbury, ]\nco = filter(nz, grepl(\"Canter|Otag\", Name))\nst_distance(nz_height[1:3, ], co)\n\nUnits: [m]\n          [,1]     [,2]\n[1,] 123537.16 15497.72\n[2,]  94282.77     0.00\n[3,]  93018.56     0.00"
-  },
-  {
-    "objectID": "slides/15-slides.html#topological-subsetting",
-    "href": "slides/15-slides.html#topological-subsetting",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Topological Subsetting",
-    "text": "Topological Subsetting"
-  },
-  {
-    "objectID": "slides/15-slides.html#estimating-single-point-distance-2",
-    "href": "slides/15-slides.html#estimating-single-point-distance-2",
-    "title": "Building Spatial Databases based on Location",
-    "section": "Estimating Single Point Distance",
-    "text": "Estimating Single Point Distance\n\nUsing nearest neighbor distances\n\n\n\n\nua <- urban_areas(cb = FALSE, progress_bar = FALSE) %>% \n  filter(., UATYP10 == \"U\") %>% \n  filter(., str_detect(NAME10, \"ID\"))\n\n#get index of nearest ID city\nnearest <-  st_nearest_feature(ua)\n#estimate distance\n(dist = st_distance(ua, ua[nearest,], by_element=TRUE))\n\nUnits: [m]\n[1]  61382.264  61382.264   1640.709   1640.709 136192.337 136192.337"
   }
 ]

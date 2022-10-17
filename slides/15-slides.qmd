@@ -19,6 +19,7 @@ library(terra)
 library(spData)
 library(units)
 library(tigris)
+library(tmap)
 ```
 
 # Outline for today {background="#0033A0"}
@@ -34,7 +35,7 @@ library(tigris)
 
 - Assignment 2 due by 14 Oct
 
-- Self-assessment due 18 Oct
+- [Self-assessment 2](https://classroom.github.com/a/1rxYopts) due 21 Oct
 
 - Resubmits
 
@@ -96,6 +97,8 @@ By the end of today you should be able to:
 :::
 :::
 :::
+
+# Calculating New Attributes {background="#0033A0"}
 
 ## Attributes based on geometry and location (`measures`)
 
@@ -306,7 +309,248 @@ plot(st_geometry(ua), add=TRUE)
 :::
 :::
 
-jkjkhbj
+# Topological Subsetting {background="#0033A0"}
+
+## Topological Subsetting
+::: {style="font-size: 0.7em"}
+- Topological relations describe the spatial relationships between objects
+
+- We can use the overlap (or not) of vector data to subset the data based on topology
+
+- Need _valid_ geometries
+
+- Easiest way is to use `[` notation, but also most restrictive
+:::
+
+::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+ctby_height <-  nz_height[canterbury, ]
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
+plot(st_geometry(canterbury))
+plot(st_geometry(nz_height), col="red", add=TRUE)
+plot(st_geometry(canterbury_height), col="blue", add=TRUE)
+```
+:::
+:::
+
 ## Topological Subsetting
 
-- 
+::: columns
+::: {.column width="50%"}
+
+::: {style="font-size: 0.7em"}
+
+- Lots of verbs in `sf` for doing this (e.g., `st_intersects`, `st_contains`, `st_touches`)
+
+- see `?geos_binary_pred` for a full list
+
+- Creates an __implicit__ attribute (the _records_ in `x` that are "in" `y`)
+
+:::
+:::
+::: {.column width="50%"}
+__Using `sparse=TRUE`__
+```{r}
+#| echo: true
+st_intersects(nz_height, co, 
+              sparse = TRUE)[1:3] 
+
+lengths(st_intersects(nz_height, 
+                      co, sparse = TRUE))[1:3] > 0
+```
+:::
+:::
+
+## Topological Subsetting
+
+- The `sparse` option controls how the results are returned
+- We can then find out if one or more elements satisfies the criteria
+
+__Using `sparse=FALSE`__
+```{r top2}
+#| echo: true
+st_intersects(nz_height, co, sparse = FALSE)[1:3,] 
+
+apply(st_intersects(nz_height, co, sparse = FALSE), 1,any)[1:3]
+```
+
+## Topological Subsetting
+
+::: columns
+::: {.column width="60%"}
+```{r subset}
+#| echo: true
+canterbury_height3 = nz_height %>%
+  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+plot(st_geometry(nz))
+plot(st_geometry(canterbury_height3), add=TRUE)
+```
+:::
+:::
+
+# Spatial Joins {background="#0033A0"}
+
+## Spatial Joins
+
+- `sf` package provides `st_join` for vectors
+
+- Allows joins based on the predicates (`st_intersects`, `st_touches`, `st_within_distance`, etc.)
+
+- Default is a left join
+
+## Spatial Joins
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+set.seed(2018)
+(bb = st_bbox(world)) # the world's bounds
+#>   xmin   ymin   xmax   ymax 
+#> -180.0  -89.9  180.0   83.6
+random_df = data.frame(
+  x = runif(n = 10, min = bb[1], max = bb[3]),
+  y = runif(n = 10, min = bb[2], max = bb[4])
+)
+random_points = random_df |> 
+  st_as_sf(coords = c("x", "y")) |> # set coordinates
+  st_set_crs("EPSG:4326") # set geographic CRS
+
+random_joined = st_join(random_points, world["name_long"])
+```
+:::
+::: {.column width="50%"}
+```{r}
+random_joined$name_long = as.character(random_joined$name_long)
+
+jm0 <- tm_shape(world) + tm_borders(lwd = 0.5) + tm_format("World")
+jm1 <- jm0 +
+  tm_shape(shp = random_joined, bbox = bb) +
+  tm_symbols(col = "name_long", shape = 4, border.lwd = 2, palette = "Dark2")+
+  tm_layout(scale = 1, legend.bg.color = "white", legend.bg.alpha = 0.3, legend.position = c("right", "bottom"))
+jm1
+```
+:::
+:::
+
+## Spatial Joins
+
+- Sometimes we may want to be less restrictive
+
+- Just because objects don't touch doesn't mean they don't relate to each other
+
+- Can use `predicates` in `st_join`
+
+- Remember that default is `left_join` (so the number of records can grow if multiple matches)
+
+## Spatial Joins
+
+::: columns
+::: {.column width="70%"}
+```{r}
+#| echo: true
+any(st_touches(cycle_hire, cycle_hire_osm, sparse = FALSE))
+z = st_join(cycle_hire, cycle_hire_osm, st_is_within_distance, dist = 20)
+nrow(cycle_hire)
+nrow(z)
+```
+:::
+::: {.column width="30%"}
+```{r}
+plot(st_geometry(cycle_hire), col = "blue")
+plot(st_geometry(cycle_hire_osm), add = TRUE, pch = 3, col = "red")
+```
+:::
+:::
+
+# Extending Joins {background="#0033A0"}
+
+## Extending Joins 
+::: {style="font-size: 0.6em"}
+- Sometimes we are interested in analyzing locations that contain the overlap between two vectors
+  - How much of home range _a_ occurs on soil type _b_
+  - How much of each Census tract is contained with a service provision area?
+- `st_intersection`, `st_union`, and `st_difference` return new geometries that we can use as records in our spatial database
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| message: false
+#| warning: false
+#| fig-pos: "t"
+transmitters <-
+  data.frame(
+    ID = 1:2,
+    longitude = c(-80.631974, -77.808488),
+    latitude = c(35.838583, 35.526252),
+    radius = c(50, 100))
+
+### Turn transmitters df into an sf object
+tr_wgs <- 
+  st_as_sf(transmitters, 
+           coords = c("longitude", "latitude"), 
+           crs = 4326, 
+           dim = "XY")
+
+### Set units (a projection that preserves area in NC)
+tr_wgs <- 
+  st_transform(tr_wgs, 
+               "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD27 +units=km")
+
+### Create a buffer (not sure of the original km measurements, so right now it is just making a 100km buffer)
+tr_buff <- 
+  st_buffer(tr_wgs, c(transmitters$radius))
+
+### Read North Carolina (and coerce to be same projection as tr_buff)
+nc <-
+  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE) %>%
+  st_transform(., "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD27 +units=km")
+
+### Plot
+ggplot() +
+  geom_sf(data = nc) +
+  geom_sf(data = tr_buff, color="red")
+
+```
+:::  
+::: {.column width="50%"}
+```{r}
+#| echo: true
+intersect_pct <- st_intersection(nc, tr_buff) %>% 
+   mutate(intersect_area = st_area(.)) %>%   # create new column with shape area
+   dplyr::select(NAME, intersect_area) %>%   # only select columns needed to merge
+   st_drop_geometry()
+
+nc <- mutate(nc, county_area = st_area(nc))
+
+# Merge by county name
+nc <- merge(nc, intersect_pct, by = "NAME", all.x = TRUE)
+
+# Calculate coverage
+nc <- nc %>% 
+   mutate(coverage = as.numeric(intersect_area/county_area))
+```
+:::
+:::
+
+## Extending Joins
+
+```{r}
+ggplot() +
+  geom_sf(data = nc, aes(fill=coverage)) +
+  geom_sf(data = tr_buff, fill=NA, color="red")
+```
