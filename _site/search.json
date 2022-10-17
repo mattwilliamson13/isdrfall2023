@@ -2322,5 +2322,82 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
+  },
+  {
+    "objectID": "slides/15-slides.html#calculating-attributes-based-on-geometry-and-location-vector-data",
+    "href": "slides/15-slides.html#calculating-attributes-based-on-geometry-and-location-vector-data",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Calculating attributes based on geometry and location vector data",
+    "text": "Calculating attributes based on geometry and location vector data\n\nAttributes like area and length can be useful for a number of analyses\n\nEstimates of ‘effort’ in sampling designs\nOffsets for modeling rates (e.g., Poisson regression)\n\nNeed to assign the result of the function to a column in data frame (e.g., $, mutate, and summarize)\nOften useful to test before assigning"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-area",
+    "href": "slides/15-slides.html#estimating-area",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating area",
+    "text": "Estimating area\n\n\n\n\nsf bases area (and length) calculations on the map units of the CRS\nthe units library allows conversion into a variety of units\n\n\n\n\nnz.sf <- nz %>% \n  mutate(area = st_area(nz))\nhead(nz.sf$area, 3)\n\nUnits: [m^2]\n[1] 12890576439  4911565037 24588819863\n\n\n\nnz.sf$areakm <- units::set_units(st_area(nz), km^2)\nhead(nz.sf$areakm, 3)\n\nUnits: [km^2]\n[1] 12890.576  4911.565 24588.820"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-density-in-polygons",
+    "href": "slides/15-slides.html#estimating-density-in-polygons",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Density in Polygons",
+    "text": "Estimating Density in Polygons\n\n\n\n\n\n\n\n\n\n\nCreating new features based on the frequency of occurrence\nClarifying graphics\nUnderlies quadrat sampling for point patterns\nTwo steps: count and area"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-density-in-polygons-1",
+    "href": "slides/15-slides.html#estimating-density-in-polygons-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Density in Polygons",
+    "text": "Estimating Density in Polygons\n\n\n\n\n\n\n\n\n\nnz.df <- nz %>% \nmutate(counts = lengths(st_intersects(., random_nz)),\n       area = st_area(nz),\n       density = counts/area)\nhead(st_drop_geometry(nz.df[,7:10]))\n\n  counts              area              density\n1     23 12890576439 [m^2] 1.784249e-09 [1/m^2]\n2     13  4911565037 [m^2] 2.646814e-09 [1/m^2]\n3     28 24588819863 [m^2] 1.138729e-09 [1/m^2]\n4     22 12271015945 [m^2] 1.792843e-09 [1/m^2]\n5     18  8364554416 [m^2] 2.151938e-09 [1/m^2]\n6     18 14242517871 [m^2] 1.263821e-09 [1/m^2]"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-density-in-polygons-2",
+    "href": "slides/15-slides.html#estimating-density-in-polygons-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Density in Polygons",
+    "text": "Estimating Density in Polygons"
+  },
+  {
+    "objectID": "slides/15-slides.html#attributes-based-on-geometry-and-location-measures",
+    "href": "slides/15-slides.html#attributes-based-on-geometry-and-location-measures",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Attributes based on geometry and location (measures)",
+    "text": "Attributes based on geometry and location (measures)\n\nAttributes like area and length can be useful for a number of analyses\n\nEstimates of ‘effort’ in sampling designs\nOffsets for modeling rates (e.g., Poisson regression)\n\nNeed to assign the result of the function to a column in data frame (e.g., $, mutate, and summarize)\nOften useful to test before assigning"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-distance",
+    "href": "slides/15-slides.html#estimating-distance",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Distance",
+    "text": "Estimating Distance\n\nAs a covariate\nFor use in covariance matrices\nAs a means of assigning connections in networks"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-single-point-distance",
+    "href": "slides/15-slides.html#estimating-single-point-distance",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Single Point Distance",
+    "text": "Estimating Single Point Distance\n\n\n\nst_distance returns distances between all features in x and all features in y\nOne-to-One relationship requires choosing a single point for y"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-single-point-distance-1",
+    "href": "slides/15-slides.html#estimating-single-point-distance-1",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Single Point Distance",
+    "text": "Estimating Single Point Distance\n\nSubsetting y into a single feature\n\n\n\n\ncanterbury = nz %>% filter(Name == \"Canterbury\")\ncanterbury_height = nz_height[canterbury, ]\nco = filter(nz, grepl(\"Canter|Otag\", Name))\nst_distance(nz_height[1:3, ], co)\n\nUnits: [m]\n          [,1]     [,2]\n[1,] 123537.16 15497.72\n[2,]  94282.77     0.00\n[3,]  93018.56     0.00"
+  },
+  {
+    "objectID": "slides/15-slides.html#topological-subsetting",
+    "href": "slides/15-slides.html#topological-subsetting",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Topological Subsetting",
+    "text": "Topological Subsetting"
+  },
+  {
+    "objectID": "slides/15-slides.html#estimating-single-point-distance-2",
+    "href": "slides/15-slides.html#estimating-single-point-distance-2",
+    "title": "Building Spatial Databases based on Location",
+    "section": "Estimating Single Point Distance",
+    "text": "Estimating Single Point Distance\n\nUsing nearest neighbor distances\n\n\n\n\nua <- urban_areas(cb = FALSE, progress_bar = FALSE) %>% \n  filter(., UATYP10 == \"U\") %>% \n  filter(., str_detect(NAME10, \"ID\"))\n\n#get index of nearest ID city\nnearest <-  st_nearest_feature(ua)\n#estimate distance\n(dist = st_distance(ua, ua[nearest,], by_element=TRUE))\n\nUnits: [m]\n[1]  61382.264  61382.264   1640.709   1640.709 136192.337 136192.337"
   }
 ]

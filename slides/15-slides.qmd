@@ -10,6 +10,17 @@ format:
     self-contained: true  
 ---
 
+```{r}
+#| include: false
+library(tidyverse)
+library(sf)
+library(igraph)
+library(terra)
+library(spData)
+library(units)
+library(tigris)
+```
+
 # Outline for today {background="#0033A0"}
 
 - Update on assignments
@@ -85,3 +96,217 @@ By the end of today you should be able to:
 :::
 :::
 :::
+
+## Attributes based on geometry and location (`measures`)
+
+- Attributes like area and length can be useful for a number of analyses
+  - Estimates of 'effort' in sampling designs
+  - Offsets for modeling rates (e.g., Poisson regression)
+  
+- Need to assign the result of the function to a column in data frame (e.g., `$`, `mutate`, and `summarize`)
+
+- Often useful to test before assigning
+
+## Estimating area
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+- `sf` bases area (and length) calculations on the map units of the CRS
+
+- the `units` library allows conversion into a variety of units
+
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| echo: true
+nz.sf <- nz %>% 
+  mutate(area = st_area(nz))
+head(nz.sf$area, 3)
+```
+
+
+```{r}
+#| echo: true
+nz.sf$areakm <- units::set_units(st_area(nz), km^2)
+head(nz.sf$areakm, 3)
+```
+:::
+:::
+
+## Estimating Density in Polygons
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+random_long_lat <- 
+  data.frame(
+    long = sample(runif(2000, min = 1090144, max = 2089533), replace = F),
+    lat = sample(runif(2000, min = 4748537, max = 6191874), replace = F)
+  )
+
+random_long_lat_sf <- random_long_lat %>% 
+  st_as_sf(coords = c("long", "lat"), crs = st_crs(nz))
+
+random_nz <- random_long_lat_sf[nz.sf,]
+plot(st_geometry(random_nz), cex=0.1, col="red")
+plot(st_geometry(nz.sf), add=TRUE)
+```
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+- Creating new features based on the frequency of occurrence
+
+- Clarifying graphics
+
+- Underlies quadrat sampling for point patterns
+
+- Two steps: count and area
+:::
+:::
+:::
+
+
+## Estimating Density in Polygons
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+random_long_lat <- 
+  data.frame(
+    long = sample(runif(2000, min = 1090144, max = 2089533), replace = F),
+    lat = sample(runif(2000, min = 4748537, max = 6191874), replace = F)
+  )
+
+random_long_lat_sf <- random_long_lat %>% 
+  st_as_sf(coords = c("long", "lat"), crs = st_crs(nz))
+
+random_nz <- random_long_lat_sf[nz.sf,]
+plot(st_geometry(random_nz), cex=0.1, col="red")
+plot(st_geometry(nz.sf), add=TRUE)
+```
+:::
+::: {.column width="60%"}
+```{r}
+#| echo: true
+nz.df <- nz %>% 
+mutate(counts = lengths(st_intersects(., random_nz)),
+       area = st_area(nz),
+       density = counts/area)
+head(st_drop_geometry(nz.df[,7:10]))
+```
+:::
+:::
+
+## Estimating Density in Polygons
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+plot(nz.df["counts"], main="Counts")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+plot(nz.df["density"], main="Density")
+```
+:::
+:::
+## Estimating Distance
+
+- As a covariate
+
+- For use in covariance matrices
+
+- As a means of assigning connections in networks
+
+
+## Estimating Single Point Distance
+
+::: columns
+::: {.column width="40%"}
+- `st_distance` returns distances between all features in `x` and all features in `y`
+
+- One-to-One relationship requires choosing a single point for `y`
+:::
+::: {.column width="40%"}
+![](img/slide_14/types-of-relationship-in-Database.png) 
+:::
+:::
+
+## Estimating Single Point Distance
+
+- Subsetting `y` into a single feature
+
+::: columns
+::: {.column width="70%"}
+```{r}
+#| echo: true
+canterbury = nz %>% filter(Name == "Canterbury")
+canterbury_height = nz_height[canterbury, ]
+co = filter(nz, grepl("Canter|Otag", Name))
+st_distance(nz_height[1:3, ], co)
+```
+:::
+::: {.column width="30%"}
+```{r}
+#| fig-width: 4.5
+#| fig-height: 4.5
+plot(st_geometry(co)[2], col="red") 
+plot(st_geometry(nz_height)[1], col="blue", add=TRUE)
+plot(st_geometry(nz_height)[2:3], add = TRUE, col="black")
+```
+:::
+:::
+
+## Estimating Single Point Distance
+
+- Using nearest neighbor distances
+
+::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+ua <- urban_areas(cb = FALSE, progress_bar = FALSE) %>% 
+  filter(., UATYP10 == "U") %>% 
+  filter(., str_detect(NAME10, "ID")) %>% 
+  st_transform(., crs=2163)
+
+#get index of nearest ID city
+nearest <-  st_nearest_feature(ua)
+#estimate distance
+(dist = st_distance(ua, ua[nearest,], by_element=TRUE))
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 5
+id <- states(cb = FALSE, progress_bar = FALSE) %>% 
+  filter(., STUSPS == "ID")%>% 
+  st_transform(., crs=2163)
+
+plot(st_geometry(id))
+plot(st_geometry(ua), add=TRUE)
+```
+:::
+:::
+
+jkjkhbj
+## Topological Subsetting
+
+- 
