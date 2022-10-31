@@ -1,0 +1,65 @@
+---
+title: "Multivariate Analysis II"
+subtitle: "HES 505 Fall 2022: Session 20"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(sf)
+library(tidyverse)
+library(maps)
+library(tmap)
+library(terra)
+library(corrplot)
+```
+
+# Objectives {background="#0033A0"}
+
+By the end of today you should be able to:
+
+- Articulate the differences between statisitical learning classifiers and logistic regression
+
+- Describe several classification trees and their relationship to Random Forests
+
+- Describe MaxEnt models for presence-only data
+
+# Revisiting Classification {background="#0033A0"}
+
+## Favorability in General
+
+$$
+\begin{equation}
+F(\mathbf{s}) = f(w_1X_1(\mathbf{s}), w_2X_2(\mathbf{s}), w_3X_3(\mathbf{s}), ..., w_mX_m(\mathbf{s}))
+\end{equation}
+$$
+
+* Logistic regression treats $f(x)$ as a (generalized) linear function
+
+* Allows for multiple qualitative classes
+
+* Ensures that estimates of $F(\mathbf{s})$ are [0,1] 
+
+## Beyond Linearity
+
+* Logistic (and other generalized linear models) are relatively interpretable
+
+* Probability theory allows robust inference of effects
+
+* Predictive power can be low
+
+* Relaxing the linearity assumption can help
+
+## Classification Trees
+
+* Use decision rules to segment the predictor space
+
+* Series of consecutive decision rules form a 'tree'
+
+

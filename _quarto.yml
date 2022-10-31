@@ -102,11 +102,11 @@ website:
               file: content/14-content.qmd
             - text: "15: Building analysis databates using location"
               file: content/15-content.qmd
-            - text: "16: Assessing spatial autocorrelation"
+            - text: "16: Point pattern analysis and interpolation"
               file: content/16-content.qmd
-            - text: "17: Point pattern analysis and hypothesis testing"
+            - text: "17: Assessing spatial autocorrelation and hypothesis testing"
               file: content/17-content.qmd
-            - text: "18: Interpolation"
+            - text: "18: Overlays"
               file: content/18-content.qmd
             - text: "19: Multivariate statistical analysis I"
               file: content/19-content.qmd

@@ -1,0 +1,2088 @@
+<html>
+<HEAD> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Chapter 4. Spatial analysis</title>
+<link REL="stylesheet" TYPE="text/css" HREF="style.css">
+</head>
+<script language="JavaScript1.2" src="image.js" type="text/javascript"></script><body bgcolor="#FFFFFF">
+<p><A NAME="TopOfPage"></A></p>
+<p align="center">
+<a href="y4841e07.htm#TopOfPage"><img src="back.gif" width="43" height="35" alt="Previous Page" border="0"></A>
+<a href="y4841e00.htm#Contents"><img src="toc.gif" width="43" height="35" alt="Table of Contents" border="0"></A>
+<a href="y4841e09.htm#TopOfPage"><img src="next.gif" width="43" height="35" alt="Next Page" border="0"></A>
+</p>
+<hr color="#004080">
+<H1><A NAME="bm08"> Chapter 4. Spatial
+analysis</A></H1><BR><P>In general, poverty maps do not measure casual linkages
+between variables. Hence, in order to describe these casual relationships, it is
+necessary to use an appropriate statistical analysis.</P>
+<P>In particular, this study applies a spatial analysis to
+determine those variables that affect household poverty and to estimate the
+number of poor people in the target areas. This type of analysis is based on the
+assumption that measured geographic variables often exhibit properties of
+spatial dependency (the tendency of the same variables measured in locations in
+close proximity to be related) and spatial heterogeneity (non-stationarity of
+most geographic processes, meaning that global parameters do not well reflect
+processes occurring at a particular location). While traditional statistical
+techniques have treated these two last features as nuisances, spatial statistics
+considers them explicitly.</P>
+<P>From the methodological point of view, the spatial analysis is
+based on five steps:</P>
+<ul><li><P>Step I. The
+spatial estimation of the impact of location characteristics of the areas in
+which the households reside is used to calculate the probability that these
+households are poor. The household data from the ECVand the community data from
+INFOPLAN are employed in order to determine the variables that best explain
+household consumption and poverty (Table 2).</P>
+</li><li><P> Step II. Basic exploratory
+data analysis (EDA) techniques are applied and the spatial neighbourhood
+structure is defined in order to test the presence of spatial autocorrelation
+among the observed values.</P>
+</li><li><P> Step III. The incidence of
+poverty in all the target areas (counties) in the country (Ecuador) is estimated
+on the basis of their location-specific characteristics (Table 3) and on the
+relationship estimated in Step I.</P>
+</li><li><P> Step IV. The first validation
+of the estimation is executed comparing the incidence of poverty at the county
+level established by the spatial econometric estimation with the level of
+poverty in the county computed from the ECVsurvey data. This validation is based
+on the ranking of counties.</P>
+</li><li><P> Step V. The second validation
+of the predictions is performed, aggregating the results at the province level
+and comparing this incidence of poverty with the Bigman <I>et al. </I>method and
+the Lanjouw <I>et al. </I>method.</P></li></ul><P>In accordance with other similar studies, consumption is
+assumed to be the welfare indicator at the household level, and the headcount
+index is used as the measure of poverty.</P>
+
+<H2><A NAME="bm08.1"></A> Spatial autocorrelation</H2><P>Spatial autocorrelation is a property of spatial data that
+exists whenever there is a systematic pattern in the values recorded at
+locations in a map. In particular, where high values of a variable at one
+locality are associated with high values at neighbouring localities, the spatial
+autocorrelation is positive, and where high values correspond to low values in
+the adjacent localities, the spatial autocorrelation is negative.</P>
+<P>In order to detect the spatial pattern (spatial association
+and spatial autocorrelation), some standard global and new local spatial
+statistics have been developed. These include Moran&#146;s I, Geary&#146;s C, G
+statistics (Getis, 1992), LISA (Anselin, 1995) and GLISA(Bao and Henry, 1996).
+All these spatial analytical techniques have two aspects in common. First, they
+start from the assumption of a spatially random distribution of data. Second,
+the spatial pattern, spatial structure, and form of spatial dependence are
+typically derived from the data (Bao, 1999).</P>
+<TABLE BORDER>
+  <TR VALIGN="TOP" bgcolor="#FFCC00"> 
+    <TD COLSPAN=10 VALIGN="TOP">TABLE 2. <b>Descriptive statistics on variables 
+      used in the estimation</b></TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Aggregation level</B></P>
+      
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Variable</B></P>
+      
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Type</B></P>
+      
+    </TD>
+    <TD COLSPAN=3 ROWSPAN=1 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Urban</B></P>
+    </TD>
+    <TD COLSPAN=3 ROWSPAN=1 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Rural</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Data source</B></P>
+      
+    </TD>
+  </TR>
+  <TR VALIGN="TOP"> 
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Mean</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Standard error</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>No. observations</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Mean</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Standard error</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>No. observations</B></P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP"> 
+      <P>Household</P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP"> 
+      <P>Percentage adults illiterate in household</P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP"> 
+      <P>Numeric</P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP"> 
+      <P ALIGN="RIGHT">0.09</P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP"> 
+      <P ALIGN="RIGHT">0.18</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </td>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.10</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.19</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage persons with diploma<SUP>(1)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.06</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.16</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.007</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.05</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Adequate home</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.93</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.25</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.74</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Home with drinking water</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.79</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.40</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.27</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.44</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Home with adequate toilet</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.23</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.65</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.47</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Home with adequate wall</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.78</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.41</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.40</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.49</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Home with electricity public network</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.97</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.16</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.74</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Waste: collection by truck</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.76</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.42</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.13</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.33</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Household</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Persons per room</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1.83</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1.37</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3366</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2.30</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1.73</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2 264</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>ECV</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Population</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">56 541.00</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">194 463.55</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">18 947.00</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">20 279.47</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Mortality rate ()</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">47.01</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">11.31</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">66.42</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">14.81</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Number of babies</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 348</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">4 583.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">502</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">504.09</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>People &lt; 5 km from road<SUP>(3)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">32 267.62</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99955.70</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">32 267.62</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99955.70</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>People 5-15 km from road<SUP>(3)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">5 542.75</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">14 347.99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">5 542.75</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">14 347.99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>People &gt; 15 km from road<SUP>(3)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 056.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3 696.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 056.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3 696.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County area (km<SUP>2</SUP>)</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 296.01</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2 199.57</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 176.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 938.78</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Cereal production coefficient</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">205.20</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">416.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">140.30</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">302.30</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Protected area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.26</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.44</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.28</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.45</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>&gt; 35% irrigation area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.35</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.48</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.22</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.42</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Closed forest</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.29</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.46</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.33</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.47</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Arable land<SUP>(2)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Factor</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Erosion</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Factor</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Climate</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Factor</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Flooding area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.52</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.52</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Volcano area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.38</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.49</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.38</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.49</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+</TABLE>
+<BLOCKQUOTE><P><SUP><I>(1)</I></SUP><I> Secondary
+school.</I></P>
+<P><SUP><I>(2)</I></SUP><I> Arable land for each counties is
+obtained by first multiplying the weighted average area of the county by the
+percentage of arable land in the same county. The result is transformed as a
+factor which</I><BR><I>takes a value of 0 if the number obtained is &lt; 30%, 1
+if between 30 and 60%, 2 if &gt; 60%.</I></P>
+  <P><SUP><I>(3)</I></SUP><I> People &lt; 5 km from road, People 515 km from road, 
+    People &gt; 15 km from road are calculated on all the counties without distinction 
+    between urban and rural county.</I></P>
+</BLOCKQUOTE>
+<TABLE BORDER>
+  <TR VALIGN="TOP" bgcolor="#FFCC00"> 
+    <TD COLSPAN=10 VALIGN="TOP">TABLE 3. <b>Descriptive statistics on variables 
+      used in the prediction</b></TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Aggregation level</B></P>
+      
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Variable</B></P>
+      
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Type</B></P>
+      
+    </TD>
+    <TD COLSPAN=3 ROWSPAN=1 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Urban</B></P>
+    </TD>
+    <TD COLSPAN=3 ROWSPAN=1 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Rural</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=2 VALIGN="TOP"> 
+      <P ALIGN="CENTER"><B>Data source</B></P>
+      
+    </TD>
+  </TR>
+  <TR VALIGN="TOP"> 
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Mean</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Standard error</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>No. observations</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Mean</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>Standard error</B></P>
+    </TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP" bgcolor="#FFCC99"> 
+      <P ALIGN="CENTER"><B>No. observations</B></P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage adults illiterate in county</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.09</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.04</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.19</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.08</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage persons with diploma<SUP>(1)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.13</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.06</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.04</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.02</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage of Adequate home</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.91</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.06</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.69</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.19</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage of home with drinking water</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.24</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.13</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.10</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage of home with adequate toilet</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.63</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.12</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.20</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.12</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage of home with adequate wall</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.66</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.15</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.29</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.20</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Percentage of homes w. public electricity network</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.91</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.05</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.48</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.22</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>W aste: collection by truck (%)</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.63</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.20</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.09</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.11</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Persons per room</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2.23</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2.60</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.47</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Population</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">5 6541</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">194 463.55</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 8947</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">20 279.47</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Mortality rate ()</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">47.01</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">11.31</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">66.42</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">14.81</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Number of babies</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 348</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">4 583.942</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">502</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">504.09</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>People &lt; 5 km from road<SUP>(3)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">32 267.62</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99955.70</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">32 267.62</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99955.70</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>People 5-15 km from road<SUP>(3)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">5 542.75</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">14 347.99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">5 542.75</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">14 347.99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>People &gt; 15 km from road<SUP>(3)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 056.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3 696.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 056.43</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">3 696.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County area (km<SUP>2</SUP>)</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 296.01</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">2 199.57</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 176.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">1 938.78</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Cereal production coefficient</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Numeric</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">205.20</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">416.94</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">140.30</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">302.30</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Protected area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.26</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.44</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.28</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.45</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>&gt; 35% irrigation area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.35</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.48</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.22</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.42</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Closed forest</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.29</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.46</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.33</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.47</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>County</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Arable land<SUP>(2)</SUP></P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Factor</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">99</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">210</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>FAO/SDRN GIS</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Erosion</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Factor</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Climate</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Factor</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">-</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Flooding area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.52</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.52</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.51</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+  <TR VALIGN="TOP" bgcolor="#FFCC99"> 
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Province</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Volcano area</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>Dummy</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.38</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.49</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.38</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">0.49</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P ALIGN="RIGHT">21</P>
+    </TD>
+    <td colspan="1" rowspan="1" valign="top" nowrap> 
+      <P>INFOPLAN</P>
+    </TD>
+  </TR>
+</TABLE>
+<BLOCKQUOTE><P><SUP><I>(1)</I></SUP><I> Secondary
+school.</I></P>
+<P><SUP><I>(2)</I></SUP><I> Arable land for each counties is
+obtained by first multiplying the weighted average area of the county by the
+percentage of arable land in the same county. The result is transformed as a
+factor which takes a value of 0 if the number obtained is &lt; 30%, 1 if between
+30 and 60%, 2 if &gt; 60%.</I></P>
+<P><SUP><I>(3)</I></SUP><I> People &lt; 5 km from road, People
+515 km from road, People &gt; 15 km from road are calculated on all the counties
+without distinction between urban and rural county.</I></P></BLOCKQUOTE><P>The first measure of spatial autocorrelation was introduced by
+Moran (1950). The index is analogous to the conventional correlation
+coefficient, and its values range from 1 (strong positive spatial
+autocorrelation) to -1 (strong negative spatial autocorrelation). It is often
+used to measure the spatial autocorrelation of ordinal, interval or ratio data.
+Moran&#146;s I is defined by:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e06.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(1)</P>
+    </TD>
+</TR>
+</TABLE><P ALIGN="CENTER"></P>
+<P>where
+<IMG ALIGN="ABSMIDDLE"  SRC="y4841e07.gif">,<I> x<SUB>i</SUB>
+</I>denotes the observed value of population at location
+<IMG ALIGN="ABSMIDDLE"  SRC="y4841e08.gif">is the average of the
+<I>x<SUB>i</SUB> </I>over the <I>n </I>locations, and <I>w<SUB>ij</SUB> </I>is
+the spatial weight measure of contiguity and is defined as 1 if location <I>i
+</I>is contiguous to location <I>j </I>and 0 otherwise.</P>
+<P>The choice of weights <I>w<SUB>ij</SUB> </I>between neighbours
+is a crucial step in the analysis. There are many ways to assign neighbour
+weights, and the choice depends on the type of spatial application and on the
+research question. This specification requires <I>a priori </I>knowledge of the
+range and intensity of the spatial covariance between regions. Common methods
+include row standardization, length of common boundary and distance
+functions.</P>
+<P>With regard to the weighting procedure, the use of generalized
+weighting matrix <I>W</I>, as opposed to a binary connection matrix, allows a
+set of weights to be chosen which are deemed appropriate from prior
+consideration. This matrix <I>W </I>offers great flexibility in defining the
+structure of the county system, and it permits items such as natural barriers
+and county size to be taken into account. It is important to note that the
+elements of <I>W </I>are non-stochastic and exogenous to the model. Typically,
+they are based on the geographic arrangement of the observations or contiguity.
+Weights are non-zero when two locations share a common boundary or are within a
+given distance of each other. However, this notation is general and alternative
+specifications of the spatial weights can be based on distance decay (inverse
+distance). In this study, the neighbourhood structure is based on inverse
+Euclidean distance (Anselin, 1992).</P>
+<P>The expected value and variance of Moran&#146;s I for a sample
+of size <I>n </I>could be calculated according to the assumed pattern of the
+spatial data distribution (Cliff and Ord, 1981).</P>
+<P>For the assumption of a normal distribution:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e09.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(2)</P>
+    </TD>
+</TR>
+</TABLE>
+<br>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0a.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(3)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>For the assumption of random distribution:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0b.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(4)</P>
+    </TD>
+</TR>
+</TABLE>
+<br>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0c.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(5)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>where: <IMG ALIGN="bottom"  SRC="y4841e0d.gif">, <IMG ALIGN="bottom"  SRC="y4841e0e.gif">, 
+  <IMG ALIGN="absbottom"  SRC="y4841e0f.gif">, <IMG ALIGN="absbottom"  SRC="y4841e0g.gif">, 
+  <I>w<SUB>i</SUB>. </I>and <I>w.<SUB>i</SUB> </I>are the sum of the row <I>i 
+  </I>and column <I>i </I>of the weight matrix respectively.</P>
+<P>The test of the null hypothesis that there is no spatial
+autocorrelation between observed values over the <I>n </I>locations can be
+conducted on the basis of the standardized statistics as follows:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0h.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(6)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>Moran&#146;s I is significant and positive when the observed
+values of locations within a certain distance (<I>d</I>) tend to be similar,
+negative when they tend to be dissimilar, and approximately zero when the
+observed values are arranged randomly and independently over space.</P>
+<P>Another index for testing the presence of spatial
+autocorrelation in the data is Geary&#146;s C. It uses the sum of squared
+differences between pairs of data values as a measure of covariation. The
+formula of Geary&#146;s C is:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0i.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(7)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>This index ranges between 0 and 2. Positive spatial
+autocorrelation is found with values ranging from 0 to 1 and negative spatial
+autocorrelation is found between 1 and 2.</P>
+<P>For the assumption of a normal distribution:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0j.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(8)</P>
+    </TD>
+</TR>
+</TABLE>
+<br>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0k.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(9)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>For the assumption of random distribution:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0l.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(10)</P>
+    </TD>
+</TR>
+</TABLE>
+<br>
+<TABLE >
+<TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0m.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(11)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>The significance of Geary&#146;s C is tested identically to
+that for Moran&#146;s I.</P>
+<P>The results of spatial autocorrelation tests should be used
+with caution. First, the choice of neighbours and their respective weights
+determines the values of Moran and Geary statistics. Anon-significant result
+indicates that there is no significant spatial autocorrelation given the
+neighbourhood structure provided. Second, a significant positive autocorrelation
+could be caused by a spatial pattern in the data not specified by the
+statistical model. The following section shows how this model misspecification
+can be controlled by incorporating a spatial weights matrix into the statistical
+model.</P>
+
+<H2><A NAME="bm08.2"></A> Generalized spatial linear
+models</H2><P>As a special case, generalized spatial linear models include
+spatial linear regression and analysis of variance models, spatial logit and
+probit models for binary responses, loglinear models and multinomial response
+models for counts.</P>
+<P>Let <I>c<SUB>i</SUB> </I>denote the level of consumption per
+household, <I>z </I>denote the poverty line, and <I>si </I>= <I>ci </I>/ <I>z
+</I>be the normalized welfare indicator per household. The household poverty
+indicator is determined by the normalized welfare function as follows:</P>
+<P ALIGN="CENTER"><I>y<SUB>i</SUB></I> = 1 if 1n<I>s<SUB>i</SUB></I> &lt;
+0<BR><I>y<SUB>i</SUB></I> = 0 if 1n<I>s<SUB>i</SUB> </I>&#179; 0.</P>
+<P>The households are observed in <I>n </I>sites that form a
+subset <I>S </I>of the space. Each point (household) <I>i </I>has a binary
+response <I>y<SUB>i</SUB> </I>and a vector <I>k </I>&#215; 1 of covariates
+<I>x<SUB>i</SUB></I>. The responses constitute a map
+<IMG ALIGN="ABSMIDDLE"  SRC="y4841e0n.gif">.</P>
+<P>The regression model is called autologistic and states the
+conditional probability <I>p<SUB>i</SUB> </I>that <I>y<SUB>i</SUB> </I>is equal
+to 1, given all other site values <I>y<SUB>j</SUB> </I>(<I>j </I>&#185;<I> i</I>):</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0o.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(12)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>where <I>N </I>(<I>i</I>)is the neighbour set of site <I>i
+</I>according to a neighbourhood structure and
+<IMG ALIGN="ABSMIDDLE"  SRC="y4841e0p.gif">is the sum of the values of
+the dependent variable of the neighbours of the site <I>i</I>, that
+is:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0q.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(13)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>where <I>i &#64;</I> <I>j </I>denotes
+that the households <I>i </I>and <I>j </I>are neighbours.</P>
+<P>This kind of model then takes into account the spatial
+distribution of the welfare indicator, incorporating the neighbourhood structure
+in the model as another parameter to estimate.</P>
+<P>In the model, <I>X<SUP>H </SUP></I>is the vector of
+explanatory variables that describe the household characteristics, <I>X<SUP>C
+</SUP></I>is the vector of explanatory variables that describe the
+characteristics of the area in which the households reside, and &#70; is a cumulative distribution function that is standard
+normal in the case of probit regression.</P>
+<P>For a given poverty line and a given set of observation on
+<I>X<SUP>H </SUP></I>and <I>X<SUP>C</SUP></I>, the estimates of <I>&#98;<SUP>H</SUP></I>, <I>&#98;<SUP>C </SUP></I>and <I>&#103;
+</I>can be obtained by the maximum pseudo-likelihood method. Besag (1975) has
+demonstrated that the pseudo-likelihood method produces consistent parameter
+estimates under regular conditions.</P>
+<P>Given the above generalized linear model, a maximum
+pseudo-likelihood estimator (MPE) for the unknown parameter vector &#113; = {<I>&#98;<SUB>0</SUB>,
+&#98;<SUP>H</SUP>, &#98;<SUP>C</SUP>, &#103;</I>} will
+be defined as the vector <IMG ALIGN="ABSMIDDLE"  SRC="y4841e0r.gif">
+that maximizes the pseudo-likelihood function:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0s.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(14)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>As a result, the function in Equation 14 is not a full
+likelihood. An analytical form of the full likelihood is intractable for this
+problem because there is generally an unknown normalizing function.</P>
+<P>Therefore, the pseudo-likelihood estimation procedure proposed
+is an intuitively plausible method that avoids the technical difficulties of the
+full maximum likelihood approach. Adrawback of the method is that its sampling
+properties have not been studied as extensively as those of the full maximum
+likelihood estimators.</P>
+<P>Besag (1977) discusses the consistency and efficiency of
+pseudo-likelihood estimation for simple spatial Gaussian schemes. Strauss and
+Ikeda (1990) have shown that, for a logit model, maximization of Equation 14 is
+equivalent to a maximum likelihood fit for a logit regression model with
+independent observations <I>y<SUB>i</SUB></I>. Consequently, estimates can be
+obtained by using an iteratively reweighted least squares procedure.</P>
+<P>Therefore, any standard logistic regression routine can be
+used to obtain MPEs of the parameters. However, the standard errors of the
+estimated parameters calculated by the standard programs are not directly
+applicable because they are based on the assumption of independence of the
+observations.</P>
+<P>The next step is the estimation of the incidence of poverty in
+all counties. These estimates are made on the basis of the relationship between
+the area characteristics and the probability that households residing in these
+areas are poor. The probability that households in a given county are poor is
+estimated only on the basis of the area characteristics:</P>
+<TABLE width="640" >
+  <TR VALIGN="TOP">
+<TD COLSPAN=1 ROWSPAN=1 VALIGN="TOP">
+<P ALIGN="CENTER"><IMG ALIGN="ABSMIDDLE"  SRC="y4841e0t.gif"></P></TD>
+    <TD COLSPAN=1 ROWSPAN=1 VALIGN="middle"> 
+      <P ALIGN="RIGHT">(15)</P>
+    </TD>
+</TR>
+</TABLE>
+<P>where <I>&#98;<SUP>H </SUP></I>and
+<I>&#98;<SUP>C </SUP></I>are the coefficients from
+Equation 12 and &#112;<SUB><I>C</I></SUB><I> </I>is the
+probability that a household drawn from a certain county is poor. Therefore, the
+parameter estimates from the regression are applied to the census data in order
+to obtain an imputed value for &#112;<SUB><I>C</I></SUB>, the percentage of poor households
+in a county. In this way, the poor households in all the counties are estimated.
+Finally, using the information on household size, the probability of a household
+being poor can be extended to the probability of an individual being
+poor.</P>
+
+
+<p></p>
+<hr color="#004080">
+<p align="center">
+<a href="y4841e07.htm#TopOfPage"><img src="back.gif" width="43" height="35" alt="Previous Page" border="0"></A>
+<a href="#TopOfPage"><img src="top.gif" width="43" height="35" alt="Top of Page" border="0"></A>
+<a href="y4841e09.htm#TopOfPage"><img src="next.gif" width="43" height="35" alt="Next Page" border="0"></A>
+</p>
+</body>
+</html>

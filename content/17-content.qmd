@@ -1,0 +1,44 @@
+---
+title: "Interpolation and Autocorrelation"
+date: "2022-10-19"
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "tVcomh6jl2Y", "Quantifying spatial patterns", "1", TRUE,
+  "tVcomh6jl2Y", "Patterns as process", "process", FALSE,
+  "tVcomh6jQ2Y", "Tobler's law", "tobler", FALSE,
+  "UbQ8IW3UI9E", "Interpolation", "scale", FALSE,
+)
+```
+## Resources
+
+- <i class="fas fa-book"></i> [Chapter 2: Scale](https://boisestatecanvas.instructure.com/files/4856927/download?download_frd=1) in [@fletcher2018spatial] provides a thorough introduction to the ecologist's conceptualization of scale with `R` examples.
+
+- <i class="fas fa-external-link-square-alt"></i>  This [article](https://www.sciencedirect.com/science/article/pii/S0016718506001564#:~:text=The%20epistemological%20scale%20continuum%20runs,readily%20accessible%20to%20objective%20observers) by Steven Manson [@manson2008does] provides a more comprehensive view of conceptualizations of scale.
+
+- <i class="fas fa-external-link-square-alt"></i>  The [Hypothesis Testing and Autocorrelation](https://mgimond.github.io/Spatial/hypothesis-testing.html) chapters of Manuel Gimond's Introduction to GIS and Spatial Analysis `bookdown` project provide concrete examples of attempts to find process from spatial patterns. 
+
+## Objectives
+
+By the end of today you should be able to:
+
+- Distinguish deterministic and stochastic processes
+
+- Define autocorrelation and describe its estimation
+
+- Articulate the benefits and drawbacks of autocorrelation
+
+- Leverage point patterns and autocorrelation to interpolate missing data
+
+## Slides
+
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/17-slides")
+slide_tabs(slide_details, "/slides/17-slides.html")
+```

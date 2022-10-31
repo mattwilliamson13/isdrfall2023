@@ -1,0 +1,568 @@
+---
+title: "Interpolation and Autocorrelation"
+subtitle: "HES 505 Fall 2022: Session 17"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(tidycensus)
+library(sf)
+library(tidyverse)
+library(socviz)
+library(maps)
+library(tmap)
+library(spData)
+library(terra)
+library(maptools)
+library(spatstat)
+library(tmap)
+library(gstat)
+library(spdep)
+```
+
+# Objectives {background="#0033A0"}
+
+By the end of today you should be able to:
+
+- Distinguish deterministic and stochastic processes
+
+- Define autocorrelation and describe its estimation
+
+- Articulate the benefits and drawbacks of autocorrelation
+
+- Leverage point patterns and autocorrelation to interpolate missing data
+
+## Description vs. process?
+
+::: columns
+::: {.column width="60%"}
+
+* Vizualization and the detection of patterns
+
+* The challenge of geographic data
+
+* Implications for analysis 
+:::
+::: {.column width="40%"}
+![Inequality in the United States: Quintiles of Gini Index by County: 2006–2010. The greater the Gini index, the more unequal a county’s income distribution is.](img/slide_17/gini-map-census.png)
+:::
+:::
+
+
+## Patterns as realizations of spatial processes
+
+* A __spatial process__ is a description of how a spatial pattern might be _generated_
+
+* __Generative models__ 
+
+* An observed pattern as a _possible realization_ of an hypothesized process
+
+## Deterministic vs. stochastic processes
+
+::: columns
+::: {.column width="70%"}
+* Deterministic processes: always produces the same outcome
+
+$$
+z = 2x + 3y
+$$
+
+* Results in a spatially continuous field
+
+```{r}
+#| echo: true
+x <- rast(nrows = 10, ncols=10, xmin = 0, xmax=10, ymin = 0, ymax=10)
+values(x) <- 1
+z <- x
+values(z) <- 2 * crds(x)[,1] + 3*crds(x)[,2]
+```
+
+:::
+::: {.column width="30%"}
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+plot(z)
+```
+:::
+:::
+
+## Deterministic vs. stochastic processes
+
+::: columns
+::: {.column width="40%"}
+::: {style="font-size: 0.7em"}
+* Stochastic processes: variation makes each realization difficult to predict
+
+$$
+z = 2x + 3y + d
+$$
+
+* The _process_ is random, not the result (!!)
+* Measurement error makes deterministic processes appear stochastic
+:::
+:::
+::: {.column width="60%"}
+```{r}
+#| echo: true
+x <- rast(nrows = 10, ncols=10, xmin = 0, xmax=10, ymin = 0, ymax=10)
+values(x) <- 1
+fun <- function(z){
+a <- z
+d <- runif(ncell(z), -50,50)
+values(a) <- 2 * crds(x)[,1] + 3*crds(x)[,2] + d
+return(a)
+}
+
+b <- replicate(n=6, fun(z=x), simplify=FALSE)
+d <- do.call(c, b)
+```
+:::
+:::
+
+## Deterministic vs. stochastic processes
+
+```{r stocproc2, echo=FALSE}
+
+plot(d)
+```
+
+## Expected values and hypothesis testing
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+
+* Considering each outcome as the realization of a process allows us to generate expected values
+
+* The simplest spatial process is Completely Spatial Random (CSR) process
+
+* __First Order__ effects: any event has an equal probability of occuring in a location
+
+* __Second Order__ effects: the location of one event is independent of the other events
+:::
+:::
+::: {.column width="40%"}
+![From Manuel Gimond](img/slide_17/IRP_CSR.png)
+:::
+:::
+
+## Generating expactations for CSR
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| fig-width: 7
+#| fig-height: 7
+load(url("https://github.com/mgimond/Spatial/raw/main/Data/ppa.RData"))
+
+library(spatstat)
+marks(starbucks)  <- NULL
+Window(starbucks) <- ma
+pop.lg <- log(pop)
+Q <- quadratcount(starbucks, nx= 6, ny=3)
+par(mfrow=c(2,1), mar=c(2,2,2,2))
+plot(starbucks, main=NULL, cols=rgb(0,0,0,.2), pch=20)
+plot(starbucks, pch=20, cols="grey70", main=NULL)  # Plot points
+plot(Q, add=TRUE)
+par(mfrow=c(1,1), mar=c(5.1,4.1,4.1,2.1))
+```
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+* We can use quadrat counts to estimate the expected number of events in a given area
+
+* The probability of each possible count is given by:
+
+$$
+P(n,k) = {n \choose x}p^k(1-p)^{n-k}
+$$
+
+* Given total coverage of quadrats, then $p=\frac{\frac{a}{x}}{a}$ and
+
+$$
+\begin{equation}
+P(k,n,x) = {n \choose k}\bigg(\frac{1}{x}\bigg)^k\bigg(\frac{x-1}{x}\bigg)^{n-k}
+\end{equation}
+$$
+:::   
+:::
+:::
+
+
+# Tobler's Law
+
+> ‘everything is usually related to all else but those which are near to each other
+>are more related when compared to those that are further away’.
+> `r tufte::quote_footer('Waldo Tobler')`
+
+---
+## Spatial autocorrelation
+
+![From Manuel Gimond](img/slide_17/Random_maps.png)
+ 
+## (One) Measure of autocorrelation
+
+::: columns
+::: {.column width="50%"}
+* Moran's I
+
+![](img/slide_17/MI.png)
+:::
+::: {.column width="50%"}
+
+![](img/slide_17/mI2.png)
+:::
+:::
+
+## Moran's I: An example
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+
+* Use `spdep` package
+
+* Estimate neighbors
+
+* Generate weighted average
+
+```{r}
+#| echo: true
+
+set.seed(2354)
+# Load the shapefile
+s <- readRDS(url("https://github.com/mgimond/Data/raw/gh-pages/Exercises/fl_hr80.rds"))
+
+# Define the neighbors (use queen case)
+nb <- poly2nb(s, queen=TRUE)
+
+# Compute the neighboring average homicide rates
+lw <- nb2listw(nb, style="W", zero.policy=TRUE)
+#estimate Moran's I
+moran.test(s$HR80,lw, alternative="greater")
+
+```
+:::
+:::
+::: {.column width="40%"}
+![](img/slide_17/florida.png)
+
+:::
+:::
+
+## Moran's I: An example
+::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+ 
+M1 <- moran.mc(s$HR80, lw, nsim=9999, alternative="greater")
+
+
+
+# Display the resulting statistics
+M1
+```
+
+:::
+::: {.column width="40%"}
+
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+# Plot the results
+plot(M1)
+```
+:::
+:::
+
+## The challenge of areal data
+
+* Spatial autocorrelation threatens _second order_ randomness
+
+* Areal data means an infinite number of potential distances
+
+* Neighbor matrices, $\boldsymbol W$, allow different characterizations
+
+
+# Interpolation {background="#0033A0"}
+
+## Interpolation
+
+* Goal: estimate the value of $z$ at new points in $\mathbf{x_i}$
+
+* Most useful for continuous values
+
+* Nearest-neighbor, Inverse Distance Weighting, Kriging
+
+## Nearest neighbor
+
+* find $i$ such that $| \mathbf{x_i} - \mathbf{x}|$ is minimized
+
+* The estimate of $z$ is $z_i$
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+data(meuse)
+r <- rast(system.file("ex/meuse.tif", package="terra"))
+sfmeuse <- st_as_sf(meuse, coords = c("x", "y"), crs=crs(r))
+nodes <- st_make_grid(sfmeuse,
+                      cellsize = 25,
+                      what = "centers")
+
+dist <- distance(vect(nodes), vect(sfmeuse))
+nearest <- apply(dist, 1, function(x) which(x == min(x)))
+zinc_nn <- sfmeuse$zinc[nearest]
+preds <- st_as_sf(nodes)
+preds$zn <- zinc_nn
+preds <- as(preds, "Spatial")
+gridded(preds) <- TRUE
+preds.rast <- rast(preds)
+r.resamp <- resample(r, preds.rast)
+preds.rast <- mask(preds.rast, r.resamp)
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+plot(preds.rast)
+```
+:::
+:::
+
+## Inverse-Distance Weighting
+
+* Weight closer observations more heavily
+
+$$
+\begin{equation}
+\hat{z}(\mathbf{x}) = \frac{\sum_{i=1}w_iz_i}{\sum_{i=1}w_i}
+\end{equation}
+$$
+where
+
+$$
+\begin{equation}
+w_i = | \mathbf{x} - \mathbf{x}_i |^{-\alpha}
+\end{equation}
+$$
+and $\alpha > 0$ ($\alpha  = 1$ is inverse; $\alpha = 2$ is inverse square)
+
+## Inverse-Distance Weighting
+
+* `terra::interpolate` provides flexible interpolation methods
+
+* Use the `gstat` package to develop the formula
+
+```{r}
+#| echo: true
+mgsf05 <- gstat(id = "zinc", formula = zinc~1, data=sfmeuse,  nmax=7, set=list(idp = 0.5))
+mgsf2 <- gstat(id = "zinc", formula = zinc~1, data=sfmeuse,  nmax=7, set=list(idp = 2))
+interpolate_gstat <- function(model, x, crs, ...) {
+	v <- st_as_sf(x, coords=c("x", "y"), crs=crs)
+	p <- predict(model, v, ...)
+	as.data.frame(p)[,1:2]
+}
+zsf05 <- interpolate(r, mgsf05, debug.level=0, fun=interpolate_gstat, crs=crs(r), index=1)
+zsf2 <- interpolate(r, mgsf2, debug.level=0, fun=interpolate_gstat, crs=crs(r), index=1)
+```
+
+## Inverse-Distance Weighting
+
+```{r}
+zsf05msk <- mask(zsf05, r)
+zsf2msk <- mask(zsf2, r)
+par(mfrow=c(1,2))
+plot(zsf05msk, main="idp=0.5")
+plot(zsf2msk, main="idp=2")
+par(mfrow=c(1,1))
+```
+
+## Inverse-Distance Weighting
+
+```{r}
+par(mfrow=c(1,2))
+persp(zsf05msk,box=FALSE, main="idp=0.5")
+persp(zsf2msk, box=FALSE,main="idp=2")
+par(mfrow=c(1,1))
+```
+
+## Kriging
+::: {style="font-size: 0.8em"}
+* Previous methods predict $z$ as a (weighted) function of distance
+
+* Treat the observations as perfect (no error)
+
+* If we imagine that $z$ is the outcome of some spatial process such that:
+
+$$
+\begin{equation}
+z(\mathbf{x}) = \mu(\mathbf{x}) + \epsilon(\mathbf{x})
+\end{equation}
+$$
+
+then any observed value of $z$ is some function of the process ($\mu(\mathbf{x})$) and some error ($\epsilon(\mathbf{x})$)
+
+* Kriging exploits autocorrelation in $\epsilon(\mathbf{x})$ to identify the trend and interpolate accordingly
+:::
+
+## Autocorrelation
+
+* __Correlation__ the tendency for two variables to be related
+
+* __Autocorrelation__ the tendency for observations that are closer (in space or time) to be correlated
+
+* __Positive autocorrelation__ neighboring observations have $\epsilon$ with the same sign
+
+* __Negative autocorrelation__ neighboring observations have $\epsilon$ with a different sign (rare in geography)
+
+## Ordinary Kriging
+
+* Assumes that the deterministic part of the process ($\mu(\mathbf{x})$) is an unknown constant ($\mu$)
+
+$$
+\begin{equation}
+z(\mathbf{x}) = \mu + \epsilon(\mathbf{x})
+\end{equation}
+$$
+* Specified in call to `variogram` and `gstat` as `y~1` (or some other constant)
+
+```{r}
+#| echo: true
+v <- variogram(log(zinc)~1, ~x+y, data=meuse)
+mv <- fit.variogram(v, vgm(1, "Sph", 300, 1))
+gOK <- gstat(NULL, "log.zinc", log(zinc)~1, meuse, locations=~x+y, model=mv)
+OK <- interpolate(r, gOK, debug.level=0)
+```
+
+## Ordinary Kriging
+
+```{r}
+OKmsk <- mask(OK, r)
+plot(OKmsk)
+```
+
+## Universal Kriging
+
+* Assumes that the deterministic part of the process ($\mu(\mathbf{x})$) is now a function of the location $\mathbf{x}$
+
+* Could be the location or some other attribute
+
+* Now `y` is a function of some aspect of `x`
+
+```{r}
+#| echo: true
+
+vu <- variogram(log(zinc)~elev, ~x+y, data=meuse)
+mu <- fit.variogram(vu, vgm(1, "Sph", 300, 1))
+gUK <- gstat(NULL, "log.zinc", log(zinc)~elev, meuse, locations=~x+y, model=mu)
+names(r) <- "elev"
+UK <- interpolate(r, gUK, debug.level=0)
+```
+
+## Universal Kriging
+
+```{r}
+UK.msk <- mask(UK, r)
+plot(UK.msk)
+```
+
+## Universal Kriging
+
+```{r}
+#| echo: true
+
+vu <- variogram(log(zinc)~x + x^2 + y + y^2, ~x+y, data=meuse)
+mu <- fit.variogram(vu, vgm(1, "Sph", 300, 1))
+gUK <- gstat(NULL, "log.zinc", log(zinc)~x + x^2 + y + y^2, meuse, locations=~x+y, model=mu)
+names(r) <- "elev"
+UK <- interpolate(r, gUK, debug.level=0)
+```
+
+## Universal Kriging
+
+```{r}
+UK.msk <- mask(UK, r)
+plot(UK.msk)
+```
+
+## Co-Kriging
+
+* relies on autocorrelation in $\epsilon_1(\mathbf{x})$ for $z_1$ AND cross correlation with other variables ($z_{2...j}$)
+
+* Extending the ordinary kriging model gives:
+
+$$
+\begin{equation}
+z_1(\mathbf{x}) = \mu_1 + \epsilon_1(\mathbf{x})\\
+z_2(\mathbf{x}) = \mu_2 + \epsilon_2(\mathbf{x})
+\end{equation}
+$$
+* Note that there is autocorrelation within both $z_1$ and $z_2$ (because of the $\epsilon$) and cross-correlation (because of the location, $\mathbf{x}$)
+
+* Not required that all variables are measured at exactly the same points
+
+## Co-Kriging
+
+* Process is just a linked series of `gstat` calls
+
+```{r}
+#| echo: true
+gCoK <- gstat(NULL, 'log.zinc', log(zinc)~1, meuse, locations=~x+y)
+gCoK <- gstat(gCoK, 'elev', elev~1, meuse, locations=~x+y)
+gCoK <- gstat(gCoK, 'cadmium', cadmium~1, meuse, locations=~x+y)
+coV <- variogram(gCoK)
+coV.fit <- fit.lmc(coV, gCoK, vgm(model='Sph', range=1000))
+
+coK <- interpolate(r, coV.fit, debug.level=0)
+
+```
+
+## Co-Kriging
+
+```{r}
+plot(coV, coV.fit, main='Fitted Co-variogram')
+```
+
+## Co-Kriging
+
+```{r}
+coK.msk <- mask(coK, r)
+plot(coK.msk)
+```
+
+## A Note about Semivariograms
+
+
+* __nugget__ - the proportion of semivariance that occurs at small distances
+
+* __sill__ - the maximum semivariance between pairs of observations
+
+* __range__ - the distance at which the __sill__ occurs 
+
+* __experimental__ vs. __fitted__ variograms
+
+## A Note about Semivariograms
+
+![](img/slide_16/index.png)
+
+
+## Fitted Semivariograms
+
+* Rely on functional forms to model semivariance
+
+![](img/slide_16/Variogram-models.png)
+

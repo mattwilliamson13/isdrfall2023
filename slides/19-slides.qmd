@@ -1,0 +1,382 @@
+---
+title: "Multivariate Analysis I"
+subtitle: "HES 505 Fall 2022: Session 19"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(sf)
+library(tidyverse)
+library(maps)
+library(tmap)
+library(terra)
+library(corrplot)
+```
+
+# Objectives {background="#0033A0"}
+
+By the end of today you should be able to:
+
+- Recognize the link between regression analysis and overlay analysis
+
+- Generate spatial predictions based on regression analysis
+
+- Extend logistic regression to presence-only data models
+
+## Estimating favorability
+
+$$
+\begin{equation}
+F(\mathbf{s}) = \prod_{M=1}^{m}X_m(\mathbf{s})
+\end{equation}
+$$
+
+* Treat $F(\mathbf{s})$ as binary 
+* Then $F(\mathbf{s}) = 1$ if all inputs ($X_m(\mathbf{s})$) are suitable
+* Then $F(\mathbf{s}) = 0$ if not
+
+## Estimating favorability
+
+$$
+\begin{equation}
+F(\mathbf{s}) = f(w_1X_1(\mathbf{s}), w_2X_2(\mathbf{s}), w_3X_3(\mathbf{s}), ..., w_mX_m(\mathbf{s}))
+\end{equation}
+$$
+
+* $F(\mathbf{s})$ does not have to be binary (could be ordinal or continuous)
+
+* $X_m(\mathbf{s})$ could also be extended beyond simply 'suitable/not suitable'
+
+* Adding weights allows incorporation of relative importance
+
+* Other functions for combining inputs ($X_m(\mathbf{s})$)
+
+## Weighted Linear Combinations
+
+$$
+\begin{equation}
+F(\mathbf{s}) = \frac{\sum_{i=1}^{m}w_iX_i(\mathbf{s})}{\sum_{i=1}^{m}w_i}
+\end{equation}
+$$
+
+* $F(s)$ is now an index based of the values of $X_m(\mathbf{s})$
+
+* $w_i$ can incorporate weights of evidence, uncertainty, or different participant preferences
+
+* Dividing by $\sum_{i=1}^{m}w_i$ normalizes by the sum of weights
+
+## Model-driven overlay
+
+$$
+\begin{equation}
+F(\mathbf{s}) = w_0 + \sum_{i=1}^{m}w_iX_i(\mathbf{s}) + \epsilon
+\end{equation}
+$$
+
+* If we estimate $w_i$ using data, we specify $F(s)$ as the outcome of regression
+
+* When $F(s)$ is binary &rightarrow; logistic regression
+
+* When $F(s)$ is continuous &rightarrow; linear (gamma) regression
+
+* When $F(s)$ is discrete &rightarrow; Poisson regression
+
+* Assumptions about $\epsilon$ matter!!
+
+# Logistic Regression and Distribution Models {background="#0033A0"}
+
+## Why do we create distribution models?
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+
+* To identify important correlations between predictors and the occurrence of an event
+
+* Generate maps of the 'range' or 'niche' of events
+
+* Understand spatial patterns of event co-occurrence
+
+* Forecast changes in event distributions 
+:::
+:::
+::: {.column width="40%"}
+![From [Wiens et al. 2009](https://www.pnas.org/content/106/Supplement_2/19729)](img/slide_19/climchange.png)
+:::
+:::
+
+## General analysis situation 
+
+![From [Long](https://www.biodiversityscience.com/2011/04/27/species-distribution-modelling/)](img/slide_19/SDMfigure1resized.png)
+
+::: {style="font-size: 0.7em"}
+* Spatially referenced locations of events $(\mathbf{y})$ sampled from the study extent
+
+* A matrix of predictors $(\mathbf{X})$ that can be assigned to each event based on spatial location
+
+>__Goal__: Estimate the probability of occurrence of events across unsampled regions of the study area based on correlations with predictors
+
+:::
+
+## Modeling Presence-Absence Data
+
+::: columns
+::: {.column width="50%"}
+* Random or systematic sample of the study region
+
+* The presence (or absence) of the event is recorded for each point
+
+* Hypothesized predictors of occurrence are measured (or extracted) at each point 
+:::
+::: {.column width="50%"}
+![From [By Ragnvald - Own work, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2107716)](img/slide_19/Predicting_habitats.png)
+:::
+:::
+
+## Logistic regression
+
+::: columns
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+
+* We can model favorability as the __probability__ of occurrence using a logistic regression
+
+* A _link_ function maps the linear predictor $(\mathbf{x_i}'\beta + \alpha)$ onto the support (0-1) for probabilities
+
+* Estimates of $\beta$ can then be used to generate 'wall-to-wall' spatial predictions
+:::
+:::
+::: {.column width="50%"}
+
+$$ 
+\begin{equation}
+y_{i} \sim \text{Bern}(p_i)\\
+\text{link}(p_i) = \mathbf{x_i}'\beta + \alpha
+\end{equation}
+$$
+
+![From [Mendoza](https://www.ou.edu/faculty/M/Jorge.L.Mendoza-1/comparison_of_probit.htm)](img/slide_19/Probit.png)
+
+:::
+:::
+
+## An Example
+
+Inputs from the `dismo` package
+
+```{r}
+base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2021/session28/" #sets the path to the root directory
+
+pres.abs <- st_read(paste0(base.path, "presenceabsence.shp"), quiet = TRUE) #read the points with presence absence data
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/Users/matthewwilliamson/Downloads/session28/presenceabsence.shp", layer: "presenceabsence"
+## with 100 features
+## It has 1 fields
+pred.files <- list.files(base.path,pattern='grd$', full.names=TRUE) #get the bioclim data
+
+pred.stack <- rast(pred.files) #read into a RasterStack
+names(pred.stack) <- c("MeanAnnTemp", "TotalPrecip", "PrecipWetQuarter", "PrecipDryQuarter", "MinTempCold", "TempRange")
+plot(pred.stack)
+```
+
+## An Example
+
+The sample data
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+head(pres.abs)
+```
+:::
+::: {.column width="60%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(pred.stack[[1]])
+pres.pts <- pres.abs[pres.abs$y == 1,]
+abs.pts <- pres.abs[pres.abs$y == 0,]
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+:::
+:::
+
+## An Example
+Building our dataframe
+
+
+```{r}
+#| echo: true
+pts.df <- terra::extract(pred.stack, vect(pres.abs), df=TRUE)
+head(pts.df)
+```
+
+## An Example
+Building our dataframe
+```{r}
+#| echo: true
+pts.df[,2:7] <- scale(pts.df[,2:7])
+summary(pts.df)
+```
+## An Example
+Looking at correlations
+```{r}
+#| echo: true
+pairs(pts.df[,2:7])
+```
+
+## An Example
+Looking at correlations
+
+```{r}
+#| echo: true
+corrplot(cor(pts.df[,2:7]), method = "number")
+```
+
+## An Example
+Fitting some models
+
+```{r}
+#| echo: true
+pts.df <- cbind(pts.df, pres.abs$y)
+colnames(pts.df)[8] <- "y"
+logistic.global <- glm(y~., family=binomial(link="logit"), data=pts.df[,2:8])
+logistic.simple <- glm(y ~ MeanAnnTemp + TotalPrecip, family=binomial(link="logit"), data=pts.df[,2:8])
+logistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, family=binomial(link="logit"), data=pts.df[,2:8])
+```
+
+## An Example
+Checking out the results
+```{r}
+#| echo: true
+summary(logistic.global)
+```
+
+## An Example
+Checking out the results
+```{r}
+#| echo: true
+summary(logistic.simple)
+```
+
+## An Example
+Checking out the results
+```{r}
+#| echo: true
+summary(logistic.rich)
+```
+
+## An Example
+Comparing models
+```{r}
+#| echo: true
+AIC(logistic.global, logistic.simple, logistic.rich)
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.simple)
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.simple, type="response")
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.global, type="response")
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.rich, type="response")
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## Key assumptions of logistic regression
+
+* Dependent variable must be binary
+
+* Observations must be independent (important for spatial analyses)
+
+* Predictors should not be collinear
+
+* Predictors should be linearly related to the log-odds
+
+* __Sample Size__
+
+# Modelling Presence-Background Data {background="#0033A0"}
+
+## The sampling situation
+
+::: columns
+::: {.column width="40%"}
+![From [Lentz et al. 2008](https://www.journals.uchicago.edu/doi/full/10.1086/528754)](img/slide_19/maxentresult.png)
+:::
+::: {.column width="60%"}
+* Opportunistic collection of presences only
+
+* Hypothesized predictors of occurrence are measured (or extracted) at each presence
+
+* Background points (or pseudoabsences) generated for comparison
+:::
+:::
+
+## The Challenge with Background Points
+
+* What constitutes background?
+
+* Not measuring _probability_, but relative likelihood of occurrence
+
+* Sampling bias affects estimation
+
+* The intercept
+
+$$ 
+\begin{equation}
+y_{i} \sim \text{Bern}(p_i)\\
+\text{link}(p_i) = \mathbf{x_i}'\beta + \alpha
+\end{equation}
+$$
+
+## Point Process Models
+
+* Poisson Point Process Models model location (not $y$)
+
+* Number of points expected is given by a rate $\lambda$
+
+* Model $\lambda$ using Poisson regression
+

@@ -1,0 +1,45 @@
+---
+title: "Overlays"
+date: "2022-10-24"
+---
+
+```{r slides-videos, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "tVcomh6jl2Y", "Covariates and Density", "dens", TRUE,
+  "tVcomh6jQ2Y", "Boolean Overlays", "workflows", FALSE,
+  "UbQ8IW3UI9E", "Weighted Linear Combinations", "database", FALSE,
+  "6MTC9uGMNFg", "Weights of Evidence", "apps", FALSE,
+)
+```
+
+Now that you have some experience with analyzing point patterns, we'll extend those ideas to begin developing new multivariate algorithms. We'll start with some simple additions of covariates to our kernel density estimators. Then we'll move into overlay analysis to set the stage for more complicated regression models.
+
+## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [Overlay analysis](https://gistbok.ucgis.org/bok-topics/overlay) provides an overview of the logic of overlay analysis.
+
+- <i class="fas fa-external-link-square-alt"></i> [Spatial Operations and Vector Overlays](https://mgimond.github.io/Spatial/spatial-operations-and-vector-overlays.html) from Manual Gimond provides an intro to using vector data in overlays. Easily converable to `sf` syntax.
+
+- <i class="fas fa-external-link-square-alt"></i> [Predicting site location with simple additive raster sensitivity analysis using R](https://benmarwick.github.io/How-To-Do-Archaeological-Science-Using-R/predicting-site-location-with-simple-additive-raster-sensitivity-analysis-using-r.html) from Ben Markwick has a complete example of using a weights of evidence approach to overlays.
+
+## Objectives
+
+By the end of today you should be able to:
+
+- integrate a covariate into KDE's
+
+- Describe the utility and shortcomings of overlay analysis
+
+- Describe and implement different overlay approaches
+
+## Slides
+
+The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/18-slides")
+slide_tabs(slide_details, "/slides/18-slides.html")
+```
