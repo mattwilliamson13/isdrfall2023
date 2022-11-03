@@ -1,0 +1,477 @@
+---
+title: "Multivariate Analysis III"
+subtitle: "HES 505 Fall 2022: Session 21"
+author: "Matt Williamson"
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(sf)
+library(tidyverse)
+library(maps)
+library(tmap)
+library(terra)
+library(corrplot)
+```
+
+# Objectives {background="#0033A0"}
+
+By the end of today you should be able to:
+
+- Articulate three different reasons for modeling and how they link to assessments of fit
+
+- Describe and implement several test statistics for assessing model fit
+
+- Describe and implement several assessments of classification
+
+- Describe and implement resampling techniques to estimate predictive performance
+
+# The 3 Faces of Models {background="#0033A0"}
+
+## Best Model for What?
+
+::: columns
+::: {.column width="50%"}
+![from Tradennick et al. 2021](img/slide_21/Tredennick.png)
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+* __Exploration:__ describe patterns in the data and generate hypotheses
+
+* __Inference:__ evaluate the strength of evidence for some statement about the process
+
+* __Prediction:__ forecast outcomes at unsampled locations based on covariates
+:::
+:::
+:::
+
+## The Importance of Model Fit
+
+* The general regression context:
+
+$$
+\begin{equation}
+\hat{y} = \mathbf{X}\hat{\beta}
+\end{equation}
+$$
+
+* __Inference__ is focused on robust estimates of $\hat{\beta}$ given the data we have
+
+* __Prediction__ is focused on accurate forecasts of $\hat{y}$ at locations where we have yet to collect the data
+
+## Inference and Presence/Absence Data
+
+* $\hat{\beta}$ is conditional on variables in the model __and__ those not in the model
+
+```{r}
+#| echo: true
+
+nsamp <- 1000
+df <- data.frame(x1 = rnorm(nsamp,0,1),
+                 x2 = rnorm(nsamp,0,1),
+                 x3 = rnorm(nsamp,0,1))
+
+linpred <- 1 + 2*df$x1 -0.18*df$x2 -3.5*df$x3
+y <- rbinom(nsamp, 1, plogis(linpred))
+df <- cbind(df, y)
+
+mod1 <- glm(y~x1 +x2, data=df, family="binomial")
+mod2 <- glm(y~x1 +x2 + x3, data=df, family="binomial")
+```
+
+## Inference \& Presence/Absence Data
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+coef(mod1)
+coef(mod2)
+```
+:::
+:::{.column width="60%"}
+```{r}
+#| echo: true
+prd1 <- predict(mod1, df, "response")
+dif1 <- plogis(linpred) - prd1
+prd2 <- predict(mod2, df, "response")
+dif2 <- plogis(linpred) - prd2
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(dif1, main="misspecified")
+plot(dif2, main="correct")
+par(mfrow=c(1,1))
+```
+:::
+:::
+
+> Inferring coefficient effects requires that your model fit the data well
+
+# Assessing Model Fit {background="#0033A0"}
+
+## 
+
+```{r}
+base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2021/session28/" #sets the path to the root directory
+
+pres.abs <- st_read(paste0(base.path, "presenceabsence.shp"), quiet = TRUE) #read the points with presence absence data
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/Users/matthewwilliamson/Downloads/session28/presenceabsence.shp", layer: "presenceabsence"
+## with 100 features
+## It has 1 fields
+pred.files <- list.files(base.path,pattern='grd$', full.names=TRUE) #get the bioclim data
+
+pred.stack <- rast(pred.files) #read into a RasterStack
+names(pred.stack) <- c("MeanAnnTemp", "TotalPrecip", "PrecipWetQuarter", "PrecipDryQuarter", "MinTempCold", "TempRange")
+plot(pred.stack)
+pts.df <- terra::extract(pred.stack, vect(pres.abs), df=TRUE)
+pts.df[,2:7] <- scale(pts.df[,2:7])
+pts.df <- cbind(pts.df, pres.abs$y)
+colnames(pts.df)[8] <- "y"
+```
+
+## Using Test Statistics
+
+::: columns
+::: {.column width="40%"}
+* $R^2$ for linear regression:
+
+$$
+\begin{equation}
+R^2 = 1- \frac{SS_{res}}{SS_{tot}}\\
+SS_{res} = \sum_{i}(y_i- f_i)^2\\
+SS_{tot} = \sum_{i}(y_i-\bar{y})^2
+\end{equation}
+$$
+:::
+::: {.column width="60%"}
+* Perfect prediction ($f_i = y_i$); $SS_{res} = 0$; and $R^2 = 1$
+
+* Null prediction (Intercept only) ($f_i = \bar{y}$); $SS_{res} = SS_{tot}$; and $R^2 = 0$
+
+* No direct way of implementing for logistic regression
+:::
+:::
+
+## Pseudo- $R^2$
+
+::: columns
+::: {.column width="40%"}
+$$
+\begin{equation}
+R^2_L = \frac{D_{null} - D_{fitted}}{D_{null}}
+\end{equation}
+$$
+:::
+::: {.column width="60%"}
+* Cohen's Likelihood Ratio
+
+* Deviance ($D$), the difference between the model and some hypothetical perfect model (lower is better)
+
+* Challenge: Not monotonically related to $p$
+
+* Challenge: How high is too high?
+:::
+:::
+
+## Cohen's Likelihood Ratio 
+
+```{r}
+#| echo: true
+logistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, 
+                     family=binomial(link="logit"),
+                     data=pts.df[,2:8])
+
+with(logistic.rich, 
+     null.deviance - deviance)/with(logistic.rich,
+                                    null.deviance)
+```
+
+## Pseudo- $R^2$
+
+::: columns
+::: {.column width="50%"}
+
+$$
+\begin{equation}
+\begin{aligned}
+R^2_{CS} &= 1 - \left( \frac{L_0}{L_M} \right)^{(2/n)}\\
+ &= 1 - \exp^{2(ln(L_0)-ln(L_M))/n}
+\end{aligned}
+\end{equation}
+$$
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+* Cox and Snell $R^2$
+
+* Likelihood ($L$), the probability of observing the sample given an assumed distribution
+
+* Challenge: Maximum value is less than 1 and changes with $n$
+
+* Correction by Nagelkerke so that maximum is 1
+:::
+:::
+:::
+
+## Cox and Snell $R^2$
+
+```{r}
+#| echo: true
+logistic.null <- glm(y ~ 1, 
+                     family=binomial(link="logit"),
+                     data=pts.df[,2:8])
+
+1 - exp(2*(logLik(logistic.null)[1] - logLik(logistic.rich)[1])/nobs(logistic.rich))
+```
+
+
+## Using Test Statistics
+
+* Based on the data used in the model (i.e., not prediction)
+
+* Likelihood Ratio behaves most similarly to $R^2$
+
+* Cox and Snell (and Nagelkerke) increases with more presences
+
+* Ongoing debate over which is "best"
+
+* __Don't defer to a single statistic__
+
+# Assessing Predictive Ability {background="#0033A0"}
+
+## Predictive Performance and Fit
+
+* Predictive performance can be an estimate of fit
+
+* Comparisons are often relative (better $\neq$ good)
+
+* Theoretical and subsampling methods
+
+## Theoretical Assessment of Predictive Performance
+
+::: columns
+::: {.column width="40%"}
+![Hirotugu Akaike of AIC](img/slide_21/Akaike.jpg)
+
+
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+* Information Criterion Methods
+
+* Minimize the amount of information lost by using model to approximate true process
+
+* Trade-off between fit and overfitting
+
+* Can't know the true process (so comparisons are relative)
+$$
+\begin{equation}
+AIC = -2ln(\hat{L}) +2k
+\end{equation}
+$$
+:::
+:::
+:::
+
+## AIC Comparison
+
+```{r}
+#| echo: true
+logistic.null <- glm(y ~ 1, 
+                     family=binomial(link="logit"),
+                     data=pts.df[,2:8])
+
+logistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, 
+                     family=binomial(link="logit"),
+                     data=pts.df[,2:8])
+
+AIC(logistic.null, logistic.rich)
+```
+
+## Sub-sampling Methods
+
+::: columns
+::: {.column width="60%"}
+* Split data into _training_ and _testing_
+
+* Testing set needs to be large enough for results to be statistically meaningful
+
+* Test set should be representative of the data as a whole
+
+* Validation data used to tune parameters (not always)
+:::
+::: {.column width="40%"}
+![](img/slide_21/itest.png)
+:::
+:::
+
+## Subsampling your data with `caret`
+```{r}
+#| echo: true
+pts.df$y <- as.factor(ifelse(pts.df$y == 1, "Yes", "No"))
+library(caret)
+Train <- createDataPartition(pts.df$y, p=0.6, list=FALSE)
+
+training <- pts.df[ Train, ]
+testing <- pts.df[ -Train, ]
+
+```
+
+## Misclassification
+
+::: columns
+::: {.column width="60%"}
+* Confusion matrices compare actual values to predictions
+
+::: {style="font-size: 0.7em"}
+* True Positive (TN) - This is correctly classified as the class if interest / target.
+* True Negative (TN) - This is correctly classified as not a class of interest / target.
+* False Positive (FP) - This is wrongly classified as the class of interest / target.
+* False Negative (FN) - This is wrongly classified as not a class of interest / target.
+:::
+:::
+::: {.column width="40%"}
+![](img/slide_21/confmatrix.png)
+:::
+:::
+
+## Confusion Matrices in R
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+train.log <- glm(y ~ ., 
+                 family="binomial", 
+                 data=training[,2:8])
+
+predicted.log <- predict(train.log, 
+                         newdata=testing[,2:8], 
+                         type="response")
+
+pred <- as.factor(
+  ifelse(predicted.log > 0.5, 
+                         "Yes",
+                         "No"))
+
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+confusionMatrix(testing$y, pred)
+
+```
+:::
+:::
+:::
+
+## Confusion Matrices
+
+::: columns
+::: {.column width="70%"}
+$$
+\begin{equation}
+\begin{aligned}
+Accuracy &= \frac{TP + TN}{TP + TN + FP + FN}\\
+Sensitivity &= \frac{TP}{TP + FN}\\
+Specificity &= \frac{TN}{FP + TN}\\
+Precision &= \frac{TP}{TP + FP}\\
+Recall &= \frac{TP}{TP + FN}
+\end{aligned}
+\end{equation}
+$$
+:::
+::: {.column width="30%"}
+:::{style="text-align: middle;"}
+ **Depends upon threshold!!**
+:::
+:::
+:::
+
+## Confusion Matrices in R
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+library(tree)
+tree.model <- tree(y ~ . , training[,2:8])
+predict.tree <- predict(tree.model, newdata=testing[,2:8], type="class")
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+confusionMatrix(testing$y, predict.tree)
+```
+:::
+:::
+:::
+
+## Confusion Matrices in R
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+library(randomForest)
+class.model <- y ~ .
+rf <- randomForest(class.model, data=training[,2:8])
+predict.rf <- predict(rf, newdata=testing[,2:8], type="class")
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+confusionMatrix(testing$y, predict.rf)
+```
+:::
+:::
+:::
+
+## Threshold-Free Methods
+
+::: columns
+::: {.column width="40%"}
+![](img/slide_21/roc.png)
+:::
+::: {.column width="60%"}
+
+* Receiver Operating Characteristic Curves
+
+* Illustrates discrimination of binary classifier as the threshold is varied
+
+* Area Under the Curve (AUC) provides an estimate of classification ability
+:::
+:::
+
+## Criticisms of ROC/AUC
+
+* Treats false positives and false negatives equally
+
+* Undervalues models that predict across smaller geographies
+
+* Focus on _discrimination_ and not _calibration_
+
+* New methods for presence-only data
+
+
+
+
+
+
+
+

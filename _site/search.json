@@ -3182,7 +3182,105 @@
     "href": "slides/20-slides.html#classification-trees",
     "title": "Multivariate Analysis II",
     "section": "Classification Trees",
-    "text": "Classification Trees\n\nUse decision rules to segment the predictor space\nSeries of consecutive decision rules form a ‘tree’"
+    "text": "Classification Trees\n\nUse decision rules to segment the predictor space\nSeries of consecutive decision rules form a ‘tree’\nTerminal nodes (leaves) are the outcome; internal nodes (branches) the splits"
+  },
+  {
+    "objectID": "slides/20-slides.html#classification-trees-1",
+    "href": "slides/20-slides.html#classification-trees-1",
+    "title": "Multivariate Analysis II",
+    "section": "Classification Trees",
+    "text": "Classification Trees\n\nDivide the predictor space (\\(R\\)) into \\(J\\) non-overlapping regions\nEvery observation in \\(R_j\\) gets the same prediction\nRecursive binary splitting\nPruning and over-fitting"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example",
+    "href": "slides/20-slides.html#an-example",
+    "title": "Multivariate Analysis II",
+    "section": "An Example",
+    "text": "An Example\nInputs from the dismo package"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example-1",
+    "href": "slides/20-slides.html#an-example-1",
+    "title": "Multivariate Analysis II",
+    "section": "An Example",
+    "text": "An Example\nThe sample data\n\n\n\nhead(pres.abs)\n\nSimple feature collection with 6 features and 1 field\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: -106.75 ymin: 31.25 xmax: -98.75 ymax: 37.75\nGeodetic CRS:  GCS_unknown\n  y              geometry\n1 0  POINT (-99.25 35.25)\n2 1  POINT (-98.75 36.25)\n3 1 POINT (-106.75 35.25)\n4 0 POINT (-100.75 31.25)\n5 1  POINT (-99.75 37.75)\n6 1 POINT (-104.25 36.75)"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example-2",
+    "href": "slides/20-slides.html#an-example-2",
+    "title": "Multivariate Analysis II",
+    "section": "An Example",
+    "text": "An Example\nBuilding our dataframe\n\npts.df <- terra::extract(pred.stack, vect(pres.abs), df=TRUE)\nhead(pts.df)\n\n  ID MeanAnnTemp TotalPrecip PrecipWetQuarter PrecipDryQuarter MinTempCold\n1  1         155         667              253               71         350\n2  2         147         678              266               66         351\n3  3         123         261              117               40         329\n4  4         181         533              198               69         348\n5  5         127         589              257               48         338\n6  6          83         438              213               38         278\n  TempRange\n1       -45\n2       -58\n3       -64\n4        -5\n5       -81\n6      -107"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example-3",
+    "href": "slides/20-slides.html#an-example-3",
+    "title": "Multivariate Analysis II",
+    "section": "An Example",
+    "text": "An Example\nBuilding our dataframe\n\npts.df[,2:7] <- scale(pts.df[,2:7])\nsummary(pts.df)\n\n       ID          MeanAnnTemp       TotalPrecip      PrecipWetQuarter \n Min.   :  1.00   Min.   :-3.3729   Min.   :-1.3377   Min.   :-1.6926  \n 1st Qu.: 25.75   1st Qu.:-0.4594   1st Qu.:-0.7980   1st Qu.:-0.6895  \n Median : 50.50   Median : 0.2282   Median :-0.2373   Median :-0.2224  \n Mean   : 50.50   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  \n 3rd Qu.: 75.25   3rd Qu.: 0.7118   3rd Qu.: 0.7140   3rd Qu.: 0.6508  \n Max.   :100.00   Max.   : 1.4285   Max.   : 2.4843   Max.   : 2.2713  \n PrecipDryQuarter   MinTempCold        TempRange      \n Min.   :-1.0828   Min.   :-3.9919   Min.   :-2.7924  \n 1st Qu.:-0.7013   1st Qu.:-0.0598   1st Qu.:-0.5216  \n Median :-0.3770   Median : 0.3582   Median : 0.2075  \n Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  \n 3rd Qu.: 0.4290   3rd Qu.: 0.5495   3rd Qu.: 0.6450  \n Max.   : 3.1713   Max.   : 1.1092   Max.   : 2.0407"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example-4",
+    "href": "slides/20-slides.html#an-example-4",
+    "title": "Multivariate Analysis II",
+    "section": "An example",
+    "text": "An example\n\nFitting the classification tree\n\n\n\n\nlibrary(tree)\npts.df <- cbind(pts.df, pres.abs$y)\ncolnames(pts.df)[8] <- \"y\"\npts.df$y <- as.factor(ifelse(pts.df$y == 1, \"Yes\", \"No\"))\ntree.model <- tree(y ~ . , pts.df)\n\n\n\nplot(tree.model)\ntext(tree.model, pretty=0)"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example-5",
+    "href": "slides/20-slides.html#an-example-5",
+    "title": "Multivariate Analysis II",
+    "section": "An example",
+    "text": "An example\n\nFitting the classification tree\n\n\nsummary(tree.model)\n\n\nClassification tree:\ntree(formula = y ~ ., data = pts.df)\nVariables actually used in tree construction:\n[1] \"TempRange\"        \"PrecipWetQuarter\" \"ID\"               \"MeanAnnTemp\"     \nNumber of terminal nodes:  8 \nResidual mean deviance:  0.3164 = 29.11 / 92 \nMisclassification error rate: 0.07 = 7 / 100"
+  },
+  {
+    "objectID": "slides/20-slides.html#benefits-and-drawbacks",
+    "href": "slides/20-slides.html#benefits-and-drawbacks",
+    "title": "Multivariate Analysis II",
+    "section": "Benefits and drawbacks",
+    "text": "Benefits and drawbacks\n\n\nBenefits\n\nEasy to explain\nLinks to human decision-making\nGraphical displays\nEasy handling of qualitative predictors\n\n\nCosts\n\nLower predictive accuracy than other methods\nNot necessarily robust"
+  },
+  {
+    "objectID": "slides/20-slides.html#random-forests",
+    "href": "slides/20-slides.html#random-forests",
+    "title": "Multivariate Analysis II",
+    "section": "Random Forests",
+    "text": "Random Forests\n\n\n\n\nGrow 100(000s) of trees using bootstrapping\nRandom sample of predictors considered at each split\nAvoids correlation amongst multiple predictions\nAverage of trees improves overall outcome (usually)\nLots of extensions"
+  },
+  {
+    "objectID": "slides/20-slides.html#an-example-6",
+    "href": "slides/20-slides.html#an-example-6",
+    "title": "Multivariate Analysis II",
+    "section": "An example",
+    "text": "An example\n\nFitting the Random Forest\n\n\n\n\nlibrary(randomForest)\nclass.model <- y ~ .\nrf2 <- randomForest(class.model, data=pts.df)\n\n\n\nvarImpPlot(rf2)"
+  },
+  {
+    "objectID": "slides/20-slides.html#maxent",
+    "href": "slides/20-slides.html#maxent",
+    "title": "Multivariate Analysis II",
+    "section": "MaxEnt",
+    "text": "MaxEnt\n\n\n\n\n\nFrom Lentz et al. 2008\n\n\n\n\nOpportunistic collection of presences only\nHypothesized predictors of occurrence are measured (or extracted) at each presence\nBackground points (or pseudoabsences) generated for comparison"
+  },
+  {
+    "objectID": "slides/20-slides.html#maximum-entropy-models",
+    "href": "slides/20-slides.html#maximum-entropy-models",
+    "title": "Multivariate Analysis II",
+    "section": "Maximum Entropy models",
+    "text": "Maximum Entropy models\n\n\n\n\nMaxEnt (after the original software)\nNeed plausible background points across the remainder of the study area\nIterative fitting to maximize the distance between predictions generated by a spatially uniform model\nTuning parameters to account for differences in sampling effort, placement of background points, etc\nDevelopment of the model beyond the scope of this course, but see Elith et al. 2010\n\n\n\n\n\n\nFrom Elith et al. 2010"
+  },
+  {
+    "objectID": "slides/20-slides.html#challenges-with-maxent",
+    "href": "slides/20-slides.html#challenges-with-maxent",
+    "title": "Multivariate Analysis II",
+    "section": "Challenges with MaxEnt",
+    "text": "Challenges with MaxEnt\n\nNot measuring probability, but relative likelihood of occurrence\nSampling bias affects estimation (but can be mitigated using tuning parameters)\nTheoretical issues with background points and the intercept\nRecent developments relate MaxEnt (with cloglog links) to Inhomogenous Point Process models"
+  },
+  {
+    "objectID": "slides/20-slides.html#extensions",
+    "href": "slides/20-slides.html#extensions",
+    "title": "Multivariate Analysis II",
+    "section": "Extensions",
+    "text": "Extensions\n\nPolynomial, splines, piece-wise regression\nNeural nets, Support Vector Machines, many many more"
   },
   {
     "objectID": "syllabus.html",
@@ -3260,5 +3358,194 @@
     "title": "Syllabus",
     "section": "Academic Integrity",
     "text": "Academic Integrity\nAcademic integrity is the principle that asks students to engage with their academic work to the fullest and to behave honestly, transparently, and ethically in every assignment and every interaction with a peer, professor, or research participant. When a strong culture of academic integrity is fostered by students and faculty in an academic program, students learn more, build positive relationships and collaborations, and can feel more confident in the value of their degrees.\nIn order to cultivate fairness and credibility, everyone must participate in upholding academic integrity. Students in this class are responsible for asking for help or clarification when it’s needed, speaking up when they see unethical behavior taking place, and understanding and adhering to the Student Code of Conduct, including the section on academic misconduct. Boise State and I take academic misconduct very seriously. It’s important to know that when a student engages in academic misconduct, I will report the incident to the Office of the Dean of Students. I also have the right to assign sanctions, which could include requirements to revise or redo work, complete educational assignments to learn about academic integrity, and grade penalties ranging from lower credit on an assignment to failing this class1. Students should learn more by reviewing the Student Code of Conduct."
+  },
+  {
+    "objectID": "content/21-content.html",
+    "href": "content/21-content.html",
+    "title": "Multivariate Analysis III",
+    "section": "",
+    "text": "In our last class on multivariate analysis, we’ll take on one of the more underappreciated elements of modeling: understanding if your model is good enough for prediction or inference. We’ll spend a bit of time differentiating the uses of models as a means of understanding what it means to be a “good” model."
+  },
+  {
+    "objectID": "content/21-content.html#resources",
+    "href": "content/21-content.html#resources",
+    "title": "Multivariate Analysis III",
+    "section": "Resources",
+    "text": "Resources\n\n A practical guide to selecting models for exploration, inference, and prediction in ecology by (Tredennick et al. 2021) highlights the importance of understanding model performance before making inference on predictor effects.\n Model selection using information criteria, but is the “best” model any good? by (Mac Nally et al. 2018) highlights the importance of understanding model performance before making inference on predictor effects.\n Standards for distribution models in biodiversity assessments by (Araújo et al. 2019) highlights the importance of understanding model performance before making inference on predictor effects."
+  },
+  {
+    "objectID": "content/21-content.html#objectives",
+    "href": "content/21-content.html#objectives",
+    "title": "Multivariate Analysis III",
+    "section": "Objectives",
+    "text": "Objectives\nBy the end of today you should be able to:\n\nArticulate three different reasons for modeling and how they link to assessments of fit\nDescribe and implement several test statistics for assessing model fit\nDescribe and implement several assessments of classification\nDescribe and implement resampling techniques to estimate predictive performance\n\n\n View all slides in new window  Download PDF of all slides\n\n\n\nRoles of Models\n\n\nTest Statistics\n\n\nMisclassification\n\n\nCross-validation"
+  },
+  {
+    "objectID": "slides/21-slides.html#best-model-for-what",
+    "href": "slides/21-slides.html#best-model-for-what",
+    "title": "Multivariate Analysis III",
+    "section": "Best Model for What?",
+    "text": "Best Model for What?\n\n\n\n\n\nfrom Tradennick et al. 2021\n\n\n\n\n\nExploration: describe patterns in the data and generate hypotheses\nInference: evaluate the strength of evidence for some statement about the process\nPrediction: forecast outcomes at unsampled locations based on covariates"
+  },
+  {
+    "objectID": "slides/21-slides.html#the-importance-of-model-fit",
+    "href": "slides/21-slides.html#the-importance-of-model-fit",
+    "title": "Multivariate Analysis III",
+    "section": "The Importance of Model Fit",
+    "text": "The Importance of Model Fit\n\nThe general regression context:\n\n\\[\n\\begin{equation}\n\\hat{y} = \\mathbf{X}\\hat{\\beta}\n\\end{equation}\n\\]\n\nInference is focused on robust estimates of \\(\\hat{\\beta}\\) given the data we have\nPrediction is focused on accurate forecasts of \\(\\hat{y}\\) at locations where we have yet to collect the data"
+  },
+  {
+    "objectID": "slides/21-slides.html#inference-and-presenceabsence-data",
+    "href": "slides/21-slides.html#inference-and-presenceabsence-data",
+    "title": "Multivariate Analysis III",
+    "section": "Inference and Presence/Absence Data",
+    "text": "Inference and Presence/Absence Data\n\n\\(\\hat{\\beta}\\) is conditional on variables in the model and those not in the model\n\n\nnsamp <- 1000\ndf <- data.frame(x1 = rnorm(nsamp,0,1),\n                 x2 = rnorm(nsamp,0,1),\n                 x3 = rnorm(nsamp,0,1))\n\nlinpred <- 1 + 2*df$x1 -0.18*df$x2 -3.5*df$x3\ny <- rbinom(nsamp, 1, plogis(linpred))\ndf <- cbind(df, y)\n\nmod1 <- glm(y~x1 +x2, data=df, family=\"binomial\")\nmod2 <- glm(y~x1 +x2 + x3, data=df, family=\"binomial\")"
+  },
+  {
+    "objectID": "slides/21-slides.html#inference-and-presenceabsence-data-1",
+    "href": "slides/21-slides.html#inference-and-presenceabsence-data-1",
+    "title": "Multivariate Analysis III",
+    "section": "Inference and Presence/Absence Data",
+    "text": "Inference and Presence/Absence Data\n\n\n\ncoef(mod1)\n\n(Intercept)          x1          x2 \n  0.3913703   0.8643368  -0.1003467 \n\ncoef(mod2)\n\n(Intercept)          x1          x2          x3 \n  1.1782872   2.0716984  -0.2855099  -3.4914188 \n\n\n\n\nprd1 <- predict(mod1, df, \"response\")\ndif1 <- plogis(linpred) - prd1\nprd2 <- predict(mod2, df, \"response\")\ndif2 <- plogis(linpred) - prd2\n\n\n\n\n\n\n\n\n\nInferring coefficient effects requires that your model fit the data well"
+  },
+  {
+    "objectID": "slides/21-slides.html#using-test-statistics",
+    "href": "slides/21-slides.html#using-test-statistics",
+    "title": "Multivariate Analysis III",
+    "section": "Using Test Statistics",
+    "text": "Using Test Statistics\n\n\n\n\\(R^2\\) for linear regression:\n\n\\[\n\\begin{equation}\nR^2 = 1- \\frac{SS_{res}}{SS_{tot}}\\\\\nSS_{res} = \\sum_{i}(y_i- f_i)^2\\\\\nSS_{tot} = \\sum_{i}(y_i-\\bar{y})^2\n\\end{equation}\n\\]\n\n\nPerfect prediction (\\(f_i = y_i\\)); \\(SS_{res} = 0\\); and \\(R^2 = 1\\)\nNull prediction (Intercept only) (\\(f_i = \\bar{y}\\)); \\(SS_{res} = SS_{tot}\\); and \\(R^2 = 0\\)\nNo direct way of implementing for logistic regression"
+  },
+  {
+    "objectID": "slides/21-slides.html#pseudo--r2",
+    "href": "slides/21-slides.html#pseudo--r2",
+    "title": "Multivariate Analysis III",
+    "section": "Pseudo- \\(R^2\\)",
+    "text": "Pseudo- \\(R^2\\)\n\n\n\\[\n\\begin{equation}\nR^2_L = \\frac{D_{null} - D_{fitted}}{D_{null}}\n\\end{equation}\n\\]\n\n\nCohen’s Likelihood Ratio\nDeviance (\\(D\\)), the difference between the model and some hypothetical perfect model (lower is better)\nChallenge: Not monotonically related to \\(p\\)\nChallenge: How high is too high?"
+  },
+  {
+    "objectID": "slides/21-slides.html#likelihood-ratio-test",
+    "href": "slides/21-slides.html#likelihood-ratio-test",
+    "title": "Multivariate Analysis III",
+    "section": "Likelihood Ratio Test",
+    "text": "Likelihood Ratio Test\n\nlogistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, family=binomial(link=\"logit\"), data=pts.df[,2:8])\n\nwith(logistic.rich, null.deviance - deviance)/with(logistic.rich, null.deviance)\n\n[1] 0.4495966\n\n\n::: :::"
+  },
+  {
+    "objectID": "slides/21-slides.html#cohens-likelihood-ratio",
+    "href": "slides/21-slides.html#cohens-likelihood-ratio",
+    "title": "Multivariate Analysis III",
+    "section": "Cohen’s Likelihood Ratio",
+    "text": "Cohen’s Likelihood Ratio\n\nlogistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, \n                     family=binomial(link=\"logit\"),\n                     data=pts.df[,2:8])\n\nwith(logistic.rich, \n     null.deviance - deviance)/with(logistic.rich,\n                                    null.deviance)\n\n[1] 0.4495966"
+  },
+  {
+    "objectID": "slides/21-slides.html#inference-presenceabsence-data",
+    "href": "slides/21-slides.html#inference-presenceabsence-data",
+    "title": "Multivariate Analysis III",
+    "section": "Inference & Presence/Absence Data",
+    "text": "Inference & Presence/Absence Data\n\n\n\ncoef(mod1)\n\n(Intercept)          x1          x2 \n  0.3818847   0.6548075  -0.0272604 \n\ncoef(mod2)\n\n(Intercept)          x1          x2          x3 \n  1.0299701   1.7694166  -0.1199716  -3.4614871 \n\n\n\n\nprd1 <- predict(mod1, df, \"response\")\ndif1 <- plogis(linpred) - prd1\nprd2 <- predict(mod2, df, \"response\")\ndif2 <- plogis(linpred) - prd2\n\n\n\n\n\n\n\n\n\nInferring coefficient effects requires that your model fit the data well"
+  },
+  {
+    "objectID": "slides/21-slides.html#pseudo--r2-1",
+    "href": "slides/21-slides.html#pseudo--r2-1",
+    "title": "Multivariate Analysis III",
+    "section": "Pseudo- \\(R^2\\)",
+    "text": "Pseudo- \\(R^2\\)\n\n\n\\[\n\\begin{equation}\n\\begin{aligned}\nR^2_{CS} &= 1 - \\left( \\frac{L_0}{L_M} \\right)^{(2/n)}\\\\\n&= 1 - \\exp^{2(ln(L_0)-ln(L_M))/n}\n\\end{aligned}\n\\end{equation}\n\\]\n\n\n\nCox and Snell \\(R^2\\)\nLikelihood (\\(L\\)), the probability of observing the sample given an assumed distribution\nChallenge: Maximum value is less than 1 and changes with \\(n\\)\nCorrection by Nagelkerke so that maximum is 1"
+  },
+  {
+    "objectID": "slides/21-slides.html#cox-and-snell-r2",
+    "href": "slides/21-slides.html#cox-and-snell-r2",
+    "title": "Multivariate Analysis III",
+    "section": "Cox and Snell \\(R^2\\)",
+    "text": "Cox and Snell \\(R^2\\)\n\nlogistic.null <- glm(y ~ 1, \n                     family=binomial(link=\"logit\"),\n                     data=pts.df[,2:8])\n\n1 - exp(2*(logLik(logistic.null)[1] - logLik(logistic.rich)[1])/nobs(logistic.rich))\n\n[1] 0.4308873"
+  },
+  {
+    "objectID": "slides/21-slides.html#using-test-statistics-1",
+    "href": "slides/21-slides.html#using-test-statistics-1",
+    "title": "Multivariate Analysis III",
+    "section": "Using Test Statistics",
+    "text": "Using Test Statistics\n\nBased on the data used in the model (i.e., not prediction)\nLikelihood Ratio behaves most similarly to \\(R^2\\)\nCox and Snell (and Nagelkerke) increases with more presences\nOngoing debate over which is “best”\nDon’t defer to a single statistic"
+  },
+  {
+    "objectID": "slides/21-slides.html#predictive-performance-and-fit",
+    "href": "slides/21-slides.html#predictive-performance-and-fit",
+    "title": "Multivariate Analysis III",
+    "section": "Predictive Performance and Fit",
+    "text": "Predictive Performance and Fit\n\nPredictive performance can be an estimate of fit\nComparisons are often relative (better \\(\\neq\\) good)\nTheoretical and subsampling methods"
+  },
+  {
+    "objectID": "slides/21-slides.html#theoretical-assessment-of-predictive-performance",
+    "href": "slides/21-slides.html#theoretical-assessment-of-predictive-performance",
+    "title": "Multivariate Analysis III",
+    "section": "Theoretical Assessment of Predictive Performance",
+    "text": "Theoretical Assessment of Predictive Performance\n\n\n\n\n\nHirotugu Akaike of AIC\n\n\n\n\n\nInformation Criterion Methods\nMinimize the amount of information lost by using model to approximate true process\nTrade-off between fit and overfitting\nCan’t know the true process (so comparisons are relative)\n\n\\[\n\\begin{equation}\nAIC = -2ln(\\hat{L}) +2k\n\\end{equation}\n\\]"
+  },
+  {
+    "objectID": "slides/21-slides.html#aic-comparison",
+    "href": "slides/21-slides.html#aic-comparison",
+    "title": "Multivariate Analysis III",
+    "section": "AIC Comparison",
+    "text": "AIC Comparison\n\nlogistic.null <- glm(y ~ 1, \n                     family=binomial(link=\"logit\"),\n                     data=pts.df[,2:8])\n\nlogistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, \n                     family=binomial(link=\"logit\"),\n                     data=pts.df[,2:8])\n\nAIC(logistic.null, logistic.rich)\n\n              df       AIC\nlogistic.null  1 127.37389\nlogistic.rich  4  77.00622"
+  },
+  {
+    "objectID": "slides/21-slides.html#sub-sampling-methods",
+    "href": "slides/21-slides.html#sub-sampling-methods",
+    "title": "Multivariate Analysis III",
+    "section": "Sub-sampling Methods",
+    "text": "Sub-sampling Methods\n\n\n\nSplit data into training and testing\nTesting set needs to be large enough for results to be statistically meaningful\nTest set should be representative of the data as a whole\nValidation data used to tune parameters (not always)"
+  },
+  {
+    "objectID": "slides/21-slides.html#misclassification",
+    "href": "slides/21-slides.html#misclassification",
+    "title": "Multivariate Analysis III",
+    "section": "Misclassification",
+    "text": "Misclassification\n\n\n\nConfusion matrices compare actual values to predictions\n\n\n\nTrue Positive (TN) - This is correctly classified as the class if interest / target.\nTrue Negative (TN) - This is correctly classified as not a class of interest / target.\nFalse Positive (FP) - This is wrongly classified as the class of interest / target.\nFalse Negative (FN) - This is wrongly classified as not a class of interest / target."
+  },
+  {
+    "objectID": "slides/21-slides.html#subsampling-your-data-with-caret",
+    "href": "slides/21-slides.html#subsampling-your-data-with-caret",
+    "title": "Multivariate Analysis III",
+    "section": "Subsampling your data with caret",
+    "text": "Subsampling your data with caret\n\npts.df$y <- as.factor(ifelse(pts.df$y == 1, \"Yes\", \"No\"))\nlibrary(caret)\nTrain <- createDataPartition(pts.df$y, p=0.6, list=FALSE)\n\ntraining <- pts.df[ Train, ]\ntesting <- pts.df[ -Train, ]"
+  },
+  {
+    "objectID": "slides/21-slides.html#confusion-matrices-in-r",
+    "href": "slides/21-slides.html#confusion-matrices-in-r",
+    "title": "Multivariate Analysis III",
+    "section": "Confusion Matrices in R",
+    "text": "Confusion Matrices in R\n\n\n\ntrain.log <- glm(y ~ ., \n                 family=\"binomial\", \n                 data=training[,2:8])\n\npredicted.log <- predict(train.log, \n                         newdata=testing[,2:8], \n                         type=\"response\")\n\npred <- as.factor(\n  ifelse(predicted.log > 0.5, \n                         \"Yes\",\n                         \"No\"))\n\n\n\n\nconfusionMatrix(testing$y, pred)\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction No Yes\n       No  24   3\n       Yes  2  10\n                                         \n               Accuracy : 0.8718         \n                 95% CI : (0.7257, 0.957)\n    No Information Rate : 0.6667         \n    P-Value [Acc > NIR] : 0.003321       \n                                         \n                  Kappa : 0.7059         \n                                         \n Mcnemar's Test P-Value : 1.000000       \n                                         \n            Sensitivity : 0.9231         \n            Specificity : 0.7692         \n         Pos Pred Value : 0.8889         \n         Neg Pred Value : 0.8333         \n             Prevalence : 0.6667         \n         Detection Rate : 0.6154         \n   Detection Prevalence : 0.6923         \n      Balanced Accuracy : 0.8462         \n                                         \n       'Positive' Class : No"
+  },
+  {
+    "objectID": "slides/21-slides.html#confusion-matrices",
+    "href": "slides/21-slides.html#confusion-matrices",
+    "title": "Multivariate Analysis III",
+    "section": "Confusion Matrices",
+    "text": "Confusion Matrices\n\n\n\\[\n\\begin{equation}\n\\begin{aligned}\nAccuracy &= \\frac{TP + TN}{TP + TN + FP + FN}\\\\\nSensitivity &= \\frac{TP}{TP + FN}\\\\\nSpecificity &= \\frac{TN}{FP + TN}\\\\\nPrecision &= \\frac{TP}{TP + FP}\\\\\nRecall &= \\frac{TP}{TP + FN}\n\\end{aligned}\n\\end{equation}\n\\]\n\n\nDepends upon threshold!!"
+  },
+  {
+    "objectID": "slides/21-slides.html#confusion-matrices-in-r-1",
+    "href": "slides/21-slides.html#confusion-matrices-in-r-1",
+    "title": "Multivariate Analysis III",
+    "section": "Confusion Matrices in R",
+    "text": "Confusion Matrices in R\n\n\n\nlibrary(tree)\ntree.model <- tree(y ~ . , training[,2:8])\npredict.tree <- predict(tree.model, newdata=testing[,2:8], type=\"class\")\n\n\n\n\nconfusionMatrix(testing$y, predict.tree)\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction No Yes\n       No  20   7\n       Yes  1  11\n                                         \n               Accuracy : 0.7949         \n                 95% CI : (0.6354, 0.907)\n    No Information Rate : 0.5385         \n    P-Value [Acc > NIR] : 0.0008107      \n                                         \n                  Kappa : 0.5772         \n                                         \n Mcnemar's Test P-Value : 0.0770999      \n                                         \n            Sensitivity : 0.9524         \n            Specificity : 0.6111         \n         Pos Pred Value : 0.7407         \n         Neg Pred Value : 0.9167         \n             Prevalence : 0.5385         \n         Detection Rate : 0.5128         \n   Detection Prevalence : 0.6923         \n      Balanced Accuracy : 0.7817         \n                                         \n       'Positive' Class : No"
+  },
+  {
+    "objectID": "slides/21-slides.html#confusion-matrices-in-r-2",
+    "href": "slides/21-slides.html#confusion-matrices-in-r-2",
+    "title": "Multivariate Analysis III",
+    "section": "Confusion Matrices in R",
+    "text": "Confusion Matrices in R\n\n\n\nlibrary(randomForest)\nclass.model <- y ~ .\nrf <- randomForest(class.model, data=training[,2:8])\npredict.rf <- predict(rf, newdata=testing[,2:8], type=\"class\")\n\n\n\n\nconfusionMatrix(testing$y, predict.rf)\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction No Yes\n       No  24   3\n       Yes  6   6\n                                          \n               Accuracy : 0.7692          \n                 95% CI : (0.6067, 0.8887)\n    No Information Rate : 0.7692          \n    P-Value [Acc > NIR] : 0.5882          \n                                          \n                  Kappa : 0.4179          \n                                          \n Mcnemar's Test P-Value : 0.5050          \n                                          \n            Sensitivity : 0.8000          \n            Specificity : 0.6667          \n         Pos Pred Value : 0.8889          \n         Neg Pred Value : 0.5000          \n             Prevalence : 0.7692          \n         Detection Rate : 0.6154          \n   Detection Prevalence : 0.6923          \n      Balanced Accuracy : 0.7333          \n                                          \n       'Positive' Class : No"
+  },
+  {
+    "objectID": "slides/21-slides.html#threshold-free-methods",
+    "href": "slides/21-slides.html#threshold-free-methods",
+    "title": "Multivariate Analysis III",
+    "section": "Threshold-Free Methods",
+    "text": "Threshold-Free Methods\n\n\n\n\n\nReceiver Operating Characteristic Curves\nIllustrates discrimination of binary classifier as the threshold is varied\nArea Under the Curve (AUC) provides an estimate of classification ability"
+  },
+  {
+    "objectID": "slides/21-slides.html#criticisms-of-rocauc",
+    "href": "slides/21-slides.html#criticisms-of-rocauc",
+    "title": "Multivariate Analysis III",
+    "section": "Criticisms of ROC/AUC",
+    "text": "Criticisms of ROC/AUC\n\nTreats false positives and false negatives equally\nUndervalues models that predict across smaller geographies\nFocus on discrimination and not calibration\nNew methods for presence-only data"
   }
 ]
