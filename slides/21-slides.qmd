@@ -468,6 +468,11 @@ confusionMatrix(testing$y, predict.rf)
 
 * New methods for presence-only data
 
+## ROC in R
+
+# Cross-validation
+
+# Spatial predictions...
 
 
 
