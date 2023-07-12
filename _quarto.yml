@@ -24,8 +24,8 @@ csl: files/bib/ecology.csl
 
 website:
   title: "Intro to Spatial Data in R"
-  site-url: "https://isdrfall22.classes.spaseslab.com"
-  description-meta: "Use R to load, visualize, and analyze spatial data"
+  site-url: "https://isdrfall23.classes.spaseslab.com"
+  description: "Use R to load, visualize, and analyze spatial data"
 
   favicon: "/files/iSDR_logo.png"
 
@@ -41,7 +41,7 @@ website:
 
   navbar:
     pinned: true
-    background: "#EE6A24"
+    background: "#027373"
     right:
       - syllabus.qmd
       - schedule.qmd
