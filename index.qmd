@@ -2,7 +2,7 @@
 title: "Intro to Spatial Data in R"
 subtitle: "Use R to load, visualize, and analyze spatial data"
 details: |
-  HES 505 • Fall 2022<br>Human-Environment Systems<br>Boise State University
+  HES 505 • Fall 2023<br>Human-Environment Systems<br>Boise State University
 sidebar: false
 toc: false
 page-layout: full
