@@ -2650,7 +2650,7 @@
     "href": "slides/17-slides.html#deterministic-vs.-stochastic-processes",
     "title": "Interpolation and Autocorrelation",
     "section": "Deterministic vs. stochastic processes",
-    "text": "Deterministic vs. stochastic processes\n\n\n\nDeterministic processes: always produces the same outcome\n\n\\[\nz = 2x + 3y\n\\]\n\nResults in a spatially continuous field\n\n\nx <- rast(nrows = 10, ncols=10, xmin = 0, xmax=10, ymin = 0, ymax=10)\nvalues(x) <- 1\nz <- x\nvalues(z) <- 2 * crds(x)[,1] + 3*crds(x)[,2]\n\n\n\nplot(z)"
+    "text": "Deterministic vs. stochastic processes\n\n\n\nDeterministic processes: always produces the same outcome\n\n\\[\nz = 2x + 3y\n\\]\n\nResults in a spatially continuous field\n\n\nx <- rast(nrows = 10, ncols=10, xmin = 0, xmax=10, ymin = 0, ymax=10)\nvalues(x) <- 1\nz <- x\nvalues(z) <- 2 * crds(x)[,1] + 3*crds(x)[,2]"
   },
   {
     "objectID": "slides/17-slides.html#deterministic-vs.-stochastic-processes-1",
@@ -2678,7 +2678,7 @@
     "href": "slides/17-slides.html#generating-expactations-for-csr",
     "title": "Interpolation and Autocorrelation",
     "section": "Generating expactations for CSR",
-    "text": "Generating expactations for CSR\n\n\n\nload(url(\"https://github.com/mgimond/Spatial/raw/main/Data/ppa.RData\"))\n\nlibrary(spatstat)\nmarks(starbucks)  <- NULL\nWindow(starbucks) <- ma\npop.lg <- log(pop)\nQ <- quadratcount(starbucks, nx= 6, ny=3)\npar(mfrow=c(2,1), mar=c(2,2,2,2))\nplot(starbucks, main=NULL, cols=rgb(0,0,0,.2), pch=20)\nplot(starbucks, pch=20, cols=\"grey70\", main=NULL)  # Plot points\nplot(Q, add=TRUE)\n\n\n\npar(mfrow=c(1,1), mar=c(5.1,4.1,4.1,2.1))\n\n\n\n\nWe can use quadrat counts to estimate the expected number of events in a given area\nThe probability of each possible count is given by:\n\n\\[\nP(n,k) = {n \\choose x}p^k(1-p)^{n-k}\n\\]\n\nGiven total coverage of quadrats, then \\(p=\\frac{\\frac{a}{x}}{a}\\) and\n\n\\[\n\\begin{equation}\nP(k,n,x) = {n \\choose k}\\bigg(\\frac{1}{x}\\bigg)^k\\bigg(\\frac{x-1}{x}\\bigg)^{n-k}\n\\end{equation}\n\\]"
+    "text": "Generating expactations for CSR\n\n\n\n\n\n\n\n\n\n\nWe can use quadrat counts to estimate the expected number of events in a given area\nThe probability of each possible count is given by:\n\n\\[\nP(n,k) = {n \\choose x}p^k(1-p)^{n-k}\n\\]\n\nGiven total coverage of quadrats, then \\(p=\\frac{\\frac{a}{x}}{a}\\) and\n\n\\[\n\\begin{equation}\nP(k,n,x) = {n \\choose k}\\bigg(\\frac{1}{x}\\bigg)^k\\bigg(\\frac{x-1}{x}\\bigg)^{n-k}\n\\end{equation}\n\\]"
   },
   {
     "objectID": "slides/17-slides.html#spatial-autocorrelation",
@@ -2699,14 +2699,14 @@
     "href": "slides/17-slides.html#morans-i-an-example",
     "title": "Interpolation and Autocorrelation",
     "section": "Moran’s I: An example",
-    "text": "Moran’s I: An example\n\n\n\n\nUse spdep package\nEstimate neighbors\nGenerate weighted average\n\n\nset.seed(2354)\n# Load the shapefile\ns <- readRDS(url(\"https://github.com/mgimond/Data/raw/gh-pages/Exercises/fl_hr80.rds\"))\n\n# Define the neighbors (use queen case)\nnb <- poly2nb(s, queen=TRUE)\n\nold-style crs object detected; please recreate object with a recent sf::st_crs()\nold-style crs object detected; please recreate object with a recent sf::st_crs()\nold-style crs object detected; please recreate object with a recent sf::st_crs()\n\n# Compute the neighboring average homicide rates\nlw <- nb2listw(nb, style=\"W\", zero.policy=TRUE)\n#estimate Moran's I\nmoran.test(s$HR80,lw, alternative=\"greater\")\n\n\n    Moran I test under randomisation\n\ndata:  s$HR80  \nweights: lw    \n\nMoran I statistic standard deviate = 1.8891, p-value = 0.02944\nalternative hypothesis: greater\nsample estimates:\nMoran I statistic       Expectation          Variance \n      0.136277593      -0.015151515       0.006425761"
+    "text": "Moran’s I: An example\n\n\n\n\nUse spdep package\nEstimate neighbors\nGenerate weighted average\n\n\nset.seed(2354)\n# Load the shapefile\ns <- readRDS(url(\"https://github.com/mgimond/Data/raw/gh-pages/Exercises/fl_hr80.rds\"))\n\n# Define the neighbors (use queen case)\nnb <- poly2nb(s, queen=TRUE)\n\n# Compute the neighboring average homicide rates\nlw <- nb2listw(nb, style=\"W\", zero.policy=TRUE)\n#estimate Moran's I\nmoran.test(s$HR80,lw, alternative=\"greater\")\n\n\n    Moran I test under randomisation\n\ndata:  s$HR80  \nweights: lw    \n\nMoran I statistic standard deviate = 1.8891, p-value = 0.02944\nalternative hypothesis: greater\nsample estimates:\nMoran I statistic       Expectation          Variance \n      0.136277593      -0.015151515       0.006425761"
   },
   {
     "objectID": "slides/17-slides.html#morans-i-an-example-1",
     "href": "slides/17-slides.html#morans-i-an-example-1",
     "title": "Interpolation and Autocorrelation",
     "section": "Moran’s I: An example",
-    "text": "Moran’s I: An example\n\n\n\nM1 <- moran.mc(s$HR80, lw, nsim=9999, alternative=\"greater\")\n\n\n\n# Display the resulting statistics\nM1\n\n\n    Monte-Carlo simulation of Moran I\n\ndata:  s$HR80 \nweights: lw  \nnumber of simulations + 1: 10000 \n\nstatistic = 0.13628, observed rank = 9575, p-value = 0.0425\nalternative hypothesis: greater\n\n\n\n\n# Plot the results\nplot(M1)"
+    "text": "Moran’s I: An example\n\n\n\nM1 <- moran.mc(s$HR80, lw, nsim=9999, alternative=\"greater\")\n\n\n\n# Display the resulting statistics\nM1\n\n\n    Monte-Carlo simulation of Moran I\n\ndata:  s$HR80 \nweights: lw  \nnumber of simulations + 1: 10000 \n\nstatistic = 0.13628, observed rank = 9575, p-value = 0.0425\nalternative hypothesis: greater"
   },
   {
     "objectID": "slides/17-slides.html#the-challenge-of-areal-data",
@@ -2727,7 +2727,7 @@
     "href": "slides/17-slides.html#nearest-neighbor",
     "title": "Interpolation and Autocorrelation",
     "section": "Nearest neighbor",
-    "text": "Nearest neighbor\n\nfind \\(i\\) such that \\(| \\mathbf{x_i} - \\mathbf{x}|\\) is minimized\nThe estimate of \\(z\\) is \\(z_i\\)\n\n\n\n\n\ndata(meuse)\nr <- rast(system.file(\"ex/meuse.tif\", package=\"terra\"))\nsfmeuse <- st_as_sf(meuse, coords = c(\"x\", \"y\"), crs=crs(r))\nnodes <- st_make_grid(sfmeuse,\n                      cellsize = 25,\n                      what = \"centers\")\n\ndist <- distance(vect(nodes), vect(sfmeuse))\nnearest <- apply(dist, 1, function(x) which(x == min(x)))\nzinc_nn <- sfmeuse$zinc[nearest]\npreds <- st_as_sf(nodes)\npreds$zn <- zinc_nn\npreds <- as(preds, \"Spatial\")\ngridded(preds) <- TRUE\npreds.rast <- rast(preds)\nr.resamp <- resample(r, preds.rast)\npreds.rast <- mask(preds.rast, r.resamp)\n\n\n\n\nplot(preds.rast)"
+    "text": "Nearest neighbor\n\nfind \\(i\\) such that \\(| \\mathbf{x_i} - \\mathbf{x}|\\) is minimized\nThe estimate of \\(z\\) is \\(z_i\\)\n\n\n\n\n\ndata(meuse)\nr <- rast(system.file(\"ex/meuse.tif\", package=\"terra\"))\nsfmeuse <- st_as_sf(meuse, coords = c(\"x\", \"y\"), crs=crs(r))\nnodes <- st_make_grid(sfmeuse,\n                      cellsize = 25,\n                      what = \"centers\")\n\ndist <- distance(vect(nodes), vect(sfmeuse))\nnearest <- apply(dist, 1, function(x) which(x == min(x)))\nzinc_nn <- sfmeuse$zinc[nearest]\npreds <- st_as_sf(nodes)\npreds$zn <- zinc_nn\npreds <- as(preds, \"Spatial\")\ngridded(preds) <- TRUE\npreds.rast <- rast(preds)\nr.resamp <- resample(r, preds.rast)\npreds.rast <- mask(preds.rast, r.resamp)"
   },
   {
     "objectID": "slides/17-slides.html#inverse-distance-weighting",
@@ -2748,14 +2748,14 @@
     "href": "slides/17-slides.html#inverse-distance-weighting-2",
     "title": "Interpolation and Autocorrelation",
     "section": "Inverse-Distance Weighting",
-    "text": "Inverse-Distance Weighting\n\nzsf05msk <- mask(zsf05, r)\nzsf2msk <- mask(zsf2, r)\npar(mfrow=c(1,2))\nplot(zsf05msk, main=\"idp=0.5\")\nplot(zsf2msk, main=\"idp=2\")\n\npar(mfrow=c(1,1))"
+    "text": "Inverse-Distance Weighting"
   },
   {
     "objectID": "slides/17-slides.html#inverse-distance-weighting-3",
     "href": "slides/17-slides.html#inverse-distance-weighting-3",
     "title": "Interpolation and Autocorrelation",
     "section": "Inverse-Distance Weighting",
-    "text": "Inverse-Distance Weighting\n\npar(mfrow=c(1,2))\npersp(zsf05msk,box=FALSE, main=\"idp=0.5\")\npersp(zsf2msk, box=FALSE,main=\"idp=2\")\n\npar(mfrow=c(1,1))"
+    "text": "Inverse-Distance Weighting"
   },
   {
     "objectID": "slides/17-slides.html#kriging",
@@ -2783,7 +2783,7 @@
     "href": "slides/17-slides.html#ordinary-kriging-1",
     "title": "Interpolation and Autocorrelation",
     "section": "Ordinary Kriging",
-    "text": "Ordinary Kriging\n\nOKmsk <- mask(OK, r)\nplot(OKmsk)"
+    "text": "Ordinary Kriging"
   },
   {
     "objectID": "slides/17-slides.html#universal-kriging",
@@ -2797,7 +2797,7 @@
     "href": "slides/17-slides.html#universal-kriging-1",
     "title": "Interpolation and Autocorrelation",
     "section": "Universal Kriging",
-    "text": "Universal Kriging\n\nUK.msk <- mask(UK, r)\nplot(UK.msk)"
+    "text": "Universal Kriging"
   },
   {
     "objectID": "slides/17-slides.html#universal-kriging-2",
@@ -2811,7 +2811,7 @@
     "href": "slides/17-slides.html#universal-kriging-3",
     "title": "Interpolation and Autocorrelation",
     "section": "Universal Kriging",
-    "text": "Universal Kriging\n\nUK.msk <- mask(UK, r)\nplot(UK.msk)"
+    "text": "Universal Kriging"
   },
   {
     "objectID": "slides/17-slides.html#co-kriging",
@@ -2832,14 +2832,14 @@
     "href": "slides/17-slides.html#co-kriging-2",
     "title": "Interpolation and Autocorrelation",
     "section": "Co-Kriging",
-    "text": "Co-Kriging\n\nplot(coV, coV.fit, main='Fitted Co-variogram')"
+    "text": "Co-Kriging"
   },
   {
     "objectID": "slides/17-slides.html#co-kriging-3",
     "href": "slides/17-slides.html#co-kriging-3",
     "title": "Interpolation and Autocorrelation",
     "section": "Co-Kriging",
-    "text": "Co-Kriging\n\ncoK.msk <- mask(coK, r)\nplot(coK.msk)"
+    "text": "Co-Kriging"
   },
   {
     "objectID": "slides/17-slides.html#a-note-about-semivariograms",
