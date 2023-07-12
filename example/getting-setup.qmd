@@ -122,6 +122,7 @@ library(tidyverse)
 Based on our pseudocode our first step is the read the data. We can create headings in Quarto using different numbers of `#` symbols to keep things organized. The code below uses ` ``` ` to create the code chunk and then `{r}` to tell Quarto which environment to use when running it. I'm specifying a filepath because I'm not working within our git repo, this isn't great practice, but it's necessary for the webpage to render correctly. We use `paste0` to combine the `filepath` with the file name (`isthereasanta.txt`) then read in the data using `read_table`.
 
 ```{r}
+#| eval: false
 filepath <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2022/assignment01/"
 #READ
 santa <- read_table(paste0(filepath, "isthereasanta.txt"))
@@ -132,6 +133,7 @@ santa <- read_table(paste0(filepath, "isthereasanta.txt"))
 Now that we've got the data loaded and assigned it to the `santa` object. It's always a good idea to take a look and make sure things look the way you expect, check for `NA`s, and get a basic understanding of the way your data is being represented by `R`. This process will get more involved once we start working with spatial data, but it's good to get in the habit now. We'll start by looking at the first few rows (using `head()`), then get a sense for the classes of data using `str()`, and check for any `NA`s. 
 
 ```{r}
+#| eval: false
 head(santa)
 str(santa)
 any(is.na(santa))
@@ -140,12 +142,14 @@ any(is.na(santa))
 You'll notice a few things. First, because we read this in using the `read_table` function, the result is a `tibble`. As such, `head()` returns both the data and the classes. This makes the result of `str()` largely redundant (note that if `santa` were a `data.frame` this would not be true). The combination of `any()` with `is.na()` asks whether any of the cells in `santa` have an `NA` value. You can see that there are `NA`s. Most statistical modeling functions in `R` don't like `NA`s so we'll try to clean those up here. Before we clean them, let's try to learn what they are. We can use `which()` to identify the locations of the `NA`s. 
 
 ```{r}
+#| eval: false
 which(is.na(santa), arr.ind = TRUE)
 ```
 
 We see that all of them are in the `age` column (our key predictor variable!). We could also have discovered this using `summary()`.
 
 ```{r}
+#| eval: false
 summary(santa)
 ```
 #### Clean the data
@@ -153,12 +157,14 @@ summary(santa)
 Deciding how to clean `NA`s is an important decision. Many people choose to drop any incomplete records. We can do that with `complete.cases()` and see that the resulting object now has only 47 rows.
 
 ```{r}
+#| eval: false
 santa_complete_cases <- santa[complete.cases(santa),]
 ```
 
 Dropping the incomplete cases may seem like a "safe" approach, but what if there is some systematic reason for the data to be incomplete. Maybe older people are less likely to provide their age? If that's the case, then dropping these cases may bias our dataset and the models that result. In that case, we may decide to "impute" values for the `NA`s based on some principled approach. We'll talk more about what it means to take a principled approach to imputation later in this class. For now, let's just try to strategies: 1 where we assign the `mean()` value of age and one where we assign the `max()` value (to reflect our hypothesis that older people may not provide their age). We'll do this by using the `ifelse()` function. Note that we can only do this because all of the `NA`s are in a single column.
 
 ```{r}
+#| eval: false
 santa_mean <- santa
 santa_mean$Age <- ifelse(is.na(santa_mean$Age), round(mean(santa_mean$Age, na.rm=TRUE),digits=0), santa_mean$Age)
 
@@ -171,6 +177,7 @@ santa_max$Age <- ifelse(is.na(santa_max$Age), max(santa_max$Age, na.rm=TRUE), sa
 Now that we have a few clean datasets, let's just take a quick look to see if our intuition is correct about the relationship between age and belief in santa. The idea isn't so much to "prove" your hypothesis, but rather to get to know your data better as a means of identifying potential outliers and thinking about the distribution of your data.
 
 ```{r}
+#| eval: false
 plot(Believe ~ Age, data=santa_complete_cases, main="Age vs. Belief in Santa (complete cases)")
 
 plot(Believe ~ Age, data=santa_mean, main="Age vs. Belief in Santa (Age at mean)")
@@ -183,6 +190,7 @@ These plots highlight two things. First, because `Believe` is a `logical` variab
 We'll be using a generalized linear model for this analysis. The details will come up later, but for now, let's keep it simple. The syntax for the `glm()` function is relatively straightforward. First we specify the model `Believe ~ Age`, then we tell it what family `binomial(link="logit")`, then we remind `R` of the data. We use the `binomial` family because there are only 2 possible outcomes (`TRUE` and `FALSE`).
 
 ```{r}
+#| eval: false
 fit_complete_cases <- glm(Believe ~ Age, family=binomial(link="logit"), data=santa_complete_cases)
 fit_mean <- glm(Believe ~ Age, family=binomial(link="logit"), data=santa_mean)
 fit_max <- glm(Believe ~ Age, family=binomial(link="logit"), data=santa_max)
