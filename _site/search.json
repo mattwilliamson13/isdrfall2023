@@ -2674,11 +2674,11 @@
     "text": "Expected values and hypothesis testing\n\n\n\n\nConsidering each outcome as the realization of a process allows us to generate expected values\nThe simplest spatial process is Completely Spatial Random (CSR) process\nFirst Order effects: any event has an equal probability of occuring in a location\nSecond Order effects: the location of one event is independent of the other events\n\n\n\n\n\n\nFrom Manuel Gimond"
   },
   {
-    "objectID": "slides/17-slides.html#generating-expactations-for-csr",
-    "href": "slides/17-slides.html#generating-expactations-for-csr",
+    "objectID": "slides/17-slides.html#generating-expectations-for-csr",
+    "href": "slides/17-slides.html#generating-expectations-for-csr",
     "title": "Interpolation and Autocorrelation",
-    "section": "Generating expactations for CSR",
-    "text": "Generating expactations for CSR\n\n\n\n\n\n\n\n\n\n\nWe can use quadrat counts to estimate the expected number of events in a given area\nThe probability of each possible count is given by:\n\n\\[\nP(n,k) = {n \\choose x}p^k(1-p)^{n-k}\n\\]\n\nGiven total coverage of quadrats, then \\(p=\\frac{\\frac{a}{x}}{a}\\) and\n\n\\[\n\\begin{equation}\nP(k,n,x) = {n \\choose k}\\bigg(\\frac{1}{x}\\bigg)^k\\bigg(\\frac{x-1}{x}\\bigg)^{n-k}\n\\end{equation}\n\\]"
+    "section": "Generating expectations for CSR",
+    "text": "Generating expectations for CSR\n\n\n\n\n\n\n\n\n\n\nWe can use quadrat counts to estimate the expected number of events in a given area\nThe probability of each possible count is given by:\n\n\\[\nP(n,k) = {n \\choose x}p^k(1-p)^{n-k}\n\\]\n\nGiven total coverage of quadrats, then \\(p=\\frac{\\frac{a}{x}}{a}\\) and\n\n\\[\n\\begin{equation}\nP(k,n,x) = {n \\choose k}\\bigg(\\frac{1}{x}\\bigg)^k\\bigg(\\frac{x-1}{x}\\bigg)^{n-k}\n\\end{equation}\n\\]"
   },
   {
     "objectID": "slides/17-slides.html#spatial-autocorrelation",
