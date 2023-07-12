@@ -154,7 +154,7 @@ plot(d)
 :::
 :::
 
-## Generating expactations for CSR
+## Generating expectations for CSR
 
 ::: columns
 ::: {.column width="40%"}
