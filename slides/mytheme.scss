@@ -5,19 +5,19 @@ $font-family-sans-serif: "Palatino Linotype", "Book Antiqua", Palatino,
   FreeSerif, serif !default;
 
 // colors
-$body-bg: #fff !default;
-$body-color: #000 !default;
-$link-color: #D64309 !default;
+$body-bg: #A1D8EA !default;
+$body-color: #1C2D8C !default;
+$link-color: #7C4A89 !default;
 $selection-bg: #26351c !default;
-$text-muted: lighten(#D64309, 30%);
-$code-color: #cc0000;
-$code-block-bg: #daeff2;
-$code-block-border-color: #000000;
+$text-muted: #7C4A89 !default;
+$code-color: #9F281A !default;
+$code-block-bg: #fff !default;
+$code-block-border-color: #9F281A !default;
 
 // headings
 $presentation-heading-font: "Palatino Linotype", "Book Antiqua", Palatino,
   FreeSerif, serif !default;
-$presentation-heading-color: #D64309 !default;
+$presentation-heading-color: #027373 !default;
 
 /*-- scss:rules --*/
 
