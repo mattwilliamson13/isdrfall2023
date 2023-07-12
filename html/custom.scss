@@ -13,30 +13,28 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
-// Inferno colors
-// viridisLite::viridis(8, option = "inferno", begin = 0.1, end = 0.9)
-$blue:    #0033A0 !default;
-$indigo:  #771C6D !default;
-$purple:  #480B6A !default;
-$pink:    #A52C60 !default;
-$red:     #CF4446 !default;
-$orange:  #D64309 !default;
+// Lilac-breasted roller colors
+$darkblue:  #1C2D8C !default;
+$blue:    #2A40BF !default;
+$lightblue:  #A1D8EA !default;
+$lilac:    #7C4A89 !default;
+$green:     #027373 !default;
+$red:  #FF0000 !default;
 $yellow:  #FB9E07 !default;
 $green:   #02b875 !default;
-$teal:    #20c997 !default;
-$cyan:    #17a2b8 !default;
 
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
+
+$primary:       $darkblue !default;
+$secondary:     $lightblue !default;
 $success:       $green !default;
-$info:          $cyan !default;
+$info:          $lilac !default;
 $warning:       $yellow !default;
-$danger:        $red !default;
+$danger:        $lilac !default;
 $light:         $black !default;
 $dark:          $gray-800 !default;
-$body-color:    $black !default;
-$code-color:    #cc0000;
-$code-block-bg: #daeff2;
+$body-color:    $darkblue !default;
+$code-color:    #9F281A;
+$code-block-bg: $lightblue;
 $code-block-border-color: #000000;
 $font-family-sans-serif:      Fira Sans Condensed, sans-serif !default;
 $font-family-serif:           Barlow, serif !default;  /* Not actually a serif font but whatever */
@@ -54,13 +52,13 @@ $h6-font-size: $font-size-base * 0.8;
 $toc-font-size: 1.1rem;
 $sidebar-font-size: 1.1rem;
 $sidebar-font-size-section: 0.9rem;
-$sidebar-bg: $blue;
+$sidebar-bg: $green;
 
-$link-color: $orange;
-$link-hover-color: $red;
+$link-color: $lilac;
+$link-hover-color: $blue;
 
 $monokai-bg: #2e3440;
-$code-block-bg: lighten(#0033A0, 70%);
+$code-block-bg: $lightblue;
 
 /*-- scss:rules --*/
 h2 {
@@ -182,11 +180,11 @@ ol {
 }
 
 .bg-content {
-  background-color: $orange;
+  background-color: $lilac;
 }
 
 .bg-assignment {
-  background-color: $red;
+  background-color: $lilac;
 }
 
 // Slightly larger buttons
@@ -299,6 +297,6 @@ pre.sourceCode code {
   white-space: pre;
 }
 pre.text {
-  color: #0c368a;
+  color: $blue;
 }
 
