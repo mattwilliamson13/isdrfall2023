@@ -3,9 +3,9 @@
 .RData
 .Ruserdata
 
-/.quarto/
-**/*_site/*
-**/_freeze/
+.quarto/
+_site/
+_freeze/
 
 slides/*.pdf
 slides/*.html
