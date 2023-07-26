@@ -67,7 +67,7 @@ website:
     - title: "Content"
       style: "docked"
       search: false
-      background: dark
+      background: "#7C4A89"
       contents:
         - section: "Overview"
           contents:

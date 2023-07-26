@@ -1,35 +1,22 @@
-# We need to return the path to the rendered HTML file. In this case,
-# rmarkdown::render() *does* return a path, but it returns an absolute path,
-# which makes the targets pipline less portable. So we return our own path to
-# the HTML file instead.
-render_xaringan <- function(slide_path) {
-  # crayon does weird things to R Markdown and xaringan output, so we need to
-  # disable it here. This is the same thing that tarchetypes::tar_render() does
-  # behind the scenes too.
+library(renderthis)
+
+
+quarto_to_html <- function(slide_path){
   withr::local_options(list(crayon.enabled = NULL))
-  quarto::quarto_render(slide_path, quiet = TRUE)
-  return(paste0(tools::file_path_sans_ext(slide_path), ".html"))
+  
+  quarto::quarto_render(
+    slide_path,
+    quiet = TRUE
+  )
+  
+  return(paste0("_site/",tools::file_path_sans_ext(slide_path), ".html"))
 }
 
-
-# Use pagedown to convert xaringan HTML slides to PDF. Return a relative path to
-# the PDF to keep targets happy.
-#
-# Slides for sessions 10 and 14 are huge, so use chromote to convert them instead
-xaringan_to_pdf <- function(slide_path) {
-  path_sans_ext <- tools::file_path_sans_ext(slide_path)
+quarto_to_pdf <- function(slide_path){
+  withr::local_options(list(crayon.enabled = NULL))
+  path_sans_ext <- gsub("_site/","", paste0("_site/",tools::file_path_sans_ext(slide_path)))
   
-  if (path_sans_ext %in% c("slides/10-slides",
-                           "slides/14-slides")) {
-    complex <- TRUE
-  } else {
-    complex <- FALSE
-  }
+  pagedown::chrome_print(input = slide_path, output = paste0(path_sans_ext, ".pdf"))
   
-  renderthis::to_pdf(slide_path,
-                     output_format = "pdf"
-                     output_file = paste0(path_sans_ext, ".pdf"),
-                     complex_slides = complex)
-  
-  return(paste0(tools::file_path_sans_ext(slide_path), ".pdf"))
+  return(paste0(path_sans_ext,".pdf"))                   
 }
