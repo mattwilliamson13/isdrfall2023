@@ -79,7 +79,6 @@ tar_target(
   ),
   format = "file"
 ),
-
   ## Build site ----
   tar_quarto(site, path = ".", quiet=FALSE)
 )
