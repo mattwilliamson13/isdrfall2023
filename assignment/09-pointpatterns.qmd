@@ -1,0 +1,31 @@
+---
+title: "Assignment 8: Point Patterns and Interpolation"
+---
+
+The first part of the course was designed to introduce some of the foundations of working in R, developing programming workflows, and getting help. These topics are important for building robust spatial workflows, but their utility extends beyond that to most things you'll do in R during the course of your graduate research. [This homework](https://classroom.github.com/a/VQuj0UjY) is meant to help reinforce those concepts and identify any gaps that I need to fill in as we go. Make sure to check out the example too!. By the end of this assignment you should be able to:
+
+* Use `read.***` and `read_***` to bring data into your R environment and determine the data type using `class` and `str`.
+
+* Access and manipulate subsets of the data using standard and tidyverse approaches.
+
+* Demonstrate the use of pseudocode to outline the steps in a function or analysis.
+
+* Build several custom functions to automate repetitive tasks.
+
+* Integrate code and text into a quarto document to facilitate sharing.
+
+You'll need to accept the link to access the questions. 
+
+## Instructions
+
+1. After you've joined the assignment repository, you should have this file (named Readme.md) inside of a R project named assignment-1-xx where xx is your github username (or initials).
+
+2. Once you've verified that you've correctly cloned the assignment repository, create a new Quarto document. Name this file assignment-1-xxx.qmd and give it a title (like M Williamson Assignment 1). Make sure that you select the html output option (Quarto can do a lot of cool things, but the html format is the least-likely to cause you additional headaches). We'll be using Quarto throughout the course so it's worth checking out the other tutorials in the getting started section.
+
+3. Copy the questions below into your document and change the color of their text.
+
+4. Save the changes and make your first commit!
+
+5. Answer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).
+
+6. Render the document to html (you should now have at least 3 files in the repository: Readme.md, assignment-1-xx.qmd, and assignment-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com.

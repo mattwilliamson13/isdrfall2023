@@ -1,16 +1,18 @@
 ---
-title: "Assignment 1: Introductory material"
+title: "Assignment 4: Your first maps"
 ---
 
-The first part of the course was designed to introduce some of the foundations of geographic thought, core technical details of working with spatial data, and introduce `R` as a tool for end-to-end spatial workflows. [This homework](https://classroom.github.com/a/VQuj0UjY) is meant to help reinforce those concepts and identify any gaps that I need to fill in as we go. There are additional step-by-step guides in the  By the end of this assignment you should be able to:
+The first part of the course was designed to introduce some of the foundations of working in R, developing programming workflows, and getting help. These topics are important for building robust spatial workflows, but their utility extends beyond that to most things you'll do in R during the course of your graduate research. [This homework](https://classroom.github.com/a/VQuj0UjY) is meant to help reinforce those concepts and identify any gaps that I need to fill in as we go. Make sure to check out the example too!. By the end of this assignment you should be able to:
 
-* Describe the key components of spatial data.
+* Use `read.***` and `read_***` to bring data into your R environment and determine the data type using `class` and `str`.
 
-* Differentiate between the major data models used for spatial data.
+* Access and manipulate subsets of the data using standard and tidyverse approaches.
 
-* Read spatial data into `R`.
+* Demonstrate the use of pseudocode to outline the steps in a function or analysis.
 
-* Begin to document your work using Quarto.
+* Build several custom functions to automate repetitive tasks.
+
+* Integrate code and text into a quarto document to facilitate sharing.
 
 You'll need to accept the link to access the questions. 
 
@@ -24,6 +26,6 @@ You'll need to accept the link to access the questions.
 
 4. Save the changes and make your first commit!
 
-5. Answer the questions making sure save and commit at least 2 more times (having 3 commits is part of the assignment).
+5. Answer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).
 
 6. Render the document to html (you should now have at least 3 files in the repository: Readme.md, assignment-1-xx.qmd, and assignment-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com.
