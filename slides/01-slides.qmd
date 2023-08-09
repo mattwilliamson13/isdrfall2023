@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-subtitle: "HES 505 Fall 2022: Session 1"
+subtitle: "HES 505 Fall 2023: Session 1"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -10,13 +10,15 @@ format:
     self-contained: true  
 ---
 
-# Welcome to Space!! {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
+# Welcome to Space!! {background="#9F281A" background-image="img/slide_1/Helix_Nebula.jpeg"}
 
 ::: footer 
-
+:::{style="font-size: 0.8em; margin-bottom: -1.5em; color:#fff"}
 image courtesy of NASA/JPL-Caltech/Univ. of Ariz., Public domain, via Wikimedia Commons
 :::
-## Today's Plan {background="#43464B" background-image="img/slide_1/Helix_Nebula.jpeg"}
+:::
+
+## Today's Plan {background="#9F281A" background-image="img/slide_1/Helix_Nebula.jpeg"}
 
 :::{style="font-size: 1.2em; text-align: middle; margin-top: 2em"}
 - Introductions
@@ -28,7 +30,7 @@ image courtesy of NASA/JPL-Caltech/Univ. of Ariz., Public domain, via Wikimedia 
 - Testing out RStudio, git, and GitHub Classroom
 :::
 
-# Introductions {background="#0033A0"}
+# Introductions {background="#9F281A"}
 
 ## About Me
 
@@ -47,8 +49,11 @@ image courtesy of NASA/JPL-Caltech/Univ. of Ariz., Public domain, via Wikimedia 
 :::
 :::
 
-## What about you? { background-image="img/slide_1/camasprairie.jpeg"}
-:::{style="font-size: 1.2em; text-align: center; margin-top: 2em"}
+## What about you? { background-image="img/slide_1/camasprairie.jpeg" background-opacity="0.7"}
+:::{style="font-size: 1.2em; text-align: center; margin-top: 2em; color: #7C4A89"}
+:::{style="color: #9F281A"}
+- Your preferred pronouns
+
 - Where are you from?
 
 - What do you like most about Boise? 
@@ -57,8 +62,9 @@ image courtesy of NASA/JPL-Caltech/Univ. of Ariz., Public domain, via Wikimedia 
 
 - What is your research?
 :::
+:::
 
-# Why (not) R? {background="#0033A0"}
+# Why (not) R? {background="#9F281A"}
 
 ## Why R?
 
@@ -115,33 +121,34 @@ p2
 
 ## Why not R? 
 
-::: columns
-::: {.column width="30%"}
-
--   Coding can be hard...
-
--   Memory challenges
-
--   Speed
-
--   Decision fatigue
-:::
-::: {.column width="70%"}
 ```{r}
+#| code-overflow: wrap
 #| echo: true
+
 ## ---
 ## Error: could not find function "performance"
 ## ---
-##  [1] "Error in if (str_count(string = f[[j]], pattern = \"\\\\S+\") == 1) { : \n  argument is of length zero"   
+##  [1] "Error in if (str_count(string = f[[j]], 
+##  pattern = \"\\\\S+\") == 1) 
+##  { : \n  argument is of length zero"   
 ## ---
 ## Error in eval(expr, envir, enclos) : object 'x' not found
 ## ---
 ## Error in file(file, "rt") : cannot open the connection
 ## ---
-## Error in UseMethod("as.data.table") : 
-##   no applicable method for 'as.data.table' applied to an object of class "table"
-## ---
+
 ```
+
+::: columns
+::: {.column width="50%"}
+-   Coding can be hard...
+
+-   Memory challenges
+:::
+::: {.column width="50%"}
+-   Speed
+
+-   Decision fatigue
 :::
 :::
 
@@ -161,18 +168,18 @@ p2
 - [Common errors](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md)
 :::
 :::
-::: {style="font-size: 1.2em; text-align: center"} 
+::: {style="font-size: 1.2em; text-align: center; color: #9F281A"} 
 **Ask Me**
 :::
 
-# Class Details {background="#0033A0"}
+# Class Details {background="#9F281A"}
 
 ## Logistics { background-image="img/slide_1/bison.jpeg"}
 
 :::{style="font-size: 1.2em; text-align: center; margin-top: 2em; color:#fff"}
 - Meet on Mondays and Wednesdays
 
-- ~45 min lecture, 30 min practice
+- ~55 min lecture, 20 min practice
 
 - 4 major sections
 
@@ -181,7 +188,7 @@ p2
 
 ## Course Webpage { background-image="img/slide_1/hellroaring.jpeg"}
 
-[https://isdrfall22.classes.spaseslab.com/](https://isdrfall22.classes.spaseslab.com/)
+[https://isdrfall23.classes.spaseslab.com/](https://isdrfall23.classes.spaseslab.com/)
 
 :::{style="font-size: 1.2em; margin-top: 1.5em; color: #fff"}
 - Syllabus
@@ -199,33 +206,40 @@ p2
 ::: {style="font-size: 1.2em; text-align: center"} 
 **Check out the syllabus for more on grading!**
 :::
+:::{style="font-size: 0.8em"}
 ::: incremental
 ::: columns
 ::: {.column width="50%"}
-- **Self-reflections** (3x)
+- **Self-reflections** (2x)
   - Your goals for the course
   - Evaluation criteria
-  - Checking in
 
-- **Coding exercises** (4x)
+
+- **Coding exercises** (10x)
   - Problem solving
   - Reproducible workflows
-  - Thinking critically
+  - Muscle memory
 :::
 ::: {.column width="50%"}
+- **Code Revisions** (3x)
+  - Digging deeper
+  - Common issues
+  - More extensive feedback
+  
 - **Final project** (1st draft, final draft)
   - Practice a full analysis workflow
   - Integrate analysis & visuals to tell a story
 ::: 
 :::
 :::
+:::
 
-# Getting started {background="#0033A0"}
+# Getting started {background="#9F281A"}
 
 ## Orientation to RStudio and our RStudio server
 ![](img/slide_1/rstudio.png)
 
-# Git and Github classroom {background="#0033A0"}
+# Git and Github classroom {background="#9F281A"}
 
 
 
@@ -286,7 +300,7 @@ gitcreds::gitcreds_get()
 
 * Push your work to the remote!
 
-# Wrapup {background="#0033A0"}
+# Wrapup {background="#9F281A"}
 
 ## Checking in
 
@@ -296,5 +310,9 @@ gitcreds::gitcreds_get()
 
 3. How do you feel about git and github classroom? How can I make that easier for you?
 
-# End
-
+# End { background-image="img/slide_1/Kepler-world.jpeg" background-opacity="0.7"}
+::: footer 
+:::{style="0.8em; margin-bottom: -1.5em; color:#9F281A"}
+Johannes Kepler, 1627, Public domain, via Wikimedia Commons
+:::
+:::
