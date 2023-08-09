@@ -1,42 +1,21 @@
 ---
-title: "Point Pattern Analysis"
-date: "2022-10-17"
+title: "Combining Vectors and Continuous Rasters"
+date: "2023-10-11"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
-slide_details <- tibble::tribble(
-  ~youtube_id,   ~title, ~slide, ~active,
-  "tVcomh6jl2Y", "Intro to Point Patterns", "title", TRUE,
-  "tVcomh6jQ2Y", "First-order Point Patterns", "workflows", FALSE,
-  "UbQ8IW3UI9E", "Second-order Point Patterns", "database", FALSE,
-  "6MTC9uGMNFg", "Interpolation", "apps", FALSE,
-)
 ```
 
-Much of the development in statistical techniques for spatial data is rooted in the analysis of point processes. This is, perhaps, unsurprising given that the the point is the simplest of our different data models and the least ambiguous to reference spatially. Although points may be a "simpler" geometry, the analyses associated with them are far from simple. Today's lecture is only the briefest of introductions to point pattern analysis, but hopefully will get you comfortable with the ideas and terminology behind more advanced analyses.
+
 
 ## Resources
 
-- <i class="fas fa-external-link-square-alt"></i> [Rings, circles, and null-models for point pattern analysis in ecology](https://onlinelibrary.wiley.com/doi/full/10.1111/j.0030-1299.2004.12497.x?casa_token=D8RfesZ_AjUAAAAA%3AkLmb_B8BubHk4swR3flI9QS4sQnO87wZSImZXsQFD41Q9iEExMEO_bDTPvnvOHtERcit-3YmShhyU0g) by [@wiegand] provides an introduction to metrics for spatial clustering with applications in ecology.
-
-- <i class="fas fa-external-link-square-alt"></i>  [Improving the usability of spatial point process methodology: an interdisciplinary dialogue between statistics and ecology
-](https://link.springer.com/article/10.1007/s10182-017-0301-8) by Janine Illian (a major contributor to modern point pattern analyses) and David Burslem (a Scottish plant ecologist) [@illian2017] is a fairly modern take on the challenges associated with point process modeling in ecology.
-
-- <i class="fas fa-external-link-square-alt"></i>  [Chapter 11: Point Pattern Analysis](https://mgimond.github.io/Spatial/chp11_0.html) in Manuel Gimond's Introduction to GIS and Spatial Analysis `bookdown` project provides a nice (and free) introduction to some of these introductory point process methods. 
 
 ## Objectives
 
 By the end of today you should be able to:
-
-- Define a point process and their utility for ecological applications
-
-- Define first and second-order Complete Spatial Randomness
-
-- Use several common functions to explore point patterns
-
-- Leverage point patterns to interpolate missing data
 
 ## Slides
 
@@ -44,5 +23,6 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/16-slides")
-slide_tabs(slide_details, "/slides/16-slides.html")
 ```
+
+Slides Forthcoming

@@ -1,37 +1,18 @@
 ---
-title: "Spatial data as matrices and rasters"
-date: "2022-09-21"
+title: "Introduction to Mapping Geographic Data"
+date: "2023-09-20"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
-slide_details <- tibble::tribble(
-  ~youtube_id,   ~title, ~slide, ~active,
-  "BIhz1dz5Vws", "The Raster Data Model", 'title', TRUE,
-  "f-sOSXyeeJE", "Components of Rasters in R", "why-not-r", FALSE,
-  "Z2foqSMWnGU", "Building Rasters", "Class Details", FALSE,
-)
 ```
 
 ## Readings
-Today we'll be exploring the raster data model and how it is implemented within the spatial packages in the `R` computing environment. These chapters are not 'prerequisite' reading for the week, but provide a lot of helpful background for raster proccessing in R.
-
-- <i class="fas fa-book"></i> The [`raster` package vignette](https://www.rspatial.org/raster/RasterPackage.pdf) has a number of helpful examples for different workflows with raster objects in `R`. 
-
-- <i class="fas fa-external-link-square-alt"></i> The [`terra` package vignette](https://rspatial.org/terra/pkg/1-introduction.html#) describes the new raster functions available in `terra`, their relationship to those in the `raster` package, and the changes in syntax between the two.
-
-- <i class="fas fa-book"></i> The [Functional Programming](https://adv-r.hadley.nz/fp.html) and  [Measuring performance](https://adv-r.hadley.nz/perf-measure.html) from _Advanced R_ [@wickham2019advanced] provide an excellent introduction to developing your own functions for repeated operations and ways to optimise code for large problems. Raster data processing often involves repeating (sometimes multiple) steps 100s of times. These chapters introduce  strategies for developing functions for repeated operations and identfying and fixing bottlenecks in those functions.
 
 ## Objectives
 
 By the end of today, you should be able to: 
-
-- Describe the raster data model and its representation in R
-
-- Access the elements that define a raster
-
-- Build rasters from scratch using matrix operations and `terra`
 
 
 
@@ -40,5 +21,6 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/10-slides")
-slide_tabs(slide_details, "/slides/10-slides.html")
 ```
+
+Slides Forthcoming

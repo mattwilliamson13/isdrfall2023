@@ -1,44 +1,25 @@
 ---
-title: "Multivariate Analysis I"
-date: "2022-10-26"
+title: "Interpolation"
+date: "2023-10-23"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
-slide_details <- tibble::tribble(
-  ~youtube_id,   ~title, ~slide, ~active,
-  "tVcomh6jl2Y", "Favorability Again", "dens", TRUE,
-  "UbQ8IW3UI9E", "Logistic Regression", "database", FALSE,
-  "6MTC9uGMNFg", "Presence-Only Data", "apps", FALSE,
-)
 ```
 
-Much of the motivation for this course stems from the need to develop spatially explicit predictions about the likelihood that a species or event occurs in places we haven't sampled. In ecology, we call these models by several different names: species distribution models, resource selection functions, habitat selection models. More generally we might call these 'event occurrence models', statistical models that describe the relations between a number of predictors and the occurrence of any event of interest (e.g., presence of crimes, species, conservation actions, etc. )
+
 
 ## Resources
 
-- <i class="fas fa-external-link-square-alt"></i> [Logistic regression: a brief primer](https://onlinelibrary.wiley.com/doi/10.1111/j.1553-2712.2011.01185.x) by [@Stoltzfus2011] is a nice introduction to logistic regression.
-
-- <i class="fas fa-external-link-square-alt"></i> [Point process models for presence-only analysis](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352) by [@Renner2015] provides a comprehensive overview and comparision of methods for analyzing presence-background datasets.
-
-- <i class="fas fa-external-link-square-alt"></i> [Estimating site occupancy rates when detection probabilities are less than one](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9658%282002%29083%5B2248%3AESORWD%5D2.0.CO%3B2) by [@MacKenzie2002] is one of the foundational papers describing the use of occupancy modelling to account for situations where absences are ambiguous.
-
-- <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications](https://onlinelibrary.wiley.com/doi/full/10.1111/geb.12268) by [@Guillera-Arroita2015] is an excellent, concise description of the relations between data collection, statistical models, and inference.
-
-- <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.12189) by [@Guisan2013] is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.
 
 ## Objectives
 
 By the end of today you should be able to:
 
-- Recognize the link between regression analysis and overlay analysis
-
-- Generate spatial predictions based on regression analysis
-
-- Extend logistic regression to presence-only data models
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/19-slides")
-slide_tabs(slide_details, "/slides/19-slides.html")
 ```
+
+Slides forthcoming

@@ -1,45 +1,38 @@
 ---
-title: "Spatial Data is Special Data"
-date: "2022-09-7"
+title: "Literate Programming, Quarto, and Workflows"
+date: "2023-09-6"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
-slide_details <- tibble::tribble(
-  ~youtube_id,   ~title, ~slide, ~active,
-  "BIhz1dz5Vws", "Geography", 'title', TRUE,
-  "f-sOSXyeeJE", "Projections", "why-not-r", FALSE,
-  "Z2foqSMWnGU", "Spatial Data in R", "Class Details", FALSE,
-)
+
 ```
+
+Today we'll focus on some of the tools for reproducible workflows using `R`. We'll introduce Quarto as a means of authoring different kinds of documents. We'll talk about literate programming and leaving breadcrumbs for yourself (and others). Finally, we'll begin to work through the ideas of workflow planning
 
 ## Readings
 
-- <i class="fas fa-book"></i> [Coordinate Reference Systems](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro) Section 2.4 in Lovelace et al., *Geocomputation with R* [@lovelace_geocomputation_2019]
+- {{< fa arrow-up-right-from-square >}} [Authoring in Quarto](https://quarto.org/docs/get-started/authoring/rstudio.html) - an intro to Quarto for developing different kinds of documents. Lots of other resources linked here!!
 
-- <i class="fas fa-book"></i> [Chapter 1: Introduction ](https://saylordotorg.github.io/text_essentials-of-geographic-information-systems/s05-introduction.html) in Essentials of Geographic Information Systems by Campbell and Shin [@campbell_essentials_2011]
+- {{< fa arrow-up-right-from-square >}} [Pseudocode: what it is and how to write it](https://builtin.com/data-science/pseudocode) - A nice blogpost by Sara Metawalli the sketches out the logic of pseudocode and why it can be helpful.
 
-- <i class="fas fa-external-link-square-alt"></i> [Scale and Projections](https://open.lib.umn.edu/mapping/chapter/3-scale-and-projections/) - a portion of _Mapping, Society, and Technology_ an Laura Matson and Melinda Kernik.
+- <i class="fas fa-book"></i> [The Whole Game](https://r4ds.hadley.nz/whole-game.html) - from Wickham et al., *R for Data Science* [@wickham2016r]. Focus on the sections that begin with "Workflow" to get a sense for how we'll start putting the pieces together.
+
+- <i class="fas fa-book"></i> [Scripts, algorithms, and functions](https://geocompr.robinlovelace.net/algorithms.html) - chapter 11 in in Lovelace et al., *Geocomputation with R* [@lovelace_geocomputation_2019] introduces some concepts behind geospatial programming. A few of these pieces will make more sense in the next few weeks, but the general advice on constructing code and planning analyses is useful now.
 
 ## Objectives
-By the end of today, you should be able to:
+By the end of today you should be able to:
 
-* Articulate why we care about space
+* **Develop** basic docs with Quarto
 
-* Describe elements of spatial data
+* **Understand** the basics of creating readable code
 
-* Define a coordinate reference system and its importance
-
-* Describe several ways to load spatial data into `R`
-
-* Identify, assign, and change projections `R` 
-
+* **Use** pseudocode to sketch out a computational problem
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/06-slides")
-slide_tabs(slide_details, "/slides/06-slides.html")
 ```

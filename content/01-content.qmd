@@ -1,21 +1,14 @@
 ---
 title: "Getting Started"
-date: "2022-08-22"
+date: "2023-08-21"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
-slide_details <- tibble::tribble(
-  ~youtube_id,   ~title, ~slide, ~active,
-  "BIhz1dz5Vws", "Introductions", 'title', TRUE,
-  "f-sOSXyeeJE", "Why (not) R?", "why-not-r", FALSE,
-  "Z2foqSMWnGU", "Assignments, reflections, expectations", "Class Details", FALSE,
-  "D4LoEctZxHE", "Git and github classroom", "class-details", FALSE
-)
 ```
 
-Today we'll focus on getting oriented to the course and the tools we'll be using throughout the semester. Readings are designed to help understand some of the 'rules' of R syntax and develop an understanding for manipulating different types of data in R.
+Today we'll focus on getting oriented to the course and the tools we'll be using throughout the semester. Readings are designed to help understand some of the 'rules' of R syntax and develop an understanding for manipulating different types of data in R. I've added a few on open science and reproducibility because I think they help make the case for learning to build code-based workflows.
 
 ## Readings
 
@@ -26,6 +19,10 @@ Today we'll focus on getting oriented to the course and the tools we'll be using
 - {{< fa arrow-up-right-from-square >}} [Chapters 1-2](https://intro2r.com/) in Douglas et al., *An Introduction to R* - provides another intro to R that's been updated and is an open-source book.
 
 - {{< fa arrow-up-right-from-square >}} [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) - all you really need to know to be a proficient user of git for version control and reproducible workflows.
+
+- {{< fa arrow-up-right-from-square >}} [Open science, reproducibility, and transparency in ecology](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/eap.1822) by Powers and Hampton - discusses the importance of open science for ecologists.
+
+- {{< fa arrow-up-right-from-square >}} [Practical Reproducibility in Geography and Geosciences](https://eartharxiv.org/repository/view/3216/) by Nilst and Pebesma - describes the importance of reproducibility for geospatial analysis.
 
 ## Objectives
 By the end of today you should:
@@ -42,5 +39,12 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/01-slides")
-slide_tabs(slide_details, "/slides/01-slides.html")
 ```
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/01-slides.html"></iframe>
+```
+
+</div>

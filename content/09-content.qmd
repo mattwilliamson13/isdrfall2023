@@ -1,38 +1,18 @@
 ---
-title: "Operations on Vector Data II"
-date: "2022-09-19"
+title: "Areal Data: Rasters"
+date: "2023-09-18"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
-slide_details <- tibble::tribble(
-  ~youtube_id,   ~title, ~slide, ~active,
-  "BIhz1dz5Vws", "Final Project", 'title', TRUE,
-  "f-sOSXyeeJE", "Transformations", "why-not-r", FALSE,
-  "Z2foqSMWnGU", "Subsetting", "Class Details", FALSE,
-)
 ```
 
 ## Readings
-We are going to continue building on the use of the vector data model so we'll keep working through the readings from last session.
-
-- <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
-
-- <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. [@lovelace_geocomputation_2019] - for more details about vectors and geometric operations on vectors.
-
-- <i class="fas fa-external-link-square-alt"></i> [Section 3.1 and 3.2](https://keen-swartz-3146c4.netlify.app/geometries.html) of Spatial Data Science, a `bookdown` project by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages)
 
 ## Objectives
 
 By the end of today, you should be able to: 
-
-- Complete a workflow for identifying and remedying invalid geometries
-
-- Describe the various unary, binary, and n-ary transformers
-
-- Use predicates and `dplyr::filter` to subset spatial data
-
 
 
 ## Slides
@@ -40,5 +20,6 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/09-slides")
-slide_tabs(slide_details, "/slides/09-slides.html")
 ```
+
+Slides Forthcoming
