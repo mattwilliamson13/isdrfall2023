@@ -74,63 +74,64 @@ website:
             - content/index.qmd
         - section: "Course content"
           contents:
-            - text: "1: Introduction to the course"
+            - text: "1: Introduction to the Course"
               file: content/01-content.qmd
-            - text: "2: Basic data structures in R"
+            - text: "2: Why Geographic Analysis"
               file: content/02-content.qmd
-            - text: "3: Quarto, pseudocode, and literate programming"
+            - text: "3: Introduction to Spatial Data"
               file: content/03-content.qmd
-            - text: "4: Repetitive tasks, pipes, and functional programming"
+            - text: "4: Intro to Spatial Data with R"
               file: content/04-content.qmd
-            - text: "6: Spatial data is special data"
+            - text: "6: Literate Programming, Quarto, Workflows"
               file: content/06-content.qmd
-            - text: "7: Spatial data as vectors"
+            - text: "7: Areal Data - Coordinates and Geometries"
               file: content/07-content.qmd
-            - text: "8: Operations with vector data I"
+            - text: "8: Areal Data - Vector Data"
               file: content/08-content.qmd
-            - text: "9: Operations with vector data II"
+            - text: "9: Areal Data - Raster Data"
               file: content/09-content.qmd
-            - text: "10: Spatial data as matrices and rasters"
+            - text: "10: Intro to Mapping Geographic Data"
               file: content/10-content.qmd
-            - text: "11: Operations with raster data I"
+            - text: "11: Operations with Vector Data I"
               file: content/11-content.qmd
-            - text: "12: Operations with raster data II"
+            - text: "12: Operations with Vector Data II"
               file: content/12-content.qmd
-            - text: "13: Combining vector and raster operations"
+            - text: "13: Operations with Raster Data I"
               file: content/13-content.qmd
-            - text: "14: Building analysis databates using attributes"
+            - text: "14: Operations with Raster Data II"
               file: content/14-content.qmd
-            - text: "15: Building analysis databates using location"
+            - text: "15: Combining Tabular and Spatial Data"
               file: content/15-content.qmd
-            - text: "16: Point pattern analysis and interpolation"
+            - text: "16: Combining Vectors and Continuous Rasters"
               file: content/16-content.qmd
-            - text: "17: Assessing spatial autocorrelation and hypothesis testing"
+            - text: "17: Combining Vectors and Categorical Rasters"
               file: content/17-content.qmd
-            - text: "18: Overlays"
+            - text: "18: Point Patterns"
               file: content/18-content.qmd
-            - text: "19: Multivariate statistical analysis I"
+            - text: "19: Interpolation"
               file: content/19-content.qmd
-            - text: "20: Multivariate statistical analysis II"
+            - text: "20: Proximity and Areal Data"
               file: content/20-content.qmd
-            - text: "21: Multivariate statistical analysis III"
+            - text: "21: Spatial Autocorrelation"
               file: content/21-content.qmd
-            - text: "22: Basic data visualization principles"
+            - text: "22: Statistical Modelling I"
               file: content/22-content.qmd
-            - text: "23: Introduction to ggplot"
+            - text: "23: Statistical Modelling II"
               file: content/23-content.qmd
-            - text: "24: Maps, truth, and cartography"
+            - text: "24: Statistical Modelling III"
               file: content/24-content.qmd
-            - text: "25: Static maps in R"
+            - text: "25: Movement and Networks I"
               file: content/25-content.qmd
-            - text: "26: Building better maps"
+            - text: "26: Movement and Networks II"
               file: content/26-content.qmd
-            - text: "29: Introduction to interactive maps I"
+            - text: "29: Data Visualization and Maps I"
               file: content/29-content.qmd
-            - text: "30: Introduction to interactive maps II"
+            - text: "30: Data Visualization and Maps II"
               file: content/30-content.qmd
-            - text: "31: Conclusion"
+            - text: "31: Introduction to Interactive Maps"
               file: content/31-content.qmd  
-              
+            - text: "32: Conclusion"
+              file: content/32-content.qmd  
     - title: "Assignments"
       contents:
         - section: "Overview"
@@ -140,20 +141,34 @@ website:
           contents:
             - text: "Self-reflection 1" 
               file: assignment/self-eval1.qmd
-            - text: "Self-reflection 2" 
-              file: assignment/self-eval2.qmd
-            - text: "Self-reflection 3" 
-              file: assignment/self-eval3.qmd
+            - text: "Assignment Revision 1" 
+              file: assignment/05-firstrevision.qmd
+            - text: "Assignment Revision 2" 
+              file: assignment/10-secondrevision.qmd
+            - text: "Assignment Revision 3" 
+              file: assignment/13-thirdrevision.qmd
         - section: "Homework"
           contents:
             - text: "Introducing the course" 
               file: assignment/01-intro.qmd
-            - text: "Spatial Data Operations" 
+            - text: "Spatial Data and Quarto" 
               file: assignment/02-spatialops.qmd
-            - text: "Spatial Models" 
-              file: assignment/03-spatialmod.qmd
-            - text: "Data Visualization" 
-              file: assignment/04-dataviz.qmd
+            - text: "Vector Data" 
+              file: assignment/03-vector.qmd
+            - text: "Rasters and Maps" 
+              file: assignment/04-maps.qmd
+            - text: "Vector Operations" 
+              file: assignment/06-vectorops.qmd
+            - text: "Raster Operations" 
+              file: assignment/07-rasterops.qmd
+            - text: "Spatial Databases" 
+              file: assignment/08-combinations.qmd
+            - text: "Point Patterns and Interpolation" 
+              file: assignment/09-pointpatterns.qmd
+            - text: "Statistical Modelling" 
+              file: assignment/11-statmod.qmd
+            - text: "Movement and Networks" 
+              file: assignment/12-nets.qmd
         - section: "Final Project"
           contents:
             - assignment/final-proj.qmd
