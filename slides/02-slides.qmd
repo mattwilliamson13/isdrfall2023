@@ -1,6 +1,6 @@
 ---
-title: "Basic Data Structures in R"
-subtitle: "HES 505 Fall 2022: Session 2"
+title: "Why Geographic Analysis"
+subtitle: "HES 505 Fall 2023: Session 2"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -9,6 +9,10 @@ format:
     show-slide-number: print
     self-contained: true  
 ---
+```{r}
+#| echo: false
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+```
 ## Checking in
 
 1. What are some advantages and disadvantages of using `R` for spatial analysis
@@ -17,22 +21,225 @@ format:
 
 3. How do you feel about git and github classroom? How can I make that easier for you?
 
-## Today's Plan {background-image="img/slide_2/hudbay.jpeg" background-opacity="0.5"}
+## Today's Plan {background-image="img/slide_2/hudbay.jpeg" background-opacity="0.4"}
 
-:::{style="font-size: 1.2em; text-align: middle; margin-top: 2em"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
 
-- Understanding data types and their role in `R`
+- What can we do with geographic information?
 
-- Reading, subsetting, and manipulating data
+- Conceptual challenges
 
-- Getting help
+- Analytical challenges
 
-- [First assignment](https://classroom.github.com/a/VQuj0UjY) is live!
+- Critiques of quantitative geography
+
 :::
 
-# Data types and structures {background="#0033A0"}
+# What can we do with spatial data? {background-image="img/slide_2/iceberg.jpeg" background-opacity="0.6"}
 
-## Data types {background-image="img/slide_2/iceberg.jpeg" background-opacity="0.6"}
+## What is geography
+
+- **Geo**: land, earth, terrain
+
+- **Graph**: writing, discourse
+
+- Tuan: **Space** (extent) and **Place** (location)
+
+- Analysis of the effects of extent and location on events or features
+
+## Five Themes in Geography
+::: columns
+::: {.column width="40%"}
+- Location
+
+- Place
+
+- Region
+
+- Movement
+
+- Human-Environment Interaction
+:::
+::: {.column width="60%"}
+![WGBH Educational Foundation](img/slide_2/earthsys_wgbh.png)
+:::
+:::
+
+## Location
+The place (on Earth) of a particular geographic feature
+
+
+::: {layout-ncol=2}
+
+![](img/slide_2/zebra_usgs.png)
+
+![](img/slide_2/fires.png)
+:::
+## Location
+The place (on Earth) of a particular geographic feature
+
+::: {layout-ncol=2}
+![](img/slide_2/crime_map.png)
+
+![](img/slide_2/supercharger.png)
+:::
+
+## Place
+What is a location _like_?
+
+::: {layout-ncol=2}
+![](img/slide_2/forest_cover.jpg)
+
+![](img/slide_2/ustemp.jpg)
+:::
+
+::: footer 
+:::{style="font-size: 0.8em; margin-bottom: -1.em; color:#fff"}
+Forest cover map by Robert Simmons via Wikimedia Commons; temp map from [GISgeography.com](https://gisgeography.com/us-temperature-map/)
+:::
+:::
+
+## Place
+What is a location _like_?
+
+::: {layout-ncol=2}
+![](img/slide_2/gini-map-census.png)
+
+![](img/slide_2/climchange.png)
+:::
+
+## Region
+How are different areas similar or different?
+
+::: {layout-ncol=2}
+![](img/slide_2/ecoregions.png)
+
+![](img/slide_2/2021NLCD.png)
+:::
+
+## Region
+How are different areas similar or different?
+
+::: {layout-ncol=2}
+![](img/slide_2/yall.jpg)
+
+![](img/slide_2/CASC_Network_Simple_v1_2021.png)
+:::
+
+## Movement
+How do genes, individuals, populations, ideas, goods, etc traverse the landscape.
+
+::: {layout-ncol=2}
+![](img/slide_2/moveVis.gif)
+
+![](img/slide_2/combined.png)
+:::
+
+## Movement
+How do genes, individuals, populations, ideas, goods, etc traverse the landscape.
+
+::: {layout-ncol=2}
+![](img/slide_2/hcn_migration.jpg)
+
+![](img/slide_2/landgrabu.png)
+:::
+::: footer 
+:::{style="font-size: 0.8em; margin-bottom: -1.em; color:#fff"}
+Both maps courtesy of High Country News
+:::
+:::
+
+## Human-Environment Interactions
+How do people relate to and change the physical world to meet their needs?
+
+::: {layout-ncol=2}
+![](img/slide_2/smoke.png)
+
+![](img/slide_2/nightlights.jpg)
+:::
+::: footer 
+:::{style="font-size: 0.7em; margin-bottom: -0.80em; color:#fff"}
+Smoke map courtesy of Capital Public Radio; Nightlights courtesy of NASA Earth Observatory.
+:::
+:::
+
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+Towards _quantitative_ spatial analysis
+:::
+
+# {background="#9F281A"}
+:::{style="font-size: 1.4em"}
+> ‘everything is usually related to all else but those which are near to each other
+>are more related when compared to those that are further away’.
+> `r tufte::quote_footer('Waldo Tobler')`
+:::
+
+# {background="#9F281A"}
+
+```{r}
+#| echo: false
+#| message: false
+#| crop: true
+#| fig-align: center
+library(ggplot2)
+D <-list('Description'=c(2,3,1),'Explanation'=c(4,7,1), 'Prediction'=c(7,5))
+
+p <- ggvenn::ggvenn(D,c("Description","Explanation", "Prediction"),show_percentage=FALSE,show_elements = FALSE, fill_color=c("#1C2D8C","#7C4A89", "#027373"), set_name_color = "white", text_size=0.00001)
+
+p2 <- p + theme(panel.border = element_rect(color = "#9F281A", fill=NA),
+  panel.background = element_rect(fill="#9F281A"),
+         plot.background = element_rect(fill="#9F281A"),
+         panel.grid.major = element_blank(),
+         panel.grid.minor = element_blank())
+#ggsave("venn.png", p2, bg="transparent", width=6, units = "in")
+p2
+```
+
+## Exploration and Description: Natural Sciences
+::: columns
+::: {.column width="60%"}
+- Range Maps
+- Productivity
+- Topography
+
+:::
+::: {.column width="40%"}
+
+:::
+:::
+
+## Exploration and Description: Social Sciences
+
+## Explanation and Inference
+
+## Prediction
+
+# Conceptual challenges {background="#43464B" background-image="img/slide_2/ducks.jpeg" background-opacity="0.6"}
+
+## Scale
+
+## Fallacies
+
+- __Locational Fallacy:__ Error due to the spatial characterization chosen for elements of study
+
+
+- __Atomic Fallacy:__ Applying conclusions from individuals to entire spatial units
+
+
+- __Ecological Fallacy:__ Applying conclusions from aggregated information to individuals
+
+# Analytical Issues
+
+## Spatial Autocorrelation
+
+## Stationarity
+
+## Measurement Error and Mismatch
+
+
+## Data types {}
+
 :::{style="text-align: middle; margin-top: 0.5em"}
 * The basic schema that `R` uses to store data.
  * Creates expectations for allowable values
