@@ -168,34 +168,36 @@ Smoke map courtesy of Capital Public Radio; Nightlights courtesy of NASA Earth O
 Towards _quantitative_ spatial analysis
 :::
 
-# {background="#9F281A"}
-:::{style="font-size: 1.4em"}
-> ‘everything is usually related to all else but those which are near to each other
->are more related when compared to those that are further away’.
-> `r tufte::quote_footer('Waldo Tobler')`
-:::
 
-# {background="#9F281A"}
+
+#
 
 ```{r}
 #| echo: false
 #| message: false
 #| crop: true
 #| fig-align: center
+
 library(ggplot2)
 D <-list('Description'=c(2,3,1),'Explanation'=c(4,7,1), 'Prediction'=c(7,5))
 
 p <- ggvenn::ggvenn(D,c("Description","Explanation", "Prediction"),show_percentage=FALSE,show_elements = FALSE, fill_color=c("#1C2D8C","#7C4A89", "#027373"), set_name_color = "white", text_size=0.00001)
 
-p2 <- p + theme(panel.border = element_rect(color = "#9F281A", fill=NA),
-  panel.background = element_rect(fill="#9F281A"),
-         plot.background = element_rect(fill="#9F281A"),
+p2 <- p + theme(panel.border = element_rect(color = "#A1D8EA", fill=NA),
+  panel.background = element_rect(fill="#A1D8EA"),
+         plot.background = element_rect(fill="#A1D8EA"),
          panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
 #ggsave("venn.png", p2, bg="transparent", width=6, units = "in")
 p2
 ```
 
+# {background="#9F281A"}
+:::{style="font-size: 1.4em"}
+> ‘everything is usually related to all else but those which are near to each other
+>are more related when compared to those that are further away’.
+> `r tufte::quote_footer('Waldo Tobler')`
+:::
 ## Exploration and Description: Natural Sciences
 ::: columns
 ::: {.column width="60%"}
