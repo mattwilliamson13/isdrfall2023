@@ -12,6 +12,7 @@ format:
 ```{r}
 #| echo: false
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+library(tidyverse)
 ```
 ## Checking in
 
@@ -198,31 +199,99 @@ p2
 >are more related when compared to those that are further away’.
 > `r tufte::quote_footer('Waldo Tobler')`
 :::
-## Exploration and Description: Natural Sciences
+
+## Description
+
 ::: columns
-::: {.column width="60%"}
+::: {.column width="30%"}
+- Coordinates
+- Distances
+- Neighbors
+- Summary statistics
+
+:::
+::: {.column width="70%"}
+![](img/slide_2/neighbors.png)
+:::
+:::
+
+::: footer 
+:::{style="font-size: 0.7em; margin-bottom: -0.80em; color:#fff"}
+courtesy of [innovative GIS](http://www.innovativegis.com/basis/mapanalysis/Topic26/Topic26.htm)
+:::
+:::
+
+## Description
+
+![](img/slide_2/svi.png){width=110%}
+
+
+:::{style="font-size: 0.8em; text-align: left; margin-top: -0.1em; margin-bottom: -1em;"}
 - Range Maps
-- Productivity
-- Topography
-
+- Hotspots
+- Indices
 :::
-::: {.column width="40%"}
-
-:::
-:::
-
-## Exploration and Description: Social Sciences
 
 ## Explanation and Inference
 
+
+- **Cognitive Description**: collection ordering and classification of data
+
+- **Cause and Effect**: design-based or model-based testing of the factors that give rise to geographic distributions
+
+- **Systems Analysis**: describes the entire complex set of interactions that structure an activity
+
+![](img/slide_2/model.png){fig-pos='m'}
+
+
 ## Prediction
+
+::: columns
+::: {.column width="60%"}
+![](img/slide_2/climateproj.png)
+
+:::
+::: {.column width="40%"}
+- Extend description or explanation into unmeasured space
+- Stationarity: the rules governing a process do not _drift_ over space-time
+:::
+:::
 
 # Conceptual challenges {background="#43464B" background-image="img/slide_2/ducks.jpeg" background-opacity="0.6"}
 
 ## Scale
+:::{style="font-size: 0.8em; margin-bottom: -1.2em"}
+What do we even mean?
+:::
+
+::: columns
+::: {.column width="60%"}
+![](img/slide_2/manson.jpg){width=110%}
+:::
+::: {.column width="40%"}
+
+- __Grain__: the smallest unit of measurement
+- __Extent__: the areal coverage of the measurement
+
+:::
+:::
+:::footnote
+:::{style="font-size: 0.8em; margin-bottom: -1.em; color:#fff"}
+From Manson 2008
+:::
+:::
+
+## Scale
+:::{style="font-size: 0.8em"}
+Even if it exists, how do we know we are measuring at the _right_ scale?
+:::
+
+![](img/slide_2/Wiens.png){fig-align="center"}
 
 ## Fallacies
 
+::: columns
+::: {.column width="60%"}
 - __Locational Fallacy:__ Error due to the spatial characterization chosen for elements of study
 
 
@@ -230,412 +299,55 @@ p2
 
 
 - __Ecological Fallacy:__ Applying conclusions from aggregated information to individuals
-
-# Analytical Issues
-
-## Spatial Autocorrelation
-
-## Stationarity
+:::
+::: {.column width="40%"}
+![](img/slide_2/MAUP.png)
+:::
+:::
 
 ## Measurement Error and Mismatch
 
+![](img/slide_2/systematic_orig.jpg)
 
-## Data types {}
+## Spatial Autocorrelation
 
-:::{style="text-align: middle; margin-top: 0.5em"}
-* The basic schema that `R` uses to store data.
- * Creates expectations for allowable values
- * Sets the "rules" for how your data can be manipulated
- * Affects storage and combination with other data types
 
-* Four most common: __Logical__, __Numeric__, __Integer__, __Character__
+![From Manuel Gimond](img/slide_17/Random_maps.png)
+
+
+## Stationarity
+
+The rules governing a process do not _drift_ over space-time
+
+::: columns
+::: {.column width="60%"}
+* __First Order__ effects: any event has an equal probability of occurring in a location
+
+* __Second Order__ effects: the location of one event is independent of the other events
 
 :::
-
-## Logical Data {background="#43464B" background-image="img/slide_2/ducks.jpeg" background-opacity="0.5"}
-
-* Data take on the value of either `TRUE` or `FALSE`. 
-* Special type of logical called `NA` to represent missing values
-* Can be coerced to integers when numeric data is requires (`TRUE` = 1; `FALSE` = 0)
-
-## Logical Data (cont'd)
-* Can be the outcome of logical test
-```{r}
-#| echo: true
-x <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10
-(y <- x > 5) #test whether the values are greater than 5 and assign to object y
-typeof(y) #how is R storing the object?
-mean(y) #gives the proportion of y that is greater than 5
-x[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA
-is.na(x) #check which values are NA
-```
-
-## Numeric Data
-
-* All of the elements of an object (or variable) are numbers that _could_ have decimals
-* `R` can store this as either _double_ (at least 2 decimal points) or _integer_
-
-```{r}
-#| echo: true
-x <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10
-typeof(x) #how is R storing the object?
-class(x) #describes how R will treat the object 
-```
-
-## Integer Data
-* __Integer__ data is a special case of numeric data with no decimals
-
-```{r}
-#| echo: true
-mode(x) <- "integer"
-x
-class(x)
-typeof(x)
-
-z <- sample.int(100, size=10) #sample 10 integers between 1 and 100
-typeof(z)
-class(z)
-```
-
-## Character Data
-
-* Represent _string_ values
-* __Strings__ tend to be a word or multiple words
-* Can be used with logical tests
-
-```{r}
-#| echo: true
-char <- c("Sarah", "Tracy", "Jon") #use c() to combine multiple entries
-typeof(char)
-char == "Jon"
-char[char=="Jon"] <- "Jeff"
-char
-```
-
-## Factors
-
-* A special case of character data
-
-* Data contains a limited number of possible character strings (categorical variables)
-
-* The `levels` of a factor describe the possible values (all others coerced to `NA`)
-
-```{r}
-#| echo: true
-(sex <- factor(c("female", "female", "male", "female", "male")))  #by default levels are ordered alphabetically
-(sex <- factor(sex, levels = c("male", "female"))) #changing the order of the levels
-
-```
-
-## Coercion
-
-* Sometimes certain functions require a particular `class` of data require conversion (or coercion)
-* `mode` - implicitly; `as.xxx` - explicitly
-
-```{r}
-#| echo: true
-text <- c("test1", "test2", "test1", "test1") # create a character vector
-class(text)
-text_factor <- as.factor(text) # transform to factor
-class(text_factor) # recheck the class
-levels(text_factor)
-as.numeric(text_factor)
-```
-
-## Data structures
-* Lots of options for how `R` stores data
-* Structure determines which functions work and how they behave
-* `length()`, `str()`, `summary()`, `head()`, and `tail()` can help you explore
-* Most of the `RSpatial` data structures build on these basic structures
-
-## Vectors
-* A 1-dimensional collection of elements with the same data type
-* Combining two datatypes makes `R` choose
-
-```{r}
-#| echo: true
-series.1 <- seq(10)
-series.2 <- seq(from = 0.5, to = 5, by = 0.5)
-series.abc <- letters[1:10]
-length(series.1)
-length(series.2)
-class(c(series.abc, series.1)) #combine characters with numbers
-```
-
-## Vectors (cont'd)
-* Can combine them or perform 'vectorized' operations
-
-```{r}
-#| echo: true
-series.comb <- c(series.1, series.2)
-length(series.comb)
-series.add <- series.1 + series.2
-length(series.add)
-head(series.add)
-```
-* __What happens if you try to add the character vector to the numeric vector?__
-
-## Matrices
-
-* An extension of the numeric or character vectors to include 2-dimensions (rows and columns)
-* Arrays extend the idea to multiple dimensions
-* Elements of matrix must have the same data type
-
-```{r}
-#| echo: true
-(m <- matrix(1:6, nrow = 2, ncol = 3)) #default is to fill by columns
-dim(m)
-(m <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE))
-```
-## Lists
-* Hold a variety of different data types and structures including more lists. 
-* Use a lot for functional programming (next week).
-
-
-```{r}
-#| echo: true
-(xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars)))
-```
-## Lists (cont'd)
-* Lists store information in `slots`
-* Adding `names` to a list can help with accessing data
-
-```{r}
-#| echo: true
-names(xlist)
-class(xlist$data)
-```
-
-## Data Frames
-
-* Resemble tabular datasets used in spreadsheet programs 
-
-* Long vs. wide data 
-
-* Special type of list where every element has the same length (but can have different types of data)
-
-```{r}
-#| echo: true
-(dat <- data.frame(id = letters[1:5], x = 1:5, y = rep(date(),times=5 )))
-is.list(dat)
-class(dat)
-```
-## Data Frames (cont'd)
-* Lots of ways to access and summarize data in data frames
-* Useful for making sure your functions are working as intended
-
-```{r}
-#| echo: true
-str(dat) #compact summary of the structure of a dataframe
-summary(dat) #estimate summary statistics of data frame
-```
-
-## Data Frames (one more time)
-* Special cases of `names` (`colnames` and `rownames`)
-
-```{r}
-#| echo: true
-colnames(dat) #get the names of the variables stored in the data frame
-dat$y
-```
-
-## Tibbles
-* Similar to data frames, but allow for _lists within columns_
-* Designed for use with the `tidyverse`
-* Foundation of `sf` objects
-
-```{r}
-#| echo: true
-library(tidyverse) #load the package necessary
-dat.tib <- tibble(dat)
-is.list(dat.tib)
-
-## [1] TRUE
-
-class(dat.tib)
-```
-
-
-# Manipulating data in R {background="#0033A0"}
-
-## A Note on the `tidyverse` {background-image="img/slide_2/iceberg.jpeg" background-opacity="0.6"}
-
-* A self-contained universe of packages and functions designed to work together
-
-* Rely on "verbs" to make coding more intuitive
-
-* Benefits and drawbacks
-
-## Reading Data
-* The first step in any data analysis
-
-* Depends on the file type (`.csv`, `.txt`, `.shp`)
-
-* CHECK YOURSELF
-
-```{r}
-#| echo: true
-cars <- read.table('file/cars.txt')
-str(cars)
-summary(cars)
-```
-
-## Reading Data (cont'd)
-
-* `tidyverse` convention is to use "verb_object"
-
-* For reading data that means `read_` instead of `read.`
-
-* Different default behaviors!!
-
-```{r}
-#| echo: true
-cars_tv <- read_table('file/cars.txt')
-str(cars_tv)
-```
-## Reading Data (cont'd)
-```{r}
-#| echo: true
-summary(cars_tv)
-head(cars_tv)
-```
-
-**What do you notice??**
-
-## Selecting Data
-
-* We often want to access subsets of our data
-* For named objects we can use `$`
-
-```{r}
-#| echo: true
-speed <- cars$speed #assign the whole speed column to an object
-head(speed)
-
-```
-## Selecting Data (cont'd)
-
-* More generally we can use `[]` (can use index and logicals)
-```{r}
-#| echo: true
-(speed2 <- cars$speed[2]) # get the vector named speed and take the 2nd element in that vector
-(speed3 <- cars[4,2]) #get the vector located in the 2nd column and take the 4th element
-(speed20 <- cars[cars$speed > 20,]) #return all columns where speed >20
-
-```
-
-## Selecting Data (cont'd)
-* For lists we use `[[]]` to access a particular slot and `[]` to access data in that slot
-
-```{r}
-#| echo: true
-xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars))
-xlist[[3]][1,2] #get the 3rd slot in the list and return the value in the 1st row, 2nd column
-```
-
-## Selecting Data (cont'd)
-
-* In the `tidyverse` we use `select()` to choose columns
-
-* The ` %>% ` operator allows us to link steps together
-```{r}
-#| echo: true
-speed <- read.table('file/cars.txt') %>% 
-  select(., speed)
-head(speed)
-```
-## Selecting Data (cont'd)
-* Use `slice` to get rows based on position
-```{r}
-#| echo: true
-(speed2 <- read.table('file/cars.txt') %>% 
-  select(., speed) %>% 
-   slice(., 2))
-```
-
-## Selecting Data (cont'd)
-* Use`filter` to choose rows that meet a condition
-
-```{r}
-#| echo: true
-(speed2 <- read.table('file/cars.txt') %>% 
-  filter(., speed > 20))
-```
-## Changing Data
-
-* Updating data (CAUTION)
-
-* Often using a combination of index and logicals
-
-```{r}
-#| echo: true
-x <- runif(10,-10, 10) #generate 10 random numbers between -10 and 10
-x[c(3,6,8)] <- NA #set the 3rd, 6th, and 8th value to NA
-is.na(x) #check which values are NA
-```
-
-## Changing Data
-
-* Creating new variables
-* Can use `$` 
-
-```{r}
-#| echo: true
-head(mtcars, 3)
-
-mtcars$hpwt <- mtcars$hp/mtcars$wt
-head(mtcars[,c(1, 5:12)],3)
-```
- 
-## Changing Data
-
-* Creating new variables
-* Using `tidyverse`, `mutate` creates new variables for the entire dataset
-```{r}
-#| echo: true
-mtcars_update <- mtcars %>% 
-  mutate(., hpwt = hp/wt)
-head(mtcars_update[,c(1, 5:12)], 3)
-```
-
-
-## Changing Data
-
-* Creating new variables
-* Using `summarise` creates group level summaries
-```{r}
-#| echo: true
-mtcars_group <- mtcars %>% 
- group_by(., cyl) %>% 
-  summarise(., meanmpg = mean(mpg))
-mtcars_group
-```
-
-# Getting help {background="#0033A0"}
-
-## 2 Kinds of Errors {background="#43464B" background-image="img/slide_2/ducks.jpeg" background-opacity="0.6"}
-
-* **Syntax Errors**: Your code won't actually run
-* **Semantic Errors**: Your code runs without error, but the result is unexpected
-
-## Asking good questions
-
-* What are you trying to do?
-
-* What isn't working?
-
-* What are you expecting?
-
-* Why aren't common solutions working?
-
-## Reproducible examples
-
-* Don't require someone to have your data or your computer
-
-* Minimal amount of information and code to reproduce your error
-
-* Includes both code and your operating environment info
-
-* See the `reprex` package.
-
-# Wrap-up
+::: {.column width="40%"}
+
+![From Manuel Gimond](img/slide_2/IRP_CSR.png)
+:::
+:::
+
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+Key Critiques
+:::
+
+## Not all geography needs to be quantitative
+
+1. Abstraction removes the interesting part
+2. What "is" may require assumptions we don't want to accept
+3. Wholly dependent on the military-industrial complex
+
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+Wrapping Up
+
+1. Themes in geography
+2. Description, explanation, prediction
+3. Key challenges and critiques
+:::
