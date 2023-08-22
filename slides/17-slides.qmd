@@ -144,7 +144,7 @@ plot(d)
 
 * The simplest spatial process is Completely Spatial Random (CSR) process
 
-* __First Order__ effects: any event has an equal probability of occuring in a location
+* __First Order__ effects: any event has an equal probability of occurring in a location
 
 * __Second Order__ effects: the location of one event is independent of the other events
 :::
