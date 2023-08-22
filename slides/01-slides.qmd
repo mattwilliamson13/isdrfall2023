@@ -45,7 +45,7 @@ image courtesy of NASA/JPL-Caltech/Univ. of Ariz., Public domain, via Wikimedia 
 :::
 :::
 ::: {.column width="60%"}
-![](img/slide_1/imp_resist.png){.absolute top="10"}
+![](img/slide_1/Buffalo_Mosaic.png)
 :::
 :::
 
@@ -280,7 +280,7 @@ gitcreds::gitcreds_get()
 
 ## Joining the assignment and cloning the repo
 
-1. Click this [link](https://classroom.github.com/a/BscSehQr)
+1. Click this [link](https://classroom.github.com/a/8TteH9XA)
 
 2. Bring the project into RStudio
 
