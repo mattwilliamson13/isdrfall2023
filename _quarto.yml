@@ -152,7 +152,7 @@ website:
             - text: "Introducing the course" 
               file: assignment/01-intro.qmd
             - text: "Spatial Data and Quarto" 
-              file: assignment/02-spatialops.qmd
+              file: assignment/02-introspatial.qmd
             - text: "Vector Data" 
               file: assignment/03-vector.qmd
             - text: "Rasters and Maps" 
