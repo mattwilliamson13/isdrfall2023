@@ -10,7 +10,7 @@ This course is collaborative. I'm hoping to provide a broad suite of information
 
 ## Problem sets
 
-I've created **ten assignments** to practice outlining a workflow, writing R code, and troubleshooting errors. The assignments are designed to provide "bite-sized" practice to help cement the topics covered in the (generally 2) lectures that each applies. That said, they may take some and I'd encourage you to start on them early so that we have time to work on any questions you have.
+I've created **ten assignments** to practice outlining a workflow, writing R code, and troubleshooting errors. The assignments rely on [these datatasets](/assignment/data.qmd)are designed to provide "bite-sized" practice to help cement the topics covered in the (generally 2) lectures that each applies. That said, they may take some and I'd encourage you to start on them early so that we have time to work on any questions you have.
 Moreover, long coding days are _the worst_ so working in bite size chunks can help keep things fun! Finally, working incrementally will also to encourage you to get in the habit of using `git` to keep track of your progress.
 
 
