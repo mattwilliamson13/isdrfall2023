@@ -12,7 +12,7 @@ Today we'll focus on getting oriented to the course and the tools we'll be using
 
 ## Readings
 
-- The [syllabus](/syllabus.qmd), [content](/content/index.qmd), [examples](/example/index.qmd), and [assignments](/assigment/index.qmd) pages for this class
+- The [syllabus](/syllabus.qmd), [content](/content/index.qmd), [examples](/example/index.qmd), and [assignments](/assignment/index.qmd) pages for this class
 
 - {{< fa book >}} [Chapter 1 - 6](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in Venables et al., *An Introduction to R* [@venables2009introduction] - for a quick refresher on data types in R (it's only 30 pages)
 
@@ -31,7 +31,7 @@ By the end of today you should:
 
 * Be able to access the RStudio Server and Github classroom
 
-* Be able to clone the first self-reflection and assignment and know the process for submitting assignments
+* Be able to clone the first self-reflection and know the process for submitting assignments
 
 ## Slides
 
