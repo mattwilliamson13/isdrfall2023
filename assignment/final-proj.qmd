@@ -37,7 +37,7 @@ You can generate a 'manuscript' style document (using Quarto) or a flexdashboard
 
 ## Assessment
 
-You'll submit a draft of the final report on **December 7**. I'll give you feedback based on your project and on your objectives for the course. You'll then have a chance to address my feedback before turning in your final draft on **December 15**. Your final self-assessment will ask you to reflect on your objectives for the course and evaluate the degree to which your final project demonstrates that you achieved your objectives. *Thus, when you are designing your project, make sure that you have your initial objectives in mind.*
+You'll submit a draft of the final report on **December 7**. I'll give you feedback based on your project and on your objectives for the course. You'll then have a chance to address my feedback before turning in your final draft on **December 14**. Your final self-assessment will ask you to reflect on your objectives for the course and evaluate the degree to which your final project demonstrates that you achieved your objectives. *Thus, when you are designing your project, make sure that you have your initial objectives in mind.*
 
 :::{.callout-tip}
 **A note on grades**: You will be responsible for assessing how well your assignment demonstrates that you achieved your objectives. I reserve the right to change the grade you've given yourself, but will provide clear justification for why I'm doing that. _Without a completed self-assessment there is no grade for your final project_, so please make sure you complete it.
