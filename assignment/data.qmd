@@ -1,0 +1,19 @@
+---
+title: "Assignment Datasets"
+---
+
+In order to reduce the fatigue of learning new datasets for each assignment, we'll try to keep things limited to a handful of point, vector, and raster datasets. I'm going to simplify them a bit for the sake of loading times, but you can take a look at the webpages for each dataset to get a sense for what the originals look like.
+
+## Fire Occurrence Data
+
+The US Forest Service maintains a geospatial archive of historic and ongoing fire occurrence ignition locations. It's a massive dataset, but you can play around with a [web-viewer](https://data-usfs.hub.arcgis.com/datasets/6059c1a4dca749d393e33ee5f8a0cbaf_9/explore) to see the sorts of things they report.
+
+## Wildfire Risk to Communities
+
+This is a [recent product](https://wildfirerisk.org/download/) that is being used to determine where priorities for fire mitigation and restoration should be located. They've been the tool underlying the most recent round of [Community Wildfire Defense Grants](https://www.usda.gov/media/press-releases/2023/03/20/biden-harris-administration-invests-nearly-200m-bipartisan).
+
+## Climate and Economic Justice Screening Tool
+
+The [CEJST](https://screeningtool.geoplatform.gov/en/#3/33.47/-97.5) combines a number of interesting datasets to identify locations where environmental justice concerns are likely to be highest. We'll generally be using the underlying data (not the classification itself), but it's worth checking out just to get a sense for what's there.
+
+In general, I'll do my best to keep us using these datasets and give you a heads up and description if we need to deviate (e.g., for the networks unit).
