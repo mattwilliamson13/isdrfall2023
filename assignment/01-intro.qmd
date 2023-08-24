@@ -2,17 +2,15 @@
 title: "Assignment 1: Introductory material"
 ---
 
-The first part of the course was designed to introduce some of the foundations of geographic thought, core technical details of working with spatial data, and introduce `R` as a tool for end-to-end spatial workflows. [This homework](https://classroom.github.com/a/VQuj0UjY) is meant to help reinforce those concepts and identify any gaps that I need to fill in as we go. There are additional step-by-step guides in the  By the end of this assignment you should be able to:
+The first part of the course was designed to introduce some of the foundations of geographic thought, core technical details of working with spatial data, and introduce `R` as a tool for end-to-end spatial workflows. [This homework](https://classroom.github.com/a/eNiOQIFf) is meant to help reinforce those concepts and identify any gaps that I need to fill in as we go. There are additional step-by-step guides in the  By the end of this assignment you should be able to:
+
+* Situate your research into the various fields of geographic analysis.
 
 * Describe the key components of spatial data.
 
-* Differentiate between the major data models used for spatial data.
-
-* Read spatial data into `R`.
+* Read spatial data into `R` and access these components.
 
 * Begin to document your work using Quarto.
-
-You'll need to accept the link to access the questions. 
 
 ## Instructions
 
@@ -27,3 +25,15 @@ You'll need to accept the link to access the questions.
 5. Answer the questions making sure save and commit at least 2 more times (having 3 commits is part of the assignment).
 
 6. Render the document to html (you should now have at least 3 files in the repository: Readme.md, assignment-1-xx.qmd, and assignment-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com.
+
+## Questions for the Assignment
+
+1. How does geographic analysis fit into your goals for your research? Given our discussion of the aims and limitations of geographic analysis, are there particular issues that you would like to know more about or guard against?
+
+2. What are the primary components that describe spatial data?
+
+3. What is the coordinate reference system and why is it important
+
+4. Find two maps of the same area in different projections? How does the projection affect your perception of the data being displayed?
+
+5. Read in the `cejst.shp` file in the `assignment01` folder. How many attributes describe each object? How many unique geometries are there? What is the coordinate reference system?
