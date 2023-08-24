@@ -1,6 +1,6 @@
 ---
-title: "Quarto, literate programming, and pseudocode"
-subtitle: "HES 505 Fall 2022: Session 3"
+title: "Introduction to Spatial Data"
+subtitle: "HES 505 Fall 2023: Session 3"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -9,109 +9,333 @@ format:
     show-slide-number: print
     self-contained: true  
 ---
-## For today
 
-1. Introduce literate programming
+## Today's Plan {background-image="img/slide_3/sweden.png" background-opacity="0.8"}
 
-2. Describe pseudocode and its utility for designing an analysis
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 1em; color:#fff"}
 
-3. Introduce `Quarto` as a means of documenting your work
+1. Ways to view the world
 
-4. Practice workflow
+2. What makes data (geo)spatial?
 
-# Literate Programming {background="#0033A0"}
+3. Coordinate Reference Systems
 
-## What is literate progamming?
+4. Geometries, support, and spatial messiness
 
->Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.
-`r tufte::quote_footer('--- Donald Knuth, CSLI, 1984')`
+:::
 
-## What is literate programming?
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+How do you view the world?
+:::
 
-- Documentation containing code (not vice versa!)
 
-- Direct connection between code and explanation
+## ...As a Series of **Objects**?
 
-- Convey meaning to humans rather than telling computer what to do!
+::: columns
+::: {.column width="50%"}
+::: incremental
+- The world is a series of _entities_ located in space.
 
-- Multiple "scales" possible
+- Usually distinguishable, discrete, and bounded
 
-## Why literate programming?
+- Some spaces can hold multiple entities, others are empty
 
-- Your analysis scripts **are** computer software
+- Objects are digital representations of entities
+:::
+:::
 
-- Integrate math, figures, code, and narrative in one place
+::: {.column width="50%"}
+![](img/slide_3/bench.jpg)
+:::
+:::
 
-- Explaining something helps you learn it
+## ...As a Continuous Field
 
-# Pseudocode {background="#0033A0"}
+::: columns
+::: {.column width="50%"}
+::: incremental
+- The earth is a single entity with properties that vary continuosly through space
 
-## Pseudocode and literate programming
+- Spatial continuity: Every cell has a value (including "no data" or "not here")
 
-- An informal way of writing the 'logic' of your program
+- Self-definition: the values define the field 
 
-- Balance between readability and precision
+- Space is tessellated: cells are mutually exclusive
+:::
+:::
 
-- Avoid _syntactic drift_ 
+::: {.column width="50%"}
+![](img/slide_3/LIDAR.png)
+:::
+:::
 
-## Writing pseudocode
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+How did the data arise?
+:::
+
+## Spatial data as a stochastic process
+
+
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2.5em"}
+
+$$
+{Z(\mathbf{s}): \mathbf{s} \in D \subset \mathbb{R}^d}
+$$
+:::
+
+## Areal Data
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 1em"}
+$$
+{Z(\mathbf{s}): \mathbf{s} \in D \subset \mathbb{R}^d}
+$$
+:::
+
 ::: columns
 ::: {.column width="40%"}
-- Focus on statements
-- Mathematical operations
-- Conditionals
-- Iteration
-- Exceptions
+- $D$ is fixed domain of countable units
+
+- Typically involve some aggregation
+
 :::
 ::: {.column width="60%"}
-![](img/slide_3/keywords.png)
+```{r}
+#| echo: false
+#| cache: true
+#| message: false
+
+library(sf)
+library(tidyverse)
+cejst <- st_read("/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2023/assignment01/cejst_nw.shp", quiet=TRUE) %>% 
+  filter(!st_is_empty(.))
+
+plot(cejst["EBLR_PFS"], main="Expected Annual Building Loss Rate")
+```
 :::
 :::
 
-# Introducing Quarto {background="#0033A0"}
+## Geostatistical data
 
-## What is Quarto?
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 1em"}
+$$
+{Z(\mathbf{s}): \mathbf{s} \in D \subset \mathbb{R}^d}
+$$
+:::
 
-- A multi-language platform for developing reproducible documents
+::: columns
+::: {.column width="60%"}
+![](img/slide_3/mitzi_bikeinjury.jpg)
+:::
+::: {.column width="40%"}
+- $D$ is a fixed subset of $\mathbb{R}^d$ 
 
-- A 'lab notebook' for your analyses
+- $Z(\mathbf{s})$ could be observed at any location within $D$.
 
-- Allows transparent, reproducible scientific reports and presentations
+- Models predict unobserved locations
+:::
+:::
 
-## Key components
+## Point patterns
 
-1. Metadata and global options: YAML
+:::{style="font-size: 1.4em; text-align: middle; margin-top: -1em; margin-bottom: -1.25em"}
+$$
+{Z(\mathbf{s}): \mathbf{s} \in D \subset \mathbb{R}^d}
+$$
+:::
 
-2. Text, figures, and tables: Markdown and LaTeX
+- $D$ is random; where $\mathbf{s}$ depicts the location of events
 
-3. Code: `knitr` (or `jupyter` if you're into that sort of thing)
+![](img/slide_3/Ben-Said.png)
 
-## YAML - Yet Another Markup Language
+::: footer 
+:::{style="font-size: 0.8em; margin-bottom: -1.5em; color:#fff"}
+Ben-Said, M. Ecol Process 10, 56 (2021). 
+:::
+:::
 
-1. Allows you to set (or change) output format
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+How is the data stored?
+:::
 
-2. Provide options that apply to the entire document
+## What is a data model?
 
-3. Spacing matters!
+::: {.incremental}
+- **Data:** a collection of discrete values that describe phenomena
 
-![](img/slide_3/yaml_ex.png)
+- Your brain stores millions of pieces of data
 
-## Formatting Text
+- Computers are not your brain
+  - Need to organize data systematically
+  - Be able to display and access efficiently
+  - Need to be able to store and access repeatedly
 
-- Basic formatting via Markdown
+- Data models solve this problem
+:::
 
-- Fancier options using [Divs and spans](https://pandoc.org/MANUAL.html#divs-and-spans) via Pandoc
+## 2 Types of Spatial Data Models
 
-- Fenced Divs start and end with `:::` (can be any number `>3` but must match)
+ - **Raster:** grid-cell tessellation of an area. Each raster describes the value of a single phenomenon. More next week... 
+ 
+ - **Vector:** (many) attributes associated with locations defined by coordinates
+ 
+## The Vector Data Model
 
-## Adding Code Chunks
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+- __Vertices__ (i.e., discrete x-y locations) define the shape of the vector
 
-- Use 3x ` ``` ` on each end
+- The organization of those vertices define the _shape_ of the vector
 
-- Include the engine `{r}` (or python or Julia)
+- General types: points, lines, polygons
+:::
+:::
+::: {.column width="40%"}
+![Image Source: Colin Williams (NEON)](img/slide_3/points-lines-polygons-vector-data-types.png)
+:::
+:::
 
-- Include options beneath the "fence" using a hashpipe (`#|`)
 
-![](img/slide_3/cod_chunk.png)
+# {background-image="img/slide_3/landscape_geometry.jpeg"}
 
-# Let's Try It!! {background="#0033A0"}
+::: footer
+Image Source: QGIS User's manual
+:::
+
+## Vectors in Action {background-image="img/slide_3/landscape_geometry.jpeg" background-opacity="0.5"}
+
+::: {.incremental}
+* Useful for locations with discrete, well-defined boundaries
+
+* Very precise (not necessarily accurate)
+
+:::
+::: footer
+Image Source: QGIS User's manual
+:::
+
+## The Raster Data Model
+
+::: columns
+::: {.column width="50%"}
+::: {style="font-size: 0.8em"}
+* __Raster data__ represent spatially continuous phenomena (`NA` is possible)
+
+* Depict the alignment of data on a regular lattice (often a square)
+
+* Geometry is implicit; the spatial extent and number of rows and columns define the cell size
+
+:::
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+#| echo: false
+
+library(terra)
+filename <- system.file("ex/elev.tif", package="terra")
+r <- rast(filename)
+plot(r, col=gray(0:1000/1000), main = "Elevation (m)")
+```
+:::
+:::
+
+## Types of Raster Data
+
+::: columns
+:::{.column width="50%"}
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+#| echo: false
+library(stars)
+x = 1:5
+y = 1:4
+d = st_dimensions(x = x, y = y, .raster = c("x", "y"))
+m = matrix(runif(20),5,4)
+r1 = st_as_stars(r = m, dimensions = d)
+
+r = attr(d, "raster")
+r$affine = c(0.2, -0.2)
+attr(d, "raster") = r
+r2 = st_as_stars(r = m, dimensions = d)
+
+r = attr(d, "raster")
+r$affine = c(0.1, -0.3)
+attr(d, "raster") = r
+r3 = st_as_stars(r = m, dimensions = d)
+
+x = c(1, 2, 3.5, 5, 6)
+y = c(1, 1.5, 3, 3.5)
+d = st_dimensions(x = x, y = y, .raster = c("x", "y"))
+r4 = st_as_stars(r = m, dimensions = d)
+
+grd = st_make_grid(cellsize = c(10,10), offset = c(-130,10), n = c(8,5), crs = st_crs(4326))
+r5 = st_transform(grd, "+proj=laea +lon_0=-70 +lat_0=35")
+
+par(mfrow = c(2,3), mar = c(0.1, 1, 1.1, 1))
+r1 = st_make_grid(cellsize = c(1,1), n = c(5,4), offset = c(0,0))
+plot(r1, main = "regular")
+plot(st_geometry(st_as_sf(r2)), main = "rotated")
+plot(st_geometry(st_as_sf(r3)), main = "sheared")
+plot(st_geometry(st_as_sf(r4, as_points = FALSE)), main = "rectilinear")
+plot(st_geometry((r5)), main = "curvilinear")
+par(mfrow = c(1,1), mar= c(5.1, 4.1, 4.1, 2.1))
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.8em"}
+* __Regular__: constant cell size; axes aligned with Easting and Northing
+
+* __Rotated__: constant cell size; axes not aligned with Easting and Northing
+
+* __Sheared__: constant cell size; axes not parallel
+
+* __Rectilinear__: cell size varies along a dimension
+
+* __Curvilinear__: cell size and orientation dependent on the other dimension
+
+:::
+:::
+:::
+
+## Types of Raster Data
+
+* __Continuous__: numeric data representing a measurement (e.g., elevation, precipitation)
+
+* __Categorical__: integer data representing factors (e.g., land use, land cover)
+
+::: columns
+:::{.column width="50%"}
+```{r}
+#| echo: false
+mintemp <- rast("ftp://ftp.hafro.is/pub/data/rasters/Iceland_minbtemp.tif")
+plot(mintemp)
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: false
+
+cm <- matrix(c(
+  -2, 2, 0,
+  2, 4, 1,
+  4, 10, 2), ncol = 3, byrow = TRUE)
+
+# Create a raster with integers
+temp_reclass <- classify(mintemp, cm)
+tempcats <- c("cold", "mild", "warm")
+levels(temp_reclass) <- tempcats
+plot(temp_reclass)
+```
+:::
+:::
+
+2. What makes data (geo)spatial?
+
+3. Coordinate Reference Systems
+
+4. Geometries, support, and spatial messiness
