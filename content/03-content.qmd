@@ -8,15 +8,21 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
-
+Now that you have a little more background in the breadth of philosophies, methods, and questions that geography encompasses, it's time to start familiarizing yourself with the nature of spatial data. This lecture will be a little more conceptual, but is designed to help you make some sense for how `R` thinks about spatial data (or at least how the package developers have been thinking about it).
 
 ## Readings
 
+{{< fa arrow-up-right-from-square >}} [Types of Spatial Data](https://www.paulamoraga.com/book-spatial/types-of-spatial-data.html) from Paula Moraga's new book Spatial Statistics for Data Science: Theory and Practice with R provides a nice overview of the types of spatial data from the perspective of a statistical analyst.
+
+{{< fa arrow-up-right-from-square >}} [Attributes and Support](https://r-spatial.org/book/05-Attributes.html) from Pebesma and Bivand's Spatial Data Science with Applications in R gives more info and examples on the nature of the relationship between geometries and support.
+
+{{< fa arrow-up-right-from-square >}} [Scale and Projections](https://open.lib.umn.edu/mapping/chapter/3-scale-and-projections/) from Mapping, Society, and Technology by Laura Matson and Melinda Kernik gives a nice overview of the challenges associated with representing location on Earth's surface.
 
 ## Objectives
 By the end of today you should be able to:
 
-* **Describe** five core geographic concepts.
+
+* **Contrast** the different "views" of spatial data and their incorporation in GIS.
 
 * **Identify** key elements that make data "spatial".
 
@@ -33,4 +39,10 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/03-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/03-slides.html"></iframe>
+```
+
+</div>
