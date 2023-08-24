@@ -28,7 +28,7 @@ The following readings are intended to give you some sense of the discussion sur
 ## Objectives
 By the end of today you should be able to:
 
-* **Identify** major applications of geographical analysis
+* **Define** what we mean by description, explanation, and prediction in geography.
 
 * **Describe** critiques and limitations of quantitative geographical analysis 
 
