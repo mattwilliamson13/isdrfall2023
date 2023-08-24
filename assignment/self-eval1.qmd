@@ -2,7 +2,7 @@
 title: "Self-reflection 1"
 ---
 
-This is the first of three self-reflections that you'll complete during the course. These provide an opportunity for me to learn more about you, check-in on how the course is going, and make sure that getting what you need from the course materials. This first reflection also helps us set the standards for your assessment in the course. As such, I'm asking that you complete this in a timely fashion and turn it in by **Aug. 30**. You'll need to accept the link to access the questions. 
+This is the first of three self-reflections that you'll complete during the course. These provide an opportunity for me to learn more about you, check-in on how the course is going, and make sure that getting what you need from the course materials. This first reflection also helps us set the standards for your assessment in the course. As such, I'm asking that you complete this in a timely fashion and turn it in by **Aug. 24**. You'll need to accept the link to access the questions. 
 
 ## Instructions
 
@@ -14,6 +14,6 @@ This is the first of three self-reflections that you'll complete during the cour
 
 4. Save the changes and make your first commit!
 
-5. Answer the questions making sure save and commit at least 4 more times (having 5 commits is part of the assignment).
+5. Answer the questions making sure save and commit at least 2 more times (having 3 commits is part of the assignment).
 
 6. Render the document to html (you should now have at least 3 files in the repository: Readme.md, self-reflection-1-xx.qmd, and self-reflection-1-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com.
