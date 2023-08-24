@@ -1,7 +1,7 @@
 group,session,date,end_date,title,flag,deadline,content,lesson,example,assignment,note
 Getting started,Session 1,2023-08-21,,Introduction to the course,,,content/01-content,,example/getting-setup,,
 Getting started,Session 2,2023-08-23,,Why Geographic Analysis,,,content/02-content,,,,
-Getting started,Session 2,2023-08-24,,Self-Evaluation 1 due,TRUE,11:59 PM,,,,assignment/self-eval1,
+Getting started,Session 2,2023-08-25,,Self-Evaluation 1 due,TRUE,11:59 PM,,,,assignment/self-eval1,
 Getting started,Session 3,2023-08-28,,Introduction to Spatial Data,,,content/03-content,,,,
 Getting started,Session 4,2023-08-30,,Introduction to Spatial Data with R,,,content/04-content,,,,
 Getting started,Session 4,2023-08-31,,Homework 1,TRUE,11:59 PM,,,,assignment/01-intro,
