@@ -7,12 +7,29 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that we've covered some of the conceptual bases of spatial data and geographic analysis, it's time to get started working with actual data in `R`. Today's readings and lecture are focused on the basics of getting your data into the `R` environment and familiarizing yourself with the different components that make up spatial data objects. We'll do fancier things in the weeks to come!
 
 ## Readings
+
+{{< fa arrow-up-right-from-square >}} [Chapter 2](https://r.geocompx.org/spatial-class) in Geocomputation with R [@lovelace_geocomputation_2019] provides and overview of using `sf` for vector datasets and `terra` for raster data.
+
+{{< fa arrow-up-right-from-square >}} [Chapter 2](https://www.paulamoraga.com/book-spatial/spatial-data-in-r.html) from Moraga (2023) explores similar topics, but provides more explanation about projections, coordinates, etc.
+
+{{< fa arrow-up-right-from-square >}} [Simple Features for R](https://r-spatial.github.io/sf/articles/sf1.html) provides a more in-depth, technical discussion of how the `sf` package organizes spatial data and attributes.
+
+{{< fa arrow-up-right-from-square >}} [Ch 2.1-2.5 from Spatial Data Science with R and terra](https://rspatial.org/spatial/index.html) describes the basic functionality of `terra` for both vector and raster datasets. For reasons we'll discuss in class, we will rarely use `terra` for vector data.
 
 ## Objectives
 
 By the end of today, you should be able to:
+
+1. **Read** spatial data into your `R` environment.
+
+2. **Describe** the various aspects of spatial data files and objects.
+
+3. **Generate** simple summaries describing the spatial data object.
+
+4. **Determine** the projection, extent, and resolution of spatial data objects.
 
 
 ## Slides
