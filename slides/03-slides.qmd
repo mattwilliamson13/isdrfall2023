@@ -334,8 +334,83 @@ plot(temp_reclass)
 :::
 :::
 
-2. What makes data (geo)spatial?
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+What makes data (geo)spatial?
+:::
 
+## Location vs. Place
+::: columns
+::: {.column width="50%"}
+::: incremental
+::: {style="font-size: 0.8em"}
+* **Place:** an area having unique **physical** and **human** characteristics **interconnected** with other places
+
+* **Location:** the actual position on the earth's surface
+
+* **Sense of Place:** the emotions someone attaches to an area based on experiences
+
+* Place is *location plus meaning*
+
+:::
+:::
+:::
+::: {.column width="50%"}
+::: incremental
+- __nominal: (potentially contested) place names__
+
+- __absolute: the physical location on the earth's surface__
+:::
+:::
+:::
+
+## Describing Absolute Locations
+
+- **Coordinates:** 2 or more measurements that specify location relative to a _reference system_
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+- Cartesian coordinate system
+
+- _origin (O)_ = the point at which both measurement systems intersect
+
+- Adaptable to multiple dimensions (e.g. *z* for altitude)
+:::
+:::
+::: {.column width="40%"}
+![Cartesian Coordinate System](img/slide_3/CartesianCoordinateSystem.png)
+:::
+:::
+
+## Locations on a Globe
+
+- The earth is not flat...
+
+
+![Latitude and Longitude](img/slide_6/Latitude_and_Longitude.png)
+
+## Locations on a Globe
+
+- The earth is not flat...
+
+- Global Reference Systems (GRS)
+
+- _Graticule_: the grid formed by the intersection of longitude and latitude
+
+- The graticule is based on an ellipsoid model of earth's surface and contained in the _datum_
+
+
+## Global Reference Systems
+::: {style="font-size: 1.2em; text-align: center"}
+__The *datum* describes which ellipsoid to use and the precise relations between locations on earth's surface and Cartesian coordinates__
+:::
+
+- Geodetic datums (e.g., `WGS84`): distance from earth's center of gravity
+
+- Local data (e.g., `NAD83`): better models for local variation in earth's surface
+
+## 
 3. Coordinate Reference Systems
 
 4. Geometries, support, and spatial messiness
