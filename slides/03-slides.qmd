@@ -125,7 +125,7 @@ $$
 
 ::: columns
 ::: {.column width="60%"}
-![](img/slide_3/mitzi_bikeinjury.jpg)
+![Mitzi Morris](img/slide_3/mitzi_bikeinjury.jpg)
 :::
 ::: {.column width="40%"}
 - $D$ is a fixed subset of $\mathbb{R}^d$ 
@@ -247,6 +247,7 @@ plot(r, col=gray(0:1000/1000), main = "Elevation (m)")
 
 ::: columns
 :::{.column width="50%"}
+
 ```{r}
 #| fig-height: 6
 #| fig-width: 6
@@ -310,6 +311,7 @@ par(mfrow = c(1,1), mar= c(5.1, 4.1, 4.1, 2.1))
 
 ::: columns
 :::{.column width="50%"}
+
 ```{r}
 #| echo: false
 mintemp <- rast("ftp://ftp.hafro.is/pub/data/rasters/Iceland_minbtemp.tif")
@@ -317,6 +319,7 @@ plot(mintemp)
 ```
 :::
 ::: {.column width="50%"}
+
 ```{r}
 #| echo: false
 
@@ -410,7 +413,203 @@ __The *datum* describes which ellipsoid to use and the precise relations between
 
 - Local data (e.g., `NAD83`): better models for local variation in earth's surface
 
-## 
-3. Coordinate Reference Systems
+## Describing location: extent
+::: incremental
+- How much of the world does the data cover?
 
-4. Geometries, support, and spatial messiness
+- For rasters, these are the corners of the lattice
+
+- For vectors, we call this the bounding box
+:::
+
+## Describing location: resolution
+
+::: columns
+::: {.column width="40%"}
+::: incremental
+-   **Resolution:** the accuracy that the location and shape of a map's features can be depicted
+
+-   **Minimum Mapping Unit:** The minimum size and dimensions that can be reliably represented at a given _map scale_. 
+
+-   Map scale vs. scale of analysis
+:::
+:::
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| message: false
+library(terra)  
+f <- system.file("ex/elev.tif", package="terra")
+r <- rast(f)
+r.agg <- aggregate(r, fact=4)
+par(mfrow=c(1,2))
+plot(r)
+plot(r.agg)
+par(mfrow=c(1,1))
+```
+
+:::
+:::
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+The earth is not flat...
+:::
+
+## Projections
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.8em"} 
+- But maps, screens, and publications are...
+
+- **Projections** describe *how* the data should be translated to a flat surface
+
+- Rely on 'developable surfaces'
+
+- Described by the Coordinate Reference System (CRS)
+:::
+:::
+::: {.column width="40%"}
+![Developable Surfaces](img/slide_3/projections.png)
+:::
+::: 
+ 
+::: {style="font-size: 1.1em; text-align: center"}
+[__Projection necessarily induces some form of distortion (tearing, compression, or shearing)__]{style="color:#771C6D"}
+:::
+
+
+## Coordinate Reference Systems
+
+::: {style="font-size: 0.8em"}
+
+-   Some projections minimize distortion of angle, area, or distance
+
+-   Others attempt to avoid extreme distortion of any kind 
+
+-   Includes: Datum, ellipsoid, units, and other information (e.g., False Easting, Central Meridian) to further map the projection to the GCS
+
+-   Not all projections have/require all of the parameters
+:::
+
+```{r}
+#| echo: false
+#| cache: true
+#| message: false
+#| fig-width: 10
+
+library(tigris)
+
+b <- states(progress_bar = FALSE) %>% 
+  filter(STUSPS %in% c("WA", "OR", "ID"))
+b.a <- b %>% st_transform(., crs = 2991)
+b.b <- b %>% st_transform(., crs = 5070)
+par(mfrow=c(1,3), cex.main = 3)
+plot(b$geometry, main = "Geodetic")
+plot(b.a$geometry, main = "Lambert Conformal")
+plot(b.b$geometry, main = "Albers Equal Area")
+par(mfrow=c(1,1), cex.main=1.2)
+```
+## Choosing Projections
+::: columns
+::: {.column width="40%"}
+![](img/slide_3/distortion.png)
+:::
+::: {.column width="60%"}
+
+- Equal-area for thematic maps
+
+- Conformal for presentations
+
+- Mercator or equidistant for navigation and distance
+
+:::
+:::
+
+# {background="#9F281A"}
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+Geometries, support, and spatial messiness
+:::
+
+## Geometries
+
+::: columns
+::: {.column width="40%"}
+-   Vectors store aggregate the locations of a feature into a geometry
+-   Most vector operations require simple, valid geometries
+:::
+::: {.column width="60%"}
+![Image Source: Colin Williams (NEON)](img/slide_3/points-lines-polygons-vector-data-types.png)
+:::
+:::
+
+## Valid Geometries
+::: {style="font-size: 0.8em"} 
+-   A `linestring` is _simple_ if it does not intersect
+-   Valid polygons
+  -   Are closed (i.e., the last vertex equals the first)
+  -   Have holes (inner rings) that inside the the exterior boundary
+  -   Have holes that touch the exterior at no more than one vertex (they don't extend across a line)
+    -   For multipolygons, adjacent polygons touch only at points
+  -   Do not repeat their own path
+
+:::
+
+##
+```{r}
+#| echo: false
+#| fig-width: 10
+
+ls = st_linestring(rbind(c(0,0), c(1,1), 
+                          c(2,2), c(0,2), 
+                          c(1,1), c(2,0)))
+p1 = st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
+x = st_sfc(st_polygon(list(rbind(c(0,0),c(0.5,0),c(0.5,0.5),c(0.5,0),c(1,0),c(1,1),c(0,1),c(0,0)))))
+
+par(mfrow=c(1,3))
+plot(ls)
+plot(p1)
+plot(x)
+par(mfrow = c(1,1))
+```
+
+
+## Empty Geometries
+
+* Empty geometries arise when an operation produces `NULL` outcomes (like looking for the intersection between two non-intersecting polygons)
+
+* `sf` allows empty geometries to make sure that information about the data type is retained
+
+* Similar to a `data.frame` with no rows or a `list` with `NULL` values
+
+* Most vector operations require simple, valid geometries
+
+
+## Support
+* __Support__ is the area to which an attribute applies.
+
+::: incremental
+
+*   For vectors, the attribute-geometry-relationship can be:
+  *   __constant__ = applies to every point in the geometry (lines and polygons are just lots of points)
+  *   __identity__ = a value unique to a geometry
+  *   __aggregate__ = a single value that integrates data across the geometry
+
+*   Rasters can have __point__ (attribute refers to the cell center) or __cell__ (attribute refers to an area similar to the pixel) support
+
+:::
+
+## Spatial Messiness
+
+* Quantitative geography requires that our data are aligned
+
+* Achieving alignment is part of reproducible workflows
+
+* Making principled decisions about projections, resolution, extent, etc
+
+# {background="#9F281A"}
+
+:::{style="font-size: 1.4em; text-align: middle; margin-top: 2em"}
+End
+:::

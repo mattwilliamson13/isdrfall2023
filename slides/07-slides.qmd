@@ -60,18 +60,18 @@ Image Source: Wikimedia Commons
 :::
 :::
 ::: {.column width="40%"}
-![Image Source: Colin Williams (NEON)](img/slide_7/points-lines-polygons-vector-data-types.png)
+
 :::
 :::
 
 
-# {background-image="img/slide_7/landscape_geometry.jpeg"}
+# 
 
 ::: footer
 Image Source: QGIS User's manual
 :::
 
-## Vectors in Action {background-image="img/slide_7/landscape_geometry.jpeg" background-opacity="0.5"}
+## Vectors in Action 
 
 ::: {.incremental}
 * Useful for locations with discrete, well-defined boundaries

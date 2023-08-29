@@ -26,7 +26,7 @@ Image Source: USGS
 
   - Build rasters from scratch using matrix operations and `terra`
   
-# Defining the raster data model {background-image="img/slide_7/landscape_geometry.jpeg" background-opacity="0.5"}
+# Defining the raster data model 
 ::: footer
 Image Source: QGIS User's manual
 :::

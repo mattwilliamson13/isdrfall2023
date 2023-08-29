@@ -78,7 +78,6 @@ format:
 :::
 :::
 ::: {.column width="40%"}
-![Cartesian Coordinate System](img/slide_6/CartesianCoordinateSystem.png)
 :::
 :::
 
@@ -88,7 +87,6 @@ format:
 
 ::: columns
 ::: {.column width="40%"}
-![Latitude and Longitude](img/slide_6/Latitude_and_Longitude.png)
 :::
 ::: {.column width="60%"}
 ::: {style="font-size: 0.8em"} 
@@ -122,7 +120,6 @@ __The *datum* describes which ellipsoid to use and the precise relations between
 :::
 :::
 ::: {.column width="40%"}
-![Developable Surfaces](img/slide_6/projections.png)
 :::
 ::: 
  
@@ -134,7 +131,6 @@ __The *datum* describes which ellipsoid to use and the precise relations between
 
 ::: columns
 ::: {.column width="40%"}
-![](img/slide_6/distortion.png)
 :::
 ::: {.column width="60%"}
 ::: {style="font-size: 0.8em"} 
