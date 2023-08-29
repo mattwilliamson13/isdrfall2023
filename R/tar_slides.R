@@ -26,13 +26,14 @@ quarto_to_html <- function(slide_path){
   
   quarto::quarto_render(
     slide_path,
-    quiet = TRUE
+    quiet = FALSE
   )
   
   return(paste0("_site/",tools::file_path_sans_ext(slide_path), ".html"))
 }
 
 quarto_to_pdf <- function(slide_path){
+  #browser()
   withr::local_options(list(crayon.enabled = NULL))
   path_sans_ext <- gsub("_site/","", paste0("_site/",tools::file_path_sans_ext(slide_path)))
   

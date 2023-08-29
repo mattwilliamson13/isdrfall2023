@@ -17,6 +17,7 @@ base_url <- yaml::read_yaml(here::here("_quarto.yml"))$website$`site-url`
 ical_url_absolute <- paste0(base_url, "/", schedule_ical_file)
 ```
 
+
 ::: {.schedule-page}
 
 Here's your roadmap for the semester!

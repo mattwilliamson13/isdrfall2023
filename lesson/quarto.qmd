@@ -1,0 +1,137 @@
+---
+title: "Quarto and literate programming"
+---
+## Quarto
+
+This is a [Quarto document](https://quarto.org/docs/get-started/authoring/rstudio.html) (in fact, this whole webpage and all of the slides were built with Quarto). Quarto uses the `knitr` package to render files containing `R`, `python`, and `julia` to  [Markdown](https://daringfireball.net/projects/markdown/) as a means of rendering code, text, math, figures, and tables to a variety of formats.
+
+![](img/02/rstudio_qmd_workflow.png){.border fig-alt="Workflow diagram starting with a qmd file, then knitr, then md, then pandoc, then PDF, MS Word, or HTML." fig-align="center"}
+
+Markdown is a simple formatting syntax for authoring HTML documents (it's the basis for the Readme docs that GitHub creates for you). From there, `RStudio` calls [pandoc](https://pandoc.org/) to render the markdown file into your chosen output format. **I'm telling you this because there will be times when some part of this pipeline may break and you'll need to know where the errors might be coming from.**
+
+You can create new Quarto documents by going to File >> New File >> New Quarto Document (or Presentation). There are lots of new documents devoted to [Quarto](https://quarto.org/), but some of them may assume you have some familiarity with `Markdown` or `Rmarkdown`. As such, I'm keeping this links to helpful Rmarkdown resources like this [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and a much longer [user's guide](https://bookdown.org/yihui/rmarkdown/) in case you need more in-depth discussion of some of the ideas behind authoring in Quarto. I don't expect you to become an expert in Quarto, but it is a helpful way to keep all of your thoughts and code together in a single, coherent document. Getting proficient in Quarto and git allows you to work with collaborators on an analysis, graphics, and manuscript all within a single platform. This fully-integrated workflow takes practice and patience (especially when you have collaborators that are new to this approach), this course is just an initial step down that path. I'll do my best to keep it simple - please let me know if you have questions! 
+
+## The Example
+
+### Setup 
+
+The University of Exeter has been conducting an [ongoing survey](https://exeterssis.eu.qualtrics.com/jfe/form/SV_3fOLbEP4wVLDn2R) to understand the age at which the belief in Santa Claus begins to drop off. A sample of the data is located in your `assignment01` folder. Our task is to bring the data into R, conduct some preliminary exploration of the data, and then fit a model to the data to see if age predicts belief in Santa. We'll start by branching off of the `master` Quarto doc in our GitHub repo and then work through the steps together. 
+
+### Pseudocode
+
+Before we get started, let's sketch out the steps in our analysis using pseudocode. If you take a look at the tasks I've outlined above, you might construct your pseudocode like this:
+
+```{r}
+#| eval: false
+#| echo: true
+LOAD: all packages that we need for the analysis
+READ: Data located in isthereasanta.txt
+CHECK: Data structure and values
+CLEAN: Are there odd values?
+PLOT: Age vs Belief
+MODEL: GLM of Age vs. belief
+```
+
+### Programming
+
+Now that we have the basic steps in place, let's transform the pseudocode into a repeatable Quarto document that explains what we're doing, why, and what we found.
+
+#### Load the packages
+
+Part of what makes `R` so powerful for data analysis is the number of ready-made functions and packages that are designed for _all the things_. That said, you can't take advantage of that power if you don't load them into your session so that their functions become available. In general, it's best to do that first thing your document so that other folks can see what packages are necessary before you start running analyses. If you pay attention when these packages load, you may see warnings that a function is `masked`. This happens because two (or more) packages have functions with the same name. We can be explicit about which version we want by using `packagename::functionname()`. You'll see that more later this semester.
+
+```{r}
+library(tidyverse)
+```
+
+#### Read the Data
+
+Based on our pseudocode our first step is the read the data. We can create headings in Quarto using different numbers of `#` symbols to keep things organized. The code below uses ` ``` ` to create the code chunk and then `{r}` to tell Quarto which environment to use when running it. I'm specifying a filepath because I'm not working within our git repo, this isn't great practice, but it's necessary for the webpage to render correctly. We use `paste0` to combine the `filepath` with the file name (`isthereasanta.txt`) then read in the data using `read_table`.
+
+```{r}
+#| eval: false
+filepath <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2022/assignment01/"
+#READ
+santa <- read_table(paste0(filepath, "isthereasanta.txt"))
+```
+
+#### Check out the Data
+
+Now that we've got the data loaded and assigned it to the `santa` object. It's always a good idea to take a look and make sure things look the way you expect, check for `NA`s, and get a basic understanding of the way your data is being represented by `R`. This process will get more involved once we start working with spatial data, but it's good to get in the habit now. We'll start by looking at the first few rows (using `head()`), then get a sense for the classes of data using `str()`, and check for any `NA`s. 
+
+```{r}
+#| eval: false
+head(santa)
+str(santa)
+any(is.na(santa))
+```
+
+You'll notice a few things. First, because we read this in using the `read_table` function, the result is a `tibble`. As such, `head()` returns both the data and the classes. This makes the result of `str()` largely redundant (note that if `santa` were a `data.frame` this would not be true). The combination of `any()` with `is.na()` asks whether any of the cells in `santa` have an `NA` value. You can see that there are `NA`s. Most statistical modeling functions in `R` don't like `NA`s so we'll try to clean those up here. Before we clean them, let's try to learn what they are. We can use `which()` to identify the locations of the `NA`s. 
+
+```{r}
+#| eval: false
+which(is.na(santa), arr.ind = TRUE)
+```
+
+We see that all of them are in the `age` column (our key predictor variable!). We could also have discovered this using `summary()`.
+
+```{r}
+#| eval: false
+summary(santa)
+```
+#### Clean the data
+
+Deciding how to clean `NA`s is an important decision. Many people choose to drop any incomplete records. We can do that with `complete.cases()` and see that the resulting object now has only 47 rows.
+
+```{r}
+#| eval: false
+santa_complete_cases <- santa[complete.cases(santa),]
+```
+
+Dropping the incomplete cases may seem like a "safe" approach, but what if there is some systematic reason for the data to be incomplete. Maybe older people are less likely to provide their age? If that's the case, then dropping these cases may bias our dataset and the models that result. In that case, we may decide to "impute" values for the `NA`s based on some principled approach. We'll talk more about what it means to take a principled approach to imputation later in this class. For now, let's just try to strategies: 1 where we assign the `mean()` value of age and one where we assign the `max()` value (to reflect our hypothesis that older people may not provide their age). We'll do this by using the `ifelse()` function. Note that we can only do this because all of the `NA`s are in a single column.
+
+```{r}
+#| eval: false
+santa_mean <- santa
+santa_mean$Age <- ifelse(is.na(santa_mean$Age), round(mean(santa_mean$Age, na.rm=TRUE),digits=0), santa_mean$Age)
+
+santa_max <- santa
+santa_max$Age <- ifelse(is.na(santa_max$Age), max(santa_max$Age, na.rm=TRUE), santa_max$Age)
+```
+
+#### Plot the Data
+
+Now that we have a few clean datasets, let's just take a quick look to see if our intuition is correct about the relationship between age and belief in santa. The idea isn't so much to "prove" your hypothesis, but rather to get to know your data better as a means of identifying potential outliers and thinking about the distribution of your data.
+
+```{r}
+#| eval: false
+plot(Believe ~ Age, data=santa_complete_cases, main="Age vs. Belief in Santa (complete cases)")
+
+plot(Believe ~ Age, data=santa_mean, main="Age vs. Belief in Santa (Age at mean)")
+
+plot(Believe ~ Age, data=santa_max, main="Age vs. Belief in Santa (Age at max)")
+```
+These plots highlight two things. First, because `Believe` is a `logical` variable, the only possible outcomes are 0 and 1. This means we can't fit a typical linear regression (we'll use a logistic regression instead). Also, we notice that our choice of imputation strategy makes a difference! Let's fit some models and see what kind of difference it makes.
+
+#### Fit Some Models
+We'll be using a generalized linear model for this analysis. The details will come up later, but for now, let's keep it simple. The syntax for the `glm()` function is relatively straightforward. First we specify the model `Believe ~ Age`, then we tell it what family `binomial(link="logit")`, then we remind `R` of the data. We use the `binomial` family because there are only 2 possible outcomes (`TRUE` and `FALSE`).
+
+```{r}
+#| eval: false
+fit_complete_cases <- glm(Believe ~ Age, family=binomial(link="logit"), data=santa_complete_cases)
+fit_mean <- glm(Believe ~ Age, family=binomial(link="logit"), data=santa_mean)
+fit_max <- glm(Believe ~ Age, family=binomial(link="logit"), data=santa_max)
+
+summary(fit_complete_cases)$coef
+summary(fit_mean)$coef
+summary(fit_max)$coef
+```
+We see the older a person is, the less likely they are to believe in Santa! We also see that the choice of how we handle `NA`s affects the size of the effect, but not the direction. In class, we'll write a function to simulate some new data based on this model and see if our results are robust to different assumptions.
+
+
+### Rendering the document
+
+When you click the **Render** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+
+
