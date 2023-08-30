@@ -214,7 +214,7 @@ Geometries, support, and spatial messiness
 ```{r}
 #| echo: false
 #| fig-width: 10
-
+library(sf)
 ls = st_linestring(rbind(c(0,0), c(1,1), 
                           c(2,2), c(0,2), 
                           c(1,1), c(2,0)))
@@ -263,7 +263,7 @@ par(mfrow = c(1,1))
 * Making principled decisions about projections, resolution, extent, etc
 
 
-# Mapping Location in `R` {background="#0033A0"}
+# Mapping Location in `R` {background="#9F281A"}
 
 ## Data Types and `R` Packages
 
@@ -281,10 +281,138 @@ par(mfrow = c(1,1))
   - Based on pixels (not points)
 :::
 ::: {.column width="30%"}
-![](img/slide_6/sf_hexagon.png)
+![](img/slide_4/sf_hexagon.png)
 
-![](img/slide_6/terra_hexagon.png){height=72%, width=72%}
+![](img/slide_4/terra_hexagon.png){height=72%, width=72%}
 
 :::
 :::
 
+## Reading in Spatial Data: spreadsheets
+
+::: {style="font-size: 0.8em"} 
+- Most basic form of spatial data
+
+- Need `x` (longitude) and `y` (latitude) as columns
+
+- Need to know your CRS
+
+- `read_***` necessary to bring in the data
+:::
+
+```{r}
+#| eval: false
+#| echo: true
+library(tidyverse)
+library(sf)
+
+file.to.read <- read_csv(file = "path/to/your/file", 
+                         col_names = TRUE, col_types = NULL, 
+                         na =na = c("", "NA"))
+
+file.as.sf <- st_as_sf(file.to.read, 
+                       coords = c("longitude", "latitude"), 
+                       crs=4326)
+
+```
+
+## Reading in Spatial Data: shapefiles
+- **ALL FILES NEED TO BE IN THE SAME FOLDER**
+
+::: columns
+::: {.column width="40%"}
+::: {style="font-size: 0.8em"} 
+- `.shp` is the shapefile itself
+- `.prj` contains the CRS information
+- `.dbf` contains the attributes
+- `.shx` contains the indices for matching attributes to geometries
+- other extensions contain metadata
+
+:::
+:::
+::: {.column width="60%"}
+::: incremental
+
+-   `st_read` and `read_sf` in the `sf` package will read shapefiles into `R`
+
+-   `read_sf` leaves character vectors alone (often beneficial)
+
+-   `st_read` can handle other datatypes (like geodatabases)
+
+-   Returns slightly different `classes`
+
+:::
+:::
+:::
+
+## Reading in Spatial Data: shapefiles
+
+::: columns
+::: {.column width="70%"}
+```{r}
+#| eval: false
+#| echo: true
+library(sf)
+shapefile.inR <- read_sf(dsn = "path/to/file.shp", 
+                         layer=NULL, geometry_column=...)
+
+```
+:::
+::: {.column width=30%}
+
+![](img/slide_4/sf_hexagon.png)
+
+:::
+:::
+
+## Reading in Spatial Data: rasters
+
+- `rast` will read rasters using the `terra` package
+
+-   Also used to create rasters from scratch
+
+-   Returns `SpatRaster` object
+
+
+::: columns
+::: {.column width="70%"}
+```{r}
+#| eval: false
+#| echo: true
+library(sf)
+raster.inR <- rast(x = "path/to/file.shp", 
+                         lyrs=NULL)
+
+```
+:::
+::: {.column width=30%}
+
+![](img/slide_4/terra_hexagon.png)
+
+:::
+:::
+
+## Introducing the Data
+
+- Good idea to get to know your data before manipulating it
+
+- `str`, `summary`, `nrow`, `ncol` are good places to start
+
+- `st_crs` (for `sf` class objects) and `crs` (for `SpatRaster` objects)
+
+- We'll practice a few of these now...
+
+
+## Saving your data
+
+- `write_sf` for `sf` objects; `writeRaster` for `SpatRasters`
+
+```{r}
+#| echo: true
+#| eval: false
+library(sf)
+library(terra)
+
+write_sf(object = object.to.save, dsn = "path/to/save/object", append = FALSE)
+writeRaster(x=object, filename = "path/to/save")
+```
