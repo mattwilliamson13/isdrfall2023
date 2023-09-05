@@ -1,0 +1,153 @@
+---
+title: "Data Structures"
+date: "2023-9-1"
+---
+
+## Data Types and Structures
+
+### Data Types
+Okay, now that we have all of those details out of the way, let's take a look at data structures in `R`. As we discussed,`R` has six basic types of data: numeric, integer, logical, complex, character, and raw. For this class, we won't bother with complex or raw as you are unlikely to encounter them in your introductory spatial explorations.
+
+* __Numeric__ data are numbers that contain a decimal. They can also be whole numbers
+
+* __Integers__ are whole numbers (those numbers without a decimal point). 
+
+* __Logical__ data take on the value of either `TRUE` or `FALSE`. There’s also another special type of logical called `NA` to represent missing values.
+
+* __Character data__ represent string values. You can think of character strings as something like a word (or multiple words). A special type of character string is a factor, which is a string but with additional attributes (like levels or an order). Factors become important in the analyses and visualizations we'll attempt later in the course.
+
+There are a variety of ways to learn more about the structure of different data types:
+
+* `class()` - returns the type of object (high level)
+* `typeof()` - returns the type of object (low level)
+* `length()` tells you about the length of an object
+* `attributes()` - does the object have any metadata
+
+```{r datastructure}
+num <- 2.2
+class(num)
+typeof(num)
+
+y <- 1:10 
+y
+class(y)
+typeof(y)
+length(y)
+
+b <- "3"
+class(b)
+is.numeric(b)
+
+c <- as.numeric(b)
+class(c)
+```
+
+### Data Structures
+You can store information in a variety of ways in `R`. The types we are most likely to encounter this semester are:
+
+* __Vectors__: a collection of elements that are typically `character`, `logical`, `integer`, or `numeric`.
+
+```{r makevects}
+#sometimes we'll need to make sequences of numbers to facilitate joins
+series <- 1:10
+series.2 <- seq(10)
+series.3 <- seq(from = 1, to = 10, by = 0.1)
+series
+series.2
+series.3
+c(series.2, series.3)
+
+class(series.3)
+typeof(series.3)
+length(series.3)
+```
+    
+  * Missing Data: R supports missing data in most of the data structures we use, but they can lead to some strange behaviors. Here are a few ways to find missing data:
+  
+```{r missingdata}
+x <- c("a", NA, "c", "d", NA)
+is.na(x)
+anyNA(x)
+```
+  
+* __Matrices__: are an extension of the numeric or character vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the _elements of a matrix must be of the same data_. Matrices are the foundation of rasters, which we'll be discussing frequently throughout the course
+
+```{r matrices}
+#matrices are filled columnwise in R
+m <- matrix(1:6, nrow = 2, ncol = 3)
+dim(m)
+
+x <- 1:3
+y <- 10:12
+
+a <- cbind(x, y)
+dim(a)
+a[3,1]
+
+
+b <- rbind(x, y)
+dim(b)
+b[1,3]
+```
+
+
+
+* __Lists__: Lists essentially act like containers in `R` - they can hold a variety of different data types and structures including more lists. We use lists a lot for functional programming in R where we can apply a function to each element in a list. We'll see this with extracting values from multiple rasters. We can extract elements of lists usin `[]` and `[[]]`
+
+```{r listex}
+x <- list(1, "a", TRUE, 1+4i)
+x
+
+#adding names
+xlist <- list(a = "Waldo", b = 1:10, data = head(mtcars))
+xlist
+
+xlist[[1]]
+xlist[[3]]
+xlist[[3]][1]
+xlist[[3]][1,2]
+xlist[3][1]
+
+```
+
+* __Data Frames__: data frames resemble that tabular datasets you might be used to in spreadsheet programs and are probably one of the most common types of data in `R`. A data frame is a special type of list where every element has the same length (but can have different types of data). We'll be reading in a number of data frames for this first assignment. 
+
+```{r datframeintro}
+dat <- data.frame(id = letters[1:10], x = 1:10, y = 11:20)
+dat
+is.list(dat)
+class(dat)
+
+#lots of ways to look at data in data frames
+str(dat) #compact summary of the structure of a dataframe
+head(dat) #gives the first 6 rows similar to tail()
+dim(dat)
+colnames(dat)
+
+## accessing elements of a dataframe
+dat[1,3]
+dat[["y"]]
+dat$y
+```
+
+* __Tibbles__: are similar to data frames, but allow for lists _within_ columns. They are designed for use with the `tidyverse` (which we'll explore more in future classes), but the primary reason for introducing them here is because they are the foundation of `sf` objects which we'll use frequently in the weeks to come.
+
+```{r tibble}
+library(tidyverse)
+dat.tib <- tibble(dat)
+is.list(dat.tib)
+class(dat.tib)
+
+#lots of ways to look at data in data frames
+str(dat.tib) #compact summary of the structure of a dataframe
+head(dat.tib) #gives the first 6 rows similar to tail()
+dim(dat.tib)
+colnames(dat.tib)
+
+## accessing elements of a dataframe
+dat.tib[1,3]
+dat.tib[["y"]]
+dat.tib$y
+```
+
+Many of the packages used for spatial operations in `R` rely on special objects (e.g., `sf`, `SpatRasters`) that are combinations of these various elemental data types. That is why we are taking a little time to understand them before jumping into spatial data.

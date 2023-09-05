@@ -1,6 +1,6 @@
 ---
-title: "Spatial Data is Special Data"
-subtitle: "HES 505 Fall 2022: Session 6"
+title: "Literate Programming, Quarto, and Workflows"
+subtitle: "HES 505 Fall 2023: Session 6"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -10,304 +10,213 @@ format:
     self-contained: true  
 ---
 
-# Space Exploration {background="#0033A0"}
+## For today
 
-## Objectives
+1. Introduce literate programming
 
-* Articulate why we care about space
+2. Describe pseudocode and its utility for designing an analysis
 
-* Describe elements of spatial data
+3. Introduce `Quarto` as a means of documenting your work
 
-* Define a coordinate reference system and its importance
+4. Practice workflow
 
-* Describe several ways to load spatial data into `R`
+# Reproducibility
 
-* Identify projections in `R`
+#
 
+> Science is a social process!!
 
-## Locations, Relations, and Understanding
-
-* **Geography** uses _location_ to understand how social and physical processes give rise to the environment we experience
-
-* **Geographic Information Systems** provide a structure for storing, visualizing, and describing _location_ data.
-
-* **GeoComputation** and **GIScience** integrate math, stats, and high-performance computing to move beyond description. 
-
-
-## Location lets us ask:
-
-* Questions about geographic distribution
- 
-* Questions about geographic interaction
- 
-* Questions about geographic change
- 
-* Questions about geographic association
-
-* _Questions about causation?_
-
-
-## Location vs. Place
-
-* **Place:** an area having unique **physical** and **human** characteristics **interconnected** with other places
-
-* **Location:** the actual position on the earth's surface
-
-* **Sense of Place:** the emotions someone attaches to an area based on experiences
-
-* Place is *location plus meaning*
-
-## Describing Location
-
-- __nominal: (potentially contested) place names__
-
-- __absolute: the physical location on the earth's surface__
-
-## Describing Absolute Locations
-
-- **Coordinates:** 2 or more measurements that specify location relative to a _reference system_
+## Why Do We Need Reproducibility?
 
 ::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.8em"} 
-- Cartesian coordinate system
-
-- _origin (O)_ = the point at which both measurement systems intersect
-
-- Adaptable to multiple dimensions (e.g. *z* for altitude)
-:::
-:::
-::: {.column width="40%"}
-:::
-:::
-
-## Locations on a Globe
-
-- The earth is not flat...
-
-::: columns
-::: {.column width="40%"}
-:::
-::: {.column width="60%"}
-::: {style="font-size: 0.8em"} 
-- Global Reference Systems (GRS)
-
-- _Graticule_: the grid formed by the intersection of longitude and latitude
-
-- The graticule is based on an ellipsoid model of earth's surface and contained in the _datum_
-:::
-:::
-:::
-## Global Reference Systems
-::: {style="font-size: 1.2em; text-align: center"}
-__The *datum* describes which ellipsoid to use and the precise relations between locations on earth's surface and Cartesian coordinates__
-:::
-
-- Geodetic datums (e.g., `WGS84`): distance from earth's center of gravity
-
-- Local data (e.g., `NAD83`): better models for local variation in earth's surface
-
-## The Earth is Not Flat
-
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.8em"} 
-- But maps, screens, and publications are...
-
-- **Projections** describe *how* the data should be translated to a flat surface
-
-- Rely on 'developable surfaces'
-:::
-:::
-::: {.column width="40%"}
-:::
-::: 
- 
-::: {style="font-size: 1.1em; text-align: center"}
-[__Projection necessarily induces some form of distortion (tearing, compression, or shearing(__]{style="color:#771C6D"}
-:::
-
-## Choosing Projections
-
-::: columns
-::: {.column width="40%"}
-:::
-::: {.column width="60%"}
-::: {style="font-size: 0.8em"} 
-
-- Some projections minimize distortion of angle, area, or distance
-
-- Others attempt to avoid extreme distortion of any kind 
-
-- Particularly challenging for raster data
-:::
-:::
-:::
-
-## Choosing Projections
-
-- Equal-area for thematic maps
-
-- Conformal for presentations
-
-- Mercator or equidistant for navigation and distance
-
-
-# Mapping Location in `R` {background="#0033A0"}
-
-## Data Types and `R` Packages
-
-::: columns
-::: {.column width="60%"}
-### Data Types
-
-- Vector Data
-  - Point features
-  - Line features
-  - Area features (polygons)
-
-- Raster Data
-  - Spatially continuous field
-  - Based on pixels (not points)
-:::
 ::: {.column width="30%"}
-![](img/slide_6/sf_hexagon.png)
 
-![](img/slide_6/terra_hexagon.png){height=72%, width=72%}
+- Noise!!
 
+- Confirmation bias
+
+- Hindsight bias
+:::
+::: {.column width="70%"}
+![Munafo et al. 2017. Nat Hum Beh.](img/slide_6/Munafo_et_al_nathumbeh2017.png)
 :::
 :::
-## Mapping loaction: Coordinate Reference Systems 
 
-- Includes: Datum, ellipsoid, units, and other information (e.g., False Easting, Central Meridian) to further map the projection to the GCS
+## Reproducibility and your code
 
-- Not all projections have/require all of the parameters
+- Scripts: may make your code reproducible (but not your analysis)
 
-- R stores these data in several formats ([EPSG](https://epsg.io/), [Proj](https://proj.org/), and [WKT](https://www.ogc.org/standards/wkt-crs]))
+- Commenting and [formatting](https://style.tidyverse.org/index.html) can help!
 
-- Lots of projection info available at [spatialreference.org](https://spatialreference.org/)
-
-## Mapping loaction: Coordinate Reference Systems 
-
-- Primarily accessed using `sf::st_crs()` or `terra::crs()`
 ```{r}
-#| echo: true
+#| echo: fenced
 #| eval: false
-f <- rast(system.file("ex/meuse.tif", package="terra"))
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
-st_crs(nc)
-crs(nc)
+## load the packages necessary
+library(tidyverse)
+## read in the data
+landmarks.csv <- read_csv("/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2023/assignment01/landmarks_ID.csv")
+
+## How many in each feature class
+table(landmarks.csv$MTFCC)
+
 ```
-## Mapping location: Extent
 
-* **Extent:** The amount of the Earth's surface represented by the mapped features
+## Reproducible scripts
 
-`R` has a very specific definition of extent: the rectangular region encompassed by the data
+- Comments explain what the code is doing
+
+- Operations are ordered logically
+
+- Only relevant commands are presented
+
+- Useful object and function names
+
+- Script runs without errors (on your machine and someone else's)
+
+# Literate Programming {background="#9F281A"}
+
+## Toward Efficient Reproducible Analyses
+
+- Scripts can document what you did, but not why you did it!
+
+- Scripts separate your analysis products from your report/manuscript
+
+## 
+{{< video https://www.youtube.com/watch?v=s3JldKoA0zw width="100%" height="100%" >}}
+
+## What is literate programming?
+
+>Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.
+`r tufte::quote_footer('--- Donald Knuth, CSLI, 1984')`
+
+## What is literate programming?
+
+- Documentation containing code (not vice versa!)
+
+- Direct connection between code and explanation
+
+- Convey meaning to humans rather than telling computer what to do!
+
+- Multiple "scales" possible
+
+## Why literate programming?
+
+- Your analysis scripts **are** computer software
+
+- Integrate math, figures, code, and narrative in one place
+
+- Explaining something helps you learn it
+
+## Planning an analysis
 
 ::: columns
-::: {.column width="50%"}
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| results: hide
-library(sf)
-library(tidyverse)
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
-plot(st_geometry(nc))
-plot(st_make_grid(st_bbox(nc), n=1), add=TRUE, border = "blue")
+::: {.column width="35%"}
+- Outline your project
 
-```
+- Write pseudocode
+
+- Identify potential packages
+
+- Borrow (and attribute) code from others (including yourself!)
 :::
-::: {.column width="50%"}
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| results: hide
+::: {.column width="65%"}
 
-library(terra)
-meuse <- rast(system.file("ex/meuse.tif", package="terra"))
-plot(meuse)
-plot(ext(meuse), add=TRUE, border = "blue")
-
-```
+![](img/slide_6/tast_view.png)
 
 :::
 :::
 
-## Using `R` to access the extent
+# Pseudocode {background="#9F281A"}
 
-- Using `st_bbox()` from the `sf` package
+## Pseudocode and literate programming
+
+- An informal way of writing the 'logic' of your program
+
+- Balance between readability and precision
+
+- Avoid _syntactic drift_ 
+
+## Writing pseudocode
+::: columns
+::: {.column width="40%"}
+- Focus on statements
+- Mathematical operations
+- Conditionals
+- Iteration
+- Exceptions
+:::
+::: {.column width="60%"}
+![](img/slide_6/keywords.png)
+:::
+:::
+
+## Pseudocode
 
 ```{r}
+#| eval: false
 #| echo: true
-nc.shp <- st_read(system.file("shape/nc.shp", package="sf")) 
-meuse.rst <- rast(system.file("ex/meuse.tif", package="terra"))
-st_bbox(nc.shp)
-st_bbox(meuse.rst)
-```
-## Using `R` to access the extent
-
-- Using `ext()` from the `terra` package
-
-```{r}
-#| echo: true
-ext(nc.shp)
-ext(meuse.rst)
+Start function
+Input information
+Logical test: if TRUE
+  (what to do if TRUE)
+else
+  (what to do if FALSE)
+End function
 ```
 
-## Mapping location: Resolution
 
+# Introducing Quarto {background="#9F281A"}
 
-- **Resolution:** the accuracy that the location and shape of a map's features can be depicted
+## What is Quarto?
 
-- **Minimum Mapping Unit:** The minimum size and dimensions that can be reliably represented at a given _map scale_. 
+- A multi-language platform for developing reproducible documents
 
-- Map scale vs. scale of analysis
+- A 'lab notebook' for your analyses
 
-## Mapping location: Resolution
+- Allows transparent, reproducible scientific reports and presentations
 
-```{r}
-#| fig-align: center
+## Key components
 
-f <- rast(system.file("ex/meuse.tif", package="terra"))
-s1 <- rast(extent = ext(f), resolution = c(500,500))
-s2 <- rast(extent = ext(f), resolution = c(1,1))
-s3 <- rast(extent = ext(f), resolution = c(100,100))
-f1 <- terra::resample(f,s1)
-f2 <- terra::resample(f, s2)
-f3 <- terra::resample(f, s3)
+1. Metadata and global options: YAML
 
-par(mfrow = c(1,3))
-plot(f2)
-plot(f3)
-plot(f1)
-par(mfrow = c(1,1))
-```
+2. Text, figures, and tables: Markdown and LaTeX
 
-## Using `R` to access resolution
+3. Code: `knitr` (or `jupyter` if you're into that sort of thing)
 
-* Thematically defined for `vector` datasets (check your metadata!!)
+## YAML - Yet Another Markup Language
 
-* Using `res()` in `terra`
+1. Allows you to set (or change) output format
 
-```{r}
-#| echo: true
-f <- rast(system.file("ex/meuse.tif", package="terra"))
-res(f)
-```
+2. Provide options that apply to the entire document
 
-# Recap {background="#0033A0"}
+3. Spacing matters!
 
-## Today's goals
+![](img/slide_6/yaml_ex.png)
 
-* Articulate why we care about space
+## Formatting Text
 
-* Describe elements of spatial data
+- Basic formatting via Markdown
 
-* Define a coordinate reference system and its importance
+- Fancier options using [Divs and spans](https://pandoc.org/MANUAL.html#divs-and-spans) via Pandoc
 
-* Describe several ways to load spatial data into `R`
+- Fenced Divs start and end with `:::` (can be any number `>3` but must match)
 
-* Identify projections in `R`
+## Adding Code Chunks
+
+- Use 3x ` ``` ` on each end
+
+- Include the engine `{r}` (or python or Julia)
+
+- Include options beneath the "fence" using a hashpipe (`#|`)
+
+![](img/slide_6/cod_chunk.png)
+
+# Let's Try It!! {background="#9F281A"}
+
+## Additional considerations
+
+- File locations and Quarto
+
+- Caching for slow operations
+
+- Modularizing code and functional programming

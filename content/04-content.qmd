@@ -38,5 +38,10 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/04-slides")
 ```
+<div>
 
-Slides Forthcoming
+```{=html}
+<iframe class="slide-deck" src="/slides/04-slides.html"></iframe>
+```
+
+</div>
