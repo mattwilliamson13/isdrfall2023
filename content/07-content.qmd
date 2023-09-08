@@ -8,14 +8,26 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that you have a bit of the fundamentals of geographic data and have had a chance to start using `R`, it's time to get into more complicated workflows. To do that, you'll have to have a bit more of a foundation in coordinates, coordinate reference systems, and geometries and how to access those in `R`. We'll start there today and move into functions that change or relate geometries in the next few classes.
 
 ## Readings
+- <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
 
+- <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. [@lovelace_geocomputation_2019] - for more details about vectors and geometric operations on vectors.
+
+- <i class="fas fa-external-link-square-alt"></i> [Chapter 2, Sections 1-3](https://r-spatial.org/book/02-Spaces.html) and [Chapter 3, Section 1](https://r-spatial.org/book/03-Geometries.html) of Spatial Data Science by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages)
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+* Define coordinate, coordinate system, datum, and coordinate reference system
+
+* Access and transform the coordinate reference system for vector and raster data in `R`
+
+* Understand the rules for simple feature geometries
+
+* Access coordinate and geometry information for simple features in `R`
 
 
 ## Slides
