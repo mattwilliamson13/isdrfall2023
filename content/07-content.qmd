@@ -23,11 +23,13 @@ By the end of today, you should be able to:
 
 * Define coordinate, coordinate system, datum, and coordinate reference system
 
-* Access and transform the coordinate reference system for vector and raster data in `R`
+* Access coordinate and geometry information for simple features in `R`
 
 * Understand the rules for simple feature geometries
 
-* Access coordinate and geometry information for simple features in `R`
+* Access and transform the coordinate reference system for vector and raster data in `R`
+
+
 
 
 ## Slides

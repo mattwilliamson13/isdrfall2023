@@ -1,6 +1,6 @@
 ---
-title: "Spatial Data as Vectors"
-subtitle: "HES 505 Fall 2022: Session 7"
+title: "Coordinates and Geometries"
+subtitle: "HES 505 Fall 2023: Session 7"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -18,41 +18,225 @@ Image Source: Wikimedia Commons
 
 ## Objectives
 
-- Articulate the role of the data model in geographic information systems
+- Understand the linkage between location, coordinates, coordinate reference systems, and geometry
 
-- Describe the key elements of vector data
-
-- Use the `sf` package to read and manipulate vector data
+- Access and manipulate geometries in `R` with `sf` (and `terra`)
 
 - Define `geometry` in the context of vector objects and troubleshoot common problems
 
-## What is a data model?
+- Change the CRS for vectors and rasters (and understand the implications)
 
-::: {.incremental}
-- **Data:** a collection of discrete values that describe phenomena
+# But first... {background="#9F281A"}
 
-- Your brain stores millions of pieces of data
+## Getting more acquainted with `R`
 
-- Computers are not your brain
-  - Need to organize data systematically
-  - Be able to display and access efficiently
-  - Need to be able to store and access repeatedly
+- Objects, classes, functions, oh my... 
 
-- Data models solve this problem
+- Intuition for the [`tidyverse`](https://jhudatascience.org/tidyversecourse/intro.html) 
+- Getting used to pipes (` %>% ` or `|>`)
+
+- Learning to prototype
+
+# Getting help {background="#9F281A"}
+
+## 2 Kinds of Errors {background="#43464B" background-image="img/slide_7/ducks.jpeg" background-opacity="0.6"}
+
+* **Syntax Errors**: Your code won't actually run
+* **Semantic Errors**: Your code runs without error, but the result is unexpected
+
+## Asking better questions, getting better answers
+
+* Places to get help (Google, Slack, [Stack Overflow](https://stackoverflow.com/help/how-to-ask?ref=dataschool.io), Github Issue pages)
+
+* What are you trying to do? (the outcome you want/expect)
+
+* What isn't working? (the code and steps you've tried so far)
+
+* Why aren't common solutions working? (proof that you've done your due diligence)
+
+## Reproducible examples
+
+* Don't require someone to have your data or your computer
+
+* Minimal amount of information and code to reproduce your error
+
+* Includes both code and your operating environment info
+
+* [More info](https://stackoverflow.com/help/minimal-reproducible-example?ref=dataschool.io
+)
+
+* An [example](https://gis.stackexchange.com/questions/268841/fit-two-sf-polygons-seamlessly) with spatial data
+
+# Coordinates and Geometries {background="#9F281A"}
+
+## Reference Systems
+
+- To locate an object or quantity, we need:
+  * A fixed _origin_ (or **datum**) to measure distances to/from
+  * A _measurement unit_ (or **scale**) that defines the units of distance
+  * **Datum** + **scale** = **reference system**
+
+## Coordinate Reference Systems
+
+::: incremental
+- Map the location on an object to earth (geodetic) or flat (projected) surfaces
+
+- **Coordinate System** - the mathematical rules that specify how coordinates are assigned to points
+
+- **Datum** - the parameter or set of parameters that define the position of the origin, the scale, and the orientation of a coordinate system
+
+- **Coordinate Reference Systems** - a coordinate system that is related to an object by a datum
+:::
+## Accessing CRS with `R`
+
+- `sf::st_crs()` for vector data
+
+- `terra::crs()` for raster data
+
+- stored in WKT, epsg, or proj4string (deprecated)
+
+- The [EPSG](https://epsg.io/) website is a great reference for getting projection info
+
+## Accessing CRS with `R`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "3,4,5"
+dir.for.files <- "/Users/mattwilliamson/Library/CloudStorage/GoogleDrive-mattwilliamson@boisestate.edu/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2023/assignment01/"
+vector.data <- sf::st_read(dsn = paste0(dir.for.files, "cejst_nw.shp"), quiet=TRUE)
+sf::st_crs(x = vector.data)$input
+sf::st_crs(x = vector.data)$proj4string
+sf::st_crs(x = vector.data)$wkt
+```
+
+## Accessing CRS with `R`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "2"
+
+raster.data <- terra::rast(x = paste0(dir.for.files, "wildfire_hazard_agg.tif"))
+terra::crs(raster.data, describe=TRUE, proj=TRUE)
+```
+
+## What if you don't know the CRS?
+:::{style="font-size: 0.8em"}
+
+- Sometimes you receive data that is missing the projection
+
+- You can assign it (**with caution**)
+
+- You can guess it using [`crsuggest::guess_crs()`](https://github.com/walkerke/crsuggest)
 :::
 
-## 2 Types of Spatial Data Models
+```{r}
+#| echo: true
 
- - **Raster:** grid-cell tessellation of an area. Each raster describes the value of a single phenomenon. More next week... 
- 
- - **Vector:** (many) attributes associated with locations defined by coordinates
+
+library(sf)
+library(mapview)
+locations <- data.frame(
+  X = c(1200822.97857801, 1205015.51644983, 1202297.44383987, 1205877.68696743, 
+        1194763.21511923, 1195463.42403192, 1199836.01037452, 1207081.96500368, 
+        1201924.15986897),
+  Y = c(1246476.31475063, 1248612.72571423, 1241479.45996392, 1243898.58428024, 
+        1246033.7550009, 1241827.7730307, 1234691.50899912, 1251125.67808482, 
+        1252188.4333016),
+  id = 1:9
+)
+
+locations_sf <- st_as_sf(locations, coords = c("X", "Y"))
+
+```
+
+## 
+```{r}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(terra)
+library(sf)
+mapview(locations_sf)
+```
+
+## Guessing CRS
+
+```{r}
+#| echo: true
+#| 
+library(crsuggest)
+guess_crs(locations_sf, "Chennai, India", n_return = 5)
+st_crs(locations_sf) <- 7785
+
+```
+
+##
+```{r}
+#| echo: false
+mapview(locations_sf)
+```
+
+# {background="#9F281A"}
+
+>All spatial analysis and mapping requires that your data is aligned correctly.
+
+## Changing the CRS
+
+- Requires recomputing coordinates
+
+- Coordinate Conversion - No change to the datum; lossless
+
+- Coordinate Transformation - New datum; relies on models; some error involved
+
+## Changing the CRS in `R`
+
+- `sf::st_transform` for vectors
+
+- `terra::project` for rasters
+
+- **Projecting Rasters Causes Distortion**
+
+## Changing the CRS in `R`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1,2,4,5"
+
+
+vector.data.proj <- vector.data %>% 
+  sf::st_transform(., crs = 3083)
+st_crs(vector.data.proj)$input
+
+vector.data.proj.rast <- vector.data %>% 
+  sf::st_transform(., crs = crs(raster.data))
+st_crs(vector.data.proj.rast)$proj4string
+```
+
+## Changing the CRS in `R`
+
+```{r}
+#| echo: true
+
+raster.data.proj <- project(x = raster.data, y = "EPSG:3083")
+crs(raster.data.proj, describe=TRUE, proj=TRUE)
+
+raster.data.proj.vect <- project(x = raster.data, y = vect(vector.data))
+crs(raster.data.proj.vect, describe=TRUE, proj=TRUE)
+
+```
+
+# Geometries {background="#9F281A"}
+
+
+
  
 ## The Vector Data Model
 
 ::: columns
 ::: {.column width="60%"}
 ::: {style="font-size: 0.8em"} 
-- __Vertices__ (i.e., discrete x-y locations) define the shape of the vector
+- Coordinates define the __Vertices__ (i.e., discrete x-y locations) that comprise the geometry
 
 - The organization of those vertices define the _shape_ of the vector
 
@@ -60,31 +244,10 @@ Image Source: Wikimedia Commons
 :::
 :::
 ::: {.column width="40%"}
-
+![](img/slide_7/points-lines-polygons-vector-data-types.png)
 :::
 :::
 
-
-# 
-
-::: footer
-Image Source: QGIS User's manual
-:::
-
-## Vectors in Action 
-
-::: {.incremental}
-* Useful for locations with discrete, well-defined boundaries
-
-* Very precise (not necessarily accurate)
-
-* Not the same as the `vector` data class
-:::
-::: footer
-Image Source: QGIS User's manual
-:::
-
-# Vectors in `R` {background="#0033A0"}
 
 ## Representing vector data in R
 
@@ -156,64 +319,6 @@ pl1 = st_polygon(coords)
 ```{r}
 #| echo: true
 plot(pl1)
-```
-
-## But what about actual data?
-::: {style="font-size: 0.8em"} 
-Convert a data frame to `sf` object
-
-* Useful for situations where point locations given as columns in spreadsheet
-* Requires that you the projection used when the data were collected 
-* Using the `meuse` dataset (use `?sp::meuse` to learn more about it)
-:::
-
-```{r}
-#| echo: true
-library(sp)
-data(meuse)
-head(meuse, n=3)[,1:10]
-```
-
-# Convert a data frame to `sf` object
-
-
-::: {style="font-size: 0.7em"} 
- * Using the `x` and `y` columns in the data
- * `agr` defines the attribute-geometry-relationship
- * `constant`, `aggregate`, and `identity`
-:::
-
-```{r}
-#| echo: true
-meuse_sf = st_as_sf(meuse, coords = c("x", "y"), 
-                    crs = 28992, agr = 
-                      "constant")
-meuse_sf[1:2,1:10]
-```
-
-## Plotting `sf` objects
-
-* Quick way to check your data
-* Remember that `sf` has `geometry` and `attributes`
-
-```{r}
-#| echo: true
-plot(meuse_sf)
-```
-
-## Plotting `sf` objects
-
-```{r}
-#| echo: true
-plot(meuse_sf['lead'])
-```
-
-## Plotting `sf` objects
-
-```{r}
-#| echo: true
-
-plot(st_geometry(meuse_sf))
 ```
 
 ## Common Problems with Vector Data
