@@ -1,6 +1,6 @@
 ---
-title: "Vector Operations Part 1"
-subtitle: "HES 505 Fall 2022: Session 8"
+title: "Areal Data: Vector Data"
+subtitle: "HES 505 Fall 2023: Session 8"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -26,7 +26,7 @@ By the end of today, you should be able to:
 
 - Use `st_*` and `sf_*` to evaluate attributes of geometries and calculate measurements
 
-# Understanding the language {background="#0033A0"}
+# Understanding the language {background="#9F281A"}
 
 ## Revisiting Simple Features
 ::: columns
@@ -52,6 +52,13 @@ By the end of today, you should be able to:
 :::
 :::
 :::
+
+## Revisiting Simple Features
+- You already know how to access some elements of a simple feature
+
+- `st_crs` - returns the coordinate reference system
+
+- `st_bbox` - returns the bounding box for the simple feature
 
 ## Standaridized Methods
 :::{style="font-size: 0.8em; text-align: middle"}
@@ -79,50 +86,89 @@ We can categorize `sf` operations based on what they return and/or how many geom
 :::
 :::
 
-# Unary Predicates and Valid Geometries {background="#0033A0"}
+# Valid Geometries {background="#9F281A"}
 
 ## Remembering Valid Geometries
-
+::: {style="font-size: 0.7em"} 
 - A `linestring` is _simple_ if it does not intersect
+:::
 
-::: columns
-::: {.column width="60%"}
 ```{r}
 #| echo: true
+#| message: false
 library(sf)
-(ls = st_linestring(rbind(c(0,0), c(1,1), 
-                          c(2,2), c(0,2), 
-                          c(1,1), c(2,0))))
-c(is_simple = st_is_simple(ls))
+library(tidyverse)
+ls = st_linestring(rbind(c(0,0), c(1,1),  c(2,2), c(2,1), c(3,4)))
+
+ls2 = st_linestring(rbind(c(0,0), c(1,1),  c(2,2), c(0,2), c(1,1), c(2,0)))
+```
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-width: 5
+
+plot(ls, col="blue", lwd=2.5)
+
 ```
 :::
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r}
-plot(ls)
+#| fig-width: 5
+
+plot(ls2, col="#9F281A", lwd=2.5)
+
 ```
 :::
 :::
 
 ## Remembering Valid Geometries
 
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.8em"} 
+
 - Valid polygons
   - Are closed (i.e., the last vertex equals the first)
   - Have holes (inner rings) that inside the the exterior boundary
   - Have holes that touch the exterior at no more than one vertex (they don't extend across a line)
     - For multipolygons, adjacent polygons touch only at points
   - Do not repeat their own path
-:::
-:::
-::: {.column width="40%"}
+
+## Remembering Valid Geometries
+
 ```{r}
+#| echo: true
 p1 = st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
-plot(p1)
+p2 = st_as_sfc("POLYGON((0 0, 0 10, 5 5,  0 0))")
+p3 = st_as_sfc("POLYGON((5 5, 10 10, 10 0, 5 5))")
+
+
+```
+
+
+::: columns
+::: {.column width="50%"}
+```{r}
+plot(p1, col="#9F281A", lwd = 2.5)
+
+```
+:::
+::: {.column width="50%"}
+```{r}
+plot(p3, col="blue", lwd = 2.5)
+plot(p2, col="#7C4A89", lwd = 2.5, add=TRUE)
 ```
 :::
 :::
+
+
+## Remembering Valid Geometries
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+p4 = st_as_sfc(c("POLYGON((0 0, 0 10, 5 5,  0 0))", "POLYGON((5 5, 10 10, 10 0, 5 5))"))
+plot(p4, col=c( "#7C4A89", "blue"))
+```
+
 
 ## Empty Geometries
 
@@ -133,6 +179,8 @@ plot(p1)
 * Similar to a `data.frame` with no rows or a `list` with `NULL` values
 
 * Most vector operations require simple, valid geometries
+
+# Predicates {background="#9F281A"}
 
 ## Using Unary Predicates
 
@@ -150,33 +198,12 @@ plot(p1)
 |`is(geometry, class)` | is the geometry of a particular class?|
 :::
 
-## Using Unary Predicates
-::: columns
-::: {.column width="60%"}
-```{r}
-#| echo: true
-nc <- st_read(
-  system.file("shape/nc.shp", package="sf"), 
-  quiet=TRUE)
-plot(st_geometry(nc))
-```
-:::
-::: {.column width="40%"}
-```{r}
-#| echo: true
-st_is_longlat(nc)
-any(is.na(st_is_valid(nc)))
-
-```
-:::
-:::
-
 ## Checking Geometries With Unary Predicates
 
 * Before conducting costly analyses, it's worth checking for:
 
 ::: {style="font-size: 0.7em"}
-1. empty geometries, using `any(is.na(st_dimension(x)))`
+1. empty geometries, using `any(st_is_empty(x)))`
 2. corrupt geometries, using `any(is.na(st_is_valid(x)))`
 3. invalid geometries, using `any(na.omit(st_is_valid(x)) == FALSE)`; in case of corrupt and/or invalid geometries,
 4. in case of invalid geometries, query the reason for invalidity by `st_is_valid(x, reason = TRUE)`
@@ -184,7 +211,67 @@ any(is.na(st_is_valid(nc)))
 
 Invalid geometries will require __transformation__ (next week!)
 
-# Binary Predicates {background="#0033A0"}
+## Checking Geometries With Unary Predicates
+
+::: columns
+::: {.column width="50%"}
+```{r}
+par(mfrow = c(1,2))
+plot(ls, col="blue", lwd = 2.5, main = "ls", cex.main=3)
+plot(ls2, col="#9F281A", lwd=2.5, main = "ls2", cex.main=3)
+par(mfrow=c(1,1))
+```
+
+```{r}
+#| echo: true
+st_is_simple(ls)
+st_is_simple(ls2)
+```
+:::
+::: {.column width="50%"}
+```{r}
+par(mfrow=c(1,2))
+plot(p1, col="#9F281A", lwd = 2.5, main="p1", cex.main=3)
+plot(p4, col=c( "#7C4A89", "blue"), main="p4", cex.main=3)
+par(mfrow = c(1,1))
+options(tigris_use_cache = TRUE)
+```
+
+```{r}
+#| echo: true
+st_is_valid(p1)
+st_is_valid(p4)
+
+```
+:::
+:::
+
+## Unary Predicates and Real Data
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "4,5,6"
+
+library(tigris)
+id.cty <- counties("ID", 
+                   progress_bar=FALSE)
+st_crs(id.cty)$input
+st_is_longlat(id.cty)
+st_is_valid(id.cty)[1:5]
+all(st_is_valid(id.cty))
+```
+:::
+::: {.column width="60%"}
+```{r}
+#| fig-width: 6
+plot(id.cty$geometry)
+```
+:::
+:::
+
+# Binary Predicates {background="#9F281A"}
 
 ## Binary Predicates
 ::: {style="font-size: 0.7em"}
@@ -211,8 +298,34 @@ Invalid geometries will require __transformation__ (next week!)
 |`relate`                    |given a mask [pattern](https://en.wikipedia.org/wiki/DE-9IM), return whether A and B adhere to this pattern| |
 :::
 
+## Binary Predicates
 
-# Measures {background="#0033A0"}
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+id <- states() %>% 
+  filter(STUSPS == "ID")
+or <- states() %>% 
+  filter(STUSPS == "OR")
+ada.cty <- id.cty %>% 
+  filter(NAME == "Ada")
+
+```
+:::
+::: {.column width="60%"}
+```{r}
+#| echo: true
+
+st_covers(id, ada.cty)
+st_covers(id, ada.cty, sparse=FALSE)
+st_within(ada.cty, or)
+st_within(ada.cty, or, sparse=FALSE)
+
+```
+:::
+:::
+# Measures {background="#9F281A"}
 
 ## Measures
 
@@ -228,6 +341,24 @@ Invalid geometries will require __transformation__ (next week!)
 |`length`             |the length of a linear geometry|
 :::
 
-**Binary Measures**
+**Unary Measures**
+
+```{r}
+#| echo: true
+
+st_area(id)
+st_area(id.cty[1:5,])
+st_dimension(id.cty[1:5,])
+```
+
+## Binary Measures
   
   * `st_distance` returns the distance between pairs of geometries
+  
+```{r}
+#| echo: true
+kootenai.cty <- id.cty %>% 
+  filter(NAME == "Kootenai")
+st_distance(kootenai.cty, ada.cty)
+st_distance(id.cty)[1:5, 1:5]
+```
