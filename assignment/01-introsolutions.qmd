@@ -1,0 +1,68 @@
+---
+title: "Assignment 1 Solutions: Introductory material"
+---
+
+
+<span style="color:#9F281A;">How does geographic analysis fit into your goals for your research? Given our discussion of the aims and limitations of geographic analysis, are there particular issues that you would like to know more about or guard against?</span>
+
+>Almost all of my research has to do with geographic analysis and basic geographic concepts. I suppose that's why I teach this course. For me, one of the biggest challenges is figuring out how to a) choose a scale of analysis that matches the scale of the phenomena that I'm interested in and b) reconcile the fact that most of the data I have access to was rarely collected at that specific scale. I'm constantly looking for new methods to try and determine if and when my results are dependent upon some arbitrary choice of extent and resolution.
+
+<span style="color:#9F281A;">What are the primary components that describe spatial data?</span>
+
+>I would say that the primary components are the coordinate reference system (because it helps us understand where we actually are on Earth), the extent of the data (because that helps me know what scale we're working with and the size of the computational probelem), the resolution (same reason as extent), the geometry, and spatial support. I don't think about this last one often enough, but it really is the key to honest interpretation of the spatial data that you have. 
+
+<span style="color:#9F281A;">What is the coordinate reference system and why is it important</span>
+
+>The CRS consists of the information necessary to locate points in 2 or 3 dimensional space. Coordinates are only meaningful in the context of a CRS (i.e., (2,2) could describe any number of places in the world - we need to know the origin and the datum to actually know where that is). The CRS becomes particularly important when we need to align datasets that were not collected in the same CRS originally or when we need to transfer locations from the globe to a flat surface (e.g., map, screen, etc).
+
+<span style="color:#9F281A;">Find two maps of the same area in different projections? How does the projection affect your perception of the data being displayed?</span>
+
+Here's a fun article on [projections](https://www.nature.com/nature-index/news/data-visualisation-animated-map-mercater-projection-true-size-countries) that shows what i'm talking about!
+
+<span style="color:#9F281A;">Read in the cejst.shp file in the assignment01 folder. How many attributes describe each object? How many unique geometries are there? What is the coordinate reference system?</span>
+
+I can read in the data using `st_read` or `read_sf`
+
+```{r}
+#| echo: fenced
+#| message: false
+library(sf)
+
+cejst.sf <- read_sf("data/opt/data/2023/assignment01/cejst_nw.shp")
+cejst.st <- st_read("data/opt/data/2023/assignment01/cejst_nw.shp")
+
+```
+
+You can inspect the differences between the resulting object classes by calling `class`
+
+```{r}
+#| echo: fenced
+#| message: false
+library(sf)
+
+class(cejst.sf)
+class(cejst.st)
+
+```
+
+You'll notice that using `st_read` assigns the object to an `sf` and `data.frame` class meaning that functions defined for those two classes will work. Alternatively, `read_sf` assigns the object to `sf`, `tbl_df`, `tbl`, and `data.frame` classes meaning that a much broader set of functions can be run on the `cejst.sf` object.
+
+Because the data are in [wide format](https://www.statology.org/long-vs-wide-data/), we can assume that there is only 1 observation for each location (because `sf` requires that there is a geometry entry for every observation (even if it's empty)). Probably the easiest way to get the number of observations is:
+
+```{r}
+#| echo: fenced
+
+nrow(cejst.sf)
+
+```
+
+Similarly, if we wanted to know how many attributes are collected for each observation we could use `ncol`:
+
+```{r}
+#| echo: fenced
+
+ncol(cejst.sf)
+
+```
+
+Note that these are really only approximate estimates. There's usually a lot of extra ID-style columns in spatial data such that the number of columns with useful information is less than the total number of columns, but we won't worry about that for now.

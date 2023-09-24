@@ -8,13 +8,26 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that we're getting into actual operations on spatial data and beginning to actually modify the geometries and attributes of spatial data, it'll be important for you to be able to visualize the results. At this point, we'll be focusing on rough visualization as a way of "gut-checking" the outcomes of your code. We'll focus more on creating informative, aesthetically pleasing, publication quality visualizations.
+
+
 ## Readings
+
+- <i class="fas fa-external-link-square-alt"></i> [Ch.3 Tmap in a nutshell](https://r-tmap.github.io/tmap-book/nutshell.html) from "Elegant and informative maps with tmap" by Martijn Tennekes and Jakub Nowosad provides a great "quick start" for using the `tmap` package for visualizing spatial data.
+
+- <i class="fas fa-external-link-square-alt"></i> [Making maps with `R`](https://geocompr.robinlovelace.net/adv-map.html) by [@lovelace_geocomputation_2019] introduces the `tmap` package for making nice maps with relatively minimal syntax.
+
+- <i class="fas fa-external-link-square-alt"></i> [Making maps in `R`](https://www.emilyburchfield.org/courses/eds/making_maps_in_r) by Emily Burchfield illustrates some quick mapping syntax with base `plot`, `ggplot`, and `tmap`. For now, just focus on the base `plot` and `tmap` sections as we'll take on the ggplot stuff later in the course.
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+*   Describe the basic components of data visualization as a foundation for mapping syntax
 
+*   Understand layering in both base `plot` and `tmap`
+
+*   Make basic plots of multiple spatial data objects
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
@@ -23,4 +36,12 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/10-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/10-slides.html"></iframe>
+```
+
+</div>
+
+[Link to today's Panopto Slides](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fb4619f1-cd01-49ee-920e-b0830142b65f)

@@ -1,0 +1,160 @@
+---
+title: "Assignment 3 Solutions: Coordinates and Geometries"
+---
+
+
+
+<span style="color:#9F281A;"> 1. Write out the pseudocode that you would use to set up an analysis of the spatial correlations between chronic asthma risk, exposure to PM2.5, and wildfire. You don't have to write functions or any actual code. Just write the steps and insert named code blocks for each step.</span>
+
+>This one is probably a little tricky if you haven't taken the time to check out the attributes of the data (which you should _always_ do). That said, some pretty generic steps would be:
+
+```{r}
+#| eval: false
+1. Load each dataset
+2. Check geometry validity
+3. Align CRS
+4. Run Correlation
+5. Print Results
+```
+
+>There are two **key steps** here, that you'll repeat for any/all spatial analyses that you do: 1) checking for valid geometries and 2) making sure the data are aligned in a sensible CRS. I can add a code chunk for each now.
+
+```{r}
+#| echo: true
+#| eval: false
+#| label: loaddata
+
+1. Load each dataset
+
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#| label: checkgeom
+
+2. Check geometry validity
+
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#| label: aligncrs
+
+3. Align CRS
+
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#| label: runcor
+
+4. Run Correlation
+
+
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#| label: plotresults
+
+5. Print Results
+
+```
+
+<span style="color:#9F281A;">2. Read in the `cdc_nw.shp`, `pm_nw.shp`, and `wildfire_hazard_agg.tif` files and print the coordinate reference system for each object. Do they match?</span>
+
+>Here I'm going to combine the `load` portion of my pseudocode with the `validity` since I can do that without creating additional object. I use the `str()` function to get a sense for what the data looks like and to understand what data classes I'm working with. Then, I use the `all()` function to make sure that all of the results of `st_is_valid()` are true. I don't need to do that with the raster file as the geometry is implicit which means that it has to be topologically valid (this doesn't mean that the numbers are accurate, it just means that the dataset conforms to the data model `R` expects). Then I'll add another code to check the `CRS` of the different objects.
+
+```{r}
+#| echo: true
+#| label: loaddatacheckgeom
+#| message: false
+
+library(sf)
+library(terra)
+library(tidyverse)
+
+cdc.nw <- read_sf("data/opt/data/2023/assignment03/cdc_nw.shp")
+str(cdc.nw)
+all(st_is_valid(cdc.nw))
+pm.nw <- read_sf("data/opt/data/2023/assignment03/pm_nw.shp")
+str(pm.nw)
+all(st_is_valid(pm.nw))
+
+wildfire.haz <- rast("data/opt/data/2023/assignment03/wildfire_hazard_agg.tif")
+str(wildfire.haz)
+```
+>Now that I've gotten the data into my environment, I need to make sure that the CRS are alligned. I'll demonstrate that with a few different approaches. You can use the logical `==` or the `identical` function to check, but remember that these fnctions are not specific to spatial objects, they evaluate things very literally. So even if the CRS is the same, if `st_crs` returns the CRS in one format (`WKT`) and `crs` returns it in another, you'll get `FALSE` even if they are actually the same CRS - pay attention to that. You'll notice that they aren't identical; we'll deal with that in the next question.
+
+```{r}
+#| echo: true
+#| label: checkcrs 
+#| message: false
+
+st_crs(cdc.nw)
+st_crs(pm.nw)
+crs(wildfire.haz)
+
+identical(st_crs(cdc.nw), st_crs(pm.nw))
+st_crs(cdc.nw) == st_crs(pm.nw)
+
+```
+
+<span style="color:#9F281A;">3. Re-project the `cdc_nw.shp` and `pm_nw.shp` shapefiles so that they have the same CRS as the `wildfire_hazard_agg.tfi` file. Verify that all the files have the same projection.</span>
+
+>Now we'll use `st_transform` to get the two shapefiles aligned with the raster (because we generally want to avoid projecting rasters if we can). We can then use the same steps above to see if they're aligned. Note that I'm using the `terra::crs()` function to make sure that the output is printed in exactly the same format
+
+```{r}
+#| echo: true
+#| label: projectshape 
+#| message: false
+
+cdc.nw.proj <- cdc.nw %>% st_transform(., crs=crs(wildfire.haz))
+pm.nw.proj <- pm.nw %>% st_transform(., crs=crs(wildfire.haz))
+
+identical(crs(cdc.nw.proj), crs(wildfire.haz))
+identical(crs(pm.nw.proj), crs(wildfire.haz))
+
+```
+<span style="color:#9F281A;">4. How does reprojecting change the coordinates of the bounding box for the two shapefiles? Show your code</span>
+
+>Now we just want to look at the bounding box of the data before and after it was projected. We can do this using `st_bbox`. One of the most obvious changes is that the units for `cdc.nw` have changed from degrees to meters (as evidenced by the much larger numbers). For the `pm.nw` object we can see that the raw coordinates indicate a shift to the west; however, because the origin for this crs has also changed, the states still show up in the correct place.
+
+```{r}
+#| echo: true
+#| label: checkbbox 
+#| message: false
+
+st_bbox(cdc.nw)
+
+st_bbox(cdc.nw.proj)
+
+st_bbox(pm.nw)
+
+st_bbox(pm.nw.proj)
+```
+
+<span style="color:#9F281A;">5. What class of geometry does the `pm_nw.shp` have (show your code)? Now filter the `pm_nw.shp` file so that only the records from Ada County, Idaho are showing. Find the record with the lowest value for PM25. How many coordinates are associated with that geometry?</span>
+
+>This one was probably a little tricky. First, to check the geometry type, we use `st_geometry_type` setting `by_geometry` to `FALSE` means we get the geometry type for the entire object instead of each observation. We then use a series of `filter` commands to get the records from Idaho and Ada county. Once we've narrowed the data to our correct region, we can `filter` again to find the row with the minimum value of PM25 (note that we have to set `na.rm=TRUE` so that we ignore the NA values). Then we just take the number of rows (`nrow`) of the result of `st_coordinates` to get the number of coordinates associated with that geometry.
+
+```{r}
+#| echo: true
+#| label: lastq 
+#| message: false
+
+st_geometry_type(pm.nw, by_geometry = FALSE)
+
+ada.pm <- pm.nw %>% 
+  filter(STATE_NAME=="Idaho" & CNTY_NAME=="Ada") %>% 
+  filter(PM25 == min(PM25, na.rm = TRUE))
+
+ada.pm
+
+nrow(st_coordinates(ada.pm))
+
+```

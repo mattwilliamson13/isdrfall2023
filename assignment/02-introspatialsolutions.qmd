@@ -1,0 +1,33 @@
+---
+title: "Assignment 2 Solutions: Intro to Spatial Data"
+---
+
+Find a figure that you'd like to mimic with your research. The figure should be from a manuscript or report and present the results of a quantitative aaalysis (i.e., not a conceptual model or an image). Once you've found one you should:
+
+<span style="color:#9F281A;">1. Create a section called "Introduction" in your Quarto document. In that section, you should give me the citation for the article and a brief description (similar to the caption) of the figure.</span>
+
+>In order to do this, you'll need to start a new Quarto document (File -> New File -> Quarto Document). Once you've done that Rstudio will open up a Quarto document with the `yaml` header already in place and a bunch of example text and code. **Delete that**. Then use Markdown syntax to specify headings (`#` for top level headings, `##` for second level headings, etc.) So in this case, once you've gotten all of the example stuff deleted, you can use `# Introduction` to create a section header with the correct title. Adding citations requires you to create a separate, `.bib` file that lives in the same directory as your document and has your citation info in BIBTEX format. You can find more on that [here](https://quarto.org/docs/authoring/footnotes-and-citations.html).
+
+<span style="color:#9F281A;">2. Create a second section called "Methods" and write out the steps necessary to create the figure. These should be similar to the pseudocode we discussed in class (e.g., "Load Data", "Summarize by county", "Run linear regression", "Build Figure"). The methods section of the manuscript you've chosen should provide you with enough information to begin sketching this out. Don't worry if you don't know all of the steps, the goal is to get you thinking about the "mile markers" along the way to creating the figure.</span>
+
+>Now I'll add `# Methods` as my next header and start to write out the steps I'd like the analysis to follow. There are lots of ways you might do this, depending on whether you want the pseudocode to be part of your final product. For now we'll keep it simple and just use numbered steps like:
+
+1. `Load` data
+2. `Filter` the correct rows
+3. `Select` the right variables
+4. `Model` y as a function of x1, x2, x3...
+5. `Plot`
+
+
+<span style="color:#9F281A;">3. Add in [code blocks](https://quarto.org/docs/computations/r.html) for each step in your pseudocode. Give each block a name that corresponds to your pseudocode steps.</span>
+
+>Adding in code blocks and giving is accomplished by setting up your code fence (` ``` `), identifying the language you want to use (` {r} `), and then setting code options with the hash-pipe (` #| `). You can see my example [here](02-example.qmd)
+
+
+<span style="color:#9F281A;">4. Based on the webpage linked above and the "Execution Options" section linked there, add execution options to each block that ensure that the code block will be printed, but not evaluated.</span>
+
+>In order to ensure that the code prints, you need to add the `#| echo: true` execution option. In order to prevent it from running, you want to set `#| eval: false`. You can see this in my [example](02-example.qmd).
+
+<span style="color:#9F281A;">5. Add a "Results" section and use the markdown command to include an image of the figure from the manuscript you chose. </span>
+
+> You can add images in markdown by using the `![]()` syntax where the file location is pasted in the parentheses and any caption is placed in the brackets.

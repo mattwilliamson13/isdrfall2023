@@ -37,3 +37,7 @@ The first part of the course was designed to introduce some of the foundations o
 4. Find two maps of the same area in different projections? How does the projection affect your perception of the data being displayed?
 
 5. Read in the `cejst.shp` file in the `assignment01` folder. How many attributes describe each object? How many unique geometries are there? What is the coordinate reference system?
+
+:::{.callout-note}
+Solutions are [here](01-introsolutions.qmd)
+:::

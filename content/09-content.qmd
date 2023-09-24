@@ -8,12 +8,29 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that we've learned a bit about how to assess some of the important quantities of vector-based spatial data, we'll try to apply a bit of the same logic to raster data. We'll be using the `terra` package for the majority of raster options in this course primarily because it of its speed. That said, it is not a `tidyverse` package and so some of the intuition we used to organize the `sf` functions will be a little harder to extend here. I'll do my best to help you make the links!!
+
 ## Readings
+
+- <i class="fas fa-book"></i> [Chapter 4](https://www.paulamoraga.com/book-spatial/the-terra-package-for-raster-and-vector-data.html) from Paula Moraga's Spatial Statistics for Data Science: Theory and Practice with R provides a quick intro to using `terra` for raster and vector data.
+
+- <i class="fas fa-book"></i> [The `terra` reference page](https://rspatial.github.io/terra/reference/terra-package.html) provides a brief overview of all of the functions and their categories. We'll only focus on the `SpatRaster` methods.
+
+- <i class="fas fa-book"></i> [Raster Data Manipulation](https://rspatial.org/spatial/8-rastermanip.html) from the Spatial Data Science with `R` and `terra` ebook provides some nice examples of `terra` functions in the context of spatial workflows.
+
+
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+- Access the elements that define a raster
+
+- Build rasters from scratch using matrix operations and `terra`
+
+- Evaluate logical conditions with raster data
+
+- Calculate different measures of raster data
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
@@ -22,4 +39,10 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/09-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/09-slides.html"></iframe>
+```
+
+</div>

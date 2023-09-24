@@ -304,9 +304,9 @@ plot(id.cty$geometry)
 ::: {.column width="40%"}
 ```{r}
 #| echo: true
-id <- states() %>% 
+id <- states(progress_bar=FALSE) %>% 
   filter(STUSPS == "ID")
-or <- states() %>% 
+or <- states(progress_bar=FALSE) %>% 
   filter(STUSPS == "OR")
 ada.cty <- id.cty %>% 
   filter(NAME == "Ada")

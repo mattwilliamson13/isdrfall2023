@@ -1,0 +1,69 @@
+---
+title: "Quarto Example"
+author: "Matt Williamson"
+bibliography: references.bib
+---
+
+# Introduction
+I want to reproduce the figure from [@Nelson] depicting commute networks in the United States based on US Census data.
+
+# Methods
+
+Some pseudocode:
+```{r}
+#| eval: false
+1. Retrieve ACS commute data
+2. Identify the source and destination networks
+3. Calculate the edge density for each source-destination pair
+4. Thin to a manageable number of nodes based on edge densities
+5. plot
+```
+
+as code chunks
+```{r}
+#| echo: fenced
+#| eval: false
+#| label: getacs
+
+1. Retrieve ACS commute data
+
+```
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| label: buildnet
+
+2. Identify the source and destination networks
+
+```
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| label: edgedens
+
+3. Calculate the edge density for each source-destination pair
+
+```
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| label: thinnodes
+
+4. Thin to a manageable number of nodes based on edge densities
+
+```
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| label: buildplot
+
+5. Build plot
+```
+
+# Results
+
+![Commute Networks from Dash Nelson and Rae 2016](https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0166083.g006&type=large)

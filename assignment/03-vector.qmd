@@ -34,3 +34,6 @@ You'll need to accept the link to access the questions.
 ## The Data
 For this assignment, you'll be lookcing at 3 different datasets. One from the Center for Disease Control's PLACES data describing the distribution of chronic health risks, one from the EPA describing exposure to PM2.5 (an important air pollutant), and one describing wildfire risk. You might imagine that as we become increasingly concerned with the evironmental justice concerns associated with fire, we might be concerned about whether more smoke increases the risk of chronic respiratory diseases. We won't totally answer that question this week, but you'll start to develop the workflow necessary to move towards that type of analysis. All of the data are on the server in the `opt/data/2023/assignment03/` folder.
 
+:::{.callout-note}
+Solutions are [here](03-vectorsolutions.qmd)
+:::

@@ -40,3 +40,7 @@ Find a figure that you'd like to mimic with your research. The figure should be 
 4. Based on the webpage linked above and the "Execution Options" section linked there, add execution options to each block that ensure that the code block will be printed, but not evaluated.
 
 5. Add a "Results" section and use the markdown command to include an image of the figure from the manuscript you chose. 
+
+:::{.callout-note}
+Solutions are [here](02-introspatialsolutions.qmd)
+:::

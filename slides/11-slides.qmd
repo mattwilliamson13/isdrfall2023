@@ -116,7 +116,7 @@ is.lonlat(r)
 
 * `adjacent`: identifies cells adajcent to a set of raster cells
 
-![](img/slide_11/cases.gif)
+![](img/slide_9/cases.gif)
 
 ## Unary measures in `terra`
 
