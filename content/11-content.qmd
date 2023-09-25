@@ -8,12 +8,27 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that we've spent some time getting used to the syntax of the `sf` package and used it to assess some of the characteristics of vector objects (e.g., through _predicates_ and _measures_), we'll move into _transformations_. Transformations allow you to actually manipulate the geometries of a vector object (without necessarily changing the attributes themselves) and are a powerful tool for geting disparate data into some logical alignment. That said, transforming geometries can be complicated and often has some unanticipated consequences. That's why we spent a little bit of time learning the mapping syntax as a means for you to be able to check yourself.
+
 ## Readings
+- <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
+
+- <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. [@lovelace_geocomputation_2019] - for more details about vectors and geometric operations on vectors.
+
+- <i class="fas fa-external-link-square-alt"></i> [Section 3.1 and 3.2](https://r-spatial.org/book/03-Geometries.html) of Spatial Data Science, a `bookdown` project by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages).
+
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+* Recognize the unary, binary, and n-ary transformers
+
+* Articulate common uses for unary and binary transformers
+
+* Use unary transformations to fix invalid geometries
+
+* Implement common binary transformers to align and combine data
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
@@ -22,4 +37,12 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/11-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/11-slides.html"></iframe>
+```
+
+</div>
+
+![Panopto Vidoe Here](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e53c74b0-c0b4-48f8-b9d1-b0880140f55c)

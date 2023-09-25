@@ -1,6 +1,6 @@
 ---
-title: "Operations With Raster Data I"
-subtitle: "HES 505 Fall 2022: Session 11"
+title: "Operations With Vector Data I"
+subtitle: "HES 505 Fall 2023: Session 11"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -18,259 +18,309 @@ Image Source: USGS
 
 ## Objectives
 
-- By the end of today, you should be able to:
+By the end of today, you should be able to:
 
-  - Evaluate logical conditions with raster data
+* Recognize the unary, binary, and n-ary transformers
 
-  - Calculate different measures of raster data
-  
-  - Align rasters for spatial processing
-  
-## Revisitng the Raster Data Model
+* Articulate common uses for unary and binary transformers
 
-::: columns
-:::{.column width="50%"}
-::: {style="font-size: 0.7em"}
+* Use unary transformations to fix invalid geometries
 
-* __Raster data__ represent spatially continuous phenomena (`NA` is possible)
+* Implement common binary transformers to align and combine data
 
-* Depict the alignment of data on a regular lattice (often a square)
-  * Operations mimic those for `matrix` objects in `R` 
-
-* Geometry is implicit; the spatial extent and number of rows and columns define the cell size
-:::
-:::
-::: {.column width="50%"}
-```{r}
-#| fig-height: 6
-#| fig-width: 6
-library(terra)
-filename <- system.file("ex/elev.tif", package="terra")
-r <- rast(filename)
-plot(r, col=gray(0:1000/1000), main = "Elevation (m)")
-```
-:::
-:::
-
-# Predicates and measures in `terra` {background="#0033A0"}
-
-## Extending predicates
+## Revisiting `predicates` and `measures`
 
 - __Predicates__: evaluate a logical statement asserting that a property is `TRUE` 
 
-- `terra` does not follow the same hierarchy as `sf` so a little trickier
+- __Measures__: return a numeric value with units based on the units of the CRS
 
-## Unary predicates in `terra`
+- Unary, binary, and n-ary distinguish how many geometries each function accepts and returns
 
-* Can tell us qualities of a raster dataset
-
-* Many similar operations for `SpatVector` class (note use of `.`)
-
+## Transformations
 ::: {style="font-size: 0.7em"}
-|predicate            |asks...                                                  |
-|---------------------|--------------------------------------------------------------|
-|`is.lonlat`             |Does the object have a longitude/latitude CRS?|
-|`inMemory`              |is the object stored in memory?|
-|`is.factor`              |Are there categorical layers?|
-|`hasValues`              |Do the cells have values?|
+- __Transformations__: create new geometries based on input geometries
 :::
-
-## Unary predicates in `terra`
-
 ::: columns
-:::{.column width="50%"}
-::: {style="font-size: 0.7em"}
-* `global`: tests if the raster covers all longitudes (from -180 to 180 degrees) such that the extreme columns are in fact adjacent
-```{r}
-#| echo: true
-r <- rast()
-is.lonlat(r)
-is.lonlat(r, global=TRUE)
-```
-:::
-:::
 ::: {.column width="50%"}
-::: {style="font-size: 0.7em"}
-* `perhaps`: If TRUE and the crs is unknown, the method returns TRUE if the coordinates are plausible for longitude/latitude
-
 ```{r}
-#| echo: true
-crs(r) <- ""
-is.lonlat(r)
-is.lonlat(r, perhaps=TRUE, warn=FALSE)
-```
+#| echo: false
+#| message: false
+library(sf)
+library(spData)
+library(tidyverse)
+seine_simp = st_simplify(seine, dTolerance = 5000)  # 2000 m
 
 
-```{r}
-#| echo: true
-crs(r) <- "+proj=lcc +lat_1=48 +lat_2=33 +lon_0=-100 +ellps=WGS84"
-is.lonlat(r)
-```
-:::
-:::
-:::
-
-## Binary predicates in `terra`
-
-* Take exactly 2 inputs, return 1 matrix of cell locs where value is `TRUE`
-
-* `adjacent`: identifies cells adajcent to a set of raster cells
-
-![](img/slide_9/cases.gif)
-
-## Unary measures in `terra`
-
-* Slightly more flexible than `sf` 
-
-* One result for each layer in a stack
-
-::: {style="font-size: 0.5em"}
-|measure              |returns                                                       |
-|---------------------|--------------------------------------------------------------|
-|`cellSize`          |area of individual cells|
-|`expanse`               |summed area of all cells|
-|`values`             |returns all cell values|
-|`ncol`             |number of columns|
-|`nrow`             |number of rows|
-|`ncell`             |number of cells|
-|`res`             |resolution|
-|`ext`             |minimum and maximum of x and y coords|
-|`origin`             |the orgin of a `SpatRaster`|
-|`crs`             |the coordinate reference system|
-|`cats`             |categories of a categorical raster|
-:::
-
-## Binary measures in `terra`
-
-* Returns a matrix or `SpatRaster` describing the measure
-
-::: {style="font-size: 0.5em"}
-|measure              |returns                                                       |
-|---------------------|--------------------------------------------------------------|
-|`distance`          |shortest distance to non-NA or vector object|
-|`gridDistance`               |shortest distance through adjacent grid cells|
-|`costDistance`             |Shortest distance considering cell-varying friction|
-|`direction`             |azimuth to cells that are not `NA`|
-:::
-
-# Aligning rasters {background="#0033A0"}
-
-## Projecting raster data
-
-::: columns
-:::{.column width="50%"}
-::: {style="font-size: 0.7em"}
-* Transformation from lat/long to planar CRS involves some loss of precision
-* New cell values estimated using overlap with original cells
-* Interpolation for continuous data, nearest neighbor for categorical data
-* Equal-area projections are preferred; especially for large areas
-:::
-:::
-::: {.column width="50%"}
-::: {style="font-size: 0.7em"}
-
-```{r}
-#| echo: true
-r <- rast(xmin=-110, xmax=-90, ymin=40, ymax=60, ncols=40, nrows=40)
-values(r) <- 1:ncell(r)
-plot(r)
-```
-
-:::
-:::
-:::
-
-## Projecting raster data
-
-::: columns
-:::{.column width="50%"}
-* simple method; alignment not guaranteed
-
-```{r newproj1, fig.height=4, fig.width=4}
-#| echo: true
-newcrs <- "+proj=robin +datum=WGS84"
-pr1 <- terra::project(r, newcrs)
-plot(pr1)
-```
-:::
-:::{.column width="50%"}
-* providing a template to ensure alignment
-```{r newproj2,  fig.height=4, fig.width=4}
-x <- rast(pr1)
-# Set the cell size
-res(x) <- 200000
-pr3 <- terra::project(r, x)
-plot(pr3)
-```
-:::
-:::
-
-## Changing resolutions
-* `aggregate`, `disaggregate`, `resample` allow changes in cell size
-* `aggregate` requires a function (e.g., `mean()` or `min()`) to determine what to do with the grouped values
-
-* `resample` allows changes in cell size __and__ shifting of cell centers (slower)
-
-## Changing resolutions: aggregate
-
-::: columns
-:::{.column width="50%"}
-```{r agg1}
-#| echo: true
-r <- rast()
-values(r) <- 1:ncell(r)
-plot(r)
-```
-]
-:::
-:::{.column width="50%"}
-```{r agg2}
-#| echo: true
-ra <- aggregate(r, 20)
-plot(ra)
-```
-:::
-:::
-
-## Changing resolutions: disagg
-
-::: columns
-:::{.column width="50%"}
-```{r agg3}
-#| echo: true
-ra <- aggregate(r, 20)
-plot(ra)
-```
-:::
-:::{.column width="50%"}
-```{r agg4}
-#| echo: true
-rd <- disagg(r, 20)
-plot(rd)
-```
-:::
-:::
-
-## Changing Resolutions: resample
-
-```{r resamp}
-#| echo: true
-r <- rast(nrow=3, ncol=3, xmin=0, xmax=10, ymin=0, ymax=10)
-values(r) <- 1:ncell(r)
-s <- rast(nrow=25, ncol=30, xmin=1, xmax=11, ymin=-1, ymax=11)
-x <- resample(r, s, method="bilinear")
-```
-
-```{r resampplot, echo=FALSE}
-opar <- par(no.readonly =TRUE)
 par(mfrow=c(1,2))
-plot(r)
-plot(x)
-par(opar)
+plot(seine, main="Original Data")
+plot(seine_simp, main="Simplified")
+
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| message: false
+nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+
+plot(st_geometry(nc))
+plot(st_geometry(st_centroid(nc)), add=TRUE, col='red')
+par(mfrow=c(1,1))
+```
+:::
+:::
+  
+## Unary Transformations
+
+::: {style="font-size: 0.4em"}
+
+|transformer               |returns a geometry ...                                                              |
+|--------------------------|----------------------------------------------------------------------------------|
+|`centroid`|of type `POINT` with the geometry's centroid|
+|`buffer`|that is larger (or smaller) than the input geometry, depending on the buffer size|
+|`jitter` |that was moved in space a certain amount, using a bivariate uniform distribution|
+|`wrap_dateline`|cut into pieces that do no longer cover the dateline|
+|`boundary`|with the boundary of the input geometry|
+|`convex_hull`|that forms the convex hull of the input geometry|
+|`line_merge`|after merging connecting `LINESTRING` elements of a `MULTILINESTRING` into longer `LINESTRING`s.|
+|`make_valid`|that is valid |
+|`node`|with added nodes to linear geometries at intersections without a node; only works on individual linear geometries|
+|`point_on_surface`|with a (arbitrary) point on a surface|
+|`polygonize`|of type polygon, created from lines that form a closed ring|
+:::
+
+# Common Unary Transformations {background="#9F281A"}
+
+## Fixing geometries
+
+- When `all(st_is_valid(your.shapefile))` returns `FALSE`
+
+::: columns
+::: {.column width=60%}
+::: {style="font-size: 0.8em"}
+- `st_make_valid` has two methods: 
+  -   original converts rings into noded lines and extracts polygons
+  -   structured makes rings valid first then merges/subtracts from existing polgyons
+  -   Verify that the output is what you expect!!
+  
+:::
+:::
+::: {.column width=40%}
+```{r}
+#| echo: fenced
+x = st_sfc(st_polygon(list(rbind(c(0,0),c(0.5,0),c(0.5,0.5),c(0.5,0),c(1,0),c(1,1),c(0,1),c(0,0)))))
+st_is_valid(x)
 ```
 
-## On Weds
+```{r}
+#| fig-width: 6
 
-* Transformations of data and coverage
-* Raster math
-* Cell-based functions
+plot(x)
+```
+:::
+:::
+
+## Fixing geometries with `st_make_valid`
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| fig-width: 7
+y <- x %>% st_make_valid()
+plot(y)
+```
+:::
+::: {.column width="60%}
+```{r}
+#| echo: fenced
+
+y <- x %>% st_make_valid()
+st_is_valid(y)
+```
+:::
+:::
+
+
+## Fixing Geometries with `st_buffer`
+
+::: columns
+:::{.column width=60%}
+-`st_buffer` enforces valid geometries as an output
+
+- Setting a 0 distance buffer leaves most geometries unchanged
+
+- Not all transformations do this
+:::
+:::{.column width="40%"}
+```{r}
+#| echo: fenced
+
+z <- x %>% st_buffer(., dist=0)
+
+st_is_valid(z)
+```
+
+```{r}
+#| fig-width: 7
+plot(z)
+```
+:::
+:::
+
+
+## Changing `CRS` with `st_transform`
+
+- You've already been using this!!
+
+- Does not guarantee valid geometries (use `check = TRUE` if you want this)
+
+- We'll try to keep things from getting too complicated
+
+```{r}
+#| cache: true
+#| message: false
+
+library(tigris)
+
+b <- states(progress_bar = FALSE) %>% 
+  filter(STUSPS %in% c("WA", "OR", "ID"))
+b.a <- b %>% st_transform(., crs = 2991)
+b.b <- b %>% st_transform(., crs = 5070)
+
+```
+
+```{r}
+#| fig-width: 14
+#| fig-align: center
+
+par(mfrow=c(1,3), cex.main = 3)
+plot(b$geometry, main = "Geodetic")
+plot(b.a$geometry, main = "Lambert Conformal")
+plot(b.b$geometry, main = "Albers Equal Area")
+par(mfrow=c(1,1), cex.main=1.2)
+```
+
+## Converting areas to points with `st_centroid` or `st_point_on_surface` 
+
+::: columns
+::: {.column width="30%"}
+::: {style="font-size: 0.8em"}
+- For "sampling" other datasets
+
+- To simplify distance calculations
+
+- To construct networks
+:::
+:::
+:::{.column width="70%"}
+```{r}
+#| echo: true
+
+id.counties <- tigris::counties(state = "ID", progress_bar=FALSE)
+id.centroid <- st_centroid(id.counties)
+id.pointonsurf <- st_point_on_surface(id.counties)
+
+```
+```{r}
+plot(id.centroid$geometry, col="red")
+plot(id.pointonsurf$geometry, col="blue", add=TRUE)
+```
+:::
+:::
+## Creating "sampling areas" 
+
+- Uncertainty in your point locations
+
+- Incorporate a fixed range around each point
+
+- Combine multiple points into a single polygon
+
+```{r}
+#| message: false
+landmarks.id.csv <- read_csv("/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2023/assignment01/landmarks_ID.csv")
+
+```
+
+```{r}
+#| echo: true
+
+hospitals.id <- landmarks.id.csv %>% 
+  st_as_sf(., coords = c("longitude", "lattitude")) %>% 
+  filter(., MTFCC == "K1231")
+st_crs(hospitals.id) <- 4326
+
+```
+
+
+## Creating sampling areas
+```{r}
+#| echo: true
+
+hospital.buf <- hospitals.id %>%
+  st_buffer(., dist=10000)
+
+hospital.mcp <- hospitals.id %>% 
+  st_convex_hull(.)
+```
+
+```{r}
+par(mfrow=c(1,3), cex.main = 3)
+plot(hospitals.id$geometry, main = "Original")
+plot(hospital.buf$geometry, main = "Buffer 10km")
+plot(hospital.mcp$geometry, main = "MCP")
+par(mfrow=c(1,1), cex.main=1.2)
+
+```
+
+## Other Unary Transformations 
+
+::: {style="font-size: 0.4em"}
+|transformer               |returns a geometry ...                                                              |
+|--------------------------|----------------------------------------------------------------------------------|
+|`segmentize`|a (linear) geometry with nodes at a given density or minimal distance|
+|`simplify`|simplified by removing vertices/nodes (lines or polygons)|
+|`split`|that has been split with a splitting linestring|
+|`transform`|transformed or convert to a new coordinate reference system (chapter \@ref(cs))|
+|`triangulate`|with Delauney triangulated polygon(s) (figure \@ref(fig:vor))|
+|`voronoi`|with the Voronoi tessellation of an input geometry (figure \@ref(fig:vor))|
+|`zm`|with removed or added `Z` and/or `M` coordinates|
+|`collection_extract`|with subgeometries from a `GEOMETRYCOLLECTION` of a particular type|
+|`cast`|that is converted to another type|
+|`+`|that is shifted over a given vector|
+|`*`|that is multiplied by a scalar or matrix|
+:::
+
+# Binary Transformers {background="#9F281A"}
+
+## Binary Transformers
+::: {style="font-size: 0.4em"}
+
+|function           |returns                                                    |infix operator|
+|-------------------|-----------------------------------------------------------|:------------:|
+|`intersection`     |the overlapping geometries for pair of geometries          |`&`|
+|`union`            |the combination of the geometries; removes internal boundaries and duplicate points, nodes or line pieces|`|`|
+|`difference`       |the geometries of the first after removing the overlap with the second geometry|`/`|
+|`sym_difference`   |the combinations of the geometries after removing where they intersect; the negation (opposite) of `intersection`|`%/%`|
+| `crop`            | crop an sf object to a specific rectangle |
+:::
+
+## Binary Transformers
+![](img/slide_9/venn-clip-1.png)
+
+## Common Uses of Binary Transformers
+
+* Relating partially overlapping datasets to each other
+
+* Reducing the extent of vector objects
+
+## N-ary Transformers
+
+* Similar to Binary (except `st_crop`)
+
+* `union` can be applied to a set of geometries to return its
+geometrical union
+
+* `intersection` and `difference` take a single argument,
+but operate (sequentially) on all pairs, triples, quadruples, etc.
+
+
+  
