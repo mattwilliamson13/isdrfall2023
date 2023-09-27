@@ -1,6 +1,6 @@
 ---
-title: "Operations With Raster Data II"
-subtitle: "HES 505 Fall 2022: Session 12"
+title: "Operations With Vector Data II"
+subtitle: "HES 505 Fall 2023: Session 12"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -20,14 +20,21 @@ Image Source: USGS
 
 - By the end of today, you should be able to:
 
-  - Access and manipulate cell values
+  - Translate pseudocode commands into functional workflows
 
-  - Generate new rasters using mathematical functions
+  - Articulate the importance of key arguments to `sf` functions
 
-  - Summarize rasters using global functions
+  - Generate new attributes and geometries from existing data.
   
-  - Generate new rasters describing the spatial context of individual cells
-  
+# Motivating Questions
+
+## Example questions
+
+- What is the chronic heart disease risk of the ID counties that are furthest from hospitals?
+
+
+
+
 ## Revisiting Projections
 
 * `project` changes the entire coordinate reference system

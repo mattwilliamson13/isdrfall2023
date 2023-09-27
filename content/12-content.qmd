@@ -7,13 +7,25 @@ date: "2023-09-27"
 source(here::here("R", "slide-things.R"))
 ```
 
+Now that you have the complete picture of predicates, measures, and transformers; it's time to use them on some actual data. This lecture is meant to be the "practical" application of the ideas you've learned in our previous discussions of vector data and give you enough tools to begin to subset your data to the records and attributes of interest, calculate new spatial metrics, and generate new geometries based on existing data.
+
 ## Readings
+
+- <i class="fas fa-external-link-square-alt"></i> The introductory vignette for the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) has a lot of useful info on `sf` objects and conventions.
+
+- <i class="fas fa-book"></i> [Section 2.2](https://geocompr.robinlovelace.net/spatial-class.html) on Vector Data and [Sections 5.1-5.3](https://geocompr.robinlovelace.net/geometric-operations.html) on Geographic Operations in Lovelace et al. [@lovelace_geocomputation_2019] - for more details about vectors and geometric operations on vectors.
+
+- <i class="fas fa-external-link-square-alt"></i> [Section 3.1 and 3.2](https://r-spatial.org/book/03-Geometries.html) of Spatial Data Science, a `bookdown` project by Edzer Pebesma and Roger Bivand (of the `sf`, `sp`, `rgeos`, and `rgdal` packages).
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+- Translate pseudocode commands into functional workflows
 
+- Articulate the importance of key arguments to `sf` functions
+
+- Generate new attributes and geometries from existing data.
 
 
 ## Slides
@@ -23,4 +35,10 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/12-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/12-slides.html"></iframe>
+```
+
+</div>
