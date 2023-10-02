@@ -26,14 +26,41 @@ Image Source: USGS
 
   - Generate new attributes and geometries from existing data.
   
-# Motivating Questions
+# Motivating Questions {background="#9F281A"}
 
 ## Example questions
 
-- What is the chronic heart disease risk of the ID counties that are furthest from hospitals?
+- What is the chronic heart disease risk of the 10 ID counties that are furthest from hospitals?
 
+- Where are there overlaps in hospital service areas?
 
+- How much of Idaho is outside of a hospital service area
 
+## Key assummptions
+
+- All hospital locations are contained in the landmarks dataset
+
+- A hospital service area is defined as a 100km radius
+
+- Hospital service areas can cross state lines.
+
+# Example 1 {background="#9F281A"}
+
+## Pseudocode
+
+```{r}
+#| echo: true
+#| eval: false
+
+1. Load the hospital and cdc datasets
+2. Align the data
+3. Filter cdc so it only has Idaho counties
+4. Calculate distance from hospitals
+5. Find top 10 counties based on distance
+6. Map chronic hear disease risk
+
+```
+##
 
 ## Revisiting Projections
 
