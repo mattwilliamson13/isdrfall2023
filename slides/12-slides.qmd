@@ -32,9 +32,54 @@ Image Source: USGS
 
 - What is the chronic heart disease risk of the ID counties that are furthest from hospitals?
 
+## What do we need to know?
+
+- Where are the hospitals?
+
+- How far are the hospitals from ID counties?
+
+- Which counties are the furthest?
+
+- What is the CHD risk?
+
+## Pseudocode
 
 
 
+## Adding Functions
+
+## Plotting the Results
+
+## Example questions
+
+- How may $km^2$ of ID are served by more than 1 hospital?
+
+## What do we need to know?
+- Where are the hospitals?
+
+- What is the service area for each hospital?
+
+- Where doe those service areas overlap?
+
+- How big is the overlap area?
+
+## Pseudocode
+
+## Adding Functions
+
+## Plotting the Results
+
+## Example questions
+
+- What is the difference between the average risk of chronic heart disease in the counties served by at least two hospitals compared to those that aren't served by any?
+
+## What do we need to know?
+
+## Pseudocode
+
+## Adding Functions
+
+## Plotting the Results
 ## Revisiting Projections
 
 * `project` changes the entire coordinate reference system
