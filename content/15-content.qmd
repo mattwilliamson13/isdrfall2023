@@ -8,14 +8,33 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
-Today we'll continue our development of attributes (or covariates) in our spatial databases. We'll look at developing attributes that describe various geographic properties along with joining and subsetting based on locations.
+Today we'll begin exploring typical workflows for spatial analysis by working with attribute data. Attributes generally provide additional information about a location that we can use for visualization and analysis. Unlike spatial operations that we'll explore next week, attribute data do not all require geographic information (but they do need some means of relating to a geography). These chapters are not 'prerequisite' reading for the week, but provide a lot of helpful background for attribute operations in R.
 
 ## Resources
 
+- <i class="fas fa-book"></i> The [Tidy Data](https://r4ds.had.co.nz/tidy-data.html) and [Relational Data](https://r4ds.had.co.nz/relational-data.html) sections from __R For Data Science__ [@wickham2016r] provide a great overview to data cleaning and manipulation functions available in the `tidyverse`.
+
+- <i class="fas fa-book"></i> [Doing things with multiple tables](https://ready4r.netlify.app/labbook/part-5-doing-useful-things-with-multiple-tables.html) has a lot of nice visual examples of for using the `_join` functions in `dplyr`.
+
+- <i class="fas fa-book"></i> This [article](https://www.cell.com/trends/ecology-evolution/fulltext/S0169-5347(21)00227-5) [@di2021conservation] provides a recent recap of a variety of reasons why we may need to combine data from multiple, often disparate, sources. 
+
+- <i class="fas fa-book"></i> The [Spatial Data Operations Chapter](https://geocompr.robinlovelace.net/spatial-operations.html) in [@lovelace_geocomputation_2019] makes the concepts of a network concrete (literally) by using a transportation route example to illustrate the various components of a network analysis in `R`.
 
 ## Objectives
 
 By the end of today, you should be able to: 
+
+- Define _spatial analysis_
+
+- Describe the steps in planning a spatial analysis
+
+- Understand the structure of relational databases
+
+- Use attributes and topology to subset data
+
+- Generate new features using geographic data
+
+- Join data based on attributes and location
 
 
 ## Slides
@@ -25,4 +44,10 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/15-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/15-slides.html"></iframe>
+```
+
+</div>

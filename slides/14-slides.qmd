@@ -1,6 +1,6 @@
 ---
-title: "Building Spatial Databases with Attributes"
-subtitle: "HES 505 Fall 2022: Session 14"
+title: "Raster Data: II"
+subtitle: "HES 505 Fall 2023: Session 14"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -9,15 +9,7 @@ format:
     show-slide-number: print
     self-contained: true  
 ---
-```{r}
-#| include: false
-library(tidyverse)
-library(pander)
-library(sf)
-library(igraph)
-library(terra)
-library(spData)
-```
+
 # Today's Plan {background="#43464B" background-image="img/slide_14/bison.png"}
 
 
@@ -25,335 +17,190 @@ library(spData)
 
 - By the end of today, you should be able to:
 
-  - Define _spatial analysis_
+  * Use moving windows as a means of smoothing raster data
 
-  - Describe the steps in planning a spatial analysis
+  * Reclassify data using conditional statements and reclassification tables
 
-  - Understand the structure of relational databases
+  * Use raster math as a means of creating new data based on an existing dataset.
 
-  - Begin building a database for spatial analysis
+# Moving Windows
 
-# What is spatial analysis? {background="#0033A0"}
+## Why use moving windows?
 
-## What is spatial analysis?
-> "The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data".
-`r tufte::quote_footer('--- ESRI Dictionary')`
+  * To create new data that reflects "neighborhood" data
+  
+  * To smooth out values
+  
+  * To detect (and fill) holes or edges
+  
+  * Change the thematic scale of your data (without changing resolution)
+  
+## What is a moving window?
 
-## What is spatial analysis?
+![](img/slide_14/raster_sliding_window.jpg)
 
-::: columns
-::: {.column width="60%"}
+## Implementing Moving Windows in `R`
 
-- The process of turning maps into information
+- Use the `focal` function in `terra`
 
-- Any- or everything we do with GIS
+`focal(x, w=3, fun="sum", ..., na.policy="all", fillvalue=NA, 
+		expand=FALSE, silent=TRUE, filename="", overwrite=FALSE, wopt=list()) `
 
-- The use of computational and statistical algorithms to understand the relations between things that co-occur in space.
-:::
-::: {.column width="40%"}
-![John Snow's cholera outbreak map](img/slide_14/Snow-cholera-map.png)
-:::
-:::
-
-## Common goals for spatial analysis
-
-::: columns
-::: {.column width="60%"}
-![courtesy of [NatureServe](https://www.natureserve.org/products/species-distribution-modeling)](img/slide_14/stand-land_modeling_process_0.png){width=700, height=500}
-:::
-::: {.column width="40%"}
-
-- Describe and visualize locations or events
-
-- Quantify patterns
-
-- Characterize 'suitability'
-
-- Determine (statistical) relations
-:::
-:::
-
-## Common pitfalls of spatial analysis
-
-- __Locational Fallacy:__ Error due to the spatial characterization chosen for elements of study
-
-
-- __Atomic Fallacy:__ Applying conclusions from individuals to entire spatial units
-
-
-- __Ecological Fallacy:__ Applying conclusions from aggregated information to individuals
-
-::: {style="font-size: 0.7em"}
-> Spatial analysis is an inherently complex endeavor and one that is advancing rapidly. So-called "best practices" for addressing many of these issues are still being developed and debated. This doesn't mean you shouldn't do spatial analysis, but you should keep these things in mind as you design, implement, and interpret your analyses
-:::
-
-# Workflows for spatial analysis {background="#0033A0"}
-
-## Workflows for spatial analysis
-
-::: columns
-::: {.column width="60%"}
-- Acquisition (not really a focus, but see [Resources](content/resource/))
-
-- Geoprocessing 
-
-- Analysis 
-
-- Visualization 
-:::
-::: {.column width="40%"}
-![courtesy of [University of Illinois](https://guides.library.illinois.edu/c.php?g=348425&p=5443868)](img/slide_14/acquire_analyze_present.png)
-:::
-:::
-
-## Geoprocessing
-
-__Manipulation of data for subsequent use__
-
-- Alignment 
-
-- Data cleaning and transformation 
-
-- Combination of multiple datasets 
-
-- Selection and subsetting 
-
-# Databases and attributes {background="#0033A0"}
-
-## Databases and attributes
-
-::: columns
-::: {.column width="40%"}
-![courtesy of [Giscommons](https://giscommons.org/data-tables-and-data-preprocessing/)](img/slide_14/4.1.png)
-:::
-::: {.column width="60%"}
-::: {style="font-size: 0.7em"}
-- Previous focus has been largely on _location_
-
-- Geographic data often also includes non-spatial data
-
-- Attributes: Non-spatial information that further describes a spatial feature
-
-- Typically stored in tables where each row represents a spatial feature
-  - Wide vs. long format
-:::
-:::
-:::
-
-## Common attribute operations
-
-- `sf` designed to work with `tidyverse`
-
-- Allows use of `dplyr` data manipulation verbs 
-
-- Can use `scales` package for units
-
-- Also allows `%>%` to chain together multiple steps
-
-- geometries are "sticky"
-
-- Pay attention to masking!!
-
-## Revisiting the `tidyverse` 
-* Fields contain individual attributes
-
-* Selecting fields
-
-::: columns
-::: {.column width="50%"}
-```{r}
-#| echo: true
-colnames(world)
-head(world)[,1:3] %>% 
-  st_drop_geometry()
-```
-:::
-::: {.column width="50%"}
-```{r}
-#| echo: true
-world %>%
-  dplyr::select(name_long, continent) %>%
-  st_drop_geometry() %>% 
-  head(.) 
-```
-:::
-:::
-
-## Revisiting the `tidyverse`
-* Features refer to the individual observations in the dataset
-* Selecting features
-
-::: columns
-::: {.column width="50%"}
-```{r}
-#| echo: true
-head(world)[1:3, 1:3] %>% 
-  st_drop_geometry()
-
-```
-:::
-::: {.column width="50%"}
-```{r wrldfiltr}
-#| echo: true
-world %>%
-  filter(continent == "Asia") %>% 
-    dplyr::select(name_long, continent) %>%
-  st_drop_geometry() %>% 
-  head(.)
-```
-:::
-:::
-
-## Revisiting the `tidyverse` 
-
-* Creating new fields 
-
+## `focal` for Continuous Rasters
 
 ```{r}
 #| echo: true
-world %>%
-  filter(continent == "Asia") %>% 
-    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%
-  mutate(., dens = pop/area_km2,
-         totGDP = gdpPercap * pop) %>%
-  st_drop_geometry() %>% 
-  head(.)
+library(tidyverse)
+library(terra)
+library(spData)
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+srtm3  <-  focal(x = srtm, w = 3)
+srtm9  <-  focal(x = srtm, w = 9)
+srtm21  <-  focal(x = srtm, w = 21)
 ```
 
-## Revisiting the `tidyverse` 
-
-* Creating new fields 
-
+## `focal` for Continuous Rasters
 ```{r}
-world2 <- world %>%
-  filter(continent == "Asia") %>% 
-    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%
-  mutate(., dens = pop/area_km2,
-         totGDP = gdpPercap * pop)
-plot(world2[c("dens", "totGDP")])
+rasts <- c(srtm, srtm3, srtm9, srtm21)
+names(rasts) <- c("base", "3 by 3", "9 by 9", "21 by 21")
+plot(rasts)
 ```
 
-## Revisiting the `tidyverse` 
+## `focal` for Continuous Rasters
 
-* Aggregating data
-
-::: columns
-::: {.column width="50%"}
 ```{r}
 #| echo: true
-world %>%
-  st_drop_geometry(.) %>% 
-  group_by(continent) %>%
-  summarize(pop = sum(pop, na.rm = TRUE))
+
+srtmsum  <-  focal(x = srtm, w = 3, fun="sum")
+srtmmax  <-  focal(x = srtm, w = 9, fun="mean")
+srtmmin  <-  focal(x = srtm, w = 21, fun="min")
 ```
-:::
-::: {.column width="50%"}
-```{r wrldagg}
-worldpop <-  world %>%
-  group_by(continent) %>%
-  summarize(pop = sum(pop, na.rm = TRUE))
-plot(worldpop["pop"])
-```
-:::
-:::
 
-# Joining (a)spatial data {background="#0033A0"}
-
-
-## Joining (a)spatial data
-
-::: columns
-::: {.column width="40%"}
-- Requires a "key" field 
-
-- Multiple outcomes possible
-
-- Think about your final data form
-:::
-::: {.column width="60%"}
-![](img/slide_14/types-of-relationship-in-Database.png) 
-:::
-:::
-
-## Left Join
-
-- Useful for adding other attributes not in your spatial data
-
-- Returns all of the records in `x` attributed with `y`
-
-- Pay attention to the number of rows!
-
-## Left Join
+## `focal` for Continuous Rasters
 
 ```{r}
-source(here::here("R", "left_join.R"))
+rasts <- c(srtm, srtmsum, srtmmax, srtmmin)
+names(rasts) <- c("base", "Sum", "Max", "Min")
+plot(rasts)
 ```
-![](img/slide_14/left-join.gif)
 
-## Left Join
+## `focal` for Continous Rasters
 
-::: columns
-::: {.column width="50%"}
+* can alter the size and shape of window by providing a weights matrix for `w`
+
+* Can create different custom functions for `fun` (see the help file)
+
+* `na.policy` for filling holes or avoiding them
+
+# Reclassification
+
+## Reclassification
+
+* Create new data based on the presence of a particular class(es) of interest
+
+* Combine classes in a categorical map
+
+* Useful as inputs for overlay analyses
+
+## Reclassifying rasters in `R`
+
+* Using `[]` and conditionals
+
 ```{r}
 #| echo: true
-head(coffee_data)
+
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+srtm.lowelev <- srtm
+srtm.lowelev[srtm.lowelev > 2500] <- 1
+plot(srtm.lowelev)
 ```
-:::
-::: {.column width="50%"}
+
+## Reclassifying rasters in `R`
+
+* Using `[]` and conditionals
 ```{r}
 #| echo: true
-world_coffee = left_join(world, coffee_data)
-nrow(world_coffee)
+
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+
+
+srtm.na <- srtm
+srtm.na[200:300, 200:300] <- NA
+srtm.na[is.na(srtm.na)] <- 8000
+plot(srtm.na)
 ```
-:::
-:::
+## Reclassifying Categorical Rasters
 
-## Left Join
+* Need a classification matrix
+* Use `classify`
 
-```{r}
-plot(world_coffee["coffee_production_2017"])
-```
-
-## Inner Join
-
-- Useful for subsetting to "complete" records
-
-- Returns all of the records in `x` with matching `y`
-
-- Pay attention to the number of rows!
-
-## Inner Join
-
-```{r}
-source(here::here("R", "inner_join.R"))
-```
-![](img/slide_14/inner-join.gif)
-
-## Inner Join
-
-::: columns
-::: {.column width="50%"}
 ```{r}
 #| echo: true
-world_coffee_inner = inner_join(world, coffee_data)
-nrow(world_coffee_inner)
+
+mintemp <- rast("ftp://ftp.hafro.is/pub/data/rasters/Iceland_minbtemp.tif")
+cm <- matrix(c(
+  -2, 2, 0,
+  2, 4, 1,
+  4, 10, 2), ncol = 3, byrow = TRUE)
+
+# Create a raster with integers
+temp_reclass <- classify(mintemp, cm)
+tempcats <- c("cold", "mild", "warm")
+levels(temp_reclass) <- tempcats
+
 ```
-::: 
-::: {.column width="50%"}
+
+## Reclassifying Categorical Rasters
+```{r}
+par(mfrow=c(1,2))
+plot(mintemp, main="original")
+plot(temp_reclass, main="reclassified")
+```
+
+## Raster Math
+
+* Performs cell-wise calculations on 1 (or more) `SpatRasters`
+* Generally works the same as matrix operations 
+* All layers must be aligned
+
+## Raster Math
+
 ```{r}
 #| echo: true
-setdiff(coffee_data$name_long, world$name_long)
+r <- rast(ncol=5, nrow=5)
+values(r) <- 1:ncell(r)
+r2 <- r*2
+r3 <- t(r)
+r4 <- r + r2
 ```
-:::
-:::
 
-## Inner Join
 ```{r}
-plot(world_coffee_inner["coffee_production_2017"])
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,4))
+plot(r, main = "r")
+plot(r2, main = "r2")
+plot(r3, main = "r3")
+plot(r4, main = "r4")
+par(opar)
 ```
 
-# Other Joins
+## Cell-wise operations
 
-* `right_`, `outer_`, and `anti_`
+* `terra` has a special set of `apply` functions
 
-* Spatial Joins (next week)
+* `app`, `lapp`, `tapp`
+
+* `app` applies a function to the values of each cell
+
+* `lapp` applies a function using the layer as the value
+
+* `tapp` applies the function to a subset of layers
+
+
+## Context-specific Functions
+
+* `distance` and relatives are based on relationships between cells
+
+* `terrain` allows calculation of slope, ruggedness, aspect using elevation rasters
+
+* `shade` calculates hillshade based on terrain

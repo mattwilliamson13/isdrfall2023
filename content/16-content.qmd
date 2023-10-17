@@ -1,21 +1,36 @@
 ---
-title: "Combining Vectors and Continuous Rasters"
-date: "2023-10-11"
+title: "Integrating Rasters and Vector Data"
+date: "2023-10-16"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
 
 ```
-
-
+The goal of much of our spatial data "munging" is to create a dataframe that can be used in subsequent statistical analyses. It can be difficult to link all of the steps of filtering, selecting, extracting, etc into a coherent problem when you are just being exposed to the syntax (as we discovered last week). Today, I'll try to use a motivating example to help you see a path forward.
 
 ## Resources
 
+- <i class="fas fa-book"></i> The [Spatial Data Operations Chapter](https://geocompr.robinlovelace.net/spatial-operations.html) in [@lovelace_geocomputation_2019] makes the concepts of a network concrete (literally) by using a transportation route example to illustrate the various components of a network analysis in `R`.
+
+- <i class="fas fa-book"></i>  [Chapter 3. Processing Tabular Data](https://bookdown.org/mcwimberly/gdswr-book/tables.html) from _Geographic Data Science with R_ by Michael C. Wimberly has a nice introduction to many of the `dplyr` verbs for manipulating tabular data.
+
+- <i class="fas fa-book"></i>  [Chapter 9. Combining Vector Data with Continuous Raster Data](https://bookdown.org/mcwimberly/gdswr-book/combining-vector-data-with-continuous-raster-data.html) from _Geographic Data Science with R_ by Michael C. Wimberly introduces data extraction and zonal statistics for raster data.
+
+- <i class="fas fa-book"></i>  [Chapter 10. Combining Vector Data with Discrete Raster Data](https://bookdown.org/mcwimberly/gdswr-book/tables.html) from _Geographic Data Science with R_ by Michael C. Wimberly extends Chapter 9 for discrete rasters, but also adds some additional buffering and data manipulation syntax.
 
 ## Objectives
 
 By the end of today you should be able to:
+
+- Use `dplyr` with `predicates` and `measures` to subset and manipulate data
+
+- Use `extract` to access raster data
+
+- Use `zonal` to summarize access data
+
+- Join data into a single analyzable dataframe
+
 
 ## Slides
 
@@ -25,4 +40,11 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/16-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/16-slides.html"></iframe>
+```
+
+</div>
+[Link to Zoom Recording](https://boisestate.zoom.us/rec/share/VWjWFUjEP0QUAw0gbDCfB8AwskdY0qUx_z534eYjuyimlqs1BdQhfYZTfJusTAg2.WMmVMKEYMcahXAG2)

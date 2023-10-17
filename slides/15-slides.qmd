@@ -1,9 +1,9 @@
 ---
-title: "Building Spatial Databases based on Location"
-subtitle: "HES 505 Fall 2022: Session 15"
+title: "Combining Tabular and Spatial Data"
+subtitle: "HES 505 Fall 2023: Session 15"
 author: "Matt Williamson"
 execute: 
-  eval: false
+  eval: true
 format: 
   revealjs:
     theme: mytheme.scss
@@ -16,66 +16,117 @@ format:
 #| include: false
 library(tidyverse)
 library(sf)
-library(igraph)
-library(terra)
 library(spData)
 library(units)
 library(tigris)
 library(tmap)
 ```
 
-# Outline for today {background="#0033A0"}
-
-- Update on assignments
-
-- Refresher: Building a spatial analysis workflow
-
-- Building a database for an analysis (part 2) based on location
-
-
-## Update on assignments
-
-- Assignment 2 due by 14 Oct
-
-- [Self-assessment 2](https://classroom.github.com/a/1rxYopts) due 21 Oct
-
-- Resubmits
-
-- Final Project
+# Today's Plan {background="#43464B" background-image="img/slide_14/bison.png"}
 
 
 ## Objectives
 
-By the end of today you should be able to:
+By the end of today, you should be able to:
 
-- Create new features based on topological relationships
+- Define _spatial analysis_
 
-- Use topological subsetting to reduce features
+- Describe the steps in planning a spatial analysis
 
-- Use spatial joins to add attributes based on location
+- Understand the structure of relational databases
 
-# Revisiting Spatial Analysis {background="#0033A0"}
+- Use attributes and topology to subset data
+
+- Generate new features using geographic data
+
+- Join data based on attributes and location
+
+# What is spatial analysis? {background="#9F281A"}
+
+## What is spatial analysis?
+> "The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data".
+`r tufte::quote_footer('--- ESRI Dictionary')`
 
 ## What is spatial analysis?
 
-> "The process of examining the locations, attributes, and relationships of features in spatial data through overlay and other analytical techniques in order to address a question or gain useful knowledge. Spatial analysis extracts or creates new information from spatial data".
-`r tufte::quote_footer('--- ESRI Dictionary')`
+::: columns
+::: {.column width="60%"}
+
+- The process of turning maps into information
+
+- Any- or everything we do with GIS
+
+- The use of computational and statistical algorithms to understand the relations between things that co-occur in space.
+:::
+::: {.column width="40%"}
+![John Snow's cholera outbreak map](img/slide_14/Snow-cholera-map.png)
+:::
+:::
+
+## Common goals for spatial analysis
+
+::: columns
+::: {.column width="60%"}
+![courtesy of [NatureServe](https://www.natureserve.org/products/species-distribution-modeling)](img/slide_14/stand-land_modeling_process_0.png){width=700, height=500}
+:::
+::: {.column width="40%"}
+
+- Describe and visualize locations or events
+
+- Quantify patterns
+
+- Characterize 'suitability'
+
+- Determine (statistical) relations
+:::
+:::
+
+## Common pitfalls of spatial analysis
+
+- __Locational Fallacy:__ Error due to the spatial characterization chosen for elements of study
+
+
+- __Atomic Fallacy:__ Applying conclusions from individuals to entire spatial units
+
+
+- __Ecological Fallacy:__ Applying conclusions from aggregated information to individuals
+
+::: {style="font-size: 0.7em"}
+> Spatial analysis is an inherently complex endeavor and one that is advancing rapidly. So-called "best practices" for addressing many of these issues are still being developed and debated. This doesn't mean you shouldn't do spatial analysis, but you should keep these things in mind as you design, implement, and interpret your analyses
+:::
+
+# Workflows for spatial analysis {background="#9F281A"}
 
 ## Workflows for spatial analysis
 
 ::: columns
-::: {.column width="40%"}
-![courtesy of [Humboldt State University](http://gsp.humboldt.edu/olm/Lessons/GIS/06%20Vector%20Analysis%20Attributes/00_SpatialAnalysis.html)](img/slide_15/Process.png)
-:::
 ::: {.column width="60%"}
+- Acquisition (not really a focus, but see [Resources](content/resource/))
 
-- Align processing with objectives
+- Geoprocessing 
 
-- Imagining the visualizations and analysis clarifies file formats and variables
+- Analysis 
 
-- Helps build reproducibility 
+- Visualization 
+:::
+::: {.column width="40%"}
+![courtesy of [University of Illinois](https://guides.library.illinois.edu/c.php?g=348425&p=5443868)](img/slide_14/acquire_analyze_present.png)
 :::
 :::
+
+## Geoprocessing
+
+__Manipulation of data for subsequent use__
+
+- Alignment 
+
+- Data cleaning and transformation 
+
+- Combination of multiple datasets 
+
+- Selection and subsetting 
+
+# Databases and Attributes {background="#9F281A"}
 
 ## Databases and Attributes
 
@@ -99,8 +150,247 @@ By the end of today you should be able to:
 :::
 :::
 :::
+## Databases and attributes
 
-# Calculating New Attributes {background="#0033A0"}
+::: columns
+::: {.column width="40%"}
+![courtesy of [Giscommons](https://giscommons.org/data-tables-and-data-preprocessing/)](img/slide_14/4.1.png)
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+- Previous focus has been largely on _location_
+
+- Geographic data often also includes non-spatial data
+
+- Attributes: Non-spatial information that further describes a spatial feature
+
+- Typically stored in tables where each row represents a spatial feature
+  - Wide vs. long format
+:::
+:::
+:::
+
+## Common attribute operations
+
+- `sf` designed to work with `tidyverse`
+
+- Allows use of `dplyr` data manipulation verbs (e.g. `filter`, `select`, `slice`)
+
+- Can use `scales` package for units
+
+- Also allows `%>%` to chain together multiple steps
+
+- geometries are "sticky"
+
+
+## Subsetting by Field
+
+* Fields contain individual attributes
+
+* Selecting fields
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+colnames(world)
+head(world)[,1:3] %>% 
+  st_drop_geometry()
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+world %>%
+  dplyr::select(name_long, continent) %>%
+  st_drop_geometry() %>% 
+  head(.) 
+```
+:::
+:::
+
+## Subsetting by Features
+* Features refer to the individual observations in the dataset
+* Selecting features
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+head(world)[1:3, 1:3] %>% 
+  st_drop_geometry()
+
+```
+:::
+::: {.column width="50%"}
+```{r wrldfiltr}
+#| echo: true
+world %>%
+  filter(continent == "Asia") %>% 
+    dplyr::select(name_long, continent) %>%
+  st_drop_geometry() %>% 
+  head(.)
+```
+:::
+:::
+
+# Spatial Subsetting {background="#9F281A"}
+
+
+## Topological Subsetting
+::: {style="font-size: 0.7em"}
+- Topological relations describe the spatial relationships between objects
+
+- We can use the overlap (or not) of vector data to subset the data based on topology
+
+- Need _valid_ geometries
+
+- Easiest way is to use `[` notation, but also most restrictive
+:::
+
+::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+canterbury = nz  %>% filter(Name == "Canterbury")
+canterbury_height = nz_height[canterbury, ]
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
+plot(st_geometry(canterbury))
+plot(st_geometry(nz_height), col="red", add=TRUE)
+plot(st_geometry(canterbury_height), col="blue", add=TRUE)
+```
+:::
+:::
+
+## Topological Subsetting
+
+::: columns
+::: {.column width="50%"}
+
+::: {style="font-size: 0.7em"}
+
+- Lots of verbs in `sf` for doing this (e.g., `st_intersects`, `st_contains`, `st_touches`)
+
+- see `?geos_binary_pred` for a full list
+
+- Creates an __implicit__ attribute (the _records_ in `x` that are "in" `y`)
+
+:::
+:::
+::: {.column width="50%"}
+__Using `sparse=TRUE`__
+```{r}
+#| echo: true
+
+co = filter(nz, grepl("Canter|Otag", Name))
+st_intersects(nz_height, co, 
+              sparse = TRUE)[1:3] 
+
+lengths(st_intersects(nz_height, 
+                      co, sparse = TRUE))[1:3] > 0
+```
+:::
+:::
+
+## Topological Subsetting
+
+- The `sparse` option controls how the results are returned
+- We can then find out if one or more elements satisfies the criteria
+
+__Using `sparse=FALSE`__
+```{r top2}
+#| echo: true
+st_intersects(nz_height, co, sparse = FALSE)[1:3,] 
+
+apply(st_intersects(nz_height, co, sparse = FALSE), 1,any)[1:3]
+```
+
+## Topological Subsetting
+
+::: columns
+::: {.column width="60%"}
+```{r subset}
+#| echo: true
+canterbury_height3 = nz_height %>%
+  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+plot(st_geometry(nz))
+plot(st_geometry(canterbury_height3), add=TRUE)
+```
+:::
+:::
+
+# New Attributes from Existing Fields {background="#9F281A"}
+
+## Revisiting the `tidyverse` 
+
+* Creating new fields 
+
+
+```{r}
+#| echo: true
+world %>%
+  filter(continent == "Asia") %>% 
+    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%
+  mutate(., dens = pop/area_km2,
+         totGDP = gdpPercap * pop) %>%
+  st_drop_geometry() %>% 
+  head(.)
+```
+
+## Revisiting the `tidyverse` 
+
+* Creating new fields 
+
+```{r}
+world2 <- world %>%
+  filter(continent == "Asia") %>% 
+    dplyr::select(name_long, continent, pop, gdpPercap ,area_km2) %>%
+  mutate(., dens = pop/area_km2,
+         totGDP = gdpPercap * pop)
+plot(world2[c("dens", "totGDP")])
+```
+
+## Revisiting the `tidyverse` 
+
+* Aggregating data
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+world %>%
+  st_drop_geometry(.) %>% 
+  group_by(continent) %>%
+  summarize(pop = sum(pop, na.rm = TRUE))
+```
+
+:::
+::: {.column width="50%"}
+
+```{r wrldagg}
+worldpop <-  world %>%
+  group_by(continent) %>%
+  summarize(pop = sum(pop, na.rm = TRUE))
+plot(worldpop["pop"])
+```
+
+:::
+:::
+
+# New Attributes from Topology {background="#9F281A"}
 
 ## Attributes based on geometry and location (`measures`)
 
@@ -311,99 +601,103 @@ plot(st_geometry(ua), add=TRUE)
 :::
 :::
 
-# Topological Subsetting {background="#0033A0"}
 
-## Topological Subsetting
-::: {style="font-size: 0.7em"}
-- Topological relations describe the spatial relationships between objects
+# Joining (a)spatial data {background="#9F281A"}
 
-- We can use the overlap (or not) of vector data to subset the data based on topology
 
-- Need _valid_ geometries
-
-- Easiest way is to use `[` notation, but also most restrictive
-:::
+## Joining (a)spatial data
 
 ::: columns
-::: {.column width="60%"}
-```{r}
-#| echo: true
-ctby_height <-  nz_height[canterbury, ]
-```
-:::
 ::: {.column width="40%"}
-```{r}
-#| fig-height: 4
-#| fig-width: 5
-plot(st_geometry(canterbury))
-plot(st_geometry(nz_height), col="red", add=TRUE)
-plot(st_geometry(canterbury_height), col="blue", add=TRUE)
-```
+- Requires a "key" field 
+
+- Multiple outcomes possible
+
+- Think about your final data form
+:::
+::: {.column width="60%"}
+![](img/slide_14/types-of-relationship-in-Database.png) 
 :::
 :::
 
-## Topological Subsetting
+## Left Join
+
+- Useful for adding other attributes not in your spatial data
+
+- Returns all of the records in `x` attributed with `y`
+
+- Pay attention to the number of rows!
+
+## Left Join
+
+```{r}
+source(here::here("R", "left_join.R"))
+```
+![](img/slide_14/left-join.gif)
+
+## Left Join
 
 ::: columns
 ::: {.column width="50%"}
-
-::: {style="font-size: 0.7em"}
-
-- Lots of verbs in `sf` for doing this (e.g., `st_intersects`, `st_contains`, `st_touches`)
-
-- see `?geos_binary_pred` for a full list
-
-- Creates an __implicit__ attribute (the _records_ in `x` that are "in" `y`)
-
-:::
+```{r}
+#| echo: true
+head(coffee_data)
+```
 :::
 ::: {.column width="50%"}
-__Using `sparse=TRUE`__
 ```{r}
 #| echo: true
-st_intersects(nz_height, co, 
-              sparse = TRUE)[1:3] 
-
-lengths(st_intersects(nz_height, 
-                      co, sparse = TRUE))[1:3] > 0
+world_coffee = left_join(world, coffee_data)
+nrow(world_coffee)
 ```
 :::
 :::
 
-## Topological Subsetting
+## Left Join
 
-- The `sparse` option controls how the results are returned
-- We can then find out if one or more elements satisfies the criteria
-
-__Using `sparse=FALSE`__
-```{r top2}
-#| echo: true
-st_intersects(nz_height, co, sparse = FALSE)[1:3,] 
-
-apply(st_intersects(nz_height, co, sparse = FALSE), 1,any)[1:3]
+```{r}
+plot(world_coffee["coffee_production_2017"])
 ```
 
-## Topological Subsetting
+## Inner Join
+
+- Useful for subsetting to "complete" records
+
+- Returns all of the records in `x` with matching `y`
+
+- Pay attention to the number of rows!
+
+## Inner Join
+
+```{r}
+source(here::here("R", "inner_join.R"))
+```
+![](img/slide_14/inner-join.gif)
+
+## Inner Join
 
 ::: columns
-::: {.column width="60%"}
-```{r subset}
-#| echo: true
-canterbury_height3 = nz_height %>%
-  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))
-```
-:::
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r}
-#| fig-width: 5
-#| fig-height: 4
-plot(st_geometry(nz))
-plot(st_geometry(canterbury_height3), add=TRUE)
+#| echo: true
+world_coffee_inner = inner_join(world, coffee_data)
+nrow(world_coffee_inner)
+```
+::: 
+::: {.column width="50%"}
+```{r}
+#| echo: true
+setdiff(coffee_data$name_long, world$name_long)
 ```
 :::
 :::
 
-# Spatial Joins {background="#0033A0"}
+## Inner Join
+```{r}
+plot(world_coffee_inner["coffee_production_2017"])
+```
+
+# Spatial Joins {background="#9F281A"}
 
 ## Spatial Joins
 

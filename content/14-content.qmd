@@ -9,12 +9,22 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that we've done some "global" transformations of raster data using `terra`, we'll look at some of the options for cell-wise transformations. Rather than manipulating the extent, resolution, or CRS of the raster data; we'll actually be using functions to change the values of the cells themselves.
+
 ## Readings
+- <i class="fas fa-external-link-square-alt"></i> The [`terra` package vignette](https://rspatial.org/terra/pkg/1-introduction.html#) describes the new raster functions available in `terra`, their relationship to those in the `raster` package, and the changes in syntax between the two.
+
+- <i class="fas fa-book"></i> The [Raster GIS Operations in R with terra](https://www.ecologi.st/spatial-r/raster-gis-operations-in-r-with-terra.html) chapter from Jasper Slingsby's "A Minimal Introduction to GIS (in R)" bookdown project has worked examples of many of the operations we'll learn today.
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+* Use moving windows as a means of smoothing raster data
+
+* Reclassify data using conditional statements and reclassification tables
+
+* Use raster math as a means of creating new data based on an existing dataset.
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
@@ -23,4 +33,12 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/14-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/14-slides.html"></iframe>
+```
+
+</div>
+
+[Link to today's Panopto Slides](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d67a2be8-3df8-40a7-a205-b0910143dee4)

@@ -8,12 +8,23 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Now that we've learned about predicates and measures with raster data, it's time to learn more about some of the transformations that we can conduct with `terra`. We'll start with some of the basic transformations that operate on the entire dataset then move to some of the important cell-wise operations.
+
 ## Readings
+
+- <i class="fas fa-external-link-square-alt"></i> The [`terra` package vignette](https://rspatial.org/terra/pkg/1-introduction.html#) describes the new raster functions available in `terra`, their relationship to those in the `raster` package, and the changes in syntax between the two.
+
+- <i class="fas fa-book"></i> The [Raster GIS Operations in R with terra](https://www.ecologi.st/spatial-r/raster-gis-operations-in-r-with-terra.html) chapter from Jasper Slingsby's "A Minimal Introduction to GIS (in R)" bookdown project has worked examples of many of the operations we'll learn today.
 
 ## Objectives
 
 By the end of today, you should be able to: 
 
+- Align rasters for spatial processing
+
+- Adjust the resolution of raster data
+
+- Combine (or reduce) rasters to match the extent of your analysis
 
 ## Slides
 The slides for today's lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
@@ -22,4 +33,12 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/13-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/13-slides.html"></iframe>
+```
+
+</div>
+
+[Link to today's Panopto Slides](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=849a3f56-763c-4953-a3dc-b08f0141a292)

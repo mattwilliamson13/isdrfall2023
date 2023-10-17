@@ -1,6 +1,6 @@
 ---
-title: "Combining Raster and Vector Data"
-subtitle: "HES 505 Fall 2022: Session 13"
+title: "Operations on Raster Data I"
+subtitle: "HES 505 Fall 2023: Session 13"
 author: "Matt Williamson"
 format: 
   revealjs:
@@ -20,15 +20,146 @@ Image Source: USGS
 
 - By the end of today, you should be able to:
 
-  - Clip, crop, or extend vector and raster data so that extents align
+  - Align rasters for spatial processing
 
-  - Convert between raster and vector datasets
+  - Adjust the resolution of raster data
 
-  - Generate new rasters describing the spatial arrangement of vector data
+  - Combine (or reduce) rasters to match the extent of your analysis
 
-  - Extract raster values as attributes of vector data
+# Aligning rasters for spatial processing {background="#9F281A"}
+## Projecting raster data
 
-# Modifying the Extent {background="#0033A0"}
+::: columns
+:::{.column width="50%"}
+::: {style="font-size: 0.7em"}
+* Transformation from lat/long to planar CRS involves some loss of precision
+* New cell values estimated using overlap with original cells
+* Interpolation for continuous data, nearest neighbor for categorical data
+* Equal-area projections are preferred; especially for large areas
+
+:::
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+
+```{r}
+#| echo: true
+library(sf)
+library(terra)
+library(spDataLarge)
+r <- rast(xmin=-110, xmax=-90, ymin=40, ymax=60, ncols=40, nrows=40)
+values(r) <- 1:ncell(r)
+plot(r)
+```
+
+:::
+:::
+:::
+
+## Projecting raster data
+
+::: columns
+:::{.column width="50%"}
+* simple method; alignment not guaranteed
+
+```{r newproj1, fig.height=4, fig.width=4}
+#| echo: true
+newcrs <- "+proj=robin +datum=WGS84"
+pr1 <- terra::project(r, newcrs)
+plot(pr1)
+```
+:::
+:::{.column width="50%"}
+* providing a template to ensure alignment
+```{r newproj2,  fig.height=4, fig.width=4}
+x <- rast(pr1)
+# Set the cell size
+res(x) <- 200000
+pr3 <- terra::project(r, x)
+plot(pr3)
+```
+:::
+:::
+
+## Aligning Data: `resample`
+
+```{r resamp}
+#| echo: true
+r <- rast(nrow=3, ncol=3, xmin=0, xmax=10, ymin=0, ymax=10)
+values(r) <- 1:ncell(r)
+s <- rast(nrow=25, ncol=30, xmin=1, xmax=11, ymin=-1, ymax=11)
+x <- resample(r, s, method="bilinear")
+```
+
+```{r resampplot, echo=FALSE}
+opar <- par(no.readonly =TRUE)
+par(mfrow=c(1,2))
+plot(r)
+plot(x)
+par(opar)
+```
+
+# Adjusting resolution {background="#9F281A"}
+
+## Downscaling and Upscaling
+
+- Aligning data for later analysis
+
+- Remembering _scale_
+
+- Thinking about support
+
+## Changing resolutions
+* `aggregate`, `disaggregate`, `resample` allow changes in cell size
+* `aggregate` requires a function (e.g., `mean()` or `min()`) to determine what to do with the grouped values
+
+* `resample` allows changes in cell size __and__ shifting of cell centers (slower)
+
+## Changing resolutions: aggregate
+
+::: columns
+:::{.column width="50%"}
+```{r agg1}
+#| echo: true
+r <- rast()
+r
+values(r) <- 1:ncell(r)
+plot(r)
+```
+:::
+:::{.column width="50%"}
+```{r agg2}
+#| echo: true
+ra <- aggregate(r, 20)
+ra
+plot(ra)
+```
+:::
+:::
+
+## Changing resolutions: disagg
+
+::: columns
+:::{.column width="50%"}
+```{r agg3}
+#| echo: true
+ra <- aggregate(r, 20)
+plot(ra)
+```
+:::
+:::{.column width="50%"}
+```{r agg4}
+#| echo: true
+#| message: false
+rd <- disagg(r, 20)
+rd
+plot(rd)
+```
+:::
+:::
+
+
+# Modifying the Extent {background="#9F281A"}
 
 ## Dealing with Different Extents
 
@@ -44,9 +175,7 @@ Image Source: USGS
 ```{r}
 #| fig-width: 6
 #| fig-height: 6
-library(sf)
-library(terra)
-library(spDataLarge)
+
 srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
 zion = read_sf(system.file("vector/zion.gpkg", package = "spDataLarge"))
 zion = st_transform(zion, crs(srtm))
@@ -114,11 +243,13 @@ plot(zion, add=TRUE, col="blue")
 
 ## Using `mask()`
 ::: {style="font-size: 0.7em"}
+
 * Often want to get rid of all values outside of vector
 
 * Can set `mask=TRUE` in `crop()` (`y` must be `SpatVector`)
 
 * Or use `mask()`
+
 :::
 
 ::: columns
@@ -140,11 +271,13 @@ plot(srtm.msk)
 
 ## Using `mask()`
 ::: {style="font-size: 0.7em"}
+
 * Allows more control over what the mask does
 
 * Can set `maskvalues` and `updatevalues` to change the resulting raster
 
 * Can also use `inverse` to mask out the vector
+
 :::
 
 ::: columns
@@ -173,6 +306,7 @@ plot(srtm.msk)
 * Can use `extend`
 
 * Not exact; depends on `snap()`
+
 :::
 
 ::: columns
@@ -197,194 +331,4 @@ plot(srtm, add=TRUE)
 :::
 :::
 
-# Converting Between Formats {background="#0033A0"}
 
-## Converting Between Formats
-
-* Using coercion (`as`, `rast`, `vect`) can change `class`, but not data model
-
-* Sometimes we need to actually change the data model
-
-## Converting Vectors to Rasters Using `rasterize`
-
-* A special kind of data aggregation
-
-* `x` is your `SpatVector` object
-
-* `y` is a template raster with the appropriate CRS, resolution, and extent
-
-* `fun` allows you to specify the value of the resulting raster
-
-## Using `rasterize`
-::: {style="font-size: 0.7em"}
-* Presence/Absence
-* `field` specifies which value should be returned to non-empty cells
-:::
-
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.7em"}
-```{r}
-#| echo: true
-cycle_hire_osm = spData::cycle_hire_osm
-cycle_hire_osm_projected = st_transform(cycle_hire_osm, "EPSG:27700")
-raster_template = rast(ext(cycle_hire_osm_projected), resolution = 1000,
-                       crs = st_crs(cycle_hire_osm_projected)$wkt)
-ch_raster1 = rasterize(cycle_hire_osm_projected, raster_template,
-                       field = 1)
-```
-:::
-:::
-::: {.column width="40%"}
-```{r}
-#| fig-width: 6
-#| fig-height: 6
-plot(ch_raster1)
-
-```
-:::
-:::
-
-## Using `rasterize`
-::: {style="font-size: 0.7em"}
-* The `fun` argument specifies how we aggregate the data
-
-* Useful for counting occurrences (using `length`)
-:::
-
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.7em"}
-```{r}
-#| echo: true
-ch_raster2 = rasterize(cycle_hire_osm_projected, raster_template, 
-                       fun = "length")
-```
-:::
-:::
-::: {.column width="40%"}
-```{r}
-#| fig-width: 6
-#| fig-height: 6
-plot(ch_raster2)
-
-```
-:::
-:::
-
-## Using `rasterize`
-::: {style="font-size: 0.7em"}
-* The `fun` argument specifies how we aggregate the data
-
-* Can use a variety of functions
-:::
-
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.7em"}
-```{r}
-#| echo: true
-ch_raster3 = rasterize(cycle_hire_osm_projected, raster_template, 
-                       field = "capacity", fun = sum)
-```
-:::
-:::
-::: {.column width="40%"}
-```{r}
-#| fig-width: 6
-#| fig-height: 6
-plot(ch_raster3)
-```
-:::
-:::
-
-## Lines and Polygons
-
-* Can use `rasterize` or `stars::st_rasterize`
-* Result depends on the `touches` argument
-
-![](img/slide_13/rasterizing-raster-1.png){width=450, height=450}
-
-
-
-## Converting rasters to vectors
-
-* Less common, but can convert to vector data
-
-* `as.points`, `as.countour`, and `polygonize`
-
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.7em"}
-```{r}
-#| echo: true
-dem = rast(system.file("raster/dem.tif", package = "spDataLarge"))
-cl = as.contour(dem)
-```
-:::
-:::
-::: {.column width="40%"}
-```{r}
-#| fig-width: 6
-#| fig-height: 6
-plot(dem, axes = FALSE)
-plot(cl, add = TRUE)
-```
-:::
-:::
-
-# Generating New Data {background="#0033A0"}
-
-## Generating New Data
-
-* Sometimes we want a raster describing the spatial context of vector data
-
-* `distance` is a simple method
-
-* We'll use interpolation in the next few weeks
-
-## Generating Distance Rasters
-* returns a distance matrix or `SpatRaster`
-
-
-```{r}
-#| echo: true
-cycle_hire_osm = spData::cycle_hire_osm
-cycle_hire_osm_projected = st_transform(cycle_hire_osm, "EPSG:27700")
-
-cycle_dist <- distance(vect(cycle_hire_osm_projected))
-head(as.matrix(cycle_dist))[1:5, 1:5]
-```
-
-## Generating Distance Rasters
-* returns a distance matrix or `SpatRaster`
-
-```{r}
-#| echo: true
-raster_template = rast(ext(cycle_hire_osm_projected), resolution = 100,
-                       crs = st_crs(cycle_hire_osm_projected)$wkt)
-ch_raster1 = rasterize(cycle_hire_osm_projected, raster_template,
-                       field = 1)
-
-ch_dist_rast <- distance(ch_raster1)
-plot(ch_dist_rast)
-```
-
-
-## Creating Vector Data by Extraction
-
-* Sometimes we want to use rasters to create new attributes
-
-* `fun` controls how the cells are aggregated
-
-
-```{r}
-#| echo: true
-cycle_hire_osm = spData::cycle_hire_osm
-cycle_hire_osm_proj_buff <- st_transform(cycle_hire_osm, "EPSG:27700") %>% 
-  st_buffer(., 5000) %>% 
-  as(., "SpatVector")
-
-cycle_ext <- extract(ch_dist_rast, cycle_hire_osm_proj_buff)
-head(cycle_ext)
-```
