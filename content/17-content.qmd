@@ -7,6 +7,8 @@ date: "2023-10-16"
 source(here::here("R", "slide-things.R"))
 
 ```
+Note that the last 3 sections needed a bit of reorganization. I've moved to session 18 to keep the webpage aligned with the schedule.
+
 ## Resources
 
 

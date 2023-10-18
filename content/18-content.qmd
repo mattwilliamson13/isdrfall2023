@@ -1,5 +1,5 @@
 ---
-title: "Point Patterns"
+title: "Combining Data and Point Patterns"
 date: "2023-10-18"
 ---
 
@@ -8,14 +8,31 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
-
+Today we'll finish up our example of combining data for analysis and introduce point process models as a first version of spatial analysis. We'll need a few new packages here, but many of the key data management processes will remain the same.
 
 ## Resources
+
+- <i class="fas fa-book"></i> The [Chapters 17 and 18](https://www.paulamoraga.com/book-spatial/spatial-point-patterns.html) on Spatial Point Processes and the `spatstat` package in Paula Moraga's book _Spatial Statistics for Data Science: Theory and Practice with R_.
+
+- <i class="fas fa-external-link-square-alt"></i> [Rings, circles, and null-models for point pattern analysis in ecology](https://onlinelibrary.wiley.com/doi/full/10.1111/j.0030-1299.2004.12497.x?casa_token=D8RfesZ_AjUAAAAA%3AkLmb_B8BubHk4swR3flI9QS4sQnO87wZSImZXsQFD41Q9iEExMEO_bDTPvnvOHtERcit-3YmShhyU0g) by [@wiegand] provides an introduction to metrics for spatial clustering with applications in ecology.
+
+- <i class="fas fa-external-link-square-alt"></i>  [Improving the usability of spatial point process methodology: an interdisciplinary dialogue between statistics and ecology
+](https://link.springer.com/article/10.1007/s10182-017-0301-8) by Janine Illian (a major contributor to modern point pattern analyses) and David Burslem (a Scottish plant ecologist) [@illian2017] is a fairly modern take on the challenges associated with point process modeling in ecology.
+
+- <i class="fas fa-external-link-square-alt"></i>  [Chapter 11: Point Pattern Analysis](https://mgimond.github.io/Spatial/chp11_0.html) in Manuel Gimond's Introduction to GIS and Spatial Analysis `bookdown` project provides a nice (and free) introduction to some of these introductory point process methods. 
 
 
 ## Objectives
 
 By the end of today you should be able to:
+
+- Complete the creation of a dataset for analysis using vector and raster data
+
+- Define a point process and their utility for ecological applications
+
+- Define first and second-order Complete Spatial Randomness
+
+- Use several common functions to explore point patterns
 
 
 ## Slides
@@ -26,4 +43,10 @@ The slides for today's lesson are available online as an HTML file. Use the butt
 slide_buttons("/slides/18-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/18-slides.html"></iframe>
+```
+
+</div>
