@@ -18,6 +18,8 @@ library(terra)
 library(tmap)
 library(sf)
 library(tidyverse)
+library(spatstat)  # Used for the dirichlet tesselation function
+library(sp)
 ```
 
 # Objectives {background="#0033A0"}
@@ -38,15 +40,17 @@ By the end of today you should be able to:
 
 ::: columns
 ::: {.column width="40%"}
-- So far, everything based on distance
+* Previous methods predict $z$ as a (weighted) function of distance
 
-- Doesn't allow for more complicated trends in the data
+* Treat the observations as perfect (no error)
 
-- May smooth over locally important phenomena
+* If we imagine that $z$ is the outcome of some spatial process such that:
+
 :::
 :::{.column width="60%"}
 
 ```{r}
+#| cache: true
 aq <- read_csv("data/ad_viz_plotval_data.csv") %>% 
   st_as_sf(., coords = c("SITE_LONGITUDE", "SITE_LATITUDE"), crs = "EPSG:4326") %>% 
   st_transform(., crs = "EPSG:8826") %>% 
@@ -57,7 +61,8 @@ aq.sum <- aq %>%
   group_by(., `Site Name`) %>% 
   summarise(., meanpm25 = mean(DAILY_AQI_VALUE))
 
-id.cty <- tigris::counties(state="ID", progress_bar=FALSE)
+id.cty <- tigris::counties(state="ID", progress_bar=FALSE) %>% 
+  st_transform(., crs=st_crs(aq.sum))
 tm_shape(id.cty) +
   tm_polygons(fill="gray") +
 tm_shape(aq.sum) +
@@ -75,6 +80,194 @@ tm_shape(aq.sum) +
 - Relies on different functional forms
 
 ## 0th Order Trend Surface
+
+::: columns
+::: {.column width="60%"}
+```{r echo=FALSE}
+#set up interpolation grid
+# Create an empty grid where n is the total number of cells
+grd <- as.data.frame(spsample(as(id.cty, "Spatial"), "regular", n=20000))
+names(grd)       <- c("X", "Y")
+coordinates(grd) <- c("X", "Y")
+gridded(grd)     <- TRUE  # Create SpatialPixel object
+fullgrid(grd)    <- TRUE  # Create SpatialGrid object
+proj4string(grd) <- proj4string(as(aq.sum, "Spatial"))
+# Define the polynomial equation
+f.0  <- as.formula(meanpm25 ~ 1)
+
+# Run the regression model
+lm.0 <- lm( f.0 , data=aq.sum)
+
+# Use the regression model output to interpolate the surface
+dat.0th <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.0, newdata=grd)))
+
+# Convert to raster object to take advantage of rasterVis' imaging
+# environment
+r   <- rast(dat.0th)
+r.m <- mask(r, st_as_sf(id.cty))
+
+tm_shape(r.m) + tm_raster( title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
+:::
+:::{.column width="40%"}
+
+* Simplest form of trend surface
+
+* $Z=a$ where $a$ is the mean value of air quality
+
+* Result is a simple horizontal surface where all values are the same.
+
+:::
+:::
+
+## 0th order trend surface
+
+```{r}
+#| echo: true
+#| eval: false
+#set up interpolation grid
+# Create an empty grid where n is the total number of cells
+grd <- as.data.frame(spsample(as(id.cty, "Spatial"), "regular", n=20000))
+names(grd)       <- c("X", "Y")
+coordinates(grd) <- c("X", "Y")
+gridded(grd)     <- TRUE  # Create SpatialPixel object
+fullgrid(grd)    <- TRUE  # Create SpatialGrid object
+proj4string(grd) <- proj4string(as(aq.sum, "Spatial"))
+# Define the polynomial equation
+f.0  <- as.formula(meanpm25 ~ 1)
+
+# Run the regression model
+lm.0 <- lm( f.0 , data=aq.sum)
+
+# Use the regression model output to interpolate the surface
+dat.0th <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.0, newdata=grd)))
+
+# Convert to raster object to take advantage of rasterVis' imaging
+# environment
+r   <- rast(dat.0th)
+r.m <- mask(r, st_as_sf(id.cty))
+```
+
+## 1st Order Trend Surface
+
+::: columns
+::: {.column width="40%"}
+
+* Creates a slanted surface
+
+* $Z = a + bX + cY$
+
+* X and Y are the coordinate pairs
+
+:::
+:::{.column width="60%"}
+
+```{r echo=FALSE}
+
+# Define the polynomial equation
+f.1  <- as.formula(meanpm25 ~ X + Y)
+
+aq.sum$X <- st_coordinates(aq.sum)[,1]
+aq.sum$Y <- st_coordinates(aq.sum)[,2]
+
+# Run the regression model
+lm.1 <- lm( f.1 , data=aq.sum)
+
+# Use the regression model output to interpolate the surface
+dat.1st <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.1, newdata=grd)))
+
+# Convert to raster object to take advantage of rasterVis' imaging
+# environment
+r   <- rast(dat.1st)
+r.m <- mask(r, st_as_sf(id.cty))
+
+tm_shape(r.m) + tm_raster( title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
+:::
+:::
+
+## 1st Order Trend Surface
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Define the polynomial equation
+f.1  <- as.formula(meanpm25 ~ X + Y)
+
+aq.sum$X <- st_coordinates(aq.sum)[,1]
+aq.sum$Y <- st_coordinates(aq.sum)[,2]
+
+# Run the regression model
+lm.1 <- lm( f.1 , data=aq.sum)
+
+# Use the regression model output to interpolate the surface
+dat.1st <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.1, newdata=grd)))
+
+# Convert to raster object to take advantage of rasterVis' imaging
+# environment
+r   <- rast(dat.1st)
+r.m <- mask(r, st_as_sf(id.cty))
+```
+
+## 2nd Order Trend Surfaces
+::: columns
+::: {.column width="40%"}
+* Produces a parabolic surface
+
+* $Z = a + bX + cY + dX^2 + eY^2 + fXY$
+
+* Highlights the interaction of both directions
+
+:::
+::: {.column width="60%"}
+
+```{r}
+# Define the 1st order polynomial equation
+f.2 <- as.formula(meanpm25 ~ X + Y + I(X*X)+I(Y*Y) + I(X*Y))
+ 
+# Run the regression model
+lm.2 <- lm( f.2, data=aq.sum)
+
+# Use the regression model output to interpolate the surface
+dat.2nd <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.2, newdata=grd))) 
+
+r   <- rast(dat.2nd)
+r.m <- mask(r, st_as_sf(id.cty))
+
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
+
+:::
+:::
+
+## 2nd Order Trend Surfaces
+
+```{r}
+#| echo: true
+#| eval: false
+# Define the 1st order polynomial equation
+f.2 <- as.formula(meanpm25 ~ X + Y + I(X*X)+I(Y*Y) + I(X*Y))
+ 
+# Run the regression model
+lm.2 <- lm( f.2, data=aq.sum)
+
+# Use the regression model output to interpolate the surface
+dat.2nd <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.2, newdata=grd))) 
+
+r   <- rast(dat.2nd)
+r.m <- mask(r, st_as_sf(id.cty))
+
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
 
 
 ## Kriging
@@ -115,28 +308,177 @@ $$
 z(\mathbf{x}) = \mu + \epsilon(\mathbf{x})
 \end{equation}
 $$
-* Specified in call to `variogram` and `gstat` as `y~1` (or some other constant)
+
+## Steps for Ordinary Kriging
+
++ Removing any **spatial trend** in the data (if present).
++ Computing the **experimental variogram**, $\gamma$, which is a measure of spatial autocorrelation.
++ Defining an **experimental variogram model** that best characterizes the spatial autocorrelation in the data.
++ Interpolating the surface using the experimental variogram.
++ Adding the kriged interpolated surface to the trend interpolated surface to produce the final output.
+
+## Removing Spatial Trend
+
+* Mean and variance need to be constant across study area
+
+* Trend surfaces indicate that is not the case
+
+* Need to remove that trend
+
+```{r}
+#| echo: true
+
+f.2 <- as.formula(meanpm25 ~ X + Y + I(X*X)+I(Y*Y) + I(X*Y))
+ 
+# Run the regression model
+lm.2 <- lm( f.2, data=aq.sum)
+
+# Copy the residuals to the point object
+aq.sum$res <- lm.2$residuals
+```
+
+## Removing the trend
+
+```{r}
+tm_shape(id.cty) +
+  tm_polygons(fill="gray") +
+tm_shape(aq.sum) +
+  tm_dots(col = "res", size=2)
+```
+
+## Calculate the experimental variogram
+
+* __nugget__ - the proportion of semivariance that occurs at small distances
+
+* __sill__ - the maximum semivariance between pairs of observations
+
+* __range__ - the distance at which the __sill__ occurs 
+
+* __experimental__ vs. __fitted__ variograms
+
+## A Note about Semivariograms
+
+![](img/slide_16/index.png)
+
+
+## Fitted Semivariograms
+
+* Rely on functional forms to model semivariance
+
+![](img/slide_16/Variogram-models.png)
+
+## Calculate the experimental variogram
+
+```{r}
+
+var.cld  <- gstat::variogram(res ~ 1, aq.sum, cloud = TRUE, cutoff=1000000)
+var.df  <- as.data.frame(var.cld)
+index1  <- which(with(var.df, left==21 & right==2))
+
+OP <- par( mar=c(4,6,1,1))
+plot(var.cld$dist/1000 , var.cld$gamma, col="grey", 
+     xlab = "Distance between point pairs (km)",
+     ylab = expression( frac((res[2] - res[1])^2 , 2)) )
+par(OP)
+```
+
+```{r}
+# Compute the sample experimental variogram
+var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff=1000000, width=89900)
+
+bins.ct <- c(0, var.smpl$dist , max(var.cld$dist) )
+bins <- vector()
+for (i in 1: (length(bins.ct) - 1) ){
+  bins[i] <- mean(bins.ct[ seq(i,i+1, length.out=2)] ) 
+}
+bins[length(bins)] <- max(var.cld$dist)
+var.bins <- findInterval(var.cld$dist, bins)
+
+# Point data cloud with bin boundaries
+OP <- par( mar = c(5,6,1,1))
+plot(var.cld$gamma ~ eval(var.cld$dist/1000), col=rgb(0,0,0,0.2), pch=16, cex=0.7,
+     xlab = "Distance between point pairs (km)",
+     ylab = expression( gamma ) )
+points( var.smpl$dist/1000, var.smpl$gamma, pch=21, col="black", bg="red", cex=1.3)
+abline(v=bins/1000, col="red", lty=2)
+par(OP)
+```
+
+
+```{r}
+
+library(stringr)
+library(lattice)
+kk <- str_extract_all(gstat::vgm()$long, "\\([^()]+\\)")
+kk <- substring(kk, 2, nchar(kk)-1)
+gstat::show.vgms(strip=strip.custom(factor.levels=kk))
+```
+
+## Looking at the sample Variogram
+
+```{r}
+# Compute the sample variogram, note the f.1 trend model is one of the parameters
+# passed to variogram(). This tells the function to create the variogram on
+# the de-trended data
+var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff=1000000, width=89900)
+
+
+# Compute the variogram model by passing the nugget, sill and range values
+# to fit.variogram() via the vgm() function.
+dat.fit  <- gstat::fit.variogram(var.smpl, fit.ranges = FALSE, fit.sills = FALSE, gstat::vgm(psill=18, model="Sph", range=500000, nugget=0))
+
+# The following plot allows us to gauge the fit
+plot(var.smpl, dat.fit, xlim=c(0,1000000))
+```
+## Estimating the sample variogram
 
 ```{r}
 #| echo: true
 #| eval: false
+var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff=1000000, width=89900)
 
-library(sp)
-data(meuse)
-v <- variogram(log(zinc)~1, ~x+y, data=meuse)
-mv <- fit.variogram(v, vgm(1, "Sph", 300, 1))
-gOK <- gstat(NULL, "log.zinc", log(zinc)~1, meuse, locations=~x+y, model=mv)
-OK <- interpolate(r, gOK, debug.level=0)
+
+# Compute the variogram model by passing the nugget, sill and range values
+# to fit.variogram() via the vgm() function.
+dat.fit  <- gstat::fit.variogram(var.smpl, fit.ranges = FALSE, fit.sills = FALSE, gstat::vgm(psill=18, model="Sph", range=500000, nugget=0))
+
 ```
 
 ## Ordinary Kriging
 
 ```{r}
-#| eval: false
+dat.krg <- gstat::krige( res~1, as(aq.sum, "Spatial"), grd, dat.fit)
 
-OKmsk <- mask(OK, r)
-plot(OKmsk)
+r <- rast(dat.krg)$var1.pred
+r.m <- mask(r, st_as_sf(id.cty))
+
+# Plot the raster and the sampled points
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", title="Predicted residual \nair quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+
 ```
+
+## Ordinary Kriging
+```{r}
+#| echo: true
+#| eval: false
+dat.krg <- gstat::krige( res~1, as(aq.sum, "Spatial"), grd, dat.fit)
+```
+
+## Visualizing Uncertainty
+
+```{r}
+
+# The dat.krg object stores not just the interpolated values, but the 
+# variance values as well. These can be passed to the raster object
+# instead of the interpolated values as follows
+r <- rast(dat.krg)$var1.var
+r.m <- mask(r, st_as_sf(id.cty))
+
+tm_shape(r.m) + tm_raster(n=7, palette ="Reds", ,title="Variance map ") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+```
+
 
 ## Universal Kriging
 
@@ -235,23 +577,4 @@ plot(coK.msk)
 
 ## A Note about Semivariograms
 
-
-* __nugget__ - the proportion of semivariance that occurs at small distances
-
-* __sill__ - the maximum semivariance between pairs of observations
-
-* __range__ - the distance at which the __sill__ occurs 
-
-* __experimental__ vs. __fitted__ variograms
-
-## A Note about Semivariograms
-
-![](img/slide_16/index.png)
-
-
-## Fitted Semivariograms
-
-* Rely on functional forms to model semivariance
-
-![](img/slide_16/Variogram-models.png)
 
