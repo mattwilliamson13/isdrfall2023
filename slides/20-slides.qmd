@@ -66,6 +66,17 @@ tm_shape(aq.sum) +
 :::
 :::
 
+## Trend Surface Modeling
+
+- Basically a regression on the coordinates of your data points
+
+- Coefficients apply to the coordinates and their interaction
+
+- Relies on different functional forms
+
+## 0th Order Trend Surface
+
+
 ## Kriging
 ::: {style="font-size: 0.8em"}
 * Previous methods predict $z$ as a (weighted) function of distance
