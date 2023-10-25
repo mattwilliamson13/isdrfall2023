@@ -1,9 +1,9 @@
 ---
-title: "Multivariate Analysis I"
-subtitle: "HES 505 Fall 2022: Session 19"
+title: "Interpolation"
+subtitle: "HES 505 Fall 2023: Session 19"
 author: "Matt Williamson"
 execute: 
-  eval: false
+  eval: true
 format: 
   revealjs:
     theme: mytheme.scss
@@ -14,371 +14,497 @@ format:
 
 ```{r}
 #| include: false
+library(tidycensus)
 library(sf)
 library(tidyverse)
 library(maps)
 library(tmap)
+library(spData)
 library(terra)
-library(corrplot)
+library(gstat)
+library(spdep)
+library(spatstat)
 ```
 
-# Objectives {background="#0033A0"}
+# Objectives {background="#9F281A"}
 
 By the end of today you should be able to:
 
-- Recognize the link between regression analysis and overlay analysis
+- Distinguish deterministic and stochastic processes
 
-- Generate spatial predictions based on regression analysis
+- Define autocorrelation and describe its estimation
 
-- Extend logistic regression to presence-only data models
+- Articulate the benefits and drawbacks of autocorrelation
 
-## Estimating favorability
+- Leverage point patterns and autocorrelation to interpolate missing data
 
-$$
-\begin{equation}
-F(\mathbf{s}) = \prod_{M=1}^{m}X_m(\mathbf{s})
-\end{equation}
-$$
 
-* Treat $F(\mathbf{s})$ as binary 
-* Then $F(\mathbf{s}) = 1$ if all inputs ($X_m(\mathbf{s})$) are suitable
-* Then $F(\mathbf{s}) = 0$ if not
+# But first... {background="#9F281A"}
 
-## Estimating favorability
 
-$$
-\begin{equation}
-F(\mathbf{s}) = f(w_1X_1(\mathbf{s}), w_2X_2(\mathbf{s}), w_3X_3(\mathbf{s}), ..., w_mX_m(\mathbf{s}))
-\end{equation}
-$$
+## Patterns as realizations of spatial processes
 
-* $F(\mathbf{s})$ does not have to be binary (could be ordinal or continuous)
+* A __spatial process__ is a description of how a spatial pattern might be _generated_
 
-* $X_m(\mathbf{s})$ could also be extended beyond simply 'suitable/not suitable'
+* __Generative models__ 
 
-* Adding weights allows incorporation of relative importance
+* An observed pattern as a _possible realization_ of an hypothesized process
 
-* Other functions for combining inputs ($X_m(\mathbf{s})$)
 
-## Weighted Linear Combinations
+## Deterministic vs. stochastic processes
+
+
+* Deterministic processes: always produce the same outcome
 
 $$
-\begin{equation}
-F(\mathbf{s}) = \frac{\sum_{i=1}^{m}w_iX_i(\mathbf{s})}{\sum_{i=1}^{m}w_i}
-\end{equation}
+z = 2x + 3y
 $$
 
-* $F(s)$ is now an index based of the values of $X_m(\mathbf{s})$
+* Results in a spatially continuous field
 
-* $w_i$ can incorporate weights of evidence, uncertainty, or different participant preferences
+## Deterministic vs. stochastic processes
 
-* Dividing by $\sum_{i=1}^{m}w_i$ normalizes by the sum of weights
-
-## Model-driven overlay
-
-$$
-\begin{equation}
-F(\mathbf{s}) = w_0 + \sum_{i=1}^{m}w_iX_i(\mathbf{s}) + \epsilon
-\end{equation}
-$$
-
-* If we estimate $w_i$ using data, we specify $F(s)$ as the outcome of regression
-
-* When $F(s)$ is binary &rightarrow; logistic regression
-
-* When $F(s)$ is continuous &rightarrow; linear (gamma) regression
-
-* When $F(s)$ is discrete &rightarrow; Poisson regression
-
-* Assumptions about $\epsilon$ matter!!
-
-# Logistic Regression and Distribution Models {background="#0033A0"}
-
-## Why do we create distribution models?
-
-::: columns
-::: {.column width="60%"}
-::: {style="font-size: 0.7em"}
-
-* To identify important correlations between predictors and the occurrence of an event
-
-* Generate maps of the 'range' or 'niche' of events
-
-* Understand spatial patterns of event co-occurrence
-
-* Forecast changes in event distributions 
-:::
-:::
-::: {.column width="40%"}
-![From [Wiens et al. 2009](https://www.pnas.org/content/106/Supplement_2/19729)](img/slide_19/climchange.png)
-:::
-:::
-
-## General analysis situation 
-
-![From [Long](https://www.biodiversityscience.com/2011/04/27/species-distribution-modelling/)](img/slide_19/SDMfigure1resized.png)
-
-::: {style="font-size: 0.7em"}
-* Spatially referenced locations of events $(\mathbf{y})$ sampled from the study extent
-
-* A matrix of predictors $(\mathbf{X})$ that can be assigned to each event based on spatial location
-
->__Goal__: Estimate the probability of occurrence of events across unsampled regions of the study area based on correlations with predictors
-
-:::
-
-## Modeling Presence-Absence Data
-
-::: columns
-::: {.column width="50%"}
-* Random or systematic sample of the study region
-
-* The presence (or absence) of the event is recorded for each point
-
-* Hypothesized predictors of occurrence are measured (or extracted) at each point 
-:::
-::: {.column width="50%"}
-![From [By Ragnvald - Own work, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2107716)](img/slide_19/Predicting_habitats.png)
-:::
-:::
-
-## Logistic regression
-
-::: columns
-::: {.column width="50%"}
-::: {style="font-size: 0.7em"}
-
-* We can model favorability as the __probability__ of occurrence using a logistic regression
-
-* A _link_ function maps the linear predictor $(\mathbf{x_i}'\beta + \alpha)$ onto the support (0-1) for probabilities
-
-* Estimates of $\beta$ can then be used to generate 'wall-to-wall' spatial predictions
-:::
-:::
-::: {.column width="50%"}
-
-$$ 
-\begin{equation}
-y_{i} \sim \text{Bern}(p_i)\\
-\text{link}(p_i) = \mathbf{x_i}'\beta + \alpha
-\end{equation}
-$$
-
-![From [Mendoza](https://www.ou.edu/faculty/M/Jorge.L.Mendoza-1/comparison_of_probit.htm)](img/slide_19/Probit.png)
-
-:::
-:::
-
-## An Example
-
-Inputs from the `dismo` package
-
-```{r}
-base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2021/session28/" #sets the path to the root directory
-
-pres.abs <- st_read(paste0(base.path, "presenceabsence.shp"), quiet = TRUE) #read the points with presence absence data
-## OGR data source with driver: ESRI Shapefile 
-## Source: "/Users/matthewwilliamson/Downloads/session28/presenceabsence.shp", layer: "presenceabsence"
-## with 100 features
-## It has 1 fields
-pred.files <- list.files(base.path,pattern='grd$', full.names=TRUE) #get the bioclim data
-
-pred.stack <- rast(pred.files) #read into a RasterStack
-names(pred.stack) <- c("MeanAnnTemp", "TotalPrecip", "PrecipWetQuarter", "PrecipDryQuarter", "MinTempCold", "TempRange")
-plot(pred.stack)
-```
-
-## An Example
-
-The sample data
-
-::: columns
-::: {.column width="40%"}
 ```{r}
 #| echo: true
-head(pres.abs)
+x <- rast(nrows = 10, ncols=10, xmin = 0, xmax=10, ymin = 0, ymax=10)
+values(x) <- 1
+z <- x
+values(z) <- 2 * crds(x)[,1] + 3*crds(x)[,2]
 ```
+
+
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+
+plot(z)
+```
+
+
+
+## Deterministic vs. stochastic processes
+
+::: columns
+::: {.column width="40%"}
+::: {style="font-size: 0.7em"}
+* Stochastic processes: variation makes each realization difficult to predict
+
+$$
+z = 2x + 3y + d
+$$
+
+* The _process_ is random, not the result (!!)
+* Measurement error makes deterministic processes appear stochastic
+:::
 :::
 ::: {.column width="60%"}
 ```{r}
-#| fig-width: 6
+#| echo: true
+x <- rast(nrows = 10, ncols=10, xmin = 0, xmax=10, ymin = 0, ymax=10)
+values(x) <- 1
+fun <- function(z){
+a <- z
+d <- runif(ncell(z), -50,50)
+values(a) <- 2 * crds(x)[,1] + 3*crds(x)[,2] + d
+return(a)
+}
+
+b <- replicate(n=6, fun(z=x), simplify=FALSE)
+d <- do.call(c, b)
+```
+:::
+:::
+
+## Deterministic vs. stochastic processes
+
+```{r stocproc2, echo=FALSE}
+
+plot(d)
+```
+
+## Expected values and hypothesis testing
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+
+* Considering each outcome as the realization of a process allows us to generate expected values
+
+* The simplest spatial process is Completely Spatial Random (CSR) process
+
+* __First Order__ effects: any event has an equal probability of occurring in a location
+
+* __Second Order__ effects: the location of one event is independent of the other events
+:::
+:::
+::: {.column width="40%"}
+![From Manuel Gimond](img/slide_17/IRP_CSR.png)
+:::
+:::
+
+## Generating expactations for CSR
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| fig-width: 7
+#| fig-height: 7
+load(url("https://github.com/mgimond/Spatial/raw/main/Data/ppa.RData"))
+
+library(spatstat)
+marks(starbucks)  <- NULL
+Window(starbucks) <- ma
+pop.lg <- log(pop)
+Q <- quadratcount(starbucks, nx= 6, ny=3)
+par(mfrow=c(2,1), mar=c(2,2,2,2))
+plot(starbucks, main=NULL, cols=rgb(0,0,0,.2), pch=20)
+plot(starbucks, pch=20, cols="grey70", main=NULL)  # Plot points
+plot(Q, add=TRUE)
+par(mfrow=c(1,1), mar=c(5.1,4.1,4.1,2.1))
+```
+
+:::
+::: {.column width="60%"}
+
+::: {style="font-size: 0.7em"}
+* We can use quadrat counts to estimate the expected number of events in a given area
+
+* The probability of each possible count is given by:
+
+$$
+P(n,k) = {n \choose x}p^k(1-p)^{n-k}
+$$
+
+* Given total coverage of quadrats, then $p=\frac{\frac{a}{x}}{a}$ and
+
+$$
+\begin{equation}
+P(k,n,x) = {n \choose k}\bigg(\frac{1}{x}\bigg)^k\bigg(\frac{x-1}{x}\bigg)^{n-k}
+\end{equation}
+$$
+
+:::   
+:::
+:::
+
+
+
+## Revisiting Ripley's $K$
+
+::: {style="font-size: 0.7em"}
+* Nearest neighbor methods throw away a lot of information
+
+* If points have independent, fixed marginal densities, then they exhibit _complete, spatial randomness_ (CSR)
+
+* The _K_ function is an alternative, based on a series of circles with increasing radius
+
+$$
+\begin{equation}
+K(d) = \lambda^{-1}E(N_d)
+\end{equation}
+$$
+
+* We can test for clustering by comparing to the expectation:
+
+$$
+\begin{equation}
+K_{CSR}(d) = \pi d^2
+\end{equation}
+$$
+
+* if $k(d) > K_{CSR}(d)$ then there is clustering at the scale defined by $d$
+
+:::
+
+## Ripley's $K$ Function
+
+* When working with a sample the distribution of $K$ is unknown
+
+* Estimate with
+
+$$
+\begin{equation}
+\hat{K}(d) = \hat{\lambda}^{-1}\sum_{i=1}^n\sum_{j=1}^n\frac{I(d_{ij} <d)}{n(n-1)}
+\end{equation}
+$$
+
+where:
+
+$$
+\begin{equation}
+\hat{\lambda} = \frac{n}{|A|}
+\end{equation}
+$$
+
+
+## Ripley's $K$ Function
+
+*   Using the `spatstat` package
+
+
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+data(bramblecanes)
+plot(bramblecanes)
+```
+
+
+## Ripley's $K$ Function
+
+```{r}
+#| echo: true
+kf <- Kest(bramblecanes, correction-"border")
+plot(kf)
+```
+
+
+
+## Ripley's $K$ Function
+* accounting for variation in $d$
+
+```{r}
+#| echo: true
+kf.env <- envelope(bramblecanes, correction="border", envelope = FALSE, verbose = FALSE)
+plot(kf.env)
+```
+
+## Other functions
+
+::: columns
+::: {.column width="60%"}
+
+* $L$ function: square root transformation of $K$
+
+* $G$ function: the cummulative frequency distribution of the nearest neighbor distances
+
+* $F$ function: similar to $G$ but based on randomly located points
+
+
+:::
+::: {.column width="40%"}
+
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+gf.env <- envelope(bramblecanes, Gest, correction="border", verbose = FALSE)
+plot(gf.env)
+```
+
+:::
+:::
+
+
+
+
+# Tobler's Law {background="#9F281A"}
+
+> ‘everything is usually related to all else but those which are near to each other
+>are more related when compared to those that are further away’.
+> `r tufte::quote_footer('Waldo Tobler')`
+
+---
+## Spatial autocorrelation
+
+![From Manuel Gimond](img/slide_17/Random_maps.png)
+ 
+## (One) Measure of autocorrelation
+
+::: columns
+::: {.column width="50%"}
+* Moran's I
+
+![](img/slide_17/MI.png)
+:::
+::: {.column width="50%"}
+
+![](img/slide_17/mI2.png)
+:::
+:::
+
+## Moran's I: An example
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+
+* Use `spdep` package
+
+* Estimate neighbors
+
+* Generate weighted average
+
+```{r}
+#| echo: true
+
+set.seed(2354)
+# Load the shapefile
+s <- readRDS(url("https://github.com/mgimond/Data/raw/gh-pages/Exercises/fl_hr80.rds"))
+
+# Define the neighbors (use queen case)
+nb <- poly2nb(s, queen=TRUE)
+
+# Compute the neighboring average homicide rates
+lw <- nb2listw(nb, style="W", zero.policy=TRUE)
+#estimate Moran's I
+moran.test(s$HR80,lw, alternative="greater")
+
+```
+:::
+:::
+::: {.column width="40%"}
+![](img/slide_17/florida.png)
+
+:::
+:::
+
+## Moran's I: An example
+::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+ 
+M1 <- moran.mc(s$HR80, lw, nsim=9999, alternative="greater")
+
+
+
+# Display the resulting statistics
+M1
+```
+
+:::
+::: {.column width="40%"}
+
+```{r}
 #| fig-height: 6
-plot(pred.stack[[1]])
-pres.pts <- pres.abs[pres.abs$y == 1,]
-abs.pts <- pres.abs[pres.abs$y == 0,]
-plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
-plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+#| fig-width: 6
+# Plot the results
+plot(M1)
 ```
 :::
 :::
 
-## An Example
-Building our dataframe
+## The challenge of areal data
+
+* Spatial autocorrelation threatens _second order_ randomness
+
+* Areal data means an infinite number of potential distances
+
+* Neighbor matrices, $\boldsymbol W$, allow different characterizations
 
 
-```{r}
-#| echo: true
-pts.df <- terra::extract(pred.stack, vect(pres.abs), df=TRUE)
-head(pts.df)
-```
+# Interpolation {background="#0033A0"}
 
-## An Example
-Building our dataframe
-```{r}
-#| echo: true
-pts.df[,2:7] <- scale(pts.df[,2:7])
-summary(pts.df)
-```
-## An Example
-Looking at correlations
-```{r}
-#| echo: true
-pairs(pts.df[,2:7])
-```
+## Interpolation
 
-## An Example
-Looking at correlations
+* Goal: estimate the value of $z$ at new points in $\mathbf{x_i}$
 
-```{r}
-#| echo: true
-corrplot(cor(pts.df[,2:7]), method = "number")
-```
+* Most useful for continuous values
 
-## An Example
-Fitting some models
+* Nearest-neighbor, Inverse Distance Weighting, Kriging
 
-```{r}
-#| echo: true
-pts.df <- cbind(pts.df, pres.abs$y)
-colnames(pts.df)[8] <- "y"
-logistic.global <- glm(y~., family=binomial(link="logit"), data=pts.df[,2:8])
-logistic.simple <- glm(y ~ MeanAnnTemp + TotalPrecip, family=binomial(link="logit"), data=pts.df[,2:8])
-logistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, family=binomial(link="logit"), data=pts.df[,2:8])
-```
+## Nearest neighbor
 
-## An Example
-Checking out the results
-```{r}
-#| echo: true
-summary(logistic.global)
-```
+* find $i$ such that $| \mathbf{x_i} - \mathbf{x}|$ is minimized
 
-## An Example
-Checking out the results
-```{r}
-#| echo: true
-summary(logistic.simple)
-```
-
-## An Example
-Checking out the results
-```{r}
-#| echo: true
-summary(logistic.rich)
-```
-
-## An Example
-Comparing models
-```{r}
-#| echo: true
-AIC(logistic.global, logistic.simple, logistic.rich)
-```
-
-## An Example
-Generating predictions
-
-```{r}
-#| echo: true
-preds <- predict(object=pred.stack, model=logistic.simple)
-plot(preds)
-plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
-plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
-```
-
-## An Example
-Generating predictions
-
-```{r}
-#| echo: true
-preds <- predict(object=pred.stack, model=logistic.simple, type="response")
-plot(preds)
-plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
-plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
-```
-
-## An Example
-Generating predictions
-
-```{r}
-#| echo: true
-preds <- predict(object=pred.stack, model=logistic.global, type="response")
-plot(preds)
-plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
-plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
-```
-
-## An Example
-Generating predictions
-
-```{r}
-#| echo: true
-preds <- predict(object=pred.stack, model=logistic.rich, type="response")
-plot(preds)
-plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
-plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
-```
-
-## Key assumptions of logistic regression
-
-* Dependent variable must be binary
-
-* Observations must be independent (important for spatial analyses)
-
-* Predictors should not be collinear
-
-* Predictors should be linearly related to the log-odds
-
-* __Sample Size__
-
-# Modelling Presence-Background Data {background="#0033A0"}
-
-## The sampling situation
+* The estimate of $z$ is $z_i$
 
 ::: columns
-::: {.column width="40%"}
-![From [Lentz et al. 2008](https://www.journals.uchicago.edu/doi/full/10.1086/528754)](img/slide_19/maxentresult.png)
-:::
 ::: {.column width="60%"}
-* Opportunistic collection of presences only
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
 
-* Hypothesized predictors of occurrence are measured (or extracted) at each presence
+aq <- read_csv("data/ad_viz_plotval_data.csv") %>% 
+  st_as_sf(., coords = c("SITE_LONGITUDE", "SITE_LATITUDE"), crs = "EPSG:4326") %>% 
+  st_transform(., crs = "EPSG:8826") %>% 
+  mutate(date = as_date(parse_datetime(Date, "%m/%d/%Y"))) %>% 
+  filter(., date >= 2023-07-01) %>% 
+  filter(., date > "2023-07-01" & date < "2023-07-31")
+aq.sum <- aq %>% 
+  group_by(., `Site Name`) %>% 
+  summarise(., meanpm25 = mean(DAILY_AQI_VALUE))
 
-* Background points (or pseudoabsences) generated for comparison
+nodes <- st_make_grid(aq.sum,
+                      what = "centers")
+
+dist <- distance(vect(nodes), vect(aq.sum))
+nearest <- apply(dist, 1, function(x) which(x == min(x)))
+aq.nn <- aq.sum$meanpm25[nearest]
+preds <- st_as_sf(nodes)
+preds$aq <- aq.nn
+
+preds <- as(preds, "Spatial")
+sp::gridded(preds) <- TRUE
+preds.rast <- rast(preds)
+
+```
+:::
+:::
+::: {.column width="40%"}
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+plot(preds.rast, col=heat.colors(8, rev=TRUE))
+plot(st_geometry(aq.sum), add=TRUE)
+```
 :::
 :::
 
-## The Challenge with Background Points
+## Inverse-Distance Weighting
 
-* What constitutes background?
+* Weight closer observations more heavily
 
-* Not measuring _probability_, but relative likelihood of occurrence
-
-* Sampling bias affects estimation
-
-* The intercept
-
-$$ 
+$$
 \begin{equation}
-y_{i} \sim \text{Bern}(p_i)\\
-\text{link}(p_i) = \mathbf{x_i}'\beta + \alpha
+\hat{z}(\mathbf{x}) = \frac{\sum_{i=1}w_iz_i}{\sum_{i=1}w_i}
 \end{equation}
 $$
+where
 
-## Point Process Models
+$$
+\begin{equation}
+w_i = | \mathbf{x} - \mathbf{x}_i |^{-\alpha}
+\end{equation}
+$$
+and $\alpha > 0$ ($\alpha  = 1$ is inverse; $\alpha = 2$ is inverse square)
 
-* Poisson Point Process Models model location (not $y$)
+## Inverse-Distance Weighting
 
-* Number of points expected is given by a rate $\lambda$
+* `terra::interpolate` provides flexible interpolation methods
 
-* Model $\lambda$ using Poisson regression
+* Use the `gstat` package to develop the formula
+
+```{r}
+#| echo: true
+mgsf05 <- gstat(id = "meanpm25", formula = meanpm25~1, data=aq.sum,  nmax=7, set=list(idp = 0.5))
+mgsf2 <- gstat(id = "meanpm25", formula = meanpm25~1, data=aq.sum,  nmax=7, set=list(idp = 2))
+interpolate_gstat <- function(model, x, crs, ...) {
+	v <- st_as_sf(x, coords=c("x", "y"), crs=crs)
+	p <- predict(model, v, ...)
+	as.data.frame(p)[,1:2]
+}
+zsf05 <- interpolate(preds.rast, mgsf05, debug.level=0, fun=interpolate_gstat, crs=crs(preds.rast), index=1)
+zsf2 <- interpolate(preds.rast, mgsf2, debug.level=0, fun=interpolate_gstat, crs=crs(preds.rast), index=1)
+```
+
+## Inverse-Distance Weighting
+
+```{r}
+zsf05msk <- mask(zsf05, preds.rast)
+zsf2msk <- mask(zsf2, preds.rast)
+par(mfrow=c(1,2))
+plot(zsf05msk, main="idp=0.5")
+plot(zsf2msk, main="idp=2")
+par(mfrow=c(1,1))
+```
+
+## Inverse-Distance Weighting
+
+```{r}
+par(mfrow=c(1,2))
+persp(zsf05msk,box=FALSE, main="idp=0.5")
+persp(zsf2msk, box=FALSE,main="idp=2")
+par(mfrow=c(1,1))
+```
 

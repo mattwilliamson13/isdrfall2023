@@ -25,7 +25,7 @@ library(tmap)
 library(gstat)
 ```
 
-# Objectives {background="#0033A0"}
+# Objectives {background="#9F281A"}
 
 - Define a point process and their utility for ecological applications
 
@@ -124,15 +124,15 @@ __Some notation:__
 ::: columns
 ::: {.column width="60%"}
 
-* The overall _intensity_ of a point pattern is a crude density estimate
+*   The overall _intensity_ of a point pattern is a crude density estimate
 
 $$
 \begin{equation}
 \hat{\lambda} = \frac{\#(S \in A )}{a}
 \end{equation}
 $$
+*   Local density = quadrat counts
 
-* Local density = quadrat counts
 :::
 ::: {.column width="40%"}
 ```{r}
@@ -150,7 +150,7 @@ plot(Q, add=TRUE)
 :::
 
 
-# Analyzing Point Patterns {background="#0033A0"}
+# Analyzing Point Patterns {background="#9F281A"}
 
 ## Kernel Density Estimates (KDE)
 
@@ -159,6 +159,7 @@ $$
 \hat{f}(x) = \frac{1}{nh_xh_y} \sum_{i=1}^n k\bigg(\frac{{x-x_i}}{h_x},\frac{{y-y_i}}{h_y} \bigg)
 \end{equation}
 $$
+
 ::: {style="font-size: 0.7em"}
 * Assume each location in $\mathbf{s_i}$ drawn from unknown distribution
 
@@ -167,6 +168,7 @@ $$
 * Estimate $f(\mathbf{x})$ by averaging probability "bumps" around each location
 
 * Need different object types for most operations in `R` (`as.ppp`)
+
 :::
 
 ## Kernel Density Estimates (KDE)
@@ -203,9 +205,9 @@ par(mfrow=c(1,1))
 
 * Some kernels have optimal bandwidth detection
 
-* `tmap` package (later) provides additional functionality
+* `tmap` package provides additional functionality
 
-# Second-Order Analysis {background="#0033A0"}
+# Second-Order Analysis {background="#9F281A"}
 
 ## Second-Order Analysis
 
@@ -216,24 +218,23 @@ par(mfrow=c(1,1))
 * Several functions for assessing second order dependence ($K$, $L$, and $G$)
 
 ## Distance based metrics
-::: columns
-::: {.column width="60%"}
+
 * Provide an estimate of the _second order_ effects
 
 * _Mean nearest-neighbor distance_:
-$$\hat{d_{min}} = \frac{\sum_{i = 1}^{m} d_{min}(\mathbf{s_i})}{n}$$
-:::
-::: {.column width="40%"}
+$$\hat{d}_{min} = \frac{\sum_{i = 1}^{m} d_{min}(\mathbf{s_i})}{n}$$
+
+## Nearest-neighbor distance
+
 ```{r}
 #| echo: true
 
 ANN <- apply(nndist(x, k=1:50),2,FUN=mean)
 plot(ANN ~ eval(1:50), type="b", main=NULL, las=1)
 ```
-:::
-:::
 
 ## Ripley's $K$ Function
+
 ::: {style="font-size: 0.7em"}
 * Nearest neighbor methods throw away a lot of information
 
@@ -254,7 +255,9 @@ $$
 K_{CSR}(d) = \pi d^2
 \end{equation}
 $$
+
 * if $k(d) > K_{CSR}(d)$ then there is clustering at the scale defined by $d$
+
 :::
 
 ## Ripley's $K$ Function
@@ -270,32 +273,36 @@ $$
 $$
 
 where:
+
 $$
 \begin{equation}
 \hat{\lambda} = \frac{n}{|A|}
 \end{equation}
 $$
+
+
 ## Ripley's $K$ Function
 
-* Using the `spatstat` package
+*   Using the `spatstat` package
 
-::: columns
-::: {.column width="40%"}
+
 ```{r}
 #| fig-width: 4
 #| fig-height: 4
 data(bramblecanes)
 plot(bramblecanes)
 ```
-:::
-::: {.column width="60%"}
+
+
+## Ripley's $K$ Function
+
 ```{r}
 #| echo: true
 kf <- Kest(bramblecanes, correction-"border")
 plot(kf)
 ```
-:::
-:::
+
+
 
 ## Ripley's $K$ Function
 * accounting for variation in $d$
@@ -310,6 +317,7 @@ plot(kf.env)
 
 ::: columns
 ::: {.column width="60%"}
+
 * $L$ function: square root transformation of $K$
 
 * $G$ function: the cummulative frequency distribution of the nearest neighbor distances
@@ -319,12 +327,14 @@ plot(kf.env)
 
 :::
 ::: {.column width="40%"}
+
 ```{r}
 #| fig-width: 5
 #| fig-height: 5
 gf.env <- envelope(bramblecanes, Gest, correction="border", verbose = FALSE)
 plot(gf.env)
 ```
+
 :::
 :::
 

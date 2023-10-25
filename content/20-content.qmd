@@ -9,18 +9,38 @@ source(here::here("R", "slide-things.R"))
 
 ```
 
+Last class we started to explore ways to leverage spatial autocorrelation as a means of using interpolation to generate values at unobserved locations. We'll continue that discussion using variograms and kriging. We then move to a discussion of areal data and the need to identify "neighbors" as a means of understanding how to weight observations when the actual point location of the observation may be unknown or impossible to assign.
 
 
 ## Resources
 
+- <i class="fas fa-external-link-square-alt"></i> [Ch. 7: Spatial Neighborhood Matrices](https://www.paulamoraga.com/book-spatial/spatial-neighborhood-matrices.html) in
+from Paula Moraga's new book Spatial Statistics for Data Science: Theory and Practice with `R` gives a little gentler introduction to spatial neighbors specifically in the context of statistical models.
+
+- <i class="fas fa-book"></i> [Chapter 14 Proximity and Areal Data](https://r-spatial.org/book/14-Areal.html) in Spatial Data Science by Edzer Pebesma and Roger Bivand provides explanations of how the `spdep` package can be used to construct neighborhood weights.
 
 ## Objectives
 
 By the end of today you should be able to:
+
+* Describe and implement statistical approaches to interpolation
+
+* Describe the case for identifying neighbors with areal data
+
+* Implement contiguity-based neighborhood detection approaches
+
+* Implement graph-based neighborhood detection approaches
+
 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/20-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/20-slides.html"></iframe>
+```
+
+</div>
