@@ -19,6 +19,7 @@ library(tidygraph)
 library(tmap)
 library(units)
 library(ggraph)
+library(tidyverse)
 ```
 
 ## Describing networks for analysis
@@ -52,3 +53,241 @@ library(ggraph)
 * How does the loss of a node alter the subsequent configuration of the network?
 
 * How do we translate typical movement paths into network structures?
+
+# An example
+
+## Sage Grouse in the West
+
+```{r}
+#| cache: true
+#| message: false
+
+sg.pacs <- st_read("data/GRSG_2015_USFWS_StatusReview_PACs.shp") %>% 
+  st_make_valid()
+tmap::qtm(sg.pacs)
+
+```
+
+## The Data
+
+```{r}
+#| echo: true
+
+head(sg.pacs[,1:9])
+
+```
+
+## Preparing the adjacency matrix
+
+```{r}
+#| echo: true
+
+sg.pacs.cent <- sg.pacs %>% 
+  filter(., MgmtZone == "MZ3") %>% 
+  st_centroid(sg.pacs, of_largest_polygon = TRUE)
+
+```
+
+## Preparing the Adjacency Matrix
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+
+sg.pacs.dist <- st_distance(sg.pacs.cent) 
+
+threshold <- units::as_units(50, "km") 
+
+adj.mtx <- sg.pacs.dist < threshold 
+
+
+
+```
+
+::: 
+::: {.column width="50%"}
+```{r}
+adj.mtx[1:5, 1:5]
+
+
+```
+:::
+:::
+
+## Preparing the Adjacency Matrix
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+adj.mtx <- adj.mtx *1 
+diag(adj.mtx) <- 0  
+
+dimnames(adj.mtx) <- list(
+  sg.pacs.cent$UniqueID, 
+  sg.pacs.cent$UniqueID) 
+
+```
+
+::: 
+::: {.column width="50%"}
+```{r}
+adj.mtx[1:5, 1:5]
+
+
+```
+:::
+:::
+
+## Graphing your network
+
+
+```{r}
+#| echo: true
+sg.graph <- igraph::graph_from_adjacency_matrix(adj.mtx) %>% 
+  as_tbl_graph(directed - FALSE,
+               node_key = "UniqueID") %>% 
+  left_join(., sg.pacs.cent, 
+            by = c("name" = "UniqueID"))
+  
+```
+
+
+```{r}
+ggraph(sg.graph, 'kk') + 
+    geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) + 
+    geom_node_point(aes(size = log(Acres,10), color=Population)) + 
+    theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
+
+```
+
+# Evaluating Network Metrics
+
+## Common Metrics
+
+* **Betweenness Centrality**: the sum of all of the shortest paths that flow through that node.
+
+* **Degree** reflects the number of connections a node has to other nodes.
+
+* **Component size**: the number of nodes in a group that is connected to each other, but disconnected from the rest of the graph
+
+* **Degree Distribution**: Describes the general connectedness of all the nodes in a network; vulnerability
+
+## Estimating metrics
+
+```{r}
+#| echo: true
+sg.graph.mets <- sg.graph %>% 
+  activate(nodes) %>% 
+  mutate(., bet.centrality = centrality_betweenness(),
+            deg = degree(.))
+
+```
+
+## Estimating metrics: Betweeness
+
+```{r}
+
+ggraph(sg.graph.mets, 'kk') + 
+    geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) + 
+    geom_node_point(aes(size = bet.centrality, color=Population)) + 
+    theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
+```
+
+## Estimating metrics: Degree
+
+```{r}
+
+ggraph(sg.graph.mets, 'kk') + 
+    geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) + 
+    geom_node_point(aes(size = deg, color=Population)) + 
+    theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
+```
+
+
+## Estimating metrics: Component Size
+
+```{r}
+#| echo: true
+
+comps <- components(sg.graph)
+comps$csize
+comps$membership
+```
+
+
+## Estimating metrics: Degree distribution
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+mean(degree(sg.graph))
+sd(degree(sg.graph))
+```
+
+::: 
+::: {.column width="50%"}
+
+```{r}
+plot(density(degree(sg.graph)))
+```
+
+:::
+:::
+
+# Experimenting
+
+## Setting up the data
+
+```{r}
+#| echo: true
+
+thresholds <- as_units(c(1, 10,25, 50, 100, 150, 250, 500), "km")
+thresh.df <- data.frame(thresh.dist = rep(NA, length(thresholds)),
+                        mean.between = rep(NA, length(thresholds)),
+                        ncomps = rep(NA, length(thresholds)),
+                        mean.deg = rep(NA, length(thresholds)))
+sg.pacs.cent <- sg.pacs %>% 
+  st_centroid(sg.pacs, of_largest_polygon = TRUE) 
+sg.pacs.dist <- st_distance(sg.pacs.cent)
+```
+
+## Iterating
+
+```{r}
+#| echo: true
+for (i in 1:length(thresholds)){
+  adj.mtx <- sg.pacs.dist < thresholds[i]
+  adj.mtx <- adj.mtx *1
+  diag(adj.mtx) <- 0
+  dimnames(adj.mtx) <- list(sg.pacs.cent$UniqueID, sg.pacs.cent$UniqueID)
+  
+  sg.graph <- igraph::graph_from_adjacency_matrix(adj.mtx) %>% 
+  as_tbl_graph(directed - FALSE,
+               node_key = "UniqueID") %>% 
+  left_join(., sg.pacs.cent, 
+            by = c("name" = "UniqueID"))
+  thresh.df$thresh.dist[i] <- thresholds[i]
+  thresh.df$mean.between[i] <- mean(betweenness(sg.graph, directed = FALSE))
+  thresh.df$ncomps[i] <- length(components(sg.graph)$csize)
+  thresh.df$mean.deg[i] <- mean(degree(sg.graph))
+}  
+```
+
+## Collecting Data
+
+```{r}
+#| echo: true
+thresh.long <- thresh.df %>% 
+  tidyr::pivot_longer(!thresh.dist, 
+                      names_to = "metric", 
+                      values_to = "estimate")
+
+ggplot(data = thresh.long, aes(x= thresh.dist, y = estimate)) +
+  geom_line()+
+  facet_wrap(vars(metric)) +
+  ggtitle("Whole Network")
+```
