@@ -1,0 +1,453 @@
+---
+title: "Movement and Networks I"
+subtitle: "HES 505 Fall 2023: Session 25"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(sf)
+library(tidyverse)
+library(maps)
+library(tmap)
+library(terra)
+library(corrplot)
+```
+
+# Revisiting Deviance {background="#9F281A"}
+
+## 
+
+```{r}
+base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2021/session28/" #sets the path to the root directory
+
+pres.abs <- st_read(paste0(base.path, "presenceabsence.shp"), quiet = TRUE) #read the points with presence absence data
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/Users/matthewwilliamson/Downloads/session28/presenceabsence.shp", layer: "presenceabsence"
+## with 100 features
+## It has 1 fields
+pred.files <- list.files(base.path,pattern='grd$', full.names=TRUE) #get the bioclim data
+
+pred.stack <- rast(pred.files) #read into a RasterStack
+names(pred.stack) <- c("MeanAnnTemp", "TotalPrecip", "PrecipWetQuarter", "PrecipDryQuarter", "MinTempCold", "TempRange")
+plot(pred.stack)
+pred.stack.scl <- scale(pred.stack)
+pts.df <- terra::extract(pred.stack.scl, vect(pres.abs), df=TRUE)
+pts.df <- cbind(pts.df, pres.abs$y)
+colnames(pts.df)[8] <- "y"
+```
+
+
+## Pseudo- $R^2$
+
+::: columns
+::: {.column width="50%"}
+
+$$
+\begin{equation}
+R^2_L = \frac{D_{null} - D_{fitted}}{D_{null}}
+\end{equation}
+$$
+:::
+::: {.column width="50%"}
+
+$$
+\begin{equation}
+\begin{aligned}
+R^2_{CS} &= 1 - \left( \frac{L_0}{L_M} \right)^{(2/n)}\\
+ &= 1 - \exp^{2(ln(L_0)-ln(L_M))/n}
+\end{aligned}
+\end{equation}
+$$
+:::
+:::
+
+## Cohen's Likelihood Ratio 
+
+```{r}
+#| echo: true
+logistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, 
+                     family=binomial(link="logit"),
+                     data=pts.df[,2:8])
+
+logistic.null <- glm(y ~ 1, 
+                     family=binomial(link="logit"),
+                     data=pts.df[,2:8])
+with(logistic.rich, 
+     null.deviance - deviance)/with(logistic.rich,
+                                    null.deviance)
+
+1 - exp(2*(logLik(logistic.null)[1] - logLik(logistic.rich)[1])/nobs(logistic.rich))
+
+```
+
+## So what is deviance???
+
+*   Saturated model (i.e., perfect model)
+  
+  *   One parameter for each observation
+
+*   Null model
+
+  * Only 1 parameter (for the intercept)
+  
+*   Your model
+
+  * 1 parameter for each covariate
+  
+## Sub-sampling Methods
+
+::: columns
+::: {.column width="60%"}
+* Split data into _training_ and _testing_
+
+* Testing set needs to be large enough for results to be statistically meaningful
+
+* Test set should be representative of the data as a whole
+
+* Validation data used to tune parameters (not always)
+:::
+::: {.column width="40%"}
+![](img/slide_21/itest.png)
+:::
+:::
+
+## Subsampling your data with `caret`
+```{r}
+#| echo: true
+pts.df$y <- as.factor(ifelse(pts.df$y == 1, "Yes", "No"))
+library(caret)
+Train <- createDataPartition(pts.df$y, p=0.6, list=FALSE)
+
+training <- pts.df[ Train, ]
+testing <- pts.df[ -Train, ]
+
+```
+
+## Misclassification
+
+::: columns
+::: {.column width="60%"}
+* Confusion matrices compare actual values to predictions
+
+::: {style="font-size: 0.7em"}
+* True Positive (TN) - This is correctly classified as the class if interest / target.
+* True Negative (TN) - This is correctly classified as not a class of interest / target.
+* False Positive (FP) - This is wrongly classified as the class of interest / target.
+* False Negative (FN) - This is wrongly classified as not a class of interest / target.
+:::
+:::
+::: {.column width="40%"}
+![](img/slide_21/confmatrix.png)
+:::
+:::
+
+## Confusion Matrices in `R`
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+train.log <- glm(y ~ ., 
+                 family="binomial", 
+                 data=training[,2:8])
+
+predicted.log <- predict(train.log, 
+                         newdata=testing[,2:8], 
+                         type="response")
+
+pred <- as.factor(
+  ifelse(predicted.log > 0.5, 
+                         "Yes",
+                         "No"))
+
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+confusionMatrix(testing$y, pred)
+
+```
+:::
+:::
+:::
+
+## Confusion Matrices
+
+::: columns
+::: {.column width="70%"}
+$$
+\begin{equation}
+\begin{aligned}
+Accuracy &= \frac{TP + TN}{TP + TN + FP + FN}\\
+Sensitivity &= \frac{TP}{TP + FN}\\
+Specificity &= \frac{TN}{FP + TN}\\
+Precision &= \frac{TP}{TP + FP}\\
+Recall &= \frac{TP}{TP + FN}
+\end{aligned}
+\end{equation}
+$$
+:::
+::: {.column width="30%"}
+:::{style="text-align: middle;"}
+ **Depends upon threshold!!**
+:::
+:::
+:::
+
+## Confusion Matrices in `R`
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+library(tree)
+tree.model <- tree(y ~ . , training[,2:8])
+predict.tree <- predict(tree.model, newdata=testing[,2:8], type="class")
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+confusionMatrix(testing$y, predict.tree)
+```
+:::
+:::
+:::
+
+## Confusion Matrices in `R`
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+library(randomForest)
+class.model <- y ~ .
+rf <- randomForest(class.model, data=training[,2:8])
+predict.rf <- predict(rf, newdata=testing[,2:8], type="class")
+```
+:::
+::: {.column width="50%"}
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: true
+confusionMatrix(testing$y, predict.rf)
+```
+:::
+:::
+:::
+
+## Threshold-Free Methods
+
+::: columns
+::: {.column width="40%"}
+![](img/slide_21/roc.png)
+:::
+::: {.column width="60%"}
+
+* Receiver Operating Characteristic Curves
+
+* Illustrates discrimination of binary classifier as the threshold is varied
+
+* Area Under the Curve (AUC) provides an estimate of classification ability
+
+:::
+:::
+
+## Criticisms of ROC/AUC
+
+* Treats false positives and false negatives equally
+
+* Undervalues models that predict across smaller geographies
+
+* Focus on _discrimination_ and not _calibration_
+
+* New methods for presence-only data
+
+## ROC in R (using `pROC`)
+
+* Generate predictions (note the difference for tree and rf)
+
+```{r}
+#| echo: true
+library(pROC)
+train.log <- glm(y ~ ., 
+                 family="binomial", 
+                 data=training[,2:8])
+
+predicted.log <- predict(train.log, 
+                         newdata=testing[,2:8], 
+                         type="response")
+
+predict.tree <- predict(tree.model, newdata=testing[,2:8], type="vector")[,2]
+
+predict.rf <- predict(rf, newdata=testing[,2:8], type="prob")[,2]
+```
+## ROC in R (using `pROC`)
+
+```{r}
+#| echo: true
+
+plot(roc(testing$y, predicted.log), print.auc=TRUE)
+
+plot(roc(testing$y, predict.tree), print.auc=TRUE, print.auc.y = 0.45, col="green", add=TRUE)
+
+plot(roc(testing$y, predict.rf), print.auc=TRUE, print.auc.y = 0.4, col="blue", add=TRUE)
+```
+
+## Cross-validation
+
+* Often want to make sure that fit/accuracy not a function of partition choice
+
+* Cross-validation allows resampling of data (multiple times)
+
+* K-fold - Data are split into K datasets of ~ equal size, model fit to $(K-1)(\frac{n}{K})$ observations to predict heldout set
+
+* Leave One Out (LOO) - Model fit to n-1 observations to predict the held out observation
+
+## Crossvalidation in `R` using `caret`
+
+```{r}
+#| echo: true
+ 
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 10,
+                           classProbs = TRUE,
+                           summaryFunction = twoClassSummary)
+
+log.model <- train(y ~., data = pts.df[,2:8],
+               method = "glm",
+               trControl = fitControl)
+pred.log <- predict(log.model, newdata = testing[,2:8], type="prob")[,2]
+
+tree.model <- train(y ~., data = pts.df[,2:8],
+               method = "rpart",
+               trControl = fitControl)
+
+pred.tree <- predict(tree.model, newdata=testing[,2:8], type="prob")[,2]
+
+rf.model <- train(y ~., data = pts.df[,2:8],
+               method = "rf",
+               trControl = fitControl)
+pred.rf <- predict(rf.model, newdata=testing[,2:8], type="prob")[,2]
+
+```
+
+## Crossvalidation in `R` using `caret`
+
+```{r}
+#| echo: true
+plot(roc(testing$y, pred.log), print.auc=TRUE)
+
+plot(roc(testing$y, pred.tree), print.auc=TRUE, print.auc.y = 0.45, col="green", add=TRUE)
+
+plot(roc(testing$y, pred.rf), print.auc=TRUE, print.auc.y = 0.4, col="blue", add=TRUE)
+```
+
+## Crossvalidation in `R` using `caret`
+```{r}
+resamps <- resamples(list(GLM = log.model,
+                          TREE = tree.model,
+                          RF = rf.model))
+dotplot(resamps)
+
+```
+
+
+## Spatial predictions
+
+
+```{r}
+#| echo: true
+best.rf <- rf.model$finalModel
+best.glm <- log.model$finalModel
+
+rf.spatial <- terra::predict(pred.stack.scl, best.rf, type="prob")
+
+
+glm.spatial <- terra::predict(pred.stack.scl, best.glm,type="response" )
+```
+
+## Spatial predictions
+
+```{r}
+par(mfrow=c(1,2))
+plot(rf.spatial[[2]], main="Random Forest")
+plot(glm.spatial, main="Logistic Regression")
+par(mfrow=c(1,1))
+```
+
+
+# On to networks! {background="#9F281A"}
+
+## What is a network?
+
+::: columns
+::: {.column width="50%"}
+* A collection of connected objects
+
+* Tend to described in terms of nodes (the objects) and edges (the connections)
+
+* Analyzed using algorithms from graph theory
+
+:::
+::: {.column width="50%"}
+
+![](img/slide_25/internet_map_jurvetson_2004.jpg)
+:::
+:::
+
+## Types of networks
+
+* (Un)directed
+
+* Weighted 
+
+* Muli-type
+
+![](img/slide_25/networktypes.png)
+
+
+## Describing networks for analysis
+
+::: columns
+::: {.column width="50%"}
+
+![](img/slide_25/adjacency_graph.png)
+
+:::
+::: {.column width="50%"}
+![](img/slide_25/adjacency_mtx.png)
+
+:::
+:::
+
+## Common measures
+
+* Graph-level: density, diameter, distance
+
+* Component-level: density, distribution
+
+* Node-level: centrality, degree-distribution
+
+## Common questions
+
+* What are the shortest paths across the network?
+
+* Where are the most important locations for maintaining the network?
+
+* How does the loss of a node alter the subsequent configuration of the network?
+
+* How do we translate typical movement paths into network structures?

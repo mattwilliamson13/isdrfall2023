@@ -1,0 +1,54 @@
+---
+title: "Movement and Networks II"
+subtitle: "HES 505 Fall 2023: Session 26"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+library(sf)
+library(igraph)
+library(tidygraph)
+library(tmap)
+library(units)
+library(ggraph)
+```
+
+## Describing networks for analysis
+
+::: columns
+::: {.column width="50%"}
+
+![](img/slide_25/adjacency_graph.png)
+
+:::
+::: {.column width="50%"}
+![](img/slide_25/adjacency_mtx.png)
+
+:::
+:::
+
+## Common measures
+
+* Graph-level: density, diameter, distance
+
+* Component-level: density, distribution
+
+* Node-level: centrality, degree-distribution
+
+## Common questions
+
+* What are the shortest paths across the network?
+
+* Where are the most important locations for maintaining the network?
+
+* How does the loss of a node alter the subsequent configuration of the network?
+
+* How do we translate typical movement paths into network structures?

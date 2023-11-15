@@ -7,19 +7,37 @@ date: "2023-11-13"
 source(here::here("R", "slide-things.R"))
 ```
 
-
+Today we're going to finish up some of the model evaluation and prediction pieces from last week and then take a brief detour into the use of spatial information in networks. To do that, we'll need to introduce some basic concepts of networks before getting too far down the road of the syntax.
 
 ## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [Landscape connectivity: A graph-theoretic perspective](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9658%282001%29082%5B1205%3ALCAGTP%5D2.0.CO%3B2) by [@urban] introduces the notion of using networks and graphs to understand ecological connectivity.
+
+- <i class="fas fa-external-link-square-alt"></i> [Connectivity for conservation: a framework to classify network measures](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/09-2190.1) by [@rayfield] helps simplify the (often overwhelming nature) of terminology and network metrics.
+
+- <i class="fas fa-external-link-square-alt"></i> [Graphs and network science: and introduction](https://livebook.manning.com/book/graphs-and-network-science-an-introduction/chapter-1/) provides a little simpler, but less spatially informed introduction to the tasks of network analysis.
 
 
 ## Objectives
 
 By the end of today you should be able to:
 
+- Use cross-validation to evaluate your models
+
+- Define a network and it's key components
+
+- Identify major questions that we can address with networks
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/25-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/25-slides.html"></iframe>
+```
+
+</div>
+
 

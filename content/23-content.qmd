@@ -7,19 +7,37 @@ date: "2023-11-6"
 source(here::here("R", "slide-things.R"))
 ```
 
-
+Last class we spent some time extending the idea of Favorability to build a foundation for treating overlay analysis as a logistic regression. Although logistic regression has a number of properties that make it desirable for inference, a number of recently developed statistical learning approaches have greatly improved our ability to take advantage a wide variety of available data and generate spatially explicit predictions. These methods may make interpretation and inference more challenging, but can improve the predictive ability of your models. We'll explore some of those today.
 
 ## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [An Introduction to Statistical Learning](file:///Users/mattwilliamson/Downloads/ISLRv2_corrected_June_2023.pdf) by [@James2021] is a comprehensive introduction to a number of statistical learning techniques with examples in `R`. Although these examples are not necessarily spatial, the chapters provide a lot of the background necessary for understanding what the models are doing.
+
+- <i class="fas fa-external-link-square-alt"></i> [A statistical explanation of MaxEnt for ecologists](https://hastie.su.domains/Papers/maxent_explained.pdf) by [@elith2011statistical] provides a relatively accessible description of the details of MaxEnt species distribution modeling.
+
+- <i class="fas fa-external-link-square-alt"></i> [Random forests for Classification in Ecology](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/07-0539.1) by [@cutler2007] provides an introduction to the utility of Random Forests for ecologists.
 
 
 ## Objectives
 
 By the end of today you should be able to:
 
+- Articulate the differences between statistical learning classifiers and logistic regression
+
+- Describe several classification trees and their relationship to Random Forests
+
+- Describe MaxEnt models for presence-only data
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/23-slides")
 ```
 
-Slides Forthcoming
+<div>
 
+```{=html}
+<iframe class="slide-deck" src="/slides/23-slides.html"></iframe>
+```
+
+</div>
+
+[Panopto Video](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4490849b-8188-40a6-b657-b0b201521f29&start=0)

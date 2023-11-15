@@ -1,0 +1,631 @@
+---
+title: "Statistical Modelling I"
+subtitle: "HES 505 Fall 2023: Session 22"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(sf)
+library(tidyverse)
+library(tmap)
+library(spdep)
+library(terra)
+library(corrplot)
+```
+
+# Objectives {background="#9F281A"}
+
+By the end of today you should be able to:
+
+* Identify nearest neighbors based on distance
+
+* Describe and implement overlay analyses
+
+* Extend overlay analysis to statistical modeling
+
+* Generate spatial predictions from statistical models
+
+## Revisiting neighbors and areal data
+
+
+
+```{r}
+cdc <- read_sf("data/opt/data/2023/vectorexample/cdc_nw.shp") %>% 
+  select(GEOID,stateabbr, countyname, countyfips, casthma_cr)
+tm_shape(cdc) +
+  tm_fill("casthma_cr",
+          palette="Reds",
+          style="quantile",
+          title="percent of people with chronic asthma")+
+  tm_borders(alpha = 0.4) +
+  tm_legend(legend.outside=TRUE)
+```
+
+
+```{r}
+#| echo: true
+#| cache: true
+cdc.pt <- cdc %>% st_point_on_surface(.)
+geog.nearnb <- knn2nb(knearneigh(cdc.pt, k = 1), row.names = cdc.pt$GEOID, sym=TRUE); #estimate distance to first neareset neighbor
+nb.nearest <- dnearneigh(cdc.pt, 0,  max( unlist(nbdists(geog.nearnb, cdc.pt))));
+```
+
+
+
+## Getting Weights
+
+
+```{r}
+#| cache: true
+plot(st_geometry(cdc), border = 'lightgrey')
+plot(nb.nearest, sp::coordinates(as(cdc, "Spatial")), add=TRUE, col='red')
+```
+
+```{r}
+#| echo: true
+lw.nearest <- nb2listw(nb.nearest, style="W")
+asthma.lag <- lag.listw(lw.nearest, cdc$casthma_cr)
+
+```
+
+
+
+## Fit a model
+
+* Moran's I coefficient is the slope of the regression of the _lagged_ asthma percentage vs. the asthma percentage in the tract 
+
+* More generally it is the slope of the lagged average to the measurement
+
+
+```{r}
+#| echo: true
+
+M <- lm(asthma.lag ~ cdc$casthma_cr)
+```
+
+```{r}
+#| fig-width: 6
+
+# Plot the data
+plot( asthma.lag ~ cdc$casthma_cr, pch=20, asp=1, las=1)
+abline(a = coef(M)[1], b=coef(M)[2], col="red")
+coef(M)[2]
+```
+
+## Comparing observed to expected
+
+* We can generate the expected distribution of Moran's I coefficients under a Null hypothesis of no spatial autocorrelation
+
+* Using permutation and a loop to generate simulations of Moran's I
+
+```{r}
+#| echo: true
+n <- 400L   # Define the number of simulations
+I.r <- vector(length=n)  # Create an empty vector
+
+for (i in 1:n){
+  # Randomly shuffle income values
+  x <- sample(cdc$casthma_cr, replace=FALSE)
+  # Compute new set of lagged values
+  x.lag <- lag.listw(lw.nearest, x)
+  # Compute the regression slope and store its value
+  M.r    <- lm(x.lag ~ x)
+  I.r[i] <- coef(M.r)[2]
+}
+
+```
+
+```{r}
+hist(I.r, main=NULL, xlab="Moran's I", las=1)
+abline(v=coef(M)[2], col="red")
+```
+
+## Significance testing
+
+* Pseudo p-value (based on permutations)
+
+* Analytically (sensitive to deviations from assumptions)
+
+* Using Monte Carlo
+
+```{r}
+#| echo: true
+#| eval: false
+#Pseudo p-value
+N.greater <- sum(coef(M)[2] > I.r)
+(p <- min(N.greater + 1, n + 1 - N.greater) / (n + 1))
+
+# Analytically
+moran.test(cdc$casthma_cr,lw.nearest, zero.policy = TRUE)
+
+# Monte Carlo
+moran.mc(cdc$casthma_cr, lw.nearest, zero.policy = TRUE, nsim=400)
+```
+
+## Significance testing
+```{r}
+#Pseudo p-value
+N.greater <- sum(coef(M)[2] > I.r)
+(p <- min(N.greater + 1, n + 1 - N.greater) / (n + 1))
+
+# Analytically
+moran.test(cdc$casthma_cr,lw.nearest, zero.policy = TRUE)
+
+# Monte Carlo
+moran.mc(cdc$casthma_cr, lw.nearest, zero.policy = TRUE, nsim=400)
+```
+
+# Overlay Analyses {background="#9F281A"}
+
+## Overlays
+
+* Methods for identifying optimal site selection or suitability
+
+* Apply a common scale to diverse or disimilar outputs
+
+## Getting Started
+
+::: {style="font-size: 0.7em"}
+1. Define the problem.
+
+2. Break the problem into submodels.
+
+3. Determine significant layers.
+
+4. Reclassify or transform the data within a layer.
+
+5. Add or combine the layers.
+
+6. Verify
+:::
+
+## Boolean Overlays
+
+::: columns
+::: {.column width="50%"}
+* Successive disqualification of areas
+
+* Series of "yes/no" questions
+
+* "Sieve" mapping
+:::
+:::{.column width="50%"}
+![](img/slide_18/Gis_layers.png)
+:::
+:::
+
+## Boolean Overlays
+
+* Reclassifying
+
+* Which types of land are appropriate
+
+```{r}
+#| echo: true
+#| fig-width: 5
+#| fig-height: 5
+nlcd <-  rast(system.file("raster/nlcd.tif", package = "spDataLarge"))
+plot(nlcd)
+```
+
+## Boolean Overlays
+
+* Which types of land are appropriate?
+
+```{r}
+#| echo: true
+#| fig-width: 6
+#| fig-height: 6
+nlcd.segments <- segregate(nlcd)
+names(nlcd.segments) <- levels(nlcd)[[1]][-1,2]
+plot(nlcd.segments)
+```
+## Boolean Overlays
+
+* Which types of land are appropriate?
+
+```{r}
+srtm <- rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+slope <- terrain(srtm, v = "slope")
+par(mfrow=c(1,2))
+plot(srtm)
+plot(slope)
+par(mfrow=c(1,1))
+```
+
+## Boolean Overlays
+
+* Make sure data is aligned!
+
+```{r}
+#| echo: true
+suit.slope <- slope < 10
+suit.landcov <- nlcd.segments["Shrubland"]
+suit.slope.match <- project(suit.slope, suit.landcov)
+suit <- suit.slope.match + suit.landcov
+
+```
+## Boolean Overlays
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+par(mfrow=c(1,3))
+plot(suit.slope)
+plot(suit.landcov)
+plot(suit)
+par(mfrow=c(1,1))
+```
+
+## Challenges with Boolean Overlays
+
+1. Assume relationships are really Boolean
+
+2. No measurement error
+
+3. Categorical measurements are known exactly
+
+4. Boundaries are well-represented
+
+## A more general approach
+
+* Define a _favorability_ metric
+
+$$
+\begin{equation}
+F(\mathbf{s}) = \prod_{M=1}^{m}X_m(\mathbf{s})
+\end{equation}
+$$
+
+* Treat $F(\mathbf{s})$ as binary 
+* Then $F(\mathbf{s}) = 1$ if all inputs ($X_m(\mathbf{s})$) are suitable
+* Then $F(\mathbf{s}) = 0$ if not
+
+## Estimating favorability
+
+$$
+\begin{equation}
+F(\mathbf{s}) = f(w_1X_1(\mathbf{s}), w_2X_2(\mathbf{s}), w_3X_3(\mathbf{s}), ..., w_mX_m(\mathbf{s}))
+\end{equation}
+$$
+
+* $F(\mathbf{s})$ does not have to be binary (could be ordinal or continuous)
+
+* $X_m(\mathbf{s})$ could also be extended beyond simply 'suitable/not suitable'
+
+* Adding weights allows incorporation of relative importance
+
+* Other functions for combining inputs ($X_m(\mathbf{s})$)
+
+## Weighted Linear Combinations
+
+$$
+\begin{equation}
+F(\mathbf{s}) = \frac{\sum_{i=1}^{m}w_iX_i(\mathbf{s})}{\sum_{i=1}^{m}w_i}
+\end{equation}
+$$
+
+* $F(s)$ is now an index based of the values of $X_m(\mathbf{s})$
+
+* $w_i$ can incorporate weights of evidence, uncertainty, or different participant preferences
+
+* Dividing by $\sum_{i=1}^{m}w_i$ normalizes by the sum of weights
+
+## Model-driven overlay
+
+$$
+\begin{equation}
+F(\mathbf{s}) = w_0 + \sum_{i=1}^{m}w_iX_i(\mathbf{s}) + \epsilon
+\end{equation}
+$$
+
+* If we estimate $w_i$ using data, we specify $F(s)$ as the outcome of regression
+
+* When $F(s)$ is binary &rightarrow; logistic regression
+
+* When $F(s)$ is continuous &rightarrow; linear (gamma) regression
+
+* When $F(s)$ is discrete &rightarrow; Poisson regression
+
+* Assumptions about $\epsilon$ matter!!
+
+# Logistic Regression and Distribution Models {background="#9F281A"}
+
+## Why do we create distribution models?
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+
+* To identify important correlations between predictors and the occurrence of an event
+
+* Generate maps of the 'range' or 'niche' of events
+
+* Understand spatial patterns of event co-occurrence
+
+* Forecast changes in event distributions 
+
+:::
+:::
+::: {.column width="40%"}
+![From [Wiens et al. 2009](https://www.pnas.org/content/106/Supplement_2/19729)](img/slide_19/climchange.png)
+:::
+:::
+
+## General analysis situation 
+
+![From [Long](https://www.biodiversityscience.com/2011/04/27/species-distribution-modelling/)](img/slide_19/SDMfigure1resized.png)
+
+::: {style="font-size: 0.7em"}
+* Spatially referenced locations of events $(\mathbf{y})$ sampled from the study extent
+
+* A matrix of predictors $(\mathbf{X})$ that can be assigned to each event based on spatial location
+
+>__Goal__: Estimate the probability of occurrence of events across unsampled regions of the study area based on correlations with predictors
+
+:::
+
+## Modeling Presence-Absence Data
+
+::: columns
+::: {.column width="50%"}
+* Random or systematic sample of the study region
+
+* The presence (or absence) of the event is recorded for each point
+
+* Hypothesized predictors of occurrence are measured (or extracted) at each point 
+
+::: 
+::: {.column width="50%"}
+![From [By Ragnvald - Own work, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=2107716)](img/slide_19/Predicting_habitats.png)
+:::
+:::
+
+## Logistic regression
+
+::: columns
+::: {.column width="50%"}
+
+::: {style="font-size: 0.7em"}
+* We can model favorability as the __probability__ of occurrence using a logistic regression
+
+* A _link_ function maps the linear predictor $(\mathbf{x_i}'\beta + \alpha)$ onto the support (0-1) for probabilities
+
+* Estimates of $\beta$ can then be used to generate 'wall-to-wall' spatial predictions
+
+:::
+
+:::
+::: {.column width="50%"}
+
+$$ 
+\begin{equation}
+y_{i} \sim \text{Bern}(p_i)\\
+\text{link}(p_i) = \mathbf{x_i}'\beta + \alpha
+\end{equation}
+$$
+
+![From [Mendoza](https://www.ou.edu/faculty/M/Jorge.L.Mendoza-1/comparison_of_probit.htm)](img/slide_19/Probit.png)
+
+:::
+:::
+
+## An Example
+
+Inputs from the `dismo` package
+
+```{r}
+base.path <- "/Users/mattwilliamson/Google Drive/My Drive/TEACHING/Intro_Spatial_Data_R/Data/2021/session28/" #sets the path to the root directory
+
+pres.abs <- st_read(paste0(base.path, "presenceabsence.shp"), quiet = TRUE) #read the points with presence absence data
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/Users/matthewwilliamson/Downloads/session28/presenceabsence.shp", layer: "presenceabsence"
+## with 100 features
+## It has 1 fields
+pred.files <- list.files(base.path,pattern='grd$', full.names=TRUE) #get the bioclim data
+
+pred.stack <- rast(pred.files) #read into a RasterStack
+names(pred.stack) <- c("MeanAnnTemp", "TotalPrecip", "PrecipWetQuarter", "PrecipDryQuarter", "MinTempCold", "TempRange")
+plot(pred.stack)
+```
+
+## An Example
+
+The sample data
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+head(pres.abs)
+```
+:::
+::: {.column width="60%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(pred.stack[[1]])
+pres.pts <- pres.abs[pres.abs$y == 1,]
+abs.pts <- pres.abs[pres.abs$y == 0,]
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+:::
+:::
+
+## An Example
+Building our dataframe
+
+
+```{r}
+#| echo: true
+pts.df <- terra::extract(pred.stack, vect(pres.abs), df=TRUE)
+head(pts.df)
+```
+
+## An Example
+Building our dataframe
+```{r}
+#| echo: true
+pts.df[,2:7] <- scale(pts.df[,2:7])
+summary(pts.df)
+```
+
+## An Example
+Looking at correlations
+```{r}
+#| echo: true
+pairs(pts.df[,2:7])
+```
+
+## An Example
+Looking at correlations
+
+```{r}
+#| echo: true
+corrplot(cor(pts.df[,2:7]), method = "number")
+```
+
+## An Example
+Fitting some models
+
+```{r}
+#| echo: true
+pts.df <- cbind(pts.df, pres.abs$y)
+colnames(pts.df)[8] <- "y"
+logistic.global <- glm(y~., family=binomial(link="logit"), data=pts.df[,2:8])
+logistic.simple <- glm(y ~ MeanAnnTemp + TotalPrecip, family=binomial(link="logit"), data=pts.df[,2:8])
+logistic.rich <- glm(y ~ MeanAnnTemp + PrecipWetQuarter + PrecipDryQuarter, family=binomial(link="logit"), data=pts.df[,2:8])
+```
+
+## An Example
+Checking out the results
+```{r}
+#| echo: true
+summary(logistic.global)
+```
+
+## An Example
+Checking out the results
+```{r}
+#| echo: true
+summary(logistic.simple)
+```
+
+## An Example
+Checking out the results
+```{r}
+#| echo: true
+summary(logistic.rich)
+```
+
+## An Example
+Comparing models
+```{r}
+#| echo: true
+AIC(logistic.global, logistic.simple, logistic.rich)
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.simple)
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.simple, type="response")
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.global, type="response")
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## An Example
+Generating predictions
+
+```{r}
+#| echo: true
+preds <- predict(object=pred.stack, model=logistic.rich, type="response")
+plot(preds)
+plot(pres.pts$geometry, add=TRUE, pch=3, col="blue")
+plot(abs.pts$geometry, add=TRUE, pch ="-", col="red")
+```
+
+## Key assumptions of logistic regression
+
+* Dependent variable must be binary
+
+* Observations must be independent (important for spatial analyses)
+
+* Predictors should not be collinear
+
+* Predictors should be linearly related to the log-odds
+
+* __Sample Size__
+
+# Modelling Presence-Background Data {background="#9F281A"}
+
+## The sampling situation
+
+::: columns
+::: {.column width="40%"}
+![From [Lentz et al. 2008](https://www.journals.uchicago.edu/doi/full/10.1086/528754)](img/slide_19/maxentresult.png)
+:::
+::: {.column width="60%"}
+
+* Opportunistic collection of presences only
+
+* Hypothesized predictors of occurrence are measured (or extracted) at each presence
+
+* Background points (or pseudoabsences) generated for comparison
+
+:::
+:::
+
+## The Challenge with Background Points
+
+* What constitutes background?
+
+* Not measuring _probability_, but relative likelihood of occurrence
+
+* Sampling bias affects estimation
+
+* The intercept
+
+$$ 
+\begin{equation}
+y_{i} \sim \text{Bern}(p_i)\\
+\text{link}(p_i) = \mathbf{x_i}'\beta + \alpha
+\end{equation}
+$$
+
+
+

@@ -7,19 +7,37 @@ date: "2023-11-15"
 source(here::here("R", "slide-things.R"))
 ```
 
+Now that we've chatted briefly about what a network is and how we represent it for analysis, it's time to take some first steps toward building spatial networks in `R`. The backbone of most network analysis is `igraph`, a package that is available for a number of programming languages. There are also a growing number of spatial network packages being developed for `R`. We'll introduce a few of those today.
 
 
 ## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [Network Data in R](https://book.archnetworks.net/networkdata) and [Spatial Networks](https://book.archnetworks.net/spatialnetworks) from the Online Companion to *Network Science in Archaelogy* introduces a variety of approaches for handling and visualizing network data with `R` using examples from archaeology.
+
+- <i class="fas fa-external-link-square-alt"></i>  [CMRnet: An R package to derive networks of social interactions and movement from mark-recapture data](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13502) by [@Silk] describes a package for developing networks from common wildlife sampling techniques.
+
+- <i class="fas fa-external-link-square-alt"></i> [The `sfnetworks` package github page](https://luukvdmeer.github.io/sfnetworks/index.html) provides a variety of vignettes for manipulating spatial network data within the `sf` framework for spatial objects.
 
 
 ## Objectives
 
 By the end of today you should be able to:
 
+* Generate an adjacency matrix for network analysis
+
+* Calculate network density, centrality, and other common measures
+
+* Generate landscape connectivity models using `terra` and `gDistance`
+
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/26-slides")
 ```
 
-Slides Forthcoming
+<div>
 
+```{=html}
+<iframe class="slide-deck" src="/slides/26-slides.html"></iframe>
+```
+
+</div>

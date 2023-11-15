@@ -7,19 +7,37 @@ date: "2023-11-8"
 source(here::here("R", "slide-things.R"))
 ```
 
+In our last class on multivariate analysis, we'll take on one of the more underappreciated elements of modeling: understanding if your model is good enough for prediction or inference. We'll spend a bit of time differentiating the uses of models as a means of understanding what it means to be a "good" model.
 
 
 ## Resources
 
+- <i class="fas fa-external-link-square-alt"></i> [A practical guide to selecting models for exploration, inference, and prediction in ecology](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecy.3336) by [@Tredennick2021] highlights the importance of understanding model performance before making inference on predictor effects.
+
+- <i class="fas fa-external-link-square-alt"></i> [Model selection using information criteria, but is the “best” model any good?](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/1365-2664.13060) by [@Mac_Nally2018] highlights the importance of understanding model performance before making inference on predictor effects.
+
+- <i class="fas fa-external-link-square-alt"></i> [Standards for distribution models in biodiversity assessments](https://www.science.org/doi/10.1126/sciadv.aat4858) by [@Araujo2019] highlights the importance of understanding model performance before making inference on predictor effects.
 
 ## Objectives
 
 By the end of today you should be able to:
 
+- Articulate three different reasons for modeling and how they link to assessments of fit
+
+- Describe and implement several test statistics for assessing model fit
+
+- Describe and implement several assessments of classification
+
+- Describe and implement resampling techniques to estimate predictive performance
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/24-slides")
 ```
 
-Slides Forthcoming
+<div>
 
+```{=html}
+<iframe class="slide-deck" src="/slides/24-slides.html"></iframe>
+```
+
+</div>

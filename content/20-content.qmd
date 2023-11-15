@@ -44,3 +44,5 @@ slide_buttons("/slides/20-slides")
 ```
 
 </div>
+
+[Panopto Recording](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=976ea29f-b083-4c97-a25d-b0a601435034)

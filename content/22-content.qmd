@@ -7,19 +7,45 @@ date: "2023-11-1"
 source(here::here("R", "slide-things.R"))
 ```
 
-
+Now that we've spent some time building dataframes and assessing the spatial correlation (or covariation) for different data, we can move beyond just describing the nature of the data we have or interpolating based on simple predictions. We'll introduce two fairly simple spatial analysis approaches - overlays and logistic regression - and talk about some of the key assumptions and extensions of these approaches.
 
 ## Resources
+
+- <i class="fas fa-external-link-square-alt"></i> [Overlay analysis](https://gistbok.ucgis.org/bok-topics/overlay) provides an overview of the logic of overlay analysis.
+
+- <i class="fas fa-external-link-square-alt"></i> [Predicting site location with simple additive raster sensitivity analysis using R](https://benmarwick.github.io/How-To-Do-Archaeological-Science-Using-R/predicting-site-location-with-simple-additive-raster-sensitivity-analysis-using-r.html) from Ben Markwick has a complete example of using a weights of evidence approach to overlays.
+
+- <i class="fas fa-external-link-square-alt"></i> [Logistic regression: a brief primer](https://onlinelibrary.wiley.com/doi/10.1111/j.1553-2712.2011.01185.x) by [@Stoltzfus2011] is a nice introduction to logistic regression.
+
+- <i class="fas fa-external-link-square-alt"></i> [Is my species distribution model fit for purpose? Matching data and models to applications](https://onlinelibrary.wiley.com/doi/full/10.1111/geb.12268) by [@Guillera-Arroita2015] is an excellent, concise description of the relations between data collection, statistical models, and inference.
+
+- <i class="fas fa-external-link-square-alt"></i> [Predicting species distributions for conservation decisions](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.12189) by [@Guisan2013] is a foundational paper describing some of the challenges with making conservation decisions based on the outcomes of species distribution models.
 
 
 ## Objectives
 
 By the end of today you should be able to:
 
+* Identify nearest neighbors based on distance
+
+* Describe and implement overlay analyses
+
+* Extend overlay analysis to statistical modeling
+
+* Generate spatial predictions from statistical models
+
+
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/22-slides")
 ```
 
-Slides Forthcoming
+<div>
 
+```{=html}
+<iframe class="slide-deck" src="/slides/22-slides.html"></iframe>
+```
+
+</div>
+
+[Link to Panopto Video](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b580562a-00cd-4fe7-8f33-b0ad014183fc)

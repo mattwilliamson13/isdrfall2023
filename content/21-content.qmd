@@ -7,19 +7,41 @@ date: "2023-10-30"
 source(here::here("R", "slide-things.R"))
 ```
 
+Now that we've learned about the power of spatial autocorrelation for interpolation from point data, it's time to explore methods for spatial autocorrelation with areal data. We'll have to define neighbors because distance is a little more ambiguous here and then look at some global and local measures of autocorrelation.
 
 
 ## Resources
 
+- <i class="fas fa-external-link-square-alt"></i> [Ch. 7: Spatial Neighborhood Matrices](https://www.paulamoraga.com/book-spatial/spatial-neighborhood-matrices.html) in
+from Paula Moraga's new book Spatial Statistics for Data Science: Theory and Practice with `R` gives a little gentler introduction to spatial neighbors specifically in the context of statistical models.
+
+- <i class="fas fa-book"></i> [Chapter 14 Proximity and Areal Data](https://r-spatial.org/book/14-Areal.html) in Spatial Data Science by Edzer Pebesma and Roger Bivand provides explanations of how the `spdep` package can be used to construct neighborhood weights.
+
+{{< fa arrow-up-right-from-square >}} [Spatial Autocorrelation in R](https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html) provides some easy code for working through neighbors with areal data and calculating spatial autocorrelation measures.
 
 ## Objectives
 
 By the end of today you should be able to:
+
+- Use the `spdep` package to identify the neighbors of a given polygon based on proximity, distance, and minimum number
+
+- Understand the underlying mechanics of Moran's I and calculate it for various neighbors
+
+- Distinguish between global and local measures of spatial autocorrelation
+
+- Visualize neighbors and clusters
 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/21-slides")
 ```
 
-Slides Forthcoming
+<div>
 
+```{=html}
+<iframe class="slide-deck" src="/slides/21-slides.html"></iframe>
+```
+
+</div>
+
+[Link to Panopto Video](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4e8ef8ee-2dd0-4681-91b5-b0ab01431905)

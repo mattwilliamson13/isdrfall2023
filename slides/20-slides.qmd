@@ -148,6 +148,9 @@ dat.0th <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.0, newdat
 # environment
 r   <- rast(dat.0th)
 r.m <- mask(r, st_as_sf(id.cty))
+
+tm_shape(r.m) + tm_raster( title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
 ```
 
 ## 1st Order Trend Surface
@@ -370,8 +373,8 @@ tm_shape(aq.sum) +
 ## Calculate the experimental variogram
 
 ```{r}
-
-var.cld  <- gstat::variogram(res ~ 1, aq.sum, cloud = TRUE, cutoff=1000000)
+#| echo: true
+var.cld  <- gstat::variogram(res ~ 1, aq.sum, cloud = TRUE)
 var.df  <- as.data.frame(var.cld)
 index1  <- which(with(var.df, left==21 & right==2))
 
@@ -382,9 +385,12 @@ plot(var.cld$dist/1000 , var.cld$gamma, col="grey",
 par(OP)
 ```
 
+## Simplifying the cloud plot
+
 ```{r}
+#| echo: true
 # Compute the sample experimental variogram
-var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff=1000000, width=89900)
+var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE)
 
 bins.ct <- c(0, var.smpl$dist , max(var.cld$dist) )
 bins <- vector()
@@ -417,30 +423,30 @@ gstat::show.vgms(strip=strip.custom(factor.levels=kk))
 ## Looking at the sample Variogram
 
 ```{r}
-# Compute the sample variogram, note the f.1 trend model is one of the parameters
+# Compute the sample variogram, note the f.2 trend model is one of the parameters
 # passed to variogram(). This tells the function to create the variogram on
 # the de-trended data
-var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff=1000000, width=89900)
+var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff = 1000000)
 
 
 # Compute the variogram model by passing the nugget, sill and range values
 # to fit.variogram() via the vgm() function.
-dat.fit  <- gstat::fit.variogram(var.smpl, fit.ranges = FALSE, fit.sills = FALSE, gstat::vgm(psill=18, model="Sph", range=500000, nugget=0))
+dat.fit  <- gstat::fit.variogram(var.smpl, gstat::vgm(nugget = 12, range= 60000, model="Gau", cutoff=1000000))
 
 # The following plot allows us to gauge the fit
-plot(var.smpl, dat.fit, xlim=c(0,1000000))
+plot(var.smpl, dat.fit)
 ```
 ## Estimating the sample variogram
 
 ```{r}
 #| echo: true
 #| eval: false
-var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff=1000000, width=89900)
+var.smpl <- gstat::variogram(f.2, aq.sum, cloud = FALSE, cutoff = 1000000)
 
 
 # Compute the variogram model by passing the nugget, sill and range values
 # to fit.variogram() via the vgm() function.
-dat.fit  <- gstat::fit.variogram(var.smpl, fit.ranges = FALSE, fit.sills = FALSE, gstat::vgm(psill=18, model="Sph", range=500000, nugget=0))
+dat.fit  <- gstat::fit.variogram(var.smpl, gstat::vgm(nugget = 12, range= 60000, model="Gau", cutoff=1000000))
 
 ```
 
@@ -459,10 +465,41 @@ tm_shape(r.m) + tm_raster(n=10, palette="RdBu", title="Predicted residual \nair 
 ```
 
 ## Ordinary Kriging
+
 ```{r}
 #| echo: true
 #| eval: false
 dat.krg <- gstat::krige( res~1, as(aq.sum, "Spatial"), grd, dat.fit)
+```
+
+## Combining with the trend data
+
+```{r}
+dat.krg <- gstat::krige( f.2, as(aq.sum, "Spatial"), grd, dat.fit)
+
+r <- rast(dat.krg)$var1.pred
+r.m <- mask(r, st_as_sf(id.cty))
+
+# Plot the raster and the sampled points
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+
+```
+
+## Combining with the trend data
+
+```{r}
+#| echo: true
+#| eval: false
+dat.krg <- gstat::krige( f.2, as(aq.sum, "Spatial"), grd, dat.fit)
+
+r <- rast(dat.krg)$var1.pred
+r.m <- mask(r, st_as_sf(id.cty))
+
+# Plot the raster and the sampled points
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", title="Predicted air quality") +tm_shape(aq.sum) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+
 ```
 
 ## Visualizing Uncertainty
