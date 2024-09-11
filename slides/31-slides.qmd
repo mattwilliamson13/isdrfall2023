@@ -1,0 +1,223 @@
+---
+title: "Towards Interactivity"
+subtitle: "HES 505 Fall 2023: Session 31"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+library(tidycensus)
+library(pander)
+library(sf)
+library(spData)
+library(terra)
+library(units)
+library(ggmap)
+library(patchwork)
+library(tmap)
+library(viridis)
+library(tigris)
+library(ggspatial)
+
+library(sp)
+library(geodata)
+censkey <- "90b94953d2f24e81e890229e0128174f5ba80d3f"
+```
+
+# Objectives {background="#0033A0"}
+
+## 3 Categories of data visualization
+::: columns
+::: {.column width="40%"}
+
+- Static
+
+- Interactive
+
+- Dynamic
+
+:::
+::: {.column width="60%"}
+
+![dynamic](img/slide_31/example_3a.gif)
+
+:::
+:::
+
+
+# Why Move Beyond Static Maps? {background="#0033A0"}
+
+
+## Dealing with complex datasets
+
+::: columns
+::: {.column width="60%"}
+
+![](img/slide_31/datasciencesteps.png)
+:::
+::: {.column-width="40%"}
+
+- Identifying structure that might otherwise be hidden
+
+- Diagnosing models and interpreting results
+
+- Aiding the sense-making process
+:::
+:::
+
+## Clarity in presentation
+
+- Zooming allows the user to determine scale of presentation
+
+- Hovering allows more information to be displayed 'on-demand'
+
+- Subsetting facilitates ease of interpretation
+
+# Designing for the User {background="#0033A0"}
+
+
+## Who is your audience?
+
+- Your advisor and colleagues?
+
+- An external collaborator?
+
+- The general public?
+  - User archetypes
+  
+## Iteration
+
+::: columns
+::: {.column width="60%"}
+![From Usability.gov](img/slide_31/ucdexample.png)
+:::
+::: {.column width="40%"}
+::: {style="font-size: 0.7em"}
+- Feedback is critical
+
+- Ideation: What _specifically_ does the user need?
+
+- Meaning: Are the data clearly defined and explained? Are the conclusions obvious?
+
+- Function: Given the usecases, will the application (visualization) actually perform?
+:::
+:::
+:::
+
+
+# Building interactive visualizations in R {background="#0033A0"}
+
+## A note about APIs
+
+- API: Application Programming Interface
+
+- A software intermediary that allows two applications to "communicate"
+
+- Lots of `R` packages rely on APIs to access data on the web (e.g.,`tidycensus`)
+
+- Facilitates reproducibility and powerful web applications built on `R` analyses
+
+- May require "keys" and additional parsing (Mapbox and Google)
+
+## Interactive maps with `mapview` and `tmap`
+
+- Easy extension of your existing 
+
+- Class Demo
+
+
+## Clarity in presentation (revisited)
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+g <- ggplot(txhousing, aes(x = date, y = sales, group = city)) +
+  geom_line(alpha = 0.4) +
+  ggtitle("Texas Housing Prices")
+g
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: false
+g <- txhousing %>% 
+  # group by city
+  group_by(city) %>%
+  # initiate a plotly object with date on x and median on y
+  plotly::plot_ly(x = ~date, y = ~median) %>%
+  # add a line plot for all texan cities
+   plotly::add_lines(name = "Texan Cities", hoverinfo = "none", 
+            type = "scatter", mode = "lines", 
+            line = list(color = 'rgba(192,192,192,0.4)')) %>%
+  # plot separate lines for Dallas and Houston
+   plotly::add_lines(name = ~city, 
+            data = filter(txhousing, 
+                          city %in% c("Dallas", "Houston")),
+            hoverinfo = ~city,
+            line = list(color = c("red", "blue")),
+            color = ~city)
+g
+```
+:::
+:::
+
+## Using `plotly`
+
+* Syntax is similar to `ggplot` 
+
+* `hoverinfo` describes which elements you'd like to make interactive
+
+* Other plot elements available (see `?plot_ly`)
+
+
+## Using `plotly`
+
+```{r}
+#| echo: true
+g <- txhousing %>% 
+  # group by city
+  group_by(city) %>%
+  # initiate a plotly object with date on x and median on y
+   plotly::plot_ly(x = ~date, y = ~median) %>%
+  # add a line plot for all texan cities
+   plotly::add_lines(name = "Texan Cities", hoverinfo = "none", 
+            type = "scatter", mode = "lines", 
+            line = list(color = 'rgba(192,192,192,0.4)')) %>%
+  # plot separate lines for Dallas and Houston
+   plotly::add_lines(name = ~city, 
+            data = filter(txhousing, 
+                          city %in% c("Dallas", "Houston")),
+            hoverinfo = ~city,
+            line = list(color = c("red", "blue")),
+            color = ~city)
+
+```
+
+
+# Animated maps with `tmap` and `gganimate`
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+#| eval: false
+urb_anim = tm_shape(world) + tm_polygons() + 
+  tm_shape(urban_agglomerations) + tm_dots(size = "population_millions") +
+  tm_facets(along = "year", free.coords = FALSE)
+tmap_animation(urb_anim, filename = "urb_anim.gif", delay = 25)
+```
+:::
+::: {.column width="60%"}
+![dynamic](img/slide_31/urb_anim.gif)

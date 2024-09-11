@@ -1,0 +1,304 @@
+---
+title: "Data Visualization and Maps I"
+subtitle: "HES 505 Fall 2023: Session 29"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+
+```
+
+# Objectives {background="#9F281A"}
+
+By the end of today you should be able to:
+
+* Describe some basic principles of data visualization
+
+* Extend principles of data visualization to the development of maps
+
+* Distinguish between several common types of spatial data visualization
+
+
+# Introduction to Data Visualization {background="#9F281A"}
+
+## Principles vs. Rules
+::: columns
+::: {.column width="40%"}
+  - Lots of examples of _good_ and _bad_ data visualization
+  
+  - What makes a graphic good (or bad)?
+  
+  - Who decides?
+:::
+::: {.column width="60%"}
+::: {style="font-size: 0.7em"}
+  - __Rule:__ externally compels you, through force, threat or punishment, to do the things someone else has deemed good or right.
+  
+  - __Principle:__ internally motivating because it is a _good practice_; a general statement describing a philosophy that good rules should satisfy
+  
+  - Rules contribute to the design process, but do not guarantee a satisfactory outcome
+:::
+:::
+:::
+
+#
+
+> "Graphical excellence is the well-designed presentation of interesting data—a matter of substance, of statistics, and of design … [It] consists of complex ideas  communicated with clarity, precision, and efficiency. … [It] is that which gives to the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space … [It] is nearly always multivariate … And graphical excellence requires telling the truth about the data." 
+`r tufte::quote_footer('--- Edward Tufte')`
+
+
+## Ugly, Wrong, and Bad
+
+::: columns
+::: {.column width="60%"}
+- _Ugly_: graphic is clear and informative, but has aesthetic issues
+  
+- _Bad_: graphic is unclear, confusing, or decieving
+  
+- _Wrong_: the figure is objectively incorrect 
+:::
+::: {.column width="40%"}
+![Monstrous Costs’ by Nigel Holmes from Healy 2018](img/slide_29/ch-01-holmes-monstrous-only.png)
+:::
+:::
+
+## Bad and Wrong
+
+- Presentation of the data is (intentionally?) decieving
+
+- Presentation is just incorrect
+
+::: columns
+::: {.column width="50%"}
+![Tricky (from Healy 2018)](img/slide_29/ch-01-democracy-nyt-version.png)
+:::
+:::{.column width="50%"}
+![Wrong](img/slide_29/Fox-News-pie-chart.png)
+:::
+:::
+
+## Grammar of Graphics (Wilkinson 2005)
+
+- _Grammar_: A set of structural rules that help establish the components of a language
+
+- System and structure of language consist of _syntax_ and _semantics_
+
+- _Grammar of Graphics_: a framework that allows us to concisely describe the components of any graphic
+
+- Follows a layered approach by using defined components to build a visualization
+
+- `ggplot2` is a formal implementation in `R`
+
+
+#
+![](img/slide_29/gg_pyramid.png)
+
+
+
+## Aesthetics: Mapping Data to Visual Elements
+
+::: columns
+::: {.column width="40%"}
+::: {style="font-size: 0.7em"}
+- Define the systematic conversion of data into elements of the visualization
+
+- Are either categorical or continuous (exclusively)
+
+- Examples include `x`, `y`, `fill`, `color`, and `alpha`
+:::
+:::
+::: {.column width="60%"}
+![From Wilke 2019](img/slide_29/tbl.png)
+:::
+:::
+
+## Scales
+
+- Scales map data values to their aesthetics
+
+- Must be a one-to-one relationship; each specific data value should map to only one aesthetic
+
+
+## Principles of Data Visualization
+
+- Be Honest
+
+- Principle of proportional ink
+
+- Avoid unnecessary 'chart junk'
+
+- Use color judiciously
+
+- Balance data and context
+
+# Extending Data Viz to Maps {background="#9F281A"}
+
+## Telling stories with maps
+
+::: columns
+::: {.column width="60%"}
+![](img/slide_29/caworldview.png)
+:::
+::: {.column width="40%"}
+- Maps organize a lot of information in a coherent way
+
+- They invite critique and inspection
+
+- They are also aesthetic objects that can engage broader audiences
+:::
+:::
+
+## Key Issues
+
+- Thinking about projections
+
+- Scale of the map
+
+- Errors of Omission
+
+## Cartographic Principles
+
+1. Concept before compilation
+
+2. Hierarchy with harmony (Important things should look important)
+
+3. Simplicity from sacrifice
+
+4. Maximum information at minimum cost
+
+5. Engage emotion to enhance understanding
+
+# Map Elements {background="#9F281A"}
+
+## Scale
+
+::: columns
+::: {.column width="40%"}
+* Relates map distance to distance on the ground
+
+* Ratio scales (1:24,000 or 1/24,000)
+
+* Graphic scales
+
+* Large vs. small-scale?
+:::
+::: {.column width="60%"}
+![](img/slide_29/scale.jpg)
+:::
+:::
+
+## Projection
+
+::: columns
+::: {.column width="60%"}
+![Developable Surfaces](img/slide_29/projections.png)
+:::
+::: {.column width="40%"}
+
+* Distortion makes scale invalid across large areas
+
+* Distortion increases with distance from standard line
+
+* Five distortions: areas, angles, shapes, distances, and direction
+:::
+:::
+
+## Map Symbols
+
+::: columns
+:::{.column width="60%"}
+![](img/slide_29/visvariables.png)
+:::
+::: {.column width="40%"}
+* Graphic code for retrieving information
+
+* (De-)emphasize (un)important information
+
+* Contrast and the role of colors
+:::
+:::
+
+# Generalization {background="#9F281A"}
+
+##
+> A good map tells a multitude of little white lies: it supresses truth to help the user see what needs to be seen...
+`r tufte::quote_footer('--- Mark Monmonier')`
+
+## Geometry
+
+![Zhilin et al. 2008](img/slide_29/generalization.png)
+
+## Context
+
+::: columns
+::: {.column width="60%"}
+* Filter out irrelevant details
+
+* Two elements: selection and classification
+
+* Reflect interpretations of the relative importance of different features
+:::
+:::  {.column width="40%"}
+![Mackaness and Chaudry](img/slide_29/symbology.png)
+:::
+:::
+
+# Data Maps {background="#9F281A"}
+
+
+
+## Point Maps
+
+::: columns
+::: {.column width="60%"}
+![](img/slide_29/tower_maps_large.gif)
+:::
+:::{.column width="40%"}
+* Dot Maps: quantity represented by amount and concentration of dots
+
+* Proportional Symbol Map: Geometric symbols scaled in proportion to a quantity
+:::
+:::
+
+## Ebbinghaus' illusion
+
+::: columns
+::: {.column width="50%"}
+![](img/slide_29/propsymbol.png)
+:::
+::: {.column width="50%"}
+![](img/slide_29/Ebinghaus.png)
+:::
+:::
+
+## Line Maps
+
+![From High Country News](img/slide_29/landgrab.jpg)
+
+
+## Choropleth
+- Mapping color to geographies
+
+- Common problems
+
+![From Healy 2019](img/slide_29/ch-07-firstmap-05-1.png)
+
+
+## Cartogram
+
+- Adjusts for differences in area, population, etc
+
+- Common Problems
+
+![From Healy 2019](img/slide_29/Cartogram.png)
+

@@ -1,0 +1,48 @@
+---
+title: "Conclusion"
+subtitle: "HES 505 Fall 2023: Session 32"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+# Course Evaluations
+
+# Data for final Project
+
+## Storing your data
+
+* Kyle's shared Google drive folder syncs to: `/opt/data/2023/project_data/`
+  
+  * Read Only
+  * Syncs hourly
+
+* You have write access to: `/opt/projects/` 
+  * Intermediate files
+  * Things you don't want others to see
+  
+# Work Session
+
+>ERB 1127: 11am - 1pm
+
+# Course Objectives
+
+## By the end of this course you should be able to...
+*   Articulate the opportunities and challenges posed by geographic analysis.
+
+*   Select the appropriate R packages and functions for manipulating different types of spatial data
+
+*   Design statistical analyses that integrate geospatial and tabular data
+
+*   Construct appropriate data visualizations for conveying geospatial data
+
+*   Develop reproducible workflows for manipulating, visualizing, and analyzing spatial data.
+
+
+# Outstanding Questions?

@@ -1,0 +1,950 @@
+---
+title: "Data Visualization and Maps II"
+subtitle: "HES 505 Fall 2023: Session 30"
+author: "Matt Williamson"
+execute: 
+  eval: true
+format: 
+  revealjs:
+    theme: mytheme.scss
+    slide-number: true
+    show-slide-number: print
+    self-contained: true  
+---
+
+```{r}
+#| include: false
+library(tidycensus)
+library(sf)
+library(tidyverse)
+library(ggmap)
+library(maps)
+library(units)
+library(cartogram)
+library(patchwork)
+library(tmap)
+library(viridis)
+censkey <- "90b94953d2f24e81e890229e0128174f5ba80d3f"
+```
+
+# Objectives {background="#9F281A"}
+
+By the end of today you should be able to:
+* Understand the relationship between the Grammar of Graphics and `ggplot` syntax
+
+* Describe the various options for customizing `ggplots` and their syntactic conventions
+
+* Generate complicated plot layouts without additional pre-processing
+
+* Construct a map using `ggplot2` and `tmap`
+
+* Combine vector and raster data in the same map
+
+#
+![](img/slide_29/gg_pyramid.png)
+
+##
+
+::: footer
+[{ggplot2} package description](https://ggplot2.tidyverse.org/)
+:::
+
+![](img/slide_30/ggplot2.png){fig-align="center" fig-alt="The ggplot2 hex logo."}
+
+<br>
+
+<b style='font-size:30pt;'><code>{ggplot2}</code> is a system for declaratively creating graphics,<br>based on "The Grammar of Graphics" (Wilkinson, 2005).</b>
+
+::: fragment
+You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+:::
+
+## Advantages of {ggplot2}
+
+::: incremental
+-   consistent underlying "grammar of graphics" (Wilkinson 2005)\
+-   very flexible, layered plot specification\
+-   theme system for polishing plot appearance\
+-   lots of additional functionality thanks to extensions\
+-   active and helpful community
+:::
+
+## The Grammar of {ggplot2}
+
+<br>
+<table style='width:100%;font-size:14pt;'>
+  <tr>
+    <th>Component</th>
+    <th>Function</th>
+    <th>Explanation</th>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Data</b></td>
+    <td><code>ggplot(data)</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>*The raw data that you want to visualise.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Aesthetics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+    <td><code>aes()</code></td>
+    <td>*Aesthetic mappings between variables and visual properties.*</td>
+  <tr>
+    <td><b style='color:#67676;'>Geometries</b></td>
+    <td><code>geom_*()</code></td>
+    <td>*The geometric shapes representing the data.*</td>
+  </tr>
+</table>
+
+## The Grammar of {ggplot2}
+
+
+<br>
+<table style='width:100%;font-size:14pt;'>
+  <tr>
+    <th>Component</th>
+    <th>Function</th>
+    <th>Explanation</th>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Data</b></td>
+    <td><code>ggplot(data)</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>*The raw data that you want to visualise.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Aesthetics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+    <td><code>aes()</code></td>
+    <td>*Aesthetic mappings between variables and visual properties.*</td>
+  <tr>
+    <td><b style='color:#67676;'>Geometries</b></td>
+    <td><code>geom_*()</code></td>
+    <td>*The geometric shapes representing the data.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Statistics</b></td>
+    <td><code>stat_*()</code></td>
+    <td>*The statistical transformations applied to the data.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Scales</b></td>
+    <td><code>scale_*()</code></td>
+    <td>*Maps between the data and the aesthetic dimensions.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Coordinate System</b></td>
+    <td><code>coord_*()</code></td>
+    <td>*Maps data into the plane of the data rectangle.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Facets</b></td>
+    <td><code>facet_*()</code></td>
+    <td>*The arrangement of the data into a grid of plots.*</td>
+  </tr>
+  <tr>
+    <td><b style='color:#67676;'>Visual Themes</b></td>
+    <td><code>theme()</code> and <code>theme_*()</code></td>
+    <td>*The overall visual defaults of a plot.*</td>
+  </tr>
+</table>
+
+# A Basic ggplot Example
+
+## The Data
+
+<b style='font-size:2.3rem;'>Bike sharing counts in London, UK, powered by [TfL Open Data](https://tfl.gov.uk/modes/cycling/santander-cycles)</b>
+
+::: incremental
+-   covers the years 2015 and 2016
+-   incl. weather data acquired from [freemeteo.com](https://freemeteo.com)
+-   prepared by Hristo Mavrodiev for [Kaggle](https://www.kaggle.com/hmavrodiev/london-bike-sharing-dataset)
+-   further modification by myself
+:::
+
+<br>
+
+::: fragment
+```{r}
+#| label: data-import
+bikes <- readr::read_csv("https://raw.githubusercontent.com/z3tt/graphic-design-ggplot2/main/data/london-bikes-custom.csv",
+  col_types = "Dcfffilllddddc"
+)
+bikes$season <- forcats::fct_inorder(bikes$season)
+```
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+#| label: data-table
+#| echo: false
+#| purl: false
+library(tidyverse)
+tibble(
+    Variable = names(bikes),
+    Description = c(
+      "Date encoded as `YYYY-MM-DD`", "`day` (6:00am–5:59pm) or `night` (6:00pm–5:59am)", "`2015` or `2016`", "`1` (January) to `12` (December)", "`winter`, `spring`, `summer`, or `autumn`", "Sum of reported bikes rented", "`TRUE` being Monday to Friday and no bank holiday", "`TRUE` being Saturday or Sunday", "`TRUE` being a bank holiday in the UK", "Average air temperature (°C)", "Average feels like temperature (°C)", "Average air humidity (%)", "Average wind speed (km/h)", "Most common weather type"
+    ),
+    Class = c(
+      "date", "character", "factor", "factor", "factor", "integer", "logical", "logical", "logical", "double", "double", "double", "double", "character"
+    )
+  ) %>%
+  kableExtra::kbl(
+    booktabs = TRUE, longtable = TRUE
+  ) %>%
+  kableExtra::kable_styling(
+    font_size = 24
+  ) %>%
+  kableExtra::kable_minimal(
+    "hover", full_width = TRUE, position = "left", html_font = "Cabinet Grotesk"
+  )
+```
+
+## `ggplot2::ggplot()`
+
+```{r}
+#| label: ggplot-function
+#| eval: false
+#| echo: false
+#?ggplot
+```
+
+![](img/slide_30/ggplot-fun-help.png){fig-alt="The help page of the ggplot() function." fig-width="175%"}
+
+## Data
+
+```{r}
+#| label: setup-ggplot-slides
+#| include: false
+#| purl: false
+library(ggplot2)
+theme_set(theme_grey(base_size = 14))
+```
+
+```{r}
+#| label: ggplot-data
+#| output-location: column
+#| echo: true
+ggplot(data = bikes)
+```
+
+## Aesthetic Mapping
+
+<br>
+
+<b class='simple-highlight-grn' style='font-size:2.6rem;'>= link variables to graphical properties</b><br><br>
+
+::: incremental
+-   positions (`x`, `y`)
+-   colors (`color`, `fill`)
+-   shapes (`shape`, `linetype`)
+-   size (`size`)
+-   transparency (`alpha`)
+-   groupings (`group`)
+:::
+
+## Aesthetic Mapping
+
+```{r}
+#| label: ggplot-aesthetics-outside
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "2|1,2"
+ggplot(data = bikes) +
+  aes(x = temp_feel, y = count)
+```
+
+## <span style='color:#4758AB;'>aes</span>thetics
+
+`aes()` outside as component
+
+```{r}
+#| label: ggplot-aesthetics-outside-comp
+#| echo: true
+#| eval: false
+ggplot(data = bikes) +
+  aes(x = temp_feel, y = count)
+```
+
+<br>
+
+::: fragment
+`aes()` inside, explicit matching
+
+```{r}
+#| label: ggplot-aesthetics-inside
+#| echo: true
+#| eval: false
+ggplot(data = bikes, mapping = aes(x = temp_feel, y = count))
+```
+
+<br>
+:::
+
+::: fragment
+`aes()` inside, implicit matching
+
+```{r}
+#| label: ggplot-aesthetics-inside-implicit
+#| echo: true
+#| eval: false
+ggplot(bikes, aes(temp_feel, count))
+```
+
+<br>
+:::
+
+::: fragment
+`aes()` inside, mixed matching
+
+```{r}
+#| label: ggplot-aesthetics-inside-mix
+#| echo: true
+#| eval: false
+ggplot(bikes, aes(x = temp_feel, y = count))
+```
+:::
+
+## Geometries
+
+<br>
+
+<b class='simple-highlight-grn' style='font-size:2.6rem;'>= interpret aesthetics as graphical representations</b><br><br>
+
+::: incremental
+-   points
+-   lines
+-   polygons
+-   text labels
+-   ...
+:::
+
+## Geometries
+
+```{r}
+#| label: geom-point
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "1,2,3,4|5"
+ggplot(
+    bikes,
+    aes(x = temp_feel, y = count)
+  ) +
+  geom_point()
+```
+
+## Visual Properties of Layers
+
+```{r}
+#| label: geom-point-properties
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "5,6,7,8,9,10,11|6,7,8,9,10"
+ggplot(
+    bikes,
+    aes(x = temp_feel, y = count)
+  ) +
+  geom_point(
+    color = "#28a87d",
+    alpha = .5,
+    shape = "X",
+    stroke = 1,
+    size = 4
+  )
+```
+
+## Setting vs Mapping of Visual Properties
+
+::: {layout-ncol="2"}
+```{r}
+#| label: geom-point-properties-set
+#| echo: true
+#| fig-height: 3.5
+#| code-line-numbers: "6"
+ggplot(
+    bikes,
+    aes(x = temp_feel, y = count)
+  ) +
+  geom_point(
+    color = "#28a87d",
+    alpha = .5
+  )
+```
+
+::: fragment
+```{r}
+#| label: geom-point-properties-map
+#| echo: true
+#| fig-height: 3.5
+#| code-line-numbers: "6"
+ggplot(
+    bikes,
+    aes(x = temp_feel, y = count)
+  ) +
+  geom_point(
+    aes(color = season),
+    alpha = .5
+  )
+```
+:::
+:::
+
+## Mapping Expressions
+
+```{r}
+#| label: geom-point-aes-expression
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "6"
+ggplot(
+    bikes,
+    aes(x = temp_feel, y = count)
+  ) +
+  geom_point(
+    aes(color = temp_feel > 20),
+    alpha = .5
+  )
+```
+
+## Mapping Expressions
+
+```{r}
+#| label: geom-point-aes-expression-exercise
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "3|6"
+ggplot(
+    bikes,
+    aes(x = temp, y = temp_feel)
+  ) +
+  geom_point(
+    aes(color = weather_type == "clear"),
+    alpha = .5,
+    size = 2
+  )
+```
+
+## Mapping to Size
+
+```{r}
+#| label: geom-point-aes-size-exercise
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "7"
+ggplot(
+    bikes,
+    aes(x = temp, y = temp_feel)
+  ) +
+  geom_point(
+    aes(color = weather_type == "clear",
+        size = count),
+    alpha = .5
+  )
+```
+
+## Setting a Constant Property
+
+```{r}
+#| label: geom-point-aes-expression-exercise-shape
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "8"
+ggplot(
+    bikes,
+    aes(x = temp, y = temp_feel)
+  ) +
+  geom_point(
+    aes(color = weather_type == "clear",
+        size = count),
+    shape = 18,
+    alpha = .5
+  )
+```
+
+## Adding More Layers
+
+```{r}
+#| label: geom-smooth
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "9,10,11"
+ggplot(
+    bikes,
+    aes(x = temp_feel, y = count,
+        color = season)
+  ) +
+  geom_point(
+    alpha = .5
+  ) +
+  geom_smooth(
+    method = "lm"
+  )
+```
+
+# Statistical Layers
+
+
+## \`stat_\*()\` and \`geom_\*()\`
+
+
+```{r}
+#| label: stat-geom
+#| echo: true
+#| fig-height: 5.1
+#| code-line-numbers: "2"
+ggplot(bikes, aes(x = temp_feel, y = count)) +
+  stat_smooth(geom = "smooth")
+```
+
+## \`stat_\*()\` and \`geom_\*()\`
+
+```{r}
+#| label: geom-stat
+#| echo: true
+#| fig-height: 5.1
+#| code-line-numbers: "2"
+ggplot(bikes, aes(x = temp_feel, y = count)) +
+  geom_smooth(stat = "smooth")
+```
+
+
+
+## \`stat_\*()\` and \`geom_\*()\`
+
+::: {layout-ncol="2"}
+```{r}
+#| label: stat-geom-2
+#| echo: true
+#| fig-height: 5.1
+#| code-line-numbers: "2"
+ggplot(bikes, aes(x = season)) +
+  stat_count(geom = "bar")
+```
+
+```{r}
+#| label: geom-stat-2
+#| echo: true
+#| fig-height: 5.1
+#| code-line-numbers: "2"
+ggplot(bikes, aes(x = season)) +
+  geom_bar(stat = "count")
+```
+:::
+
+
+## \`stat_\*()\` and \`geom_\*()\`
+
+::: {layout-ncol="2"}
+```{r}
+#| label: stat-geom-3
+#| echo: true
+#| fig-height: 5.1
+#| code-line-numbers: "2"
+ggplot(bikes, aes(x = date, y = temp_feel)) +
+  stat_identity(geom = "point")
+```
+
+```{r}
+#| label: geom-stat-3
+#| echo: true
+#| fig-height: 5.1
+#| code-line-numbers: "2"
+ggplot(bikes, aes(x = date, y = temp_feel)) +
+  geom_point(stat = "identity")
+```
+:::
+
+```{r}
+#| label: prep
+
+
+bikes$season <- forcats::fct_inorder(bikes$season)
+theme_set(theme_light(base_size = 14))
+theme_update(
+  panel.grid.minor = element_blank(),
+  plot.title = element_text(face = "bold"),
+  legend.position = "top",
+  plot.title.position = "plot"
+)
+invisible(Sys.setlocale("LC_TIME", "C"))
+```
+
+# Facets
+
+## Facets
+
+<br>
+
+<b class='simple-highlight-grn' style='font-size:2.6rem;'>= split variables to multiple panels</b><br><br>
+
+::: fragment
+Facets are also known as:
+
+-   small multiples
+-   trellis graphs
+-   lattice plots
+-   conditioning
+:::
+
+------------------------------------------------------------------------
+
+::: {layout-ncol="2"}
+```{r}
+#| label: facet-types-wrap
+#| echo: false
+#| purl: false
+ggplot(bikes, aes(x = 1, y = 1)) +
+  geom_text(
+    aes(label = paste0("Subset for\n", stringr::str_to_title(season))),
+    size = 5, lineheight = .9
+  ) +
+  facet_wrap(~stringr::str_to_title(season)) +
+  ggtitle("facet_wrap()") +
+  theme_bw(base_size = 24) +
+  theme(
+    plot.title = element_text(hjust = .5, face = "bold"),
+    strip.text = element_text(face = "bold", size = 18),
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    plot.background = element_rect(color = "#f8f8f8", fill = "#f8f8f8"),
+    plot.margin = margin(t = 3, r = 25)
+  )
+```
+
+::: fragment
+```{r}
+#| label: facet-types-grid
+#| echo: false
+#| purl: false
+data <- tibble(
+  x = 1, y = 1,
+  day_night = c("Day", "Day", "Night", "Night"),
+  year = factor(c("2015", "2016", "2015", "2016"), levels = levels(bikes$year)),
+  label = c("Subset for\nDay × 2015", "Subset for\nDay × 2016",
+            "Subset for\nNight × 2015", "Subset for\nNight × 2016")
+)
+ggplot(data, aes(x = 1, y = 1)) +
+ geom_text(
+    aes(label = label),
+    size = 5, lineheight = .9
+  ) +
+  facet_grid(day_night ~ year) +
+  ggtitle("facet_grid()") +
+  theme_bw(base_size = 24) +
+  theme(
+    plot.title = element_text(hjust = .5, face = "bold"),
+    strip.text = element_text(face = "bold", size = 18),
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    plot.background = element_rect(color = "#f8f8f8", fill = "#f8f8f8"),
+    plot.margin = margin(t = 3, l = 25)
+  )
+```
+:::
+:::
+
+## Wrapped Facets
+
+```{r}
+#| label: facet-wrap
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "1,2,3,4|2,4|3"
+g <-
+  ggplot(
+    bikes,
+    aes(x = temp_feel, y = count,
+        color = season)
+  ) +
+  geom_point(
+    alpha = .3,
+    guide = "none"
+  )
+g +
+  facet_wrap(
+    vars(day_night)
+  )
+```
+
+## Wrapped Facets
+
+```{r}
+#| label: facet-wrap-circumflex
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "3"
+g +
+  facet_wrap(
+    ~ day_night
+  )
+```
+
+# Scales
+
+## Scales
+
+<br>
+
+<b class='simple-highlight-grn' style='font-size:2.6rem;'>= translate between variable ranges and property ranges</b><br><br>
+
+::: incremental
+-   feels-like temperature  ⇄  x
+-   reported bike shares  ⇄  y
+-   season  ⇄  color
+-   year  ⇄  shape
+-   ...
+:::
+
+## Scales
+
+The `scale_*()` components control the properties of all the<br><b class='simple-highlight-ylw'>aesthetic dimensions mapped to the data.</b>
+
+<br>Consequently, there are `scale_*()` functions for all aesthetics such as:
+
+-   **positions** via `scale_x_*()` and `scale_y_*()`
+
+-   **colors** via `scale_color_*()` and `scale_fill_*()`
+
+-   **sizes** via `scale_size_*()` and `scale_radius_*()`
+
+-   **shapes** via `scale_shape_*()` and `scale_linetype_*()`
+
+-   **transparency** via `scale_alpha_*()`
+
+## Scales
+
+The `scale_*()` components control the properties of all the<br><b class='simple-highlight-ylw'>aesthetic dimensions mapped to the data.</b>
+
+<br>The extensions (`*`) can be filled by e.g.:
+
+-   `continuous()`, `discrete()`, `reverse()`, `log10()`, `sqrt()`, `date()` for positions
+
+-   `continuous()`, `discrete()`, `manual()`, `gradient()`, `gradient2()`, `brewer()` for colors
+
+-   `continuous()`, `discrete()`, `manual()`, `ordinal()`, `area()`, `date()` for sizes
+
+-   `continuous()`, `discrete()`, `manual()`, `ordinal()` for shapes
+
+-   `continuous()`, `discrete()`, `manual()`, `ordinal()`, `date()` for transparency
+
+------------------------------------------------------------------------
+
+
+## Continuous vs. Discrete in {ggplot2}
+
+::: {layout-ncol="2"}
+## Continuous:<br>quantitative or numerical data
+
+-   height
+-   weight
+-   age
+-   counts
+
+## Discrete:<br>qualitative or categorical data
+
+-   species
+-   sex
+-   study sites
+-   age group
+:::
+
+## Continuous vs. Discrete in {ggplot2}
+
+::: {layout-ncol="2"}
+## Continuous:<br>quantitative or numerical data
+
+-   height (continuous)
+-   weight (continuous)
+-   age (continuous or discrete)
+-   counts (discrete)
+
+## Discrete:<br>qualitative or categorical data
+
+-   species (nominal)
+-   sex (nominal)
+-   study site (nominal or ordinal)
+-   age group (ordinal)
+:::
+
+## Aesthetics + Scales
+
+```{r}
+#| label: scales-default-invisible
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "3,4"
+ggplot(
+    bikes,
+    aes(x = date, y = count,
+        color = season)
+  ) +
+  geom_point()
+```
+
+## Aesthetics + Scales
+
+```{r}
+#| label: scales-default
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "3,4,7,8,9|7,8,9"
+ggplot(
+    bikes,
+    aes(x = date, y = count,
+        color = season)
+  ) +
+  geom_point() +
+  scale_x_date() +
+  scale_y_continuous() +
+  scale_color_discrete()
+```
+
+## Scales
+
+```{r}
+#| label: scales-overwrite-1
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "7"
+ggplot(
+    bikes,
+    aes(x = date, y = count,
+        color = season)
+  ) +
+  geom_point() +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  scale_color_discrete()
+```
+
+## Coordinate Systems
+
+<br>
+
+<b class='simple-highlight-grn' style='font-size:2.6rem;'>= interpret the position aesthetics</b><br><br>
+
+::: incremental
+-   **linear coordinate systems:** preserve the geometrical shapes
+    -   `coord_cartesian()`
+    -   `coord_fixed()`
+    -   `coord_flip()`
+-   **non-linear coordinate systems:** likely change the geometrical shapes
+    -   `coord_polar()`
+    -   `coord_map()` and `coord_sf()`
+    -   `coord_trans()`
+:::
+
+# Building Choropleth Maps {background="#0033A0"}
+
+## Using `ggplot2`
+
+```{r}
+#| echo: true
+cty.info <- get_acs(geography = "county", 
+                      variables = c(pop="B01003_001", 
+                                    medincome = "B19013_001"),
+                      survey="acs5",
+                      state = c("WA", "OR", "ID", "MT", "WY"),
+                      geometry = TRUE, key = censkey, progress_bar=FALSE) %>% 
+  select(., -moe) %>% 
+  pivot_wider(
+    names_from = "variable",
+    values_from = "estimate"
+  )
+
+p <- ggplot(data=cty.info) +
+  geom_sf(mapping=aes(fill=medincome))
+```
+
+## Static Maps with `ggplot2`
+
+```{r}
+p
+```
+
+## Changing aesthetics
+
+```{r}
+#| echo: true
+p <- ggplot(data=cty.info) +
+  geom_sf(mapping=aes(fill=pop), color="white") +
+  scale_fill_viridis()
+
+```
+
+## Changing aesthetics
+
+```{r}
+p
+```
+
+## Adding layers
+
+```{r}
+#| echo: true
+st <- tigris::states(progress_bar=FALSE) %>% 
+  filter(., STUSPS %in% c("WA", "OR", "ID", "MT", "WY"))
+
+p <- ggplot(data=cty.info) +
+  geom_sf(mapping=aes(fill=pop), color="white") +
+  geom_sf(data=st, fill=NA, color="red") +
+  scale_fill_viridis()
+```
+
+## Adding layers
+
+```{r}
+p
+```
+
+## Using `tmap`
+
+```{r}
+#| echo: true
+pt <- tm_shape(cty.info) + 
+  tm_polygons(col = "pop",
+              border.col = "white") + 
+  tm_legend(outside = TRUE)
+```
+
+## Using `tmap`
+
+```{r}
+pt
+```
+
+## Changing aesthetics
+
+```{r}
+#| echo: true
+pt <- tm_shape(cty.info) + 
+  tm_polygons(col = "pop", n=10,palette=viridis(10),
+              border.col = "white") + 
+  tm_legend(outside = TRUE)
+```
+
+## Changing aesthetics
+
+```{r}
+pt
+```
+
+## Adding layers
+
+```{r}
+#| echo: true
+
+pt <- tm_shape(cty.info) + 
+  tm_polygons(col = "pop", n=10,palette=viridis(10),
+              border.col = "white") + 
+  tm_shape(st) +
+  tm_borders("red") +
+  tm_legend(outside = TRUE)
+```
+
+## Adding layers
+```{r}
+pt
+
+```
