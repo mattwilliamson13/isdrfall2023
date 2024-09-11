@@ -7,19 +7,38 @@ date: "2023-12-4"
 source(here::here("R", "slide-things.R"))
 ```
 
-
+Now that you've had a chance to practice building a few maps and learning some of the core ideas behind the Grammar of Graphics, we can extend those ideas into the development of interactive webmaps and more expansive data visualizations that can be served on the internet and accessed by collaborators and members of the public. Like the previous unit on static maps, this could be a course unto itself, but we should be able to introduce you to enough ideas to get started.
 
 ## Resources
+
+- <i class="fas fa-external-link-square-alt"></i>  The [Web-mapping](https://gistbok.ucgis.org/bok-topics/web-mapping) section from the University Consortium for Geographic Information Science's GIS \& Technology Body of Knowledge has a nice overview of the topic and it's origins.
+
+- <i class="fas fa-book"></i> This post on [User-Centered Design](https://xd.adobe.com/ideas/principles/human-computer-interaction/user-centered-design/) from Adobe provides a concise, general introduction to the core elements of User-Centered Design.
+
+- <i class="fas fa-book"></i> The [Maps](https://plotly-r.com/maps.html) chapter in [@sievert2020interactive] gives a nice demonstration of using `plotly` to build interactive maps. More importantly, the book provides a comprehensive resource for building interactive web-based visualization in R.
 
 
 ## Objectives
 
 By the end of today you should be able to:
 
+- Define an API and their use in interactive visualization
+
+- Obtain a token for common mapping APIs
+
+- Build interactive maps using common packages
+
+- Recognize other opportunities for interactive visuals with `R`
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/31-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/31-slides.html"></iframe>
+```
+
+</div>
 

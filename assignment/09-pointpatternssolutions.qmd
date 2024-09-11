@@ -1,0 +1,214 @@
+---
+title: "Assignment 9 Solutions: Fitting models to your dataframe"
+---
+
+<span style="color:#9F281A;">1. Use the variables that you chose from assignment 6 along with the wildfire hazard and land use dataset to attribute each disaster in the disaster dataset.</span>
+
+>Here I am following the same procedure from assignment 7 for creating the spatial database. The only real change is that we are attributing point data (in the incidents dataset) instead of summarizing to polygons (like we did with the Forest Service data). We drop any incomplete cases to avoid problems with NAs (though this may not be the best thing to do in practice) and store that data for later. We then set up our model dataframe by making sure that the cost variable is an integer (for Poisson modeling) and that we drop levels from the land use dataset that don't appear in our incident locations. 
+
+```{r}
+#| label: loadata
+
+library(sf)
+library(tidyverse, quietly = TRUE)
+library(terra)
+library(tmap, quietly = TRUE)
+library(caret)
+
+ 
+cejst.pnw <- read_sf("data/opt/data/2023/assignment07/cejst_pnw.shp")%>% 
+  filter(., !st_is_empty(.))
+
+incidents.csv <- read_csv("data/opt/data/2023/assignment07/ics209-plus-wf_incidents_1999to2020.csv")
+
+land.use <- rast("data/opt/data/2023/assignment07/land_use_pnw.tif")
+fire.haz <- rast("data/opt/data/2023/assignment07/wildfire_hazard_agg.tif")
+
+
+fire.haz.proj <- project(fire.haz, land.use)
+
+
+cejst.proj <- cejst.pnw %>% 
+  st_transform(., crs=crs(land.use))
+
+incidents.proj <- incidents.csv %>% 
+  filter(., !is.na(POO_LONGITUDE) | !is.na(POO_LATITUDE) ) %>% 
+  st_as_sf(., coords = c("POO_LONGITUDE", "POO_LATITUDE"), crs= 4269) %>% 
+  st_transform(., crs=crs(land.use))
+incidents.pnw <- st_crop(incidents.proj, st_bbox(cejst.proj))
+
+hazard.smooth <- focal(fire.haz.proj, w=5, fun="mean")
+land.use.smooth <- focal(land.use, w=5, fun="modal")
+levels(land.use.smooth) <- levels(land.use)
+
+cejst.select <- cejst.proj %>% 
+  select(., c(TPF, HBF_PFS, P200_I_PFS))
+
+incident.cejst <- incidents.pnw %>% 
+  st_join(., y=cejst.select, join=st_within) 
+
+incident.landuse.ext <- terra::extract(x=land.use.smooth, y = vect(incident.cejst), fun="modal", na.rm=TRUE)
+
+incident.firehaz.ext <- terra::extract(x= hazard.smooth, y = vect(incident.cejst), fun="mean", na.rm=TRUE)
+
+incident.cejst.join <- cbind(incident.cejst,incident.landuse.ext$category, incident.firehaz.ext$focal_mean) %>% 
+  rename(category = "incident.landuse.ext.category", hazard = "incident.firehaz.ext.focal_mean")
+
+incident.cejst.prep <- incident.cejst.join %>% 
+  select(., PROJECTED_FINAL_IM_COST, TPF, HBF_PFS, P200_I_PFS, hazard, category,) %>% 
+  st_drop_geometry(.) %>% 
+  filter(., complete.cases(.))
+
+incident.cejst.model <- incident.cejst.prep  %>% 
+  mutate(across(TPF:hazard, ~ as.numeric(scale(.x))),
+         category=droplevels(category),
+         cost = as.integer(floor(PROJECTED_FINAL_IM_COST))) %>% 
+  select(-PROJECTED_FINAL_IM_COST)
+```
+
+
+<span style="color:#9F281A;">2. Fit a Poisson regression using your covariates and the cost of the incident data (using `glm` with `family=poisson()`)</span>
+
+>Now that we have our data, it's time to set up some models. We take advantage of the `caret` package to split the data into a training and testing set using the category variable to make sure we have representation of all the cateogries. We then set up our `trainControl` options to use cross validation as a means of adjusting tuning parameters and tell `R` to only save the best model once the tuning is complete. Finally, we use the `train` function from `caret` to fit our first model. For a simple Poisson regression, we can rely on the `glm` method with the `family` set to `poisson`. Note that because this is not binary data, our ROC metric doesn't work as a means of evaluating the performance of the different tuning parameters. Instead, we use something called the Root-Mean Squared Error (RMSE).The RMSE is a measure of the difference between the fitted value and the observed value (in this case, for the cross-validation data within the model training). Larger values indicate poorer fits.
+
+```{r}
+
+set.seed(998)
+inTraining <- createDataPartition(incident.cejst.model$category, p = .8, list = FALSE)
+training <- incident.cejst.model[ inTraining,]
+testing  <- incident.cejst.model[-inTraining,]
+
+fitControl <- trainControl(
+   method = "cv",  # k-fold cross validation
+   number = 10,  # 10 folds
+   savePredictions = "final"       # save predictions for the optimal tuning parameter
+)
+
+PoisFit <- train( cost ~ ., data = training, 
+                 method = "glm", 
+                 family = poisson,
+                 trControl = fitControl,
+                 metric="RMSE"
+                 )
+```
+
+
+<span style="color:#9F281A;">3. Fit a regression tree using your covariates and the cost of the incident data (using `caret` package `method=`rpart`)</span>
+
+>We use similar syntax to fit the regression tree to the data, but make a few changes. First, we set cost `as.numeric()` to ensure that this is a regression tree (because our data do not reflect categories). We then set the method to `rpart`. Because `rpart` has a complexity parameter, there is a bit of tuning to be done. We tell `R` that we're willing to look at 20 different values of this complexity parameter. We can use `plot` and `rpart.plot` to inspect the results.
+
+```{r}
+
+RtFit <- train(as.numeric(cost) ~ ., data = training, 
+                 method = "rpart",
+                 trControl = fitControl,
+                 metric = "RMSE",
+                tuneLength = 20,  
+                 )
+plot(RtFit)
+rpart.plot::rpart.plot(RtFit$finalModel, type=4)
+```
+
+<span style="color:#9F281A;">4. Fit a random forest model using your covariates and the cost of the incident data (using `caret` package `method= 'rf'`)</span>
+
+>The syntax is similar to the previous models, but with `method=rf` to signal that we want to use the `rf` package to fit the Random Forest. Here, the tuning parameter is the number of variables to include in the tree. We've only got 7 variables so we'll set the `tuneLength` to the maximum number of variables.
+
+
+```{r}
+#| cache: true
+RFFit <- train(as.numeric(cost) ~ ., data = training, 
+                 method = "rf",
+                 trControl = fitControl, 
+               tuneLength=7
+                 )
+plot(RFFit)
+plot(RFFit$finalModel)
+```
+
+
+<span style="color:#9F281A;">5. Use cross-validation to identify the best performing model of the 3 that you fit</span>
+
+>Now that we have three different models, let's see how well they do predicting the testing dataset. We first generate predictions using the `predict` function and supplying the model object and the `newdata`. In this case, our new data is the five covariate columns from the testing partition. Once we have the predictions, we can calculate the RMSE. Based on RMSE values the regression tree and Random Forest model seem to be the better performers.
+
+```{r}
+pois.pred <- predict(PoisFit, newdata = testing[,1:5])
+rmse.pois <- sqrt(sum(pois.pred - testing$cost)^2/length(pois.pred))
+rt.pred <- predict(RtFit, newdata = testing[,1:5])
+rmse.rt <- sqrt(sum(rt.pred - testing$cost)^2/length(rt.pred))
+rf.pred <- predict(RFFit, newdata = testing[,1:5])
+rmse.rf <- sqrt(sum(rf.pred - testing$cost)^2/length(rf.pred))
+```
+
+
+<span style="color:#9F281A;">6. Convert all of your predictors into rasters of the same resolution and generate a spatial prediction based on your model</span>
+
+>Now that we've identified the models we want to use to generate our spatial surface, we need to prepare all of the input rasters. We use `rasterize` to create the cejst variables. These are on original scale of the data and so we need to rescale them to the same range of our modeled datasets. Here, we can't use `scale` because the mean of the total dataset would differ from the mean that we used for the incidents-only data so we have to manually set up the scale. Lastly, we have to drop the levels from the land use raster that weren't present in the incident dataset. We do that with the `subst` call from `terra`. Once we've got our rasters set up, we can just use `predict`.
+
+```{r}
+
+TPF.rast <- (rasterize(cejst.select, hazard.smooth, field="TPF") - mean(incident.cejst.prep$TPF,na.rm=TRUE))/sd(incident.cejst.prep$TPF)
+HBF_PFS.rast <- (rasterize(cejst.select, hazard.smooth, field="HBF_PFS")- mean(incident.cejst.prep$HBF_PFS,na.rm=TRUE))/sd(incident.cejst.prep$HBF_PFS)
+P200_I_PFS.rast <- (rasterize(cejst.select, hazard.smooth, field="P200_I_PFS")- mean(incident.cejst.prep$P200_I_PFS,na.rm=TRUE))/sd(incident.cejst.prep$P200_I_PFS)
+land.use.smooth <- subst(land.use.smooth, from=c("Non-Forest Wetland","Non-Processing Area Mask"), to=c(NA, NA))
+hazard.smooth.scl <- (hazard.smooth - mean(incident.cejst.prep$hazard))/sd(incident.cejst.prep$hazard)
+pred.rast <- c(TPF.rast, HBF_PFS.rast, P200_I_PFS.rast, land.use.smooth, hazard.smooth.scl)
+names(pred.rast)[5] <- "hazard"
+
+
+rt.spatial <- terra :: predict(pred.rast, RtFit, na.rm=TRUE) 
+rf.spatial <- terra :: predict(pred.rast, RFFit, na.rm=TRUE) 
+```
+
+>If you looked at the RMSE values for our initial models, you'll notice that they were quite high and the models weren't particularly interesting. Because the cost data ranges over several orders of magnitude, we might try log-transforming them and fitting a linear model (because the data are no longer integers) along with the other two models. We do that here following the syntax above. When calculating the RMSE, we have to remember to log-transform the cost variable in the testing dataset to make sure that the predictions are comperable. Again, the regression tree and Random Forest are the better performers, but the RMSE suggests that we are doing considerably better ($10^{2}=100$ as opposed to the 100,000s we were getting before).
+
+```{r}
+#| cache: true
+
+
+training.log <- training %>% 
+  mutate(cost = log(cost, 10))
+
+LinFit <- train( cost ~ ., data = training.log, 
+                 method = "lm", 
+                 trControl = fitControl,
+                 metric="RMSE"
+                 )
+
+RtFit.log <- train(cost ~ ., data = training.log, 
+                 method = "rpart",
+                 trControl = fitControl,
+                 metric = "RMSE",
+                tuneLength = 20,  
+                 )
+
+RFFit.log <- train(cost ~ ., data = training.log, 
+                 method = "rf",
+                 trControl = fitControl
+                 )
+
+lin.pred <- predict(LinFit, newdata = testing[,1:5])
+rmse.lin <- sqrt(sum(lin.pred - log(testing$cost,10))^2/length(pois.pred))
+rt.pred <- predict(RtFit.log, newdata = testing[,1:5])
+rmse.rt <- sqrt(sum(rt.pred - log(testing$cost,10))^2/length(rt.pred))
+rf.pred <- predict(RFFit.log, newdata = testing[,1:5])
+rmse.rf <- sqrt(sum(rf.pred - log(testing$cost,10))^2/length(rf.pred))
+
+```
+
+
+<span style="color:#9F281A;">7. Plot your result</span>
+>We use the `par` argument to set up a 2x2 layout and print all 4 plots.
+
+```{r}
+rt.spatial.log <- terra :: predict(pred.rast, RtFit.log, na.rm=TRUE) 
+rf.spatial.log <- terra :: predict(pred.rast, RFFit.log, na.rm=TRUE) 
+
+par(mfrow=c(2,2))
+plot(rt.spatial, main="Regression Tree Classifier")
+plot(rf.spatial, main="Random Forest Classifier")
+plot(rt.spatial.log, main="Regression Tree Classifier (log)")
+plot(rf.spatial.log, main="Random Forest Classifier(log)")
+par(mfrow=c(1,1))
+```
+
+

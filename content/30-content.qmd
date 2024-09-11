@@ -7,19 +7,46 @@ date: "2023-11-29"
 source(here::here("R", "slide-things.R"))
 ```
 
-
+`R` provides a number of different packages for generating plots of your data, but `ggplot2` is probably the most common owing to its ability to use consistent syntax to produce a variety of different graphics. In addition to plots of data and model objects, `ggplot2` can also be used with `sf` objects and some raster datasets to generate publication quality maps. We'll also take a little more time to understand some of the options for building static maps in `R` and look at a few packages that can help you build publication-quality maps without having to move into a new software.
 
 ## Resources
 
+- <i class="fas fa-book"></i> The [Data Visualization: A Practical Introduction](https://socviz.co/) by [@healy2018data] provides a lot of examples of Tufte-style graphics built with `ggplot2`.
+
+- <i class="fas fa-external-link-square-alt"></i> [Graphic design with ggplot2](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/) is an entire course devoted to making beautiful visualizations with `ggplot2`. If nothing else, check out some of the examples!
+
+- <i class="fas fa-external-link-square-alt"></i> [The `patchwork` package website](https://patchwork.data-imaginist.com/) provides a lot of examples of building complicated layouts with `ggplot2` objects with intuitive syntax.
+
+- <i class="fas fa-book"></i> The [Drawing Beautiful Maps Programatically with `R`, `sf`, and `ggplot2`](https://r-spatial.org/r/2018/10/25/ggplot2-sf.html) chapter by Mel Moreno and Mathieu Basille provides a nice series of blogposts designed to help you build maps with `sf` objects.
+
+- <i class="fas fa-external-link-square-alt"></i> [Creating beautiful demographic maps in `R` with the `tidycensus` and `tmap` packages](http://zevross.com/blog/2018/10/02/creating-beautiful-demographic-maps-in-r-with-the-tidycensus-and-tmap-packages/) by Zev Ross illustrates the simplicity of mapping with `tmap`.
+
+- <i class="fas fa-external-link-square-alt"></i> [Displaying time series, spatial and space-time data with R](https://oscarperpinan.github.io/bookvis/) by Oscar Perpiñán Lamigueiro has a bunch of interesting code for producing maps contained in the book by the same name.
 
 ## Objectives
 
 By the end of today you should be able to:
 
+- Understand the relationship between the Grammar of Graphics and `ggplot` syntax
+
+- Describe the various options for customizing `ggplot`s and their syntactic conventions
+
+- Generate complicated plot layouts without additional pre-processing
+
+- Construct a map using `ggplot2` and `tmap`
+
+- Combine vector and raster data in the same map
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/30-slides")
 ```
 
-Slides Forthcoming
+<div>
 
+```{=html}
+<iframe class="slide-deck" src="/slides/30-slides.html"></iframe>
+```
+
+</div>
+
+[Panopto Video](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=6031fd3c-08df-4f76-934b-b0c901522d1d)

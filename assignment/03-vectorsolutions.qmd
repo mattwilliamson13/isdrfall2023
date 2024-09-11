@@ -120,6 +120,7 @@ identical(crs(cdc.nw.proj), crs(wildfire.haz))
 identical(crs(pm.nw.proj), crs(wildfire.haz))
 
 ```
+
 <span style="color:#9F281A;">4. How does reprojecting change the coordinates of the bounding box for the two shapefiles? Show your code</span>
 
 >Now we just want to look at the bounding box of the data before and after it was projected. We can do this using `st_bbox`. One of the most obvious changes is that the units for `cdc.nw` have changed from degrees to meters (as evidenced by the much larger numbers). For the `pm.nw` object we can see that the raw coordinates indicate a shift to the west; however, because the origin for this crs has also changed, the states still show up in the correct place.

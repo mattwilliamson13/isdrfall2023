@@ -28,3 +28,5 @@ You'll need to accept the link to access the questions.
 5. Answer the questions making sure save and commit at least 3 more times (having 4 commits is part of the assignment).
 
 6. Render the document to html (you should now have at least 3 files in the repository: Readme.md, assignment-6-xx.qmd, and assignment-6-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com.
+
+Solutions are [here](06-vectoropssolutions.qmd)

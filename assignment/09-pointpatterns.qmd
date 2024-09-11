@@ -1,13 +1,14 @@
 ---
-title: "Assignment 8: Spatial Autocorrelation and Interpolation"
+title: "Assignment 8: Fitting Models"
 ---
 
-Exploring and exploiting spatial autocorrelation in our data is an important tool for interpolating missing values in geographic data. It's also an important diagnostic to check before additional statistical analyses. You'll get to try some of that out here. We'll the cost of natural disasters dataset fromm 1999-2020 (described in [this paper](https://www.nature.com/articles/s41597-023-01955-0) and available at `/assignment07/ics209-plus-wf_incidents_1999to2020.csv` folder and focusing on the data describing the structures lost to natural disaster (`STR_DESTROYED_TOTAL`). [For this assignment](https://classroom.github.com/a/wlCo9WNT), we'll use this data to:
+You built a dataframe for analysis in Assignment 6 using the National Forest boundaries that we used in class (I've written a function for you to download and unzip this in the `/code/` folder), a dataset describing the cost of natural disasters fromm 1999-2020 (described in [this paper](https://www.nature.com/articles/s41597-023-01955-0) and available at `/assignment07/ics209-plus-wf_incidents_1999to2020.csv` folder. a land use dataset (`/assignment07/land_use_pnw.tif`), and the wildfire hazard dataset (`/assignment07/wildfire_hazard_agg.tif`). Now it's time to fit some models to explain the cost of natural disasters. By the end of this assignment you should be able to:
 
-* Plot the Ripley's K envelope for a point dataset
-* Use nearest-neighbors as a means of estimating Moran's I
-* Generate several spatial field interpolations
-* Krige data based on spatial patterns and semivariance
+* Fit multiple types of models to your data
+* Evaluate the performance of your model 
+* Generate predictions based on your model
+
+
 
 ## Instructions
 
@@ -23,4 +24,6 @@ Exploring and exploiting spatial autocorrelation in our data is an important too
 
 6. Render the document to html (you should now have at least 3 files in the repository: Readme.md, assignment-8-xx.qmd, and assignment-8-xx.html). Commit these changes and push them to the repository on GitHub. You should see the files there when you go to github.com.
 
-
+:::{.callout-note}
+Solutions are[here](09-pointpatternssolutions.qmd)
+:::

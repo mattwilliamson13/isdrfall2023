@@ -7,19 +7,20 @@ date: "2023-12-6"
 source(here::here("R", "slide-things.R"))
 ```
 
+You did it!! You made it all the way through and hopefully learned a few things along the way. Today we'll do a brief wrapup of the course and answer any outstanding questions you may have.
 
 
-## Resources
-
-
-## Objectives
-
-By the end of today you should be able to:
 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/32-slides")
 ```
 
-Slides Forthcoming
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/32-slides.html"></iframe>
+```
+
+</div>
 

@@ -40,3 +40,6 @@ We will be using the landmarks data table, the shapefile from the Climate and Ec
 
 4. Finally, look at the helpfile for the `terra::adjacent` command. How do you specify which cells you'd like to get the adjacency matrix for? How do you return only the cells touching your cells of interest? Use the example in the helpfile to illustrate how you'd do this on a toy dataset - this will help you learn to ask minimally reproducible examples.
 
+:::{.callout-note}
+Solutions are [here](04-mapssolutions.qmd)
+:::

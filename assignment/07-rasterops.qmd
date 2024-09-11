@@ -28,8 +28,11 @@ It's time to put together the various vector, raster, and tabular code we've lea
 
 1. You'll need to download the FS boundary shapefiles then load in all of the different spatial and tabular datasets.
 2. Validate your geometries and make sure all of your data is in the same CRS.
-3. Smooth the wildfire hazard and land use datasets using a 5s5 moving window; use the mean for the continuos dataset and the mode for the categorical dataset.
+3. Smooth the wildfire hazard and land use datasets using a 5s5 moving window; use the mean for the continuous dataset and the mode for the categorical dataset.
 4. Estimate the total cost of the incidents within each forest (`PROJECTED_FINAL_IM_COST` contains this value for each incident).
 5. Next join 3 attributes of your choosing from the CEJST and the extracted fire and land cover values to your dataframe.
 6. Make a set of maps that shows the Forest-level values for all of your selected variables.
 
+:::{.callout-note}
+Solutions are[here](07-rasteropssolutions.qmd)
+:::

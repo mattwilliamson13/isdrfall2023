@@ -41,3 +41,4 @@ slide_buttons("/slides/25-slides")
 </div>
 
 
+[Panopto Video](https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abc2638d-a228-42a8-b585-b0b9015323a0)
